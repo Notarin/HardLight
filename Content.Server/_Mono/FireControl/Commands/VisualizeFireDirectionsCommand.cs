@@ -2,7 +2,6 @@
 // All rights reserved. Relicensed under AGPL with permission
 
 using Content.Server.Administration;
-using Content.Shared._Mono.FireControl;
 using Content.Shared.Administration;
 using Robust.Shared.Console;
 

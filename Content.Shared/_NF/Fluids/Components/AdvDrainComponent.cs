@@ -78,7 +78,7 @@ public sealed partial class AdvDrainComponent : Component
     /// How many watts does the device need?
     /// </summary>
     [DataField]
-    public bool gridPowered = false;
+    public bool GridPowered = false;
 
     [DataField]
     public SoundSpecifier ManualDrainSound = new SoundPathSpecifier("/Audio/Effects/Fluids/slosh.ogg");

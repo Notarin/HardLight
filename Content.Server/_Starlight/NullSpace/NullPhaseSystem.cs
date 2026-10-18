@@ -6,7 +6,6 @@ using Content.Shared.Maps;
 using Robust.Server.GameObjects;
 using Content.Shared.Popups;
 using Content.Shared.Physics;
-using System.Linq;
 using Content.Server.Ghost;
 using Robust.Server.Containers;
 using Robust.Shared.Prototypes;
@@ -40,8 +39,8 @@ public sealed class NullSpacePhaseSystem : EntitySystem
     [Dependency] private readonly AppearanceSystem _appearance = default!;
 
     private readonly EntProtoId _shadekinShadow = "ShadekinShadow";
-    private readonly EntProtoId ShadekinPhaseInEffect = "ShadekinPhaseInEffect";
-    private readonly EntProtoId ShadekinPhaseOutEffect = "ShadekinPhaseOutEffect";
+    private readonly EntProtoId _shadekinPhaseInEffect = "ShadekinPhaseInEffect";
+    private readonly EntProtoId _shadekinPhaseOutEffect = "ShadekinPhaseOutEffect";
 
     public override void Initialize()
     {
@@ -211,7 +210,7 @@ public sealed class NullSpacePhaseSystem : EntitySystem
                 foreach (var light in lightQuery)
                     _ghost.DoGhostBooEvent(light);
 
-                SetPhaseEffect(uid, ShadekinPhaseInEffect);
+                SetPhaseEffect(uid, _shadekinPhaseInEffect);
             }
             else
                 SetPhaseEffect(uid, _shadekinShadow);
@@ -233,7 +232,7 @@ public sealed class NullSpacePhaseSystem : EntitySystem
                 foreach (var light in lightQuery)
                     _ghost.DoGhostBooEvent(light);
 
-                SetPhaseEffect(uid, ShadekinPhaseOutEffect);
+                SetPhaseEffect(uid, _shadekinPhaseOutEffect);
             }
             else
                 SetPhaseEffect(uid, _shadekinShadow);

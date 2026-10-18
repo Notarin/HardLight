@@ -1,10 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using Content.Server.Administration.Logs;
-using Content.Server.Administration.Managers;
 using Content.Server.Ame.Components;
-using Content.Server.Chat.Managers;
-using Content.Server.NodeContainer;
 using Content.Server.Power.Components;
 using Content.Shared.Ame.Components;
 using Content.Shared.Containers.ItemSlots;
@@ -16,7 +12,6 @@ using Robust.Server.GameObjects;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
-using Robust.Shared.Player;
 using Robust.Shared.Timing;
 
 namespace Content.Server.Ame.EntitySystems;
@@ -385,7 +380,6 @@ public sealed class AmeControllerSystem : EntitySystem
     /// <summary>
     /// Checks whether the player entity is able to use the controller.
     /// </summary>
-    /// <param name="playerEntity">The player entity.</param>
     /// <returns>Returns true if the entity can use the controller, and false if it cannot.</returns>
     private bool PlayerCanUseController(EntityUid uid, EntityUid playerEntity, bool needsPower = true, AmeControllerComponent? controller = null)
     {

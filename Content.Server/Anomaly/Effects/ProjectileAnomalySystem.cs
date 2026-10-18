@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Numerics;
 using Content.Server.Anomaly.Components;
 using Content.Server.Weapons.Ranged.Systems;
@@ -7,7 +6,6 @@ using Content.Shared.Mobs.Components;
 using Content.Shared.Projectiles;
 using Robust.Server.GameObjects;
 using Robust.Shared.Map;
-using Robust.Shared.Physics;
 using Robust.Shared.Random;
 
 namespace Content.Server.Anomaly.Effects;
@@ -21,6 +19,7 @@ public sealed class ProjectileAnomalySystem : EntitySystem
     [Dependency] private readonly EntityLookupSystem _lookup = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly IMapManager _mapManager = default!;
+    [Dependency] private readonly MapSystem _map = default!;
     [Dependency] private readonly GunSystem _gunSystem = default!;
 
     public override void Initialize()
@@ -85,7 +84,7 @@ public sealed class ProjectileAnomalySystem : EntitySystem
 
         var spawnCoords = _mapManager.TryFindGridAt(mapPos, out var gridUid, out _)
                 ? _xform.WithEntityId(coords, gridUid)
-                : new(_mapManager.GetMapEntityId(mapPos.MapId), mapPos.Position);
+                : new(_map.GetMapOrInvalid(mapPos.MapId), mapPos.Position);
 
         var ent = Spawn(component.ProjectilePrototype, spawnCoords);
         var direction = _xform.ToMapCoordinates(targetCoords).Position - mapPos.Position;

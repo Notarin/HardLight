@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Client.PDA;
 using Content.Shared.Clothing.Components;
 using Content.Shared.Clothing.EntitySystems;
@@ -51,7 +50,7 @@ public sealed class ChameleonClothingSystem : SharedChameleonClothingSystem
         if (TryComp(uid, out SpriteComponent? sprite)
             && proto.TryGetComponent(out SpriteComponent? otherSprite, _factory))
         {
-            _sprite.CopySprite((otherSprite.Owner, otherSprite), (uid, sprite));
+            _sprite.CopySprite((EntityUid.Invalid, otherSprite), (uid, sprite));
         }
 
         // Edgecase for PDAs to include visuals when UI is open

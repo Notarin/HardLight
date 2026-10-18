@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Client.Nyanotrasen.Kitchen.Components;
 using Content.Shared.Clothing;
 using Content.Shared.Hands;
@@ -56,7 +55,7 @@ public sealed class DeepFriedVisualizerSystem : VisualizerSystem<DeepFriedCompon
 
         foreach (var key in args.RevealedLayers)
         {
-            if (!sprite.LayerMapTryGet(key, out var index) || sprite[index] is not Layer layer)
+            if (!SpriteSystem.LayerMapTryGet((args.User, sprite), key, out var index, false) || sprite[index] is not Layer layer)
                 continue;
 
             sprite.LayerSetShader(index, shader); // Frontier: ShaderName<shader
@@ -81,7 +80,7 @@ public sealed class DeepFriedVisualizerSystem : VisualizerSystem<DeepFriedCompon
 
         foreach (var key in args.RevealedLayers)
         {
-            if (!sprite.LayerMapTryGet(key, out var index) || sprite[index] is not Layer layer)
+            if (!SpriteSystem.LayerMapTryGet((args.Equipee, sprite), key, out var index, false) || sprite[index] is not Layer layer)
                 continue;
 
             sprite.LayerSetShader(index, shader); // Frontier: ShaderName<shader

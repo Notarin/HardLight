@@ -1,5 +1,4 @@
 using Content.Shared.SurveillanceCamera;
-using Robust.Client.GameObjects;
 
 namespace Content.Client.SurveillanceCamera.UI;
 
@@ -65,7 +64,7 @@ public sealed class SurveillanceCameraSetupBoundUi : BoundUserInterface
 
         if (disposing)
         {
-            _window?.Dispose();
+            _window?.Close();
             _window = null;
         }
     }

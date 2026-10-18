@@ -5,7 +5,6 @@ using Content.Shared.Verbs;
 using Robust.Shared.Player;
 using Content.Shared.Radio;
 using Content.Server.Station.Systems;
-using Content.Server.Station.Components;
 
 namespace Content.Server.Radio.EntitySystems;
 

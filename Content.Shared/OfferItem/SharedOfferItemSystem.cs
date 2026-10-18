@@ -3,7 +3,6 @@ using Content.Shared.IdentityManagement;
 using Content.Shared.Hands.Components;
 using Robust.Shared.Player;
 using Content.Shared.Hands.EntitySystems;
-using Robust.Shared.GameStates;
 
 namespace Content.Shared.OfferItem;
 
@@ -84,7 +83,7 @@ public abstract partial class SharedOfferItemSystem : EntitySystem
 
     private bool IsValidNetworkReference(EntityUid uid)
     {
-        return Exists(uid) && TryComp<MetaDataComponent>(uid, out _);
+        return Exists(uid) && TryComp(uid, out MetaDataComponent? _);
     }
 
     private void OnReferencedEntityShutdown(EntityUid uid, MetaDataComponent component, ComponentShutdown args)

@@ -1,6 +1,4 @@
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using Content.Server.DeviceNetwork.Systems;
 using Content.Server.PDA;
 using Content.Shared.CartridgeLoader;
 using Content.Shared.DeviceNetwork.Events;
@@ -98,7 +96,7 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
     /// Because the cartridge loader integrates with the ui of the entity using it, the entities ui state needs to inherit from <see cref="CartridgeLoaderUiState"/>
     /// and use this method to update its state so the cartridge loaders state can be added to it.
     /// </remarks>
-    /// <seealso cref="PDA.PdaSystem.UpdatePdaUserInterface"/>
+    /// PDA.PdaSystem.UpdatePdaUserInterface
     public void UpdateUiState(EntityUid loaderUid, ICommonSession? session, CartridgeLoaderComponent? loader)
     {
         if (!Resolve(loaderUid, ref loader))
@@ -476,7 +474,7 @@ public sealed class CartridgeLoaderSystem : SharedCartridgeLoaderSystem
     /// Shortcut for updating the loaders user interface state without passing in a subtype of <see cref="CartridgeLoaderUiState"/>
     /// like the <see cref="PDA.PdaSystem"/> does when updating its ui state
     /// </summary>
-    /// <seealso cref="PDA.PdaSystem.UpdatePdaUserInterface"/>
+    /// PDA.PdaSystem.UpdatePdaUserInterface
     private void UpdateUserInterfaceState(EntityUid loaderUid, CartridgeLoaderComponent loader)
     {
         UpdateUiState(loaderUid, null, loader);

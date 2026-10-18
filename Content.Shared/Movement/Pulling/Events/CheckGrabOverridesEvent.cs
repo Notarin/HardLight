@@ -1,4 +1,3 @@
-using Content.Shared.Movement.Components;
 using Content.Shared.Movement.Pulling.Systems;
 
 namespace Content.Shared.Movement.Pulling.Events;

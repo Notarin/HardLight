@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.Holiday;
 
 namespace Content.Server.Maps.Conditions;

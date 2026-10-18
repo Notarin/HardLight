@@ -1,15 +1,10 @@
-using System.Linq;
 using System.Numerics;
-using System.Threading.Tasks;
 using Content.Server.Salvage.Magnet;
-using Content.Shared.Humanoid;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Procedural;
 using Content.Shared.Radio;
 using Content.Shared.Salvage.Magnet;
-using Robust.Shared.Exceptions;
 using Robust.Shared.Map;
-using Robust.Shared.Map.Components;
 using Robust.Shared.Prototypes;
 
 namespace Content.Server.Salvage;
@@ -47,7 +42,7 @@ public sealed partial class SalvageSystem
             return;
         }
 
-        TakeMagnetOffer((station.Value, dataComp), args.Index, (uid, component));
+        _ = TakeMagnetOffer((station.Value, dataComp), args.Index, (uid, component));
     }
 
     private void OnMagnetStartup(EntityUid uid, SalvageMagnetComponent component, ComponentStartup args)
@@ -428,8 +423,14 @@ public sealed partial class SalvageSystem
             var box2Rot = new Box2Rotated(box2, angle, finalCoords.Position);
 
             // This doesn't stop it from spawning on top of random things in space
-            // Might be better like this, ghosts could stop it before
-            if (_mapManager.FindGridsIntersecting(finalCoords.MapId, box2Rot).Any())
+            var found = false;
+            _mapManager.FindGridsIntersecting(finalCoords.MapId, box2Rot, (_, _) =>
+            {
+                found = true;
+                return false;
+            });
+
+            if (found)
             {
                 // Bump it further and further just in case.
                 fraction += 0.1f;

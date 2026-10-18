@@ -1,11 +1,9 @@
-using System.Linq;
 using Robust.Client.GameObjects;
 using static Robust.Client.GameObjects.SpriteComponent;
 using Content.Shared.Clothing;
 using Content.Shared.Hands;
 using Content.Shared.Paint;
 using Robust.Client.Graphics;
-using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
 namespace Content.Client.Paint

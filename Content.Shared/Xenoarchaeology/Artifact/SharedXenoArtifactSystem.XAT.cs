@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.Chemistry;
 using Content.Shared.Damage;
 using Content.Shared.Examine;

@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Text.RegularExpressions;
 using Robust.Client.Audio;
 using Robust.Client.UserInterface;
@@ -8,7 +7,6 @@ using Robust.Shared.Player;
 using Content.Shared.CCVar;
 using Content.Client.CharacterInfo;
 using Content.Client.Gameplay;
-using Robust.Shared.Utility;
 using static Content.Client.CharacterInfo.CharacterInfoSystem;
 
 namespace Content.Client.UserInterface.Systems.Chat;
@@ -23,7 +21,7 @@ public sealed partial class ChatUIController : IOnSystemChanged<CharacterInfoSys
     [UISystemDependency] private readonly CharacterInfoSystem _characterInfo = default!;
 
     // Goobstation - Highlight chat ping sound!
-    private static readonly ResPath HighlightSoundPath = new("/Audio/_Goobstation/Interface/HighlightChatPings/Beep.ogg");
+    private static readonly SoundPathSpecifier HighlightSoundPath = new("/Audio/_Goobstation/Interface/HighlightChatPings/Beep.ogg");
 
     private static readonly Regex StartDoubleQuote = new("\"$");
     private static readonly Regex EndDoubleQuote = new("^\"|(?<=^@)\"");

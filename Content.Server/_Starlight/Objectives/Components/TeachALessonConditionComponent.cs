@@ -4,7 +4,7 @@ namespace Content.Server._Starlight.Objectives.Components;
 
 /// <summary>
 /// Requires that a target at least dies once.  
-/// Depends on <see cref="TargetObjectiveComponent"/> to function.
+/// Depends on TargetObjectiveComponent to function.
 /// </summary>
 [RegisterComponent, Access(typeof(TeachALessonConditionSystem))]
 

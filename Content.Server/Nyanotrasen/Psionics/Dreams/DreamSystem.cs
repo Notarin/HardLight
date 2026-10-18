@@ -1,10 +1,8 @@
 using Content.Shared.Dataset;
 using Content.Shared.Bed.Sleep;
-using Content.Server.Chat.Systems;
 using Content.Server.Chat.Managers;
 using Robust.Shared.Random;
 using Robust.Shared.Prototypes;
-using Robust.Server.GameObjects;
 using Robust.Shared.Player;
 
 namespace Content.Server.Psionics.Dreams
@@ -34,15 +32,13 @@ namespace Content.Server.Psionics.Dreams
             _accumulator -= _updateRate;
             _updateRate = _random.NextFloat(10f, 30f);
 
-            foreach (var sleeper in EntityQuery<SleepingComponent>())
+            var sleeperQuery = EntityQueryEnumerator<SleepingComponent, ActorComponent>();
+            while (sleeperQuery.MoveNext(out var uid, out _, out var actor))
             {
-                if (!TryComp<ActorComponent>(sleeper.Owner, out var actor))
-                    continue;
-
                 var setName = _random.Pick(DreamSetPrototypes);
 
                 if (!_prototypeManager.TryIndex<DatasetPrototype>(setName, out var set))
-                    return;
+                    continue;
 
                 var msg = _random.Pick(set.Values) + "..."; //todo... does the seperator need loc?
 
@@ -50,7 +46,7 @@ namespace Content.Server.Psionics.Dreams
                     ("telepathicChannelName", Loc.GetString("chat-manager-telepathic-channel-name")), ("message", msg));
 
                 _chatManager.ChatMessageToOne(Shared.Chat.ChatChannel.Telepathic,
-                msg, messageWrap, sleeper.Owner, false, actor.PlayerSession.Channel, Color.PaleVioletRed);
+                msg, messageWrap, uid, false, actor.PlayerSession.Channel, Color.PaleVioletRed);
             }
         }
     }

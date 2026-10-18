@@ -3,7 +3,6 @@ using Content.Shared.EntityEffects;
 using Content.Shared.Random;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
-using System.Linq;
 
 namespace Content.Server.Botany;
 
@@ -24,15 +23,13 @@ public sealed class MutationSystem : EntitySystem
     /// <summary>
     /// For each random mutation, see if it occurs on this plant this check.
     /// </summary>
-    /// <param name="seed"></param>
-    /// <param name="severity"></param>
     public void CheckRandomMutations(EntityUid plantHolder, ref SeedData seed, float severity)
     {
         for (var pass = 0; pass < MaxRandomMutationPasses; pass++)
         {
             var restartMutationPass = false;
 
-            foreach (var mutation in _randomMutations.mutations)
+            foreach (var mutation in _randomMutations.Mutations)
             {
                 if (!Random(Math.Min(mutation.BaseOdds * severity, 1.0f)))
                     continue;

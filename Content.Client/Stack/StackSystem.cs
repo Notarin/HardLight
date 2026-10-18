@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Client.Items;
 using Content.Client.Storage.Systems;
 using Content.Shared.Stacks;

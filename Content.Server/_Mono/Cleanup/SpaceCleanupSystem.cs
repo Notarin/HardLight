@@ -1,12 +1,8 @@
 using Content.Server.Cargo.Systems;
 using Content.Server.NPC.HTN;
-using Content.Server.Shuttles.Components;
-using Content.Shared.Shuttles.Components;
 using Content.Shared._Mono.CCVar;
 using Content.Shared.Mind.Components;
-using Content.Shared.Physics;
 using Robust.Shared.Configuration;
-using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
@@ -25,7 +21,6 @@ public sealed class SpaceCleanupSystem : BaseCleanupSystem<PhysicsComponent>
     [Dependency] private readonly IConfigurationManager _cfg = default!;
     private object _manifold = default!;
     private MethodInfo _testOverlap = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
     [Dependency] private readonly SharedPhysicsSystem _physics = default!;
     [Dependency] private readonly PricingSystem _pricing = default!;
 
@@ -45,7 +40,7 @@ public sealed class SpaceCleanupSystem : BaseCleanupSystem<PhysicsComponent>
         base.Initialize();
 
         // this queries over literally everything with PhysicsComponent so has to have big interval
-        _cleanupInterval = TimeSpan.FromSeconds(600);
+        CleanupInterval = TimeSpan.FromSeconds(600);
 
         _immuneQuery = GetEntityQuery<CleanupImmuneComponent>();
         _fixQuery = GetEntityQuery<FixturesComponent>();

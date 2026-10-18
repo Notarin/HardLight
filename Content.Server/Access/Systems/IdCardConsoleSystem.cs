@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.Chat.Systems;
 using Content.Shared.Chat; // For InGameICChatType
 using Content.Server.Containers;
@@ -7,11 +6,9 @@ using Content.Shared.Access.Components;
 using static Content.Shared.Access.Components.IdCardConsoleComponent;
 using Content.Shared.Access.Systems;
 using Content.Shared.Access;
-using Content.Shared.Administration.Logs;
 using Content.Shared.Construction;
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Damage;
-using Content.Shared.Database;
 using Content.Shared.Roles;
 using Content.Shared.StationRecords;
 using Content.Shared.Throwing;
@@ -189,7 +186,7 @@ public sealed class IdCardConsoleSystem : SharedIdCardConsoleSystem
 
         if (!newAccessList.TrueForAll(x => component.AccessLevels.Contains(x)))
         {
-            _sawmill.Warning($"User {ToPrettyString(uid)} tried to write unknown access tag.");
+            LogMill.Warning($"User {ToPrettyString(uid)} tried to write unknown access tag.");
             return;
         }
 
@@ -208,7 +205,7 @@ public sealed class IdCardConsoleSystem : SharedIdCardConsoleSystem
         var privilegedPerms = _accessReader.FindAccessTags(privilegedId!.Value).ToHashSet();
         if (!difference.IsSubsetOf(privilegedPerms))
         {
-            _sawmill.Warning($"User {ToPrettyString(uid)} tried to modify permissions they could not give/take!");
+            LogMill.Warning($"User {ToPrettyString(uid)} tried to modify permissions they could not give/take!");
             return;
         }
 

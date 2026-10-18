@@ -8,7 +8,6 @@ using Robust.Shared.Containers;
 using System.Diagnostics.CodeAnalysis;
 using Content.Server.Kitchen.Components;
 using Content.Server.Power.EntitySystems;
-using Content.Server.UserInterface;
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Popups;
 using ActivatableUISystem = Content.Shared.UserInterface.ActivatableUISystem;
@@ -105,7 +104,6 @@ public sealed partial class PowerCellSystem : SharedPowerCellSystem
     /// <summary>
     /// Tries to use the <see cref="PowerCellDrawComponent.UseRate"/> for this entity.
     /// </summary>
-    /// <param name="user">Popup to this user with the relevant detail if specified.</param>
     public bool TryUseActivatableCharge(EntityUid uid, PowerCellDrawComponent? battery = null, PowerCellSlotComponent? cell = null, EntityUid? user = null)
     {
         // Default to true if we don't have the components.
@@ -140,7 +138,6 @@ public sealed partial class PowerCellSystem : SharedPowerCellSystem
     /// <summary>
     /// Returns whether the entity has a slotted battery and charge for the requested action.
     /// </summary>
-    /// <param name="user">Popup to this user with the relevant detail if specified.</param>
     public bool HasCharge(EntityUid uid, float charge, PowerCellSlotComponent? component = null, EntityUid? user = null)
     {
         if (!TryGetBatteryFromSlot(uid, out var battery, component))

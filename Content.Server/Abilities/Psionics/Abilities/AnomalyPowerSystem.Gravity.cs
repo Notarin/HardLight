@@ -2,7 +2,6 @@ using Content.Shared.Abilities.Psionics;
 using Content.Shared.Actions.Events;
 using Robust.Shared.Physics.Components;
 using Content.Shared.Physics;
-using System.Linq;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 

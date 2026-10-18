@@ -1,4 +1,3 @@
-using Robust.Client.GameObjects;
 using Content.Shared.Speech.Components;
 using Robust.Client.UserInterface;
 
@@ -48,6 +47,6 @@ public sealed class MeleeSpeechBoundUserInterface : BoundUserInterface
         if (!disposing)
             return;
 
-        _window?.Dispose();
+        _window?.Close();
     }
 }

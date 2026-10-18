@@ -12,6 +12,8 @@ public sealed class RetroMonitorOverlay : Overlay
     [Dependency] private readonly IPlayerManager _playerManager = default!; // Mono
     [Dependency] IEntityManager _entityManager = default!; // Mono
 
+    private static readonly ProtoId<ShaderPrototype> ShaderId = "crt_vhs";
+
     public override OverlaySpace Space => OverlaySpace.WorldSpace;
     public override bool RequestScreenTexture => true; // Запрашиваем ScreenTexture
 
@@ -20,7 +22,7 @@ public sealed class RetroMonitorOverlay : Overlay
     public RetroMonitorOverlay()
     {
         IoCManager.InjectDependencies(this);
-        _retroShader = _prototypeManager.Index<ShaderPrototype>("crt_vhs").InstanceUnique();
+        _retroShader = _prototypeManager.Index(ShaderId).InstanceUnique();
     }
 
     // Mono start

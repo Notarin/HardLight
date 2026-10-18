@@ -1,12 +1,8 @@
-using System.Linq;
 using Content.Server.GameTicking;
-using Content.Server.Ghost;
-using Content.Server.Mind;
 using Content.Shared.Administration;
 using Content.Shared.Ghost;
 using Content.Shared.Mind;
 using Robust.Server.GameObjects;
-using Robust.Server.Player;
 using Robust.Shared.Console;
 using Robust.Shared.Player;
 using Content.Server._NF.CryoSleep; // Frontier
@@ -123,6 +119,6 @@ public sealed class AGhostCommand : LocalizedCommands
 
         var comp = _entities.GetComponent<GhostComponent>(ghost);
         ghostSystem.SetCanReturnToBody((ghost, comp), canReturn);
-        ghostSystem.SetCanReturnFromCryo(comp, cryoSystem.HasCryosleepingBody(player.UserId)); // Frontier
+        ghostSystem.SetCanReturnFromCryo((ghost, comp), cryoSystem.HasCryosleepingBody(player.UserId)); // Frontier
     }
 }

@@ -2,12 +2,11 @@ using Content.Shared.DoAfter;
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Serialization;
 
 namespace Content.Shared._Mono.ShipRepair.Components;
 
 /// <summary>
-/// Allows item to act as a tool that repairs missing tiles and entities of a grid with <see cref="ShipRepairDataComponent">.
+/// Allows item to act as a tool that repairs missing tiles and entities of a grid with <see cref="ShipRepairDataComponent"/>.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class ShipRepairToolComponent : Component
@@ -31,7 +30,7 @@ public sealed partial class ShipRepairToolComponent : Component
     public float TileRepairTime = 0.5f;
 
     /// <summary>
-    /// Charges to take from <see cref="LimitedChargesComponent"> when repairing tiles.
+    /// Charges to take from LimitedChargesComponent when repairing tiles.
     /// </summary>
     [DataField, AutoNetworkedField]
     public int TileRepairCost = 1;

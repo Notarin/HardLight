@@ -1,13 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
 using System.Reflection;
 using Content.IntegrationTests.Tests._NF;
 using Content.Server._HL.ColComm;
 using Content.Server.GameTicking;
 using Content.Server._NF.CryoSleep;
-using Content.Server._NF.RoundNotifications.Events;
 using Content.Server._NF.Roles.Systems;
 using Content.Server.Maps;
 using Content.Server.Station.Components;
@@ -35,6 +31,12 @@ namespace Content.IntegrationTests.Tests.Station;
 [TestOf(typeof(StationJobsSystem))]
 public sealed class StationJobsTest
 {
+    private static readonly ProtoId<GameMapPrototype> FooStation = "FooStation";
+    private static readonly ProtoId<GameMapPrototype> TestHiringShipStation = "TestHiringShipStation";
+    private static readonly ProtoId<GameMapPrototype> TestCargoShipStation = "TestCargoShipStation";
+    private static readonly ProtoId<GameMapPrototype> TestBusShipStation = "TestBusShipStation";
+    private static readonly ProtoId<GameMapPrototype> TestDynamicAllocationStation = "TestDynamicAllocationStation";
+
     [TestPrototypes]
     private const string Prototypes = BasePrototypes + TrackedCrewPrototype + ShipJobPrototypes + DynamicAllocationPrototypes;
 
@@ -239,7 +241,7 @@ public sealed class StationJobsTest
         var server = pair.Server;
 
         var prototypeManager = server.ResolveDependency<IPrototypeManager>();
-        var fooStationProto = prototypeManager.Index<GameMapPrototype>("FooStation");
+        var fooStationProto = prototypeManager.Index(FooStation);
         var entSysMan = server.ResolveDependency<IEntityManager>().EntitySysManager;
         var stationJobs = entSysMan.GetEntitySystem<StationJobsSystem>();
         var stationSystem = entSysMan.GetEntitySystem<StationSystem>();
@@ -313,7 +315,7 @@ public sealed class StationJobsTest
         var server = pair.Server;
 
         var prototypeManager = server.ResolveDependency<IPrototypeManager>();
-        var fooStationProto = prototypeManager.Index<GameMapPrototype>("FooStation");
+        var fooStationProto = prototypeManager.Index(FooStation);
         var entSysMan = server.ResolveDependency<IEntityManager>().EntitySysManager;
         var stationJobs = entSysMan.GetEntitySystem<StationJobsSystem>();
         var stationSystem = entSysMan.GetEntitySystem<StationSystem>();
@@ -363,7 +365,7 @@ public sealed class StationJobsTest
         var server = pair.Server;
 
         var prototypeManager = server.ResolveDependency<IPrototypeManager>();
-        var fooStationProto = prototypeManager.Index<GameMapPrototype>("FooStation");
+        var fooStationProto = prototypeManager.Index(FooStation);
         var entityManager = server.ResolveDependency<IEntityManager>();
         var entSysMan = entityManager.EntitySysManager;
         var colcommJobs = entSysMan.GetEntitySystem<ColcommJobSystem>();
@@ -460,13 +462,13 @@ public sealed class StationJobsTest
     [Test]
     public async Task ShipCrewHiringEligibilityTest()
     {
-        await using var pair = await PoolManager.GetServerClient(new PoolSettings() { Connected = true }); /// HL: Me need a connected client for this
+        await using var pair = await PoolManager.GetServerClient(new PoolSettings() { Connected = true }); // HL: Me need a connected client for this
         var server = pair.Server;
 
         var prototypeManager = server.ResolveDependency<IPrototypeManager>();
-        var hiringShipProto = prototypeManager.Index<GameMapPrototype>("TestHiringShipStation");
-        var cargoShipProto = prototypeManager.Index<GameMapPrototype>("TestCargoShipStation");
-        var busShipProto = prototypeManager.Index<GameMapPrototype>("TestBusShipStation");
+        var hiringShipProto = prototypeManager.Index(TestHiringShipStation);
+        var cargoShipProto = prototypeManager.Index(TestCargoShipStation);
+        var busShipProto = prototypeManager.Index(TestBusShipStation);
         var entSysMan = server.ResolveDependency<IEntityManager>().EntitySysManager;
         var stationJobs = entSysMan.GetEntitySystem<StationJobsSystem>();
         var stationSystem = entSysMan.GetEntitySystem<StationSystem>();
@@ -601,7 +603,7 @@ public sealed class StationJobsTest
         var stationJobs = entitySystemManager.GetEntitySystem<StationJobsSystem>();
         var stationSystem = entitySystemManager.GetEntitySystem<StationSystem>();
 
-        var stationProto = prototypeManager.Index<GameMapPrototype>("FooStation");
+        var stationProto = prototypeManager.Index(FooStation);
         var serverSession = playerManager.Sessions.Single();
         var trackedUser = serverSession.UserId;
 
@@ -659,8 +661,8 @@ public sealed class StationJobsTest
         var stationJobs = entSysMan.GetEntitySystem<StationJobsSystem>();
         var jobTracking = entSysMan.GetEntitySystem<JobTrackingSystem>();
 
-        var hiringShipProto = prototypeManager.Index<GameMapPrototype>("TestHiringShipStation");
-        var cargoShipProto = prototypeManager.Index<GameMapPrototype>("TestCargoShipStation");
+        var hiringShipProto = prototypeManager.Index(TestHiringShipStation);
+        var cargoShipProto = prototypeManager.Index(TestCargoShipStation);
 
         var hiringStation = EntityUid.Invalid;
         var cargoStation = EntityUid.Invalid;
@@ -711,7 +713,7 @@ public sealed class StationJobsTest
         {
             configManager.SetCVar(CCVars.GameDisallowLateJoins, false);
 
-            var shipProto = prototypeManager.Index<GameMapPrototype>("TestHiringShipStation");
+            var shipProto = prototypeManager.Index(TestHiringShipStation);
             Assert.That(mapLoader.TryLoadMap(new ResPath("/Maps/Test/empty.yml"), out _, out var grids), Is.True);
             Assert.That(grids, Is.Not.Null);
 
@@ -788,7 +790,7 @@ public sealed class StationJobsTest
             configManager.SetCVar(CCVars.EmergencyShuttleEnabled, false);
             configManager.SetCVar(HLCCVars.AutoSpawnColComm, true);
 
-            var stationProto = prototypeManager.Index<GameMapPrototype>("TestDynamicAllocationStation");
+            var stationProto = prototypeManager.Index(TestDynamicAllocationStation);
             station = stationSystem.InitializeNewStation(stationProto.Stations["Station"], null, "Dynamic Allocation Station");
         });
 
@@ -849,7 +851,7 @@ public sealed class StationJobsTest
         await server.WaitRunTicks(10);
         // HL END
 
-        var stationProto = prototypeManager.Index<GameMapPrototype>("FooStation");
+        var stationProto = prototypeManager.Index(FooStation);
 
         var regularDeletionStation = EntityUid.Invalid;
         var regularDeletionCrew = EntityUid.Invalid;
@@ -919,7 +921,7 @@ public sealed class StationJobsTest
         var stationJobs = entitySystemManager.GetEntitySystem<StationJobsSystem>();
         var stationSystem = entitySystemManager.GetEntitySystem<StationSystem>();
 
-        var stationProto = prototypeManager.Index<GameMapPrototype>("FooStation");
+        var stationProto = prototypeManager.Index(FooStation);
         var serverSession = playerManager.Sessions.Single();
         var trackedUser = serverSession.UserId;
 

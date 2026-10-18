@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
@@ -93,7 +90,7 @@ namespace Content.Server.Database
         IEntityTypeBaseTypeChangedConvention,
         IModelFinalizingConvention
     {
-        private static readonly StoreObjectType[] _storeObjectTypes
+        private static readonly StoreObjectType[] StoreObjectTypes
             = { StoreObjectType.Table, StoreObjectType.View, StoreObjectType.Function, StoreObjectType.SqlQuery };
 
         public SnakeCaseConvention() { }
@@ -285,7 +282,7 @@ namespace Content.Server.Database
                             RewriteName(entityType.ShortName()) + columnName[entityType.ShortName().Length..]);
                     }
 
-                    foreach (var storeObjectType in _storeObjectTypes)
+                    foreach (var storeObjectType in StoreObjectTypes)
                     {
                         var identifier = StoreObjectIdentifier.Create(entityType, storeObjectType);
                         if (identifier is null)
@@ -324,7 +321,7 @@ namespace Content.Server.Database
                 baseColumnName = entityType.GetTableName() + baseColumnName;
             propertyBuilder.HasColumnName(RewriteName(baseColumnName!));
 
-            foreach (var storeObjectType in _storeObjectTypes)
+            foreach (var storeObjectType in StoreObjectTypes)
             {
                 var identifier = StoreObjectIdentifier.Create(entityType, storeObjectType);
                 if (identifier is null)

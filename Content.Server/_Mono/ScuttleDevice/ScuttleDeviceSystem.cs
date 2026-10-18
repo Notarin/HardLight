@@ -1,4 +1,3 @@
-using Content.Server.AlertLevel;
 using Content.Server.Audio;
 using Content.Server.Cargo.Systems;
 using Content.Server.Chat.Systems;
@@ -8,11 +7,9 @@ using Content.Server.Popups;
 using Content.Shared._Mono.ScuttleDevice;
 using Content.Shared.Audio;
 using Content.Shared.Construction.Components;
-using Content.Shared.Coordinates.Helpers;
 using Content.Shared.DoAfter;
 using Content.Shared.Examine;
 using Content.Shared.Lock;
-using Content.Shared.Maps;
 using Content.Shared.Nuke;
 using Content.Shared.Popups;
 using Content.Shared.Shuttles.Systems;
@@ -20,10 +17,7 @@ using Content.Shared.Verbs;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
-using Robust.Shared.Map;
-using Robust.Shared.Map.Components;
 using Robust.Shared.Player;
-using Robust.Shared.Utility;
 
 namespace Content.Server._Mono.ScuttleDevice;
 
@@ -40,11 +34,10 @@ public sealed class ScuttleDeviceSystem : EntitySystem
     [Dependency] private readonly ServerGlobalSoundSystem _sound = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
     [Dependency] private readonly SharedShuttleSystem _shuttles = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
 
-    private TimeSpan NukeSongBuffer = TimeSpan.FromSeconds(1.5);
+    private TimeSpan _nukeSongBuffer = TimeSpan.FromSeconds(1.5);
 
     public override void Initialize()
     {
@@ -172,9 +165,9 @@ public sealed class ScuttleDeviceSystem : EntitySystem
             return;
         }
 
-        if (ent.Comp.DoMusic && ent.Comp.RemainingTime <= ent.Comp.NukeSongLength + ent.Comp.AlertSoundTime + NukeSongBuffer && !ent.Comp.PlayedNukeSong && !ResolvedSoundSpecifier.IsNullOrEmpty(ent.Comp.SelectedNukeSong))
+        if (ent.Comp.DoMusic && ent.Comp.RemainingTime <= ent.Comp.NukeSongLength + ent.Comp.AlertSoundTime + _nukeSongBuffer && !ent.Comp.PlayedNukeSong && !ResolvedSoundSpecifier.IsNullOrEmpty(ent.Comp.SelectedNukeSong))
         {
-            _sound.DispatchStationEventMusic(ent, ent.Comp.SelectedNukeSong, StationEventMusicType.Nuke);
+            _sound.DispatchStationEventMusic(ent, ent.Comp.SelectedNukeSong!, StationEventMusicType.Nuke);
             ent.Comp.PlayedNukeSong = true;
         }
 

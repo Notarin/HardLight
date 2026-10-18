@@ -1,8 +1,5 @@
 using Content.Shared.TextScreen;
 using Content.Server.Screens.Components;
-using Content.Server.DeviceNetwork.Components;
-using Content.Server.DeviceNetwork.Systems;
-using Content.Shared.DeviceNetwork.Components;
 using Content.Shared.DeviceNetwork.Events;
 using Robust.Shared.Timing;
 
@@ -26,7 +23,7 @@ public sealed class ScreenSystem : EntitySystem
 
     /// <summary>
     ///     Calls either a normal screen text update or shuttle timer update based on the presence of
-    ///     <see cref="ShuttleTimerMasks.ShuttleMap"/> in <see cref="args.Data"/>
+    ///     <see cref="ShuttleTimerMasks.ShuttleMap"/> in args.Data
     /// </summary>
     private void OnPacketReceived(EntityUid uid, ScreenComponent component, DeviceNetworkPacketEvent args)
     {

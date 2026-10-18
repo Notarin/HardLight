@@ -1,7 +1,6 @@
 using Content.Server.Power.NodeGroups;
 using Content.Shared.APC;
 using Robust.Shared.Audio;
-using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
 namespace Content.Server.Power.Components;
 
@@ -38,11 +37,11 @@ public sealed partial class ApcComponent : BaseApcNetComponent
     // End the suffering
     protected override void AddSelfToNet(IApcNet apcNet)
     {
-        apcNet.AddApc(Owner, this);
+        apcNet.AddApc(NetConnectorOwner, this);
     }
 
     protected override void RemoveSelfFromNet(IApcNet apcNet)
     {
-        apcNet.RemoveApc(Owner, this);
+        apcNet.RemoveApc(NetConnectorOwner, this);
     }
 }

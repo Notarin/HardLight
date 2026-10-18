@@ -1,5 +1,4 @@
-using Robust.Shared.GameObjects; // MetaDataComponent lives here
-using Robust.Shared.Log;
+// MetaDataComponent lives here
 
 namespace Content.Server.Diagnostics;
 

@@ -1,5 +1,4 @@
 using Content.Server.NodeContainer.NodeGroups;
-using Content.Shared.NodeContainer;
 using Content.Shared.NodeContainer.NodeGroups;
 
 namespace Content.Server._Starlight.Plumbing.NodeGroups;

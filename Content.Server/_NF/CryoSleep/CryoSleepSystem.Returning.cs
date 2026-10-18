@@ -1,7 +1,4 @@
-using Content.Server.Administration.Logs;
-using Content.Server.GameTicking;
 using Content.Shared.Bed.Sleep;
-using Content.Shared.Database;
 using Content.Shared.Ghost;
 using Content.Shared.Mind;
 using Content.Shared._NF.CCVar;
@@ -11,7 +8,6 @@ using Robust.Shared.Configuration;
 using Robust.Shared.Network;
 using Content.Shared._NF.CryoSleep.Events;
 using System.Diagnostics.CodeAnalysis;
-using Content.Server.Ghost;
 
 namespace Content.Server._NF.CryoSleep;
 
@@ -114,12 +110,12 @@ public sealed partial class CryoSleepSystem
         if (_mind.TryGetMind(id, out _, out var mindComp)
             && TryComp<GhostComponent>(mindComp.CurrentEntity, out var ghost))
         {
-            _ghost.SetCanReturnFromCryo(ghost, false);
+            _ghost.SetCanReturnFromCryo((mindComp.CurrentEntity.Value, ghost), false);
         }
 
         if (body != null
             && pausedMap != null // HardLight
-            && TryComp<TransformComponent>(body.Value.Body, out var bodyXform)
+            && TryComp(body.Value.Body, out TransformComponent? bodyXform)
             && bodyXform.MapUid == pausedMap) // HardLight
         {
             QueueDel(body.Value.Body);

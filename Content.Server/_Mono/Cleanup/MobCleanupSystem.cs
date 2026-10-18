@@ -2,7 +2,6 @@ using Content.Server.Ghost.Roles.Components;
 using Content.Server.NPC.HTN;
 using Content.Shared._Mono.CCVar;
 using Robust.Shared.Configuration;
-using Robust.Shared.Timing;
 
 namespace Content.Server._Mono.Cleanup;
 

@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server._Funkystation.Genetics.Components;
 using Content.Server.Popups;
 using Content.Shared._Funkystation.Genetics.Prototypes;
@@ -31,9 +30,9 @@ public sealed class InstabilityCountdownSystem : EntitySystem
     {
         var curTime = _timing.CurTime;
 
-        foreach (var pending in EntityQuery<PendingInstabilityMutationComponent>())
+        var query = EntityQueryEnumerator<PendingInstabilityMutationComponent>();
+        while (query.MoveNext(out var uid, out var pending))
         {
-            var uid = pending.Owner;
             var remaining = pending.EndTime - curTime;
 
             if (remaining <= TimeSpan.Zero)

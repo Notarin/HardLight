@@ -1,7 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
-using System.Threading;
-using System.Threading.Tasks;
 using Content.Shared.NPC;
 using Content.Shared.Physics;
 using Robust.Shared.Collections;
@@ -62,7 +60,7 @@ public sealed partial class PathfindingSystem
             if (change.OldTile.IsEmpty == change.NewTile.IsEmpty)
                 continue;
 
-            DirtyChunk(ev.Entity, grid.GridTileToLocal(change.GridIndices));
+            DirtyChunk(ev.Entity, _maps.GridTileToLocal(ev.Entity, grid, change.GridIndices));
         }
     }
 
@@ -316,7 +314,7 @@ public sealed partial class PathfindingSystem
             {
                 DirtyChunk(
                     ev.EntityUid,
-                    mapGrid.GridTileToLocal(new Vector2i((int)x, (int)y)));
+                    _maps.GridTileToLocal(ev.EntityUid, mapGrid, new Vector2i((int)x, (int)y)));
             }
         }
     }
@@ -336,7 +334,7 @@ public sealed partial class PathfindingSystem
 
         var currentTime = _timing.CurTime;
 
-        if (comp.NextUpdate < currentTime && TryComp<MetaDataComponent>(gridUid, out var meta) && !meta.EntityPaused)
+        if (comp.NextUpdate < currentTime && TryComp(gridUid, out MetaDataComponent? meta) && !meta.EntityPaused)
             comp.NextUpdate = currentTime + UpdateCooldown;
 
         var chunks = comp.DirtyChunks;

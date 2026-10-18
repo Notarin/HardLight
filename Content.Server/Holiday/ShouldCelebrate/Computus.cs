@@ -1,4 +1,3 @@
-using System.IO;
 using JetBrains.Annotations;
 
 namespace Content.Server.Holiday.ShouldCelebrate

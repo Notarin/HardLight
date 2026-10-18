@@ -1,5 +1,4 @@
 using Content.Shared.Wires;
-using Robust.Client.GameObjects;
 using Robust.Client.UserInterface;
 
 namespace Content.Client.Wires.UI
@@ -37,7 +36,7 @@ namespace Content.Client.Wires.UI
             if (!disposing)
                 return;
 
-            _menu?.Dispose();
+            _menu?.Close();
         }
     }
 }

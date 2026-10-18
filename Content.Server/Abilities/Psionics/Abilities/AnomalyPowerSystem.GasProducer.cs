@@ -1,7 +1,6 @@
 using Content.Shared.Abilities.Psionics;
 using Content.Shared.Actions.Events;
 using Robust.Shared.Map.Components;
-using System.Linq;
 using System.Numerics;
 
 namespace Content.Server.Abilities.Psionics;
@@ -30,7 +29,7 @@ public sealed partial class AnomalyPowerSystem
         var count = args.Gas!.Value.SupercritTileCount * component.CurrentDampening;
         var temp = args.Gas!.Value.SupercritTempChange * component.CurrentDampening;
         var localpos = xform.Coordinates.Position;
-        var tilerefs = grid.GetLocalTilesIntersecting(
+        var tilerefs = _mapSystem.GetLocalTilesIntersecting(xform.GridUid.Value, grid,
             new Box2(localpos + new Vector2(-radius, -radius), localpos + new Vector2(radius, radius))).ToArray();
 
         if (tilerefs.Length == 0)
@@ -75,7 +74,7 @@ public sealed partial class AnomalyPowerSystem
         var count = args.Gas!.Value.TileCount * component.CurrentDampening;
         var temp = args.Gas!.Value.TempChange * component.CurrentDampening;
         var localpos = xform.Coordinates.Position;
-        var tilerefs = grid.GetLocalTilesIntersecting(
+        var tilerefs = _mapSystem.GetLocalTilesIntersecting(xform.GridUid.Value, grid,
             new Box2(localpos + new Vector2(-radius, -radius), localpos + new Vector2(radius, radius))).ToArray();
 
         if (tilerefs.Length == 0)

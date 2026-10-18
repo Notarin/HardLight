@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared._Moffstation.Cards.Components;
 using Content.Shared._Moffstation.Cards.Events;
 using Content.Shared._Moffstation.Cards.Prototypes;
@@ -95,7 +94,7 @@ public abstract partial class SharedPlayingCardsSystem
         args.Handled = true;
     }
 
-    /// Creates and returns a new stack made from <paramref name="destination"/> and <paramref cref="moved"/>. See
+    /// Creates and returns a new stack made from <paramref name="destination"/> and <paramref name="moved"/>. See
     /// <see cref="CreateHandIfHeldOtherwiseDeck"/> for more.
     private EntityUid? JoinIntoHandIfHeldOtherwiseDeck(
         Entity<PlayingCardComponent> destination,

@@ -1,9 +1,9 @@
 namespace Content.Server.Psionics.Glimmer
 {
-    [RegisterComponent]
     /// <summary>
     /// Adds to glimmer at regular intervals. We'll use it for glimmer drains too when we get there.
     /// </summary>
+    [RegisterComponent]
     public sealed partial class GlimmerSourceComponent : Component
     {
         [DataField("accumulator")]

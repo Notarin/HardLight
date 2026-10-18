@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.FixedPoint;
 using Content.Shared.Points;
 using JetBrains.Annotations;

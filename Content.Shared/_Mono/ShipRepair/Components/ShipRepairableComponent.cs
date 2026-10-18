@@ -1,11 +1,10 @@
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Serialization;
 
 namespace Content.Shared._Mono.ShipRepair.Components;
 
 /// <summary>
-/// Entity that is repairable via <see cref="ShipRepairToolComponent.cs"/>
+/// Entity that is repairable via ShipRepairToolComponent.cs
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class ShipRepairableComponent : Component
@@ -20,7 +19,7 @@ public sealed partial class ShipRepairableComponent : Component
     public float RepairTime = 2f;
 
     /// <summary>
-    /// How many charges to use from <see cref="LimitedChargesComponent"/>.
+    /// How many charges to use from LimitedChargesComponent.
     /// </summary>
     [DataField(required: true), AutoNetworkedField]
     public int RepairCost = 2;

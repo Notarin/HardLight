@@ -2,9 +2,7 @@
 // SPDX-FileCopyrightText: 2025 GoobBot <uristmchands@proton.me>
 // SPDX-FileCopyrightText: 2025 pheenty <fedorlukin2006@gmail.com>
 
-using System.Linq;
 using Content.Goobstation.Common.Weapons.NoWieldNeeded;
-using Content.Shared.Camera;
 using Content.Shared.Examine;
 using Content.Shared.Hands;
 using Content.Shared.Hands.Components;
@@ -27,7 +25,6 @@ using Content.Shared.Weapons.Ranged.Systems;
 using Content.Shared.Wieldable.Components;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Collections;
-using Robust.Shared.Network;
 using Robust.Shared.Timing;
 
 namespace Content.Shared.Wieldable;

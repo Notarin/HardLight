@@ -1,6 +1,5 @@
 using Content.Shared.Emag.Components;
 using Robust.Shared.Prototypes;
-using System.Linq;
 using Content.Shared.Access.Components;
 using Content.Shared.Access.Systems;
 using Content.Shared.Advertise.Components;
@@ -13,7 +12,6 @@ using Content.Shared.Power.EntitySystems;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.GameStates;
-using Robust.Shared.Network;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 using Content.Shared.Containers.ItemSlots;
@@ -199,11 +197,6 @@ public abstract partial class SharedVendingMachineSystem : EntitySystem
     /// Tries to eject the provided item. Will do nothing if the vending machine is incapable of ejecting, already ejecting
     /// or the item doesn't exist in its inventory.
     /// </summary>
-    /// <param name="uid"></param>
-    /// <param name="type">The type of inventory the item is from</param>
-    /// <param name="itemId">The prototype ID of the item</param>
-    /// <param name="throwItem">Whether the item should be thrown in a random direction after ejection</param>
-    /// <param name="vendComponent"></param>
     public bool TryEjectVendorItem(EntityUid uid, InventoryType type, string itemId, bool throwItem, EntityUid? user = null, VendingMachineComponent? vendComponent = null) // Frontier: void<bool
     {
         if (!Resolve(uid, ref vendComponent))

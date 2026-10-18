@@ -4,7 +4,6 @@ using Content.Server.Atmos.Components;
 using Content.Shared.Temperature.Components;
 using Content.Shared.Stealth;
 using Content.Shared.Stealth.Components;
-using System.Linq;
 using Content.Shared.NPC.Components;
 using Content.Shared.NPC.Systems;
 using Content.Shared._Starlight.NullSpace;
@@ -23,7 +22,6 @@ using Content.Shared.Body.Components;
 using Content.Server.Body.Systems;
 using Content.Shared.Timing;
 using Content.Shared.Maps;
-using Robust.Shared.Map;
 using Robust.Shared.Random;
 using Robust.Shared.Map.Components;
 using Content.Shared.Physics;
@@ -45,7 +43,6 @@ public sealed partial class NullSpaceSystem : SharedNullSpaceSystem
     [Dependency] private readonly UseDelaySystem _usedelay = default!;
     [Dependency] private readonly TurfSystem _turf = default!;
     [Dependency] private readonly SharedMapSystem _mapSystem = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly TransformSystem _transform = default!;
     [Dependency] private readonly SharedActionsSystem _actionsSystem = default!;
@@ -245,7 +242,7 @@ public sealed partial class NullSpaceSystem : SharedNullSpaceSystem
             _usedelay.TryResetDelay(uid, id: "nullphase-delay");
         }
 
-        SpawnAtPosition(_shadekinShadow, Transform(uid).Coordinates);
+        SpawnAtPosition(ShadekinShadow, Transform(uid).Coordinates);
         RemComp(uid, component);
     }
 

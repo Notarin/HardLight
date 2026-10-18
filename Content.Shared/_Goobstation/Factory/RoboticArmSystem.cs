@@ -1,14 +1,11 @@
-using Content.Shared._Goobstation.Factory.Filters;
 using Content.Shared._Goobstation.Factory.Slots;
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.DeviceLinking;
-using Content.Shared.DeviceLinking.Events;
 using Content.Shared.Examine;
 using Content.Shared.Item;
 using Content.Shared.Maps;
 using Content.Shared.Physics;
 using Content.Shared.Throwing;
-using Content.Shared.Power.Components;
 using Content.Shared.Power.EntitySystems;
 using Robust.Shared.Containers;
 using Robust.Shared.Map;
@@ -41,7 +38,7 @@ public sealed class RoboticArmSystem : EntitySystem
     private EntityQuery<ItemComponent> _itemQuery;
     private EntityQuery<ThrownItemComponent> _thrownQuery;
     private TimeSpan _nextUpdate = TimeSpan.Zero;
-    private static readonly TimeSpan _updateDelay = TimeSpan.FromSeconds(5);
+    private static readonly TimeSpan UpdateDelay = TimeSpan.FromSeconds(5);
 
     public override void Initialize()
     {
@@ -68,7 +65,7 @@ public sealed class RoboticArmSystem : EntitySystem
         if (_nextUpdate < now)
             return;
 
-        _nextUpdate += _updateDelay;
+        _nextUpdate += UpdateDelay;
 
         var query = EntityQueryEnumerator<RoboticArmComponent>();
         while (query.MoveNext(out var uid, out var comp))

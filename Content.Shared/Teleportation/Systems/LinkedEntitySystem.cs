@@ -1,5 +1,4 @@
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using Content.Shared.Teleportation.Components;
 using Robust.Shared.GameStates;
 
@@ -97,7 +96,6 @@ public sealed class LinkedEntitySystem : EntitySystem
     /// <summary>
     /// Does a one-way link from source to target.
     /// </summary>
-    /// <param name="deleteOnEmptyLinks">Whether both entities should now delete once their links are removed</param>
     public bool OneWayLink(EntityUid source, EntityUid target, bool deleteOnEmptyLinks = false)
     {
         var firstLink = EnsureComp<LinkedEntityComponent>(source);

@@ -1,8 +1,6 @@
 using Content.Server.Body.Systems;
 using Content.Server.Explosion.EntitySystems;
 using Content.Shared.Actions;
-using Content.Shared.Coordinates;
-using Content.Shared.Gibbing.Systems;
 using Content.Shared.Inventory;
 
 namespace Content.Shared.Cybernetics

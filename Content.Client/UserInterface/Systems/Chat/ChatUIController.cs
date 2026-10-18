@@ -1,5 +1,4 @@
 using System.Globalization;
-using System.Linq;
 using System.Numerics;
 using Content.Client.Administration.Managers;
 using Content.Client.Chat;
@@ -11,7 +10,6 @@ using Content.Client.Gameplay;
 using Content.Client.Ghost;
 using Content.Client.Mind;
 using Content.Client.Roles;
-using Content.Client.Stylesheets;
 using Content.Client.UserInterface.Screens;
 using Content.Client.UserInterface.Systems.Chat.Widgets;
 using Content.Client.UserInterface.Systems.Gameplay;
@@ -69,8 +67,7 @@ public sealed partial class ChatUIController : UIController
     [UISystemDependency] private readonly MindSystem? _mindSystem = default!;
     [UISystemDependency] private readonly RoleCodewordSystem? _roleCodewordSystem = default!;
 
-    [ValidatePrototypeId<ColorPalettePrototype>]
-    private const string ChatNamePalette = "ChatNames";
+    private static readonly ProtoId<ColorPalettePrototype> ChatNamePalette = "ChatNames";
     private string[] _chatNameColors = default!;
     private bool _chatNameColorsEnabled;
     [UISystemDependency] private readonly PsionicChatUpdateSystem? _psionic = default!; //Nyano - Summary: makes the psionic chat available.
@@ -163,7 +160,7 @@ public sealed partial class ChatUIController : UIController
     /// <summary>
     /// Used for Goobstation's - Chat Pings
     /// </summary>
-    private TimeSpan LastHighlightTime = TimeSpan.Zero;
+    private TimeSpan _lastHighlightTime = TimeSpan.Zero;
 
     // TODO add a cap for this for non-replays
     public readonly List<(GameTick Tick, ChatMessage Msg)> History = new();
@@ -552,7 +549,7 @@ public sealed partial class ChatUIController : UIController
 
     public void RemoveSpeechBubble(EntityUid entityUid, SpeechBubble bubble)
     {
-        bubble.Dispose();
+        bubble.Orphan();
 
         var list = _activeSpeechBubbles[entityUid];
         list.Remove(bubble);
@@ -938,9 +935,9 @@ public sealed partial class ChatUIController : UIController
 
             // Only play sound if enough time has passed since the last highlight
             // This avoids playing multiple pings in less than a second
-            if (hadHighlight && (currentTime - LastHighlightTime).TotalMilliseconds >= 500)
+            if (hadHighlight && (currentTime - _lastHighlightTime).TotalMilliseconds >= 500)
             {
-                LastHighlightTime = currentTime;
+                _lastHighlightTime = currentTime;
                 PlayHighlightSound();
             }
         }

@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.Clothing.Components;
 using Content.Shared.DoAfter;
 using Content.Shared.Examine;
@@ -109,9 +108,9 @@ public sealed class LeashSystem : EntitySystem
         DistanceJoint? joint = null;
         if (data.JointId is not null
             && TryComp<JointComponent>(target, out var jointComp)
-            && jointComp.GetJoints.TryGetValue(data.JointId, out var _joint)
+            && jointComp.GetJoints.TryGetValue(data.JointId, out var targetJoint)
         )
-            joint = _joint as DistanceJoint;
+            joint = targetJoint as DistanceJoint;
 
         // Client: set max distance to infinity to prevent the client from ever predicting leashes.
         if (_net.IsClient)

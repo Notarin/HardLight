@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Numerics;
 using Content.Client.Gameplay;
 using Content.Client.Stylesheets;
@@ -50,7 +49,7 @@ namespace Content.Client.Voting.UI
 
         public Dictionary<NetUserId, (NetEntity, string)> PlayerList = new();
 
-        public OptionButton? _followDropdown = null;
+        public OptionButton? FollowDropdown = null;
 
         public bool IsAllowedVotekick = false;
 
@@ -200,13 +199,13 @@ namespace Content.Client.Voting.UI
 
         private void FollowSelected(Button.ButtonEventArgs obj)
         {
-            if (_followDropdown == null)
+            if (FollowDropdown == null)
                 return;
 
-            if (_followDropdown.SelectedId >= PlayerList.Count)
+            if (FollowDropdown.SelectedId >= PlayerList.Count)
                 return;
 
-            var netEntity = PlayerList.ElementAt(_followDropdown.SelectedId).Value.Item1;
+            var netEntity = PlayerList.ElementAt(FollowDropdown.SelectedId).Value.Item1;
 
             var msg = new GhostWarpToTargetRequestEvent(netEntity);
             _entNetManager.SendSystemNetworkMessage(msg);
@@ -256,7 +255,7 @@ namespace Content.Client.Voting.UI
                     optionButton.Margin = new Thickness(2, 1);
                     if (AvailableVoteOptions[(StandardVoteType)obj.Id].FollowDropdownId != null && AvailableVoteOptions[(StandardVoteType)obj.Id].FollowDropdownId == i)
                     {
-                        _followDropdown = optionButton;
+                        FollowDropdown = optionButton;
                         FollowButton.Visible = true;
                     }
                     i++;

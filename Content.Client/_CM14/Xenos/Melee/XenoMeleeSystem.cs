@@ -4,7 +4,6 @@ using Content.Shared.CM14.Xenos.Melee;
 using Robust.Client.Animations;
 using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
-using Robust.Shared.Console;
 using Robust.Shared.Enums;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
@@ -18,11 +17,10 @@ public sealed class XenoMeleeSystem : SharedXenoMeleeSystem
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly IOverlayManager _overlays = default!;
     [Dependency] private readonly TransformSystem _transform = default!;
+    [Dependency] private readonly SpriteSystem _sprite = default!;
 
     private const string TailAnimationKey = "cm-xeno-tail";
     private const string TailFadeAnimationKey = "cm-xeno-tail-fade";
-
-    private bool _showTailAttack;
 
     public override void Initialize()
     {
@@ -58,7 +56,7 @@ public sealed class XenoMeleeSystem : SharedXenoMeleeSystem
 
         var sprite = EnsureComp<SpriteComponent>(animationEnt);
         sprite.NoRotation = true;
-        sprite.Rotation = localPos.ToWorldAngle();
+        _sprite.SetRotation((animationEnt, sprite), localPos.ToWorldAngle());
 
         // lie by 20% so the player feels less bad about missing
         var distance = localPos.Length() * 0.80f;

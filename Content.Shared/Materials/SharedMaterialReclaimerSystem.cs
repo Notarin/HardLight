@@ -1,10 +1,6 @@
-using System.Linq;
 using Content.Shared.Administration.Logs;
 using Content.Shared.Audio;
-using Content.Shared.Body.Components;
 using Content.Shared.Database;
-using Content.Shared.Emag.Components;
-using Content.Shared.Emag.Systems;
 using Content.Shared.Examine;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Stacks;
@@ -26,7 +22,7 @@ public abstract class SharedMaterialReclaimerSystem : EntitySystem
     [Dependency] private readonly ISharedAdminLogManager _adminLog = default!;
     [Dependency] protected readonly IGameTiming Timing = default!;
     [Dependency] protected readonly SharedAmbientSoundSystem AmbientSound = default!;
-    [Dependency] protected readonly SharedAudioSystem _audio = default!; // Frontier: private<protected
+    [Dependency] protected readonly SharedAudioSystem Audio = default!;
     [Dependency] protected readonly SharedContainerSystem Container = default!;
     [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
     //[Dependency] private readonly EmagSystem _emag = default!; // Frontier: no point
@@ -51,7 +47,7 @@ public abstract class SharedMaterialReclaimerSystem : EntitySystem
 
     private void OnShutdown(EntityUid uid, MaterialReclaimerComponent component, ComponentShutdown args)
     {
-        _audio.Stop(component.Stream);
+        Audio.Stop(component.Stream);
     }
 
     private void OnExamined(EntityUid uid, MaterialReclaimerComponent component, ExaminedEvent args)
@@ -120,12 +116,12 @@ public abstract class SharedMaterialReclaimerSystem : EntitySystem
         {
             // Frontier: tear down previous stream just in case, allow non-predicted audio
             if (component.Stream != null)
-                _audio.Stop(component.Stream);
+                Audio.Stop(component.Stream);
 
             if (predictSound)
-                component.Stream = _audio.PlayPredicted(component.Sound, uid, user)?.Entity;
+                component.Stream = Audio.PlayPredicted(component.Sound, uid, user)?.Entity;
             else
-                component.Stream = _audio.PlayPvs(component.Sound, uid)?.Entity;
+                component.Stream = Audio.PlayPvs(component.Sound, uid)?.Entity;
             // End Frontier
             component.NextSound = Timing.CurTime + component.SoundCooldown;
         }
@@ -180,7 +176,7 @@ public abstract class SharedMaterialReclaimerSystem : EntitySystem
         component.ItemsProcessed++;
         if (component.CutOffSound)
         {
-            _audio.Stop(component.Stream);
+            Audio.Stop(component.Stream);
         }
 
         Dirty(uid, component);

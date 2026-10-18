@@ -1,14 +1,12 @@
 // SPDX-FileCopyrightText: 2025 BombasterDS <deniskaporoshok@gmail.com>
 // SPDX-FileCopyrightText: 2025 GoobBot <uristmchands@proton.me>
 
-using System.Linq;
 using Content.Goobstation.Common.Weapons.Multishot;
 using Content.Shared.Examine;
 using Content.Shared.Hands.Components;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Popups;
 using Content.Shared.Weapons.Ranged.Events;
-using Content.Shared.Weapons.Ranged.Systems;
 using Content.Shared.Whitelist;
 using Robust.Shared.Timing;
 
@@ -18,7 +16,6 @@ public sealed class RequiresDualWieldSystem : EntitySystem
 {
     [Dependency] private readonly SharedHandsSystem _handsSystem = default!;
     [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedGunSystem _gun = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
 
@@ -40,15 +37,15 @@ public sealed class RequiresDualWieldSystem : EntitySystem
         if (handsComp.Count != 2)
             return;
 
-        var EnumeratedItems = _handsSystem.EnumerateHeld(args.User, handsComp);
+        var enumeratedItems = _handsSystem.EnumerateHeld(args.User, handsComp);
 
-        if (EnumeratedItems.ToList().Count <= 1)
+        if (enumeratedItems.ToList().Count <= 1)
         {
             args.Cancel();
             DualWieldPopup(component, ref args);
         }
 
-        foreach (var held in EnumeratedItems)
+        foreach (var held in enumeratedItems)
         {
             if (held == uid)
                 continue;

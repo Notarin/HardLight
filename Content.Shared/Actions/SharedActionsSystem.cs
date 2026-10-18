@@ -1,9 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
-using System.Collections.Generic;
-using System.Linq;
 using Content.Shared.ActionBlocker;
-using Content.Shared.CM14.Xenos;
-using Content.Shared.Coordinates.Helpers;
 using Content.Shared.Actions.Events;
 using Content.Shared.Administration.Logs;
 using Content.Shared.Database;
@@ -16,8 +12,6 @@ using Content.Shared.Whitelist;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.GameStates;
 using Robust.Shared.Map;
-using Robust.Shared.Network;
-using Robust.Shared.Map.Components;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
@@ -26,7 +20,6 @@ namespace Content.Shared.Actions;
 public abstract class SharedActionsSystem : EntitySystem
 {
     [Dependency] protected readonly IGameTiming GameTiming = default!;
-    [Dependency] private readonly IMapManager _map = default!;
     [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
     [Dependency] private readonly ActionBlockerSystem _actionBlockerSystem = default!;
     [Dependency] private readonly ActionContainerSystem _actionContainer = default!;
@@ -35,8 +28,6 @@ public abstract class SharedActionsSystem : EntitySystem
     [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly SharedInteractionSystem _interactionSystem = default!;
     [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
-    [Dependency] private readonly INetManager _net = default!;
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
 
     private readonly List<EntityUid> _anchored = new();
 
@@ -466,7 +457,7 @@ public abstract class SharedActionsSystem : EntitySystem
                 }
 
                 var entityCoordinatesTarget = GetCoordinates(netCoordinatesTarget);
-                _rotateToFaceSystem.TryFaceCoordinates(user, entityCoordinatesTarget.ToMapPos(EntityManager, _transformSystem));
+                _rotateToFaceSystem.TryFaceCoordinates(user, _transformSystem.ToMapCoordinates(entityCoordinatesTarget).Position);
 
                 if (!ValidateWorldTarget(user, entityCoordinatesTarget, (actionEnt, worldAction)))
                     return;
@@ -766,8 +757,8 @@ public abstract class SharedActionsSystem : EntitySystem
     /// </summary>
     /// <param name="performer">Entity to receive the actions</param>
     /// <param name="actionId">Action entity to add</param>
-    /// <param name="component">The <see cref="performer"/>'s action component of </param>
-    /// <param name="actionPrototypeId">The action entity prototype id to use if <see cref="actionId"/> is invalid.</param>
+    /// <param name="component">The performer's action component of </param>
+    /// <param name="actionPrototypeId">The action entity prototype id to use if actionId is invalid.</param>
     /// <param name="container">The entity that contains/enables this action (e.g., flashlight).</param>
     public bool AddAction(EntityUid performer,
         [NotNullWhen(true)] ref EntityUid? actionId,
@@ -875,9 +866,6 @@ public abstract class SharedActionsSystem : EntitySystem
     /// <summary>
     ///     Grant pre-existing actions. If the entity has no action component, this will give them one.
     /// </summary>
-    /// <param name="performer">Entity to receive the actions</param>
-    /// <param name="actions">The actions to add</param>
-    /// <param name="container">The entity that enables these actions (e.g., flashlight). May be null (innate actions).</param>
     public void GrantActions(EntityUid performer, IEnumerable<EntityUid> actions, EntityUid container, ActionsComponent? comp = null, ActionsContainerComponent? containerComp = null)
     {
         if (!Resolve(container, ref containerComp))

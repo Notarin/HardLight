@@ -150,7 +150,7 @@ namespace Content.Shared.Verbs
 
         /// <summary>
         ///     Compares two verbs based on their <see cref="Priority"/>, <see cref="Category"/>, <see cref="Text"/>,
-        ///     and <see cref="IconTexture"/>.
+        ///     and IconTexture.
         /// </summary>
         /// <remarks>
         ///     <para>

@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.Mech.Equipment.Components;
 using Content.Shared.Timing;
 using Robust.Shared.Audio.Systems;

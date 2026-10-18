@@ -4,7 +4,6 @@ using Robust.Shared.Containers;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
-using System.Linq;
 
 namespace Content.Shared.Magic.Systems;
 

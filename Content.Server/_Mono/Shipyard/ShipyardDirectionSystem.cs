@@ -1,10 +1,8 @@
-using System.Numerics;
 using Content.Server.Chat.Managers;
 using Content.Shared.Chat;
 using Content.Shared.Localizations;
 using Robust.Server.GameObjects;
 using Robust.Server.Player;
-using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 
 namespace Content.Server._Mono.Shipyard;
@@ -16,7 +14,6 @@ public sealed class ShipyardDirectionSystem : EntitySystem
 {
     [Dependency] private readonly IChatManager _chatManager = default!;
     [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
     [Dependency] private readonly TransformSystem _transformSystem = default!;
 
     /// <summary>

@@ -1,7 +1,6 @@
 using Content.Server.Atmos.EntitySystems;
 using Content.Server.Atmos.Piping.Components;
 using Content.Server.Atmos.Piping.Trinary.Components;
-using Content.Server.NodeContainer;
 using Content.Server.NodeContainer.EntitySystems;
 using Content.Server.NodeContainer.Nodes;
 using Content.Shared.Atmos.Piping;
@@ -64,7 +63,7 @@ namespace Content.Server.Atmos.Piping.Trinary.EntitySystems
             UpdateAppearance(uid, comp);
 
             // We multiply the transfer rate in L/s by the seconds passed since the last process to get the liters.
-            var transferVolume = transferRate * args.dt;
+            var transferVolume = transferRate * args.Dt;
             if (transferVolume <= 0)
             {
                 _ambientSoundSystem.SetAmbience(uid, false);

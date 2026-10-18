@@ -1,4 +1,3 @@
-using System;
 using Content.Shared.VendingMachines;
 using NUnit.Framework;
 using Robust.Shared.IoC;
@@ -11,6 +10,11 @@ namespace Content.Tests.Shared.VendingMachines;
 [TestOf(typeof(VendingMachineInventoryResolver))]
 public sealed class VendingMachineInventoryResolverTest : ContentUnitTest
 {
+    private static readonly ProtoId<VendingMachineInventoryPrototype> ResolverTestBaseId = "ResolverTestBase";
+    private static readonly ProtoId<VendingMachineInventoryPrototype> ResolverTestChildOverrideId = "ResolverTestChildOverride";
+    private static readonly ProtoId<VendingMachineInventoryPrototype> ResolverTestUnlimitedChildId = "ResolverTestUnlimitedChild";
+    private static readonly ProtoId<VendingMachineInventoryPrototype> ResolverTestCycleAId = "ResolverTestCycleA";
+
     private IPrototypeManager _prototypeManager = default!;
 
     [OneTimeSetUp]
@@ -69,7 +73,7 @@ public sealed class VendingMachineInventoryResolverTest : ContentUnitTest
     [Test]
     public void NoInheritance_ReturnsOwnEntries()
     {
-        var proto = _prototypeManager.Index<VendingMachineInventoryPrototype>("ResolverTestBase");
+        var proto = _prototypeManager.Index(ResolverTestBaseId);
         var result = VendingMachineInventoryResolver.ResolveRegular(_prototypeManager, proto);
 
         Assert.That(result, Has.Count.EqualTo(2));
@@ -80,7 +84,7 @@ public sealed class VendingMachineInventoryResolverTest : ContentUnitTest
     [Test]
     public void Inheritance_ChildOverridesParent()
     {
-        var proto = _prototypeManager.Index<VendingMachineInventoryPrototype>("ResolverTestChildOverride");
+        var proto = _prototypeManager.Index(ResolverTestChildOverrideId);
         var result = VendingMachineInventoryResolver.ResolveRegular(_prototypeManager, proto);
 
         Assert.That(result, Has.Count.EqualTo(3));
@@ -92,7 +96,7 @@ public sealed class VendingMachineInventoryResolverTest : ContentUnitTest
     [Test]
     public void InheritAsUnlimited_ExpandsParentEntriesToMaxValue()
     {
-        var proto = _prototypeManager.Index<VendingMachineInventoryPrototype>("ResolverTestUnlimitedChild");
+        var proto = _prototypeManager.Index(ResolverTestUnlimitedChildId);
         var result = VendingMachineInventoryResolver.ResolveRegular(_prototypeManager, proto);
 
         Assert.That(result, Has.Count.EqualTo(3));
@@ -104,7 +108,7 @@ public sealed class VendingMachineInventoryResolverTest : ContentUnitTest
     [Test]
     public void CircularInheritance_Throws()
     {
-        var proto = _prototypeManager.Index<VendingMachineInventoryPrototype>("ResolverTestCycleA");
+        var proto = _prototypeManager.Index(ResolverTestCycleAId);
 
         Assert.Throws<InvalidOperationException>(
             () => VendingMachineInventoryResolver.ResolveRegular(_prototypeManager, proto));

@@ -5,7 +5,6 @@ using Content.Shared.Silicons.Borgs.Components;
 using Content.Shared.Whitelist;
 using Robust.Shared.Audio;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Utility;
 
 namespace Content.Shared.Silicons.Borgs;
 
@@ -16,7 +15,6 @@ namespace Content.Shared.Silicons.Borgs;
 [Prototype]
 public sealed partial class BorgTypePrototype : IPrototype
 {
-    [ValidatePrototypeId<SoundCollectionPrototype>]
     private static readonly ProtoId<SoundCollectionPrototype> DefaultFootsteps = new("FootstepBorg");
 
     [IdDataField]

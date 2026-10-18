@@ -1,5 +1,4 @@
 using Content.Shared._Goobstation.ItemMiner;
-using Content.Shared.Stacks;
 using Content.Server.Power.EntitySystems;
 using Content.Server.Stack;
 using Robust.Shared.Audio.Systems;

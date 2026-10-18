@@ -168,7 +168,7 @@ public sealed class StationAiSystem : SharedStationAiSystem
     private bool AiOnStationGrid(Entity<StationAiHeldComponent> ent)
     {
 
-        if (!TryComp<TransformComponent>(ent, out var transComp))
+        if (!TryComp(ent, out TransformComponent? transComp))
             return false;
 
         var owningStation = _station.GetOwningStation(ent);

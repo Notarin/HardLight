@@ -8,13 +8,15 @@ public sealed class VignetteOverlay : Overlay
 {
     [Dependency] private readonly IPrototypeManager _prototype = default!;
 
+    private static readonly ProtoId<ShaderPrototype> ShaderId = "Vignette";
+
     private readonly ShaderInstance _shader;
 
     public VignetteOverlay()
     {
         IoCManager.InjectDependencies(this);
 
-        _shader = _prototype.Index<ShaderPrototype>("Vignette").Instance().Duplicate();
+        _shader = _prototype.Index(ShaderId).Instance().Duplicate();
     }
 
     public override OverlaySpace Space => OverlaySpace.WorldSpace;

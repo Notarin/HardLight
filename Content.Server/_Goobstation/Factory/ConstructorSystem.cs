@@ -2,7 +2,6 @@ using Content.Shared._Goobstation.Factory;
 using Content.Server.Construction;
 using Content.Shared.Construction.Prototypes;
 using Content.Shared.DoAfter;
-using Robust.Shared.Maths;
 
 namespace Content.Server._Goobstation.Factory;
 
@@ -47,7 +46,8 @@ public sealed class ConstructorSystem : SharedConstructorSystem
         var completed = proto.Type switch
         {
             ConstructionType.Structure => await _construction.TryStartStructureConstruction(uid, id, OutputPosition(ent), Angle.Zero),
-            ConstructionType.Item => await _construction.TryStartItemConstruction(id, uid)
+            ConstructionType.Item => await _construction.TryStartItemConstruction(id, uid),
+            _ => throw new ArgumentOutOfRangeException(),
         };
 
         if (completed)

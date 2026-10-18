@@ -8,7 +8,6 @@ using Content.Shared.Item;
 using Content.Shared._DV.Weapons.Ranged;
 using Content.Shared.Weapons.Ranged.Components;
 using Robust.Shared.Prototypes;
-using System.Linq;
 using Content.Shared.Interaction.Events; // Frontier
 using Content.Shared.Weapons.Ranged.Systems; // Frontier
 

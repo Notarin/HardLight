@@ -19,7 +19,6 @@ using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
-using Robust.Shared.Player;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
 
@@ -49,7 +48,7 @@ public sealed class NukeSystem : EntitySystem
     ///     Used to calculate when the nuke song should start playing for maximum kino with the nuke sfx
     /// </summary>
     private float _nukeSongLength;
-    private ResolvedSoundSpecifier _selectedNukeSong = String.Empty;
+    private ResolvedSoundSpecifier? _selectedNukeSong;
 
     /// <summary>
     ///     Time to leave between the nuke song and the nuke alarm playing.
@@ -304,7 +303,7 @@ public sealed class NukeSystem : EntitySystem
         // should play
         if (nuke.RemainingTime <= _nukeSongLength + nuke.AlertSoundTime + NukeSongBuffer && !nuke.PlayedNukeSong && !ResolvedSoundSpecifier.IsNullOrEmpty(_selectedNukeSong))
         {
-            _sound.DispatchStationEventMusic(uid, _selectedNukeSong, StationEventMusicType.Nuke);
+            _sound.DispatchStationEventMusic(uid, _selectedNukeSong!, StationEventMusicType.Nuke);
             nuke.PlayedNukeSong = true;
         }
 

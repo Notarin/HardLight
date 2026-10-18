@@ -3,12 +3,10 @@ using Content.Shared.Administration;
 using Content.Shared.Abilities.Psionics;
 using Content.Shared.Mobs.Components;
 using Robust.Shared.Console;
-using Robust.Server.GameObjects;
 using Content.Shared.Actions;
 using Robust.Shared.Player;
 using Content.Server.Abilities.Psionics;
 using Robust.Shared.Prototypes;
-using Content.Shared.Psionics;
 
 namespace Content.Server.Psionics;
 
@@ -22,7 +20,8 @@ public sealed class ListPsionicsCommand : IConsoleCommand
     {
         SharedActionsSystem actions = default!;
         var entMan = IoCManager.Resolve<IEntityManager>();
-        foreach (var (actor, mob, psionic, meta) in entMan.EntityQuery<ActorComponent, MobStateComponent, PsionicComponent, MetaDataComponent>())
+        var q = entMan.EntityQueryEnumerator<ActorComponent, MobStateComponent, PsionicComponent, MetaDataComponent>();
+        while (q.MoveNext(out var uid, out var actor, out var mob, out var psionic, out var meta))
         {
             // filter out xenos, etc, with innate telepathy
             foreach (var (actionId, actionEntity) in psionic.Actions)
@@ -35,7 +34,7 @@ public sealed class ListPsionicsCommand : IConsoleCommand
                 if (psiPowerName == null)
                     continue;
 
-                shell.WriteLine(meta.EntityName + " (" + meta.Owner + ") - " + actor.PlayerSession.Name + Loc.GetString(psiPowerName));
+                shell.WriteLine(meta.EntityName + " (" + uid + ") - " + actor.PlayerSession.Name + Loc.GetString(psiPowerName));
             }
         }
     }

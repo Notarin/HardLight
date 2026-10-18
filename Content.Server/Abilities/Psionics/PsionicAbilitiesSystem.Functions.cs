@@ -104,7 +104,6 @@ public sealed partial class AddPsionicPowerComponents : Content.Shared.Nyanotras
                 continue;
 
             var comp = (Component)serializationManager.CreateCopy(entry.Component, notNullableOverride: true);
-            comp.Owner = uid;
             entityManager.AddComponent(uid, comp);
         }
     }

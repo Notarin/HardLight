@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Client.Lobby.UI.Loadouts;
 using Content.Shared.Humanoid.Prototypes;
 using Content.Shared.Preferences.Loadouts;
@@ -92,7 +91,7 @@ public sealed partial class HumanoidProfileEditor
 
     private void OpenSpeciesLoadout(SpeciesPrototype species, RoleLoadout speciesLoadout, RoleLoadoutPrototype speciesLoadoutProto)
     {
-        _loadoutWindow?.Dispose();
+        _loadoutWindow?.Close();
         _loadoutWindow = null;
         var collection = IoCManager.Instance;
 

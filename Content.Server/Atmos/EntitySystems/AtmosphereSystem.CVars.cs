@@ -30,7 +30,7 @@ namespace Content.Server.Atmos.EntitySystems
         public bool AllowMapGasExtraction { get; private set; } // Frontier
 
         /// <summary>
-        /// Time between each atmos sub-update.  If you are writing an atmos device, use AtmosDeviceUpdateEvent.dt
+        /// Time between each atmos sub-update.  If you are writing an atmos device, use AtmosDeviceUpdateEvent.Dt
         /// instead of this value, because atmos devices do not update each are sub-update and sometimes are skipped to
         /// meet the tick deadline.
         /// </summary>

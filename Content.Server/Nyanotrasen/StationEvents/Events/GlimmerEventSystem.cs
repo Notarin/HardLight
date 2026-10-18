@@ -1,4 +1,3 @@
-using Content.Server.GameTicking.Rules.Components;
 using Content.Server.Psionics.Glimmer;
 using Content.Shared.Psionics.Glimmer;
 using Content.Shared.GameTicking.Components;

@@ -1,5 +1,4 @@
 using System.Numerics;
-using System.Threading.Tasks;
 using Content.Server.NPC.Pathfinding;
 using Content.Shared.Procedural;
 using Content.Shared.Procedural.PostGeneration;
@@ -18,7 +17,7 @@ public sealed partial class DungeonJob
         DungeonData data,
         List<Dungeon> dungeons,
         HashSet<Vector2i> reservedTiles,
-        Random random)
+        IRobustRandom random)
     {
         // TODO: The path itself use the tile
         // Widen it randomly (probably for each tile offset it by some changing amount).

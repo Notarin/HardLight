@@ -1,6 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
 #pragma warning disable IDE1006 // Naming rule violation: Prefix '_' is not expected
-using System.Linq;
 using System.Numerics;
 using Content.Server._NF.PublicTransit.Components;
 using Content.Server._NF.PublicTransit.Prototypes;
@@ -17,8 +16,6 @@ using Content.Server.Shuttles.Events;
 using Content.Server.Shuttles.Systems;
 using Content.Server.Station.Components;
 using Content.Server.Station.Systems;
-using Content.Server.GameTicking.Presets;
-using Content.Server.GameTicking.Rules;
 using Content.Server.GameTicking.Events;
 using Content.Server._NF.GameTicking.Events;
 using Content.Shared.GameTicking;
@@ -28,7 +25,6 @@ using Content.Shared._NF.PublicTransit.Components;
 using Content.Shared.DeviceNetwork;
 using Content.Shared.DeviceNetwork.Components;
 using Content.Shared.Examine;
-using Content.Shared.Random.Helpers;
 using Content.Shared.Shuttles.Components;
 using Content.Shared.Shuttles.Events;
 using Robust.Server.GameObjects;

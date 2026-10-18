@@ -1,15 +1,10 @@
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Nett;
 using Content.Shared.CCVar;
-using Content.Client.IoC;
 using Robust.Client.Graphics;
 using Robust.Shared.Utility;
 using Robust.Shared.Configuration;
 using Robust.Shared.ContentPack;
-using Robust.Shared.Graphics;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 
@@ -51,7 +46,7 @@ public sealed partial class GeneratedParallaxTextureSource : IParallaxTextureSou
         var parallaxConfig = GetParallaxConfig();
         if (parallaxConfig == null)
         {
-            Logger.ErrorS("parallax", $"Parallax config not found or unreadable: {ParallaxConfigPath}");
+            Logger.GetSawmill("parallax").Error($"Parallax config not found or unreadable: {ParallaxConfigPath}");
             // The show must go on.
             return Texture.Transparent;
         }
@@ -77,7 +72,7 @@ public sealed partial class GeneratedParallaxTextureSource : IParallaxTextureSou
         }
         catch (Exception ex)
         {
-            Logger.ErrorS("parallax", $"Couldn't retrieve parallax cached texture: {ex}");
+            Logger.GetSawmill("parallax").Error($"Couldn't retrieve parallax cached texture: {ex}");
 
             try
             {

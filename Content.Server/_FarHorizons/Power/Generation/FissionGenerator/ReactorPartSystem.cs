@@ -55,14 +55,14 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
     /// <summary>
     /// Temperature (in C) when people's hands can be burnt
     /// </summary>
-    private readonly static float _hotTemp = 80;
+    private static readonly float HotTemp = 80;
 
     /// <summary>
     /// Temperature (in C) when insulated gloves can no longer protect
     /// </summary>
-    private readonly static float _burnTemp = 400;
+    private static readonly float BurnTemp = 400;
 
-    private readonly static float _burnDiv = (_burnTemp - _hotTemp) / 5; // The 5 is how much heat damage insulated gloves protect from
+    private static readonly float BurnDiv = (BurnTemp - HotTemp) / 5; // The 5 is how much heat damage insulated gloves protect from
 
     private readonly float _threshold = 1f;
     private float _accumulator = 0f;
@@ -147,9 +147,9 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
                     break;
             }
 
-            if (comp.Temperature > Atmospherics.T0C + _burnTemp)
+            if (comp.Temperature > Atmospherics.T0C + BurnTemp)
                 args.PushMarkup(Loc.GetString("reactor-part-burning"));
-            else if (comp.Temperature > Atmospherics.T0C + _hotTemp)
+            else if (comp.Temperature > Atmospherics.T0C + HotTemp)
                 args.PushMarkup(Loc.GetString("reactor-part-hot"));
         }
     }
@@ -194,16 +194,16 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
         while (query.MoveNext(out var uid, out var component))
         {
             var gasMix = _atmosphereSystem.GetTileMixture(uid, true) ?? GasMixture.SpaceGas;
-            var DeltaT = (component.Temperature - gasMix.Temperature) * 0.01f;
+            var deltaT = (component.Temperature - gasMix.Temperature) * 0.01f;
 
-            if (Math.Abs(DeltaT) < 0.1)
+            if (Math.Abs(deltaT) < 0.1)
                 continue;
 
             // This viloates the laws of physics, but if energy is conserved, then pulling out a hot rod will turn the room into an oven
             // Also does not take into account thermal mass
-            component.Temperature -= DeltaT;
+            component.Temperature -= deltaT;
             if (!gasMix.Immutable) // This prevents it from heating up space itself
-                gasMix.Temperature += DeltaT;
+                gasMix.Temperature += deltaT;
 
             var burncomp = CompOrNull<DamageOnInteractComponent>(uid);
             if (burncomp is null)
@@ -212,11 +212,11 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
                 burncomp.Damage = new DamageSpecifier();
             }
 
-            burncomp.IsDamageActive = component.Temperature > Atmospherics.T0C + _hotTemp;
+            burncomp.IsDamageActive = component.Temperature > Atmospherics.T0C + HotTemp;
 
             if (burncomp.IsDamageActive)
             {
-                var damage = Math.Max((component.Temperature - Atmospherics.T0C - _hotTemp) / _burnDiv, 0);
+                var damage = Math.Max((component.Temperature - Atmospherics.T0C - HotTemp) / BurnDiv, 0);
 
                 // Giant string of if/else that makes sure it will interfere only as much as it needs to
                 if (burncomp.Damage == null)
@@ -247,44 +247,44 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
         if (!reactorPart.HasRodType(ReactorPartComponent.RodTypes.GasChannel))
             return null;
 
-        GasMixture? ProcessedGas = null;
+        GasMixture? processedGas = null;
         if (reactorPart.AirContents != null)
         {
             var compTemp = reactorPart.Temperature;
             var gasTemp = reactorPart.AirContents.Temperature;
 
-            var DeltaT = compTemp - gasTemp;
-            var DeltaTr = (compTemp + gasTemp) * (compTemp - gasTemp) * (Math.Pow(compTemp, 2) + Math.Pow(gasTemp, 2));
+            var deltaT = compTemp - gasTemp;
+            var deltaTr = (compTemp + gasTemp) * (compTemp - gasTemp) * (Math.Pow(compTemp, 2) + Math.Pow(gasTemp, 2));
 
             var k = MaterialSystem.CalculateHeatTransferCoefficient(reactorPart.Properties, null);
-            var A = reactorPart.GasThermalCrossSection * (0.4 * 8);
+            var a = reactorPart.GasThermalCrossSection * (0.4 * 8);
 
-            var ThermalEnergy = _atmosphereSystem.GetThermalEnergy(reactorPart.AirContents);
+            var thermalEnergy = _atmosphereSystem.GetThermalEnergy(reactorPart.AirContents);
 
-            var Hottest = Math.Max(gasTemp, compTemp);
-            var Coldest = Math.Min(gasTemp, compTemp);
+            var hottest = Math.Max(gasTemp, compTemp);
+            var coldest = Math.Min(gasTemp, compTemp);
 
-            var MaxDeltaE = Math.Clamp((k * A * DeltaT) + (5.67037442e-8 * A * DeltaTr),
-                (compTemp * reactorPart.ThermalMass) - (Hottest * reactorPart.ThermalMass),
-                (compTemp * reactorPart.ThermalMass) - (Coldest * reactorPart.ThermalMass));
+            var maxDeltaE = Math.Clamp((k * a * deltaT) + (5.67037442e-8 * a * deltaTr),
+                (compTemp * reactorPart.ThermalMass) - (hottest * reactorPart.ThermalMass),
+                (compTemp * reactorPart.ThermalMass) - (coldest * reactorPart.ThermalMass));
 
             reactorPart.AirContents.Temperature = (float)Math.Clamp(gasTemp +
-                (MaxDeltaE / _atmosphereSystem.GetHeatCapacity(reactorPart.AirContents, true)), Coldest, Hottest);
+                (maxDeltaE / _atmosphereSystem.GetHeatCapacity(reactorPart.AirContents, true)), coldest, hottest);
 
             reactorPart.Temperature = (float)Math.Clamp(compTemp -
-                ((_atmosphereSystem.GetThermalEnergy(reactorPart.AirContents) - ThermalEnergy) / reactorPart.ThermalMass), Coldest, Hottest);
+                ((_atmosphereSystem.GetThermalEnergy(reactorPart.AirContents) - thermalEnergy) / reactorPart.ThermalMass), coldest, hottest);
 
             if (gasTemp < 0 || compTemp < 0)
                 throw new Exception("Reactor part temperature went below 0k.");
 
             if (reactorPart.Melted)
             {
-                var T = _atmosphereSystem.GetTileMixture(reactorEnt.Owner, excite: true);
-                if (T != null)
-                    _atmosphereSystem.Merge(T, reactorPart.AirContents);
+                var t = _atmosphereSystem.GetTileMixture(reactorEnt.Owner, excite: true);
+                if (t != null)
+                    _atmosphereSystem.Merge(t, reactorPart.AirContents);
             }
             else
-                ProcessedGas = reactorPart.AirContents;
+                processedGas = reactorPart.AirContents;
         }
 
         if (inGas != null && _atmosphereSystem.GetThermalEnergy(inGas) > 0)
@@ -294,19 +294,19 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
 
             if (reactorPart.AirContents != null && reactorPart.AirContents.TotalMoles < 1)
             {
-                if (ProcessedGas != null)
+                if (processedGas != null)
                 {
-                    _atmosphereSystem.Merge(ProcessedGas, reactorPart.AirContents);
+                    _atmosphereSystem.Merge(processedGas, reactorPart.AirContents);
                     reactorPart.AirContents.Clear();
                 }
                 else
                 {
-                    ProcessedGas = reactorPart.AirContents;
+                    processedGas = reactorPart.AirContents;
                     reactorPart.AirContents.Clear();
                 }
             }
         }
-        return ProcessedGas;
+        return processedGas;
     }
 
     /// <summary>
@@ -314,43 +314,43 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
     /// </summary>
     /// <param name="reactorPart">Reactor part applying the calculations.</param>
     /// <param name="reactorEnt">Reactor housing the reactor part.</param>
-    /// <param name="AdjacentComponents">List of reactor parts next to the reactorPart.</param>
+    /// <param name="adjacentComponents">List of reactor parts next to the reactorPart.</param>
     /// <param name="reactorSystem">The SharedNuclearReactorSystem.</param>
     /// <exception cref="Exception">Calculations resulted in a sub-zero value.</exception>
-    public void ProcessHeat(ReactorPartComponent reactorPart, Entity<NuclearReactorComponent> reactorEnt, ReactorPartComponent?[] AdjacentComponents, SharedNuclearReactorSystem reactorSystem)
+    public void ProcessHeat(ReactorPartComponent reactorPart, Entity<NuclearReactorComponent> reactorEnt, ReactorPartComponent?[] adjacentComponents, SharedNuclearReactorSystem reactorSystem)
     {
         var reactor = reactorEnt.Comp;
 
         // Intercomponent calculation
-        foreach (var RC in AdjacentComponents)
+        foreach (var rc in adjacentComponents)
         {
-            if (RC == null)
+            if (rc == null)
                 continue;
 
-            var DeltaT = reactorPart.Temperature - RC.Temperature;
-            var k = MaterialSystem.CalculateHeatTransferCoefficient(reactorPart.Properties, RC.Properties);
-            var A = Math.Min(reactorPart.ThermalCrossSection, RC.ThermalCrossSection);
+            var deltaT = reactorPart.Temperature - rc.Temperature;
+            var k = MaterialSystem.CalculateHeatTransferCoefficient(reactorPart.Properties, rc.Properties);
+            var a = Math.Min(reactorPart.ThermalCrossSection, rc.ThermalCrossSection);
 
-            reactorPart.Temperature = (float)(reactorPart.Temperature - (k * A * (0.5 * 8) / reactorPart.ThermalMass * DeltaT));
-            RC.Temperature = (float)(RC.Temperature - (k * A * (0.5 * 8) / RC.ThermalMass * -DeltaT));
+            reactorPart.Temperature = (float)(reactorPart.Temperature - (k * a * (0.5 * 8) / reactorPart.ThermalMass * deltaT));
+            rc.Temperature = (float)(rc.Temperature - (k * a * (0.5 * 8) / rc.ThermalMass * -deltaT));
 
-            if (RC.Temperature < 0 || reactorPart.Temperature < 0)
+            if (rc.Temperature < 0 || reactorPart.Temperature < 0)
                 throw new Exception("ReactorPart-ReactorPart temperature calculation resulted in sub-zero value.");
 
-            ProcessHeatEffects(RC);
+            ProcessHeatEffects(rc);
             ProcessHeatEffects(reactorPart);
         }
 
         // Component-Reactor calculation
         if (reactor != null)
         {
-            var DeltaT = reactorPart.Temperature - reactor.Temperature;
+            var deltaT = reactorPart.Temperature - reactor.Temperature;
 
             var k = MaterialSystem.CalculateHeatTransferCoefficient(reactorPart.Properties, _proto.Index(reactor.Material).Properties);
-            var A = reactorPart.ThermalCrossSection;
+            var a = reactorPart.ThermalCrossSection;
 
-            reactorPart.Temperature = (float)(reactorPart.Temperature - (k * A * (0.5 * 8) / reactorPart.ThermalMass * DeltaT));
-            reactor.Temperature = (float)(reactor.Temperature - (k * A * (0.5 * 8) / reactor.ThermalMass * -DeltaT));
+            reactorPart.Temperature = (float)(reactorPart.Temperature - (k * a * (0.5 * 8) / reactorPart.ThermalMass * deltaT));
+            reactor.Temperature = (float)(reactor.Temperature - (k * a * (0.5 * 8) / reactor.ThermalMass * -deltaT));
 
             if (reactor.Temperature < 0 || reactorPart.Temperature < 0)
                 throw new Exception("Reactor-ReactorPart temperature calculation resulted in sub-zero value.");
@@ -434,23 +434,23 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
         {
             if (Prob(reactorPart.Properties.Density * _rate * reactorPart.NeutronCrossSection * _bias))
             {
-                if (neutron.velocity <= 1 && Prob(_rate * reactorPart.Properties.NeutronRadioactivity * _bias)) // neutron stimulated emission
+                if (neutron.Velocity <= 1 && Prob(_rate * reactorPart.Properties.NeutronRadioactivity * _bias)) // neutron stimulated emission
                 {
                     reactorPart.Properties.NeutronRadioactivity -= _reactant;
                     reactorPart.Properties.Radioactivity += _product;
                     for (var i = 0; i < _random.Next(3, 5 + 1); i++) // was 1, 5+1
                     {
-                        result.Add(new() { dir = _random.NextAngle().GetDir(), velocity = _random.Next(2, 3 + 1) });
+                        result.Add(new() { Dir = _random.NextAngle().GetDir(), Velocity = _random.Next(2, 3 + 1) });
                     }
                     reactorPart.Temperature += 75f; // Was 50, increased to make neutron reactions stronger
                 }
-                else if (neutron.velocity <= 5 && Prob(_rate * reactorPart.Properties.Radioactivity * _bias)) // stimulated emission
+                else if (neutron.Velocity <= 5 && Prob(_rate * reactorPart.Properties.Radioactivity * _bias)) // stimulated emission
                 {
                     reactorPart.Properties.Radioactivity -= _reactant;
                     reactorPart.Properties.FissileIsotopes += _product;
                     for (var i = 0; i < _random.Next(3, 5 + 1); i++)// was 1, 5+1
                     {
-                        result.Add(new() { dir = _random.NextAngle().GetDir(), velocity = _random.Next(1, 3 + 1) });
+                        result.Add(new() { Dir = _random.NextAngle().GetDir(), Velocity = _random.Next(1, 3 + 1) });
                     }
                     reactorPart.Temperature += 50f; // Was 25, increased to make neutron reactions stronger
                 }
@@ -458,13 +458,13 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
                 {
                     if (Prob(_rate * reactorPart.Properties.Hardness)) // reflection, based on hardness
                         // A really complicated way of saying do a 180 or a 180+/-45
-                        neutron.dir = (neutron.dir.GetOpposite().ToAngle() + (_random.NextAngle() / 4) - (MathF.Tau / 8)).GetDir();
+                        neutron.Dir = (neutron.Dir.GetOpposite().ToAngle() + (_random.NextAngle() / 4) - (MathF.Tau / 8)).GetDir();
                     else if (reactorPart.IsControlRod)
-                        neutron.velocity = 0;
+                        neutron.Velocity = 0;
                     else
-                        neutron.velocity--;
+                        neutron.Velocity--;
 
-                    if (neutron.velocity > 0)
+                    if (neutron.Velocity > 0)
                         result.Add(neutron);
 
                     reactorPart.Temperature += 1; // ... not worth the adjustment
@@ -480,7 +480,7 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
             var count = _random.Next(1, 5 + 1); // Was 3+1
             for (var i = 0; i < count; i++)
             {
-                result.Add(new() { dir = _random.NextAngle().GetDir(), velocity = 3 });
+                result.Add(new() { Dir = _random.NextAngle().GetDir(), Velocity = 3 });
             }
             reactorPart.Properties.NeutronRadioactivity -= _reactant / 2;
             reactorPart.Properties.Radioactivity += _product / 2;
@@ -492,7 +492,7 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
             var count = _random.Next(1, 5 + 1); // Was 3+1
             for (var i = 0; i < count; i++)
             {
-                result.Add(new() { dir = _random.NextAngle().GetDir(), velocity = _random.Next(1, 3 + 1) });
+                result.Add(new() { Dir = _random.NextAngle().GetDir(), Velocity = _random.Next(1, 3 + 1) });
             }
             reactorPart.Properties.Radioactivity -= _reactant / 2;
             reactorPart.Properties.FissileIsotopes += _product / 2;
@@ -531,14 +531,14 @@ public sealed partial class ReactorPartSystem : SharedReactorPartSystem
         var result = new List<ReactorNeutron>(neutrons.Count + 8);
         foreach (var neutron in neutrons)
         {
-            if (neutron.velocity <= 0)
+            if (neutron.Velocity <= 0)
                 continue;
 
             var neutronCount = GasNeutronInteract(reactorPart);
             if (neutronCount > 1)
             {
                 for (var i = 0; i < neutronCount; i++)
-                    result.Add(new() { dir = _random.NextAngle().GetDir(), velocity = _random.Next(1, 3 + 1) });
+                    result.Add(new() { Dir = _random.NextAngle().GetDir(), Velocity = _random.Next(1, 3 + 1) });
             }
             else if (neutronCount >= 1)
             {

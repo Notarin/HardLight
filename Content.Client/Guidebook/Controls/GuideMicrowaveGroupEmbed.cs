@@ -1,5 +1,4 @@
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using Content.Client.Guidebook.Richtext;
 using Content.Shared.Kitchen;
 using JetBrains.Annotations;
@@ -34,7 +33,7 @@ public sealed partial class GuideMicrowaveGroupEmbed : BoxContainer, IDocumentTa
         control = null;
         if (!args.TryGetValue("Group", out var group))
         {
-            Logger.Error("Microwave group embed tag is missing group argument");
+            Logger.GetSawmill("guidebook").Error("Microwave group embed tag is missing group argument");
             return false;
         }
 

@@ -45,7 +45,7 @@ public partial class MapGridControl : LayoutContainer
     /// </summary>
     public Vector2 TargetOffset;
 
-    protected bool _draggin; // Mono: private -> protected
+    protected bool Draggin; // Mono: private -> protected
     protected Vector2 StartDragPosition;
     protected bool Recentering;
 
@@ -121,7 +121,7 @@ public partial class MapGridControl : LayoutContainer
         if (args.Function == EngineKeyFunctions.Use)
         {
             StartDragPosition = args.PointerLocation.Position;
-            _draggin = true;
+            Draggin = true;
         }
     }
 
@@ -131,14 +131,14 @@ public partial class MapGridControl : LayoutContainer
             return;
 
         if (args.Function == EngineKeyFunctions.Use)
-            _draggin = false;
+            Draggin = false;
     }
 
     protected override void MouseMove(GUIMouseMoveEventArgs args)
     {
         base.MouseMove(args);
 
-        if (!_draggin)
+        if (!Draggin)
             return;
 
         Recentering = false;

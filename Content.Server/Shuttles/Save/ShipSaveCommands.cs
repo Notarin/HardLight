@@ -2,9 +2,6 @@ using Content.Server.Administration;
 using Content.Shared.Administration;
 using Content.Shared._NF.Shipyard.Components;
 using Robust.Shared.Console;
-using Robust.Shared.GameObjects;
-using Robust.Shared.IoC;
-using Robust.Shared.Player;
 
 namespace Content.Server.Shuttles.Save
 {

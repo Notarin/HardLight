@@ -3,7 +3,6 @@ using Content.Shared._Funkystation.Genetics.Events;
 using Content.Shared.Actions;
 using Content.Shared.Weapons.Ranged;
 using Content.Shared.Weapons.Ranged.Components;
-using Content.Shared.Weapons.Ranged.Events;
 using Content.Shared.Weapons.Ranged.Systems;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Prototypes;
@@ -16,6 +15,9 @@ public sealed class MutationOpticEnergizerSystem : EntitySystem
     [Dependency] private readonly SharedGunSystem _gun = default!;
     [Dependency] private readonly IPrototypeManager _proto = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private readonly SharedTransformSystem _transform = default!;
+
+    private static readonly ProtoId<HitscanPrototype> LaserHitscanId = "RedMediumLaser";
 
     public override void Initialize()
     {
@@ -43,10 +45,10 @@ public sealed class MutationOpticEnergizerSystem : EntitySystem
 
         args.Handled = true;
 
-        if (!TryComp<TransformComponent>(uid, out var xform))
+        if (!TryComp(uid, out TransformComponent? xform))
             return;
 
-        var from = xform.MapPosition;
+        var from = _transform.GetMapCoordinates(uid, xform);
         var to = args.Target.Position;
 
         var direction = (to - from.Position);
@@ -59,7 +61,7 @@ public sealed class MutationOpticEnergizerSystem : EntitySystem
             _audio.PlayPvs(EntityManager.GetComponentOrNull<WorldTargetActionComponent>(action)?.Sound, uid);
         }
 
-        var hitscanProto = _proto.Index<HitscanPrototype>("RedMediumLaser");
+        var hitscanProto = _proto.Index(LaserHitscanId);
 
         var ammoList = new List<(EntityUid? Entity, IShootable Shootable)>
         {

@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.GameTicking;
 using Content.Server.RoundEnd;
 using Content.Server.StationEvents.Components;
@@ -9,7 +8,7 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Content.Shared.EntityTable.EntitySelectors;
 using Content.Shared.EntityTable;
-using Content.Server.Mind; // Frontier
+// Frontier
 using Content.Server._NF.Roles.Systems; // Frontier
 
 using Content.Server.Psionics.Glimmer;
@@ -186,8 +185,6 @@ public sealed class EventManagerSystem : EntitySystem
     /// <summary>
     /// Gets the events that have met their player count, time-until start, etc.
     /// </summary>
-    /// <param name="playerCountOverride">Override for player count, if using this to simulate events rather than in an actual round.</param>
-    /// <param name="currentTimeOverride">Override for round time, if using this to simulate events rather than in an actual round.</param>
     /// <returns></returns>
     public Dictionary<EntityPrototype, StationEventComponent> AvailableEvents(
         bool ignoreEarliestStart = false,
@@ -301,7 +298,7 @@ public sealed class EventManagerSystem : EntitySystem
         // Nyano - Summary: - Begin modified code block: check for glimmer events.
         // This could not be cleanly done anywhere else.
         if (_configurationManager.GetCVar(CCVars.GlimmerEnabled) &&
-            prototype.TryGetComponent<GlimmerEventComponent>(out var glimmerEvent) &&
+            prototype.TryGetComponent<GlimmerEventComponent>(out var glimmerEvent, EntityManager.ComponentFactory) &&
             (_glimmerSystem.Glimmer < glimmerEvent.MinimumGlimmer ||
             _glimmerSystem.Glimmer > glimmerEvent.MaximumGlimmer))
         {

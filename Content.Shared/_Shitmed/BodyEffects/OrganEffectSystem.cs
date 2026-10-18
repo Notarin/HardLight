@@ -5,13 +5,12 @@ using Content.Shared.Body.Organ;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.Manager;
 using Robust.Shared.Timing;
-using System.Linq;
 using Robust.Shared.Network;
 
 
 namespace Content.Shared._Shitmed.BodyEffects;
 
-public partial class OrganEffectSystem : EntitySystem
+public sealed partial class OrganEffectSystem : EntitySystem
 {
     [Dependency] private readonly ISerializationManager _serManager = default!;
     [Dependency] private readonly IGameTiming _gameTiming = default!;
@@ -82,7 +81,6 @@ public partial class OrganEffectSystem : EntitySystem
                 continue;
 
             var newComp = (Component)_serManager.CreateCopy(comp.Component, notNullableOverride: true);
-            newComp.Owner = body;
             AddComp(body, newComp, true);
             effectComp.Active[key] = comp;
             if (newComp.NetSyncEnabled)

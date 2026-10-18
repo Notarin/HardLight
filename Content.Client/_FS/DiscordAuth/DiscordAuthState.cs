@@ -1,4 +1,3 @@
-using System.Threading;
 using Content.Shared._FS.DiscordAuth;
 using Robust.Client.State;
 using Robust.Client.UserInterface;
@@ -31,6 +30,6 @@ public sealed class DiscordAuthState : State
     protected override void Shutdown()
     {
         _checkTimerCancel.Cancel();
-        _gui!.Dispose();
+        _gui!.Orphan();
     }
 }

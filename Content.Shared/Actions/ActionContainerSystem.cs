@@ -1,5 +1,4 @@
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using Content.Shared.Ghost;
 using Content.Shared.Mind;
 using Content.Shared.Mind.Components;
@@ -11,7 +10,7 @@ using Robust.Shared.Utility;
 namespace Content.Shared.Actions;
 
 /// <summary>
-/// Handles storing & spawning action entities in a container.
+/// Handles storing &amp; spawning action entities in a container.
 /// </summary>
 public sealed class ActionContainerSystem : EntitySystem
 {

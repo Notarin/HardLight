@@ -1,8 +1,5 @@
-using System.Linq;
-using System.Numerics;
 using Content.Server.Anomaly.Components;
 using Content.Server.DeviceLinking.Systems;
-using Content.Server.Power.Components;
 using Content.Server.Power.EntitySystems;
 using Content.Shared.Anomaly.Components;
 using Content.Shared.Examine;
@@ -50,7 +47,7 @@ public sealed partial class AnomalySynchronizerSystem : EntitySystem
         var query = EntityQueryEnumerator<AnomalySynchronizerComponent>();
         while (query.MoveNext(out var uid, out var sync))
         {
-            if (!TryComp<TransformComponent>(uid, out var xform))
+            if (!TryComp(uid, out TransformComponent? xform))
                 continue;
 
             if (sync.ConnectedAnomaly is not { } anomalyUid)
@@ -63,7 +60,7 @@ public sealed partial class AnomalySynchronizerSystem : EntitySystem
             if (!Exists(anomalyUid)
                 || EntityManager.IsQueuedForDeletion(anomalyUid)
                 || TerminatingOrDeleted(anomalyUid)
-                || !TryComp<TransformComponent>(anomalyUid, out var anomalyXform))
+                || !TryComp(anomalyUid, out TransformComponent? anomalyXform))
             {
                 DisconnectFromAnomaly((uid, sync), anomalyUid);
                 continue;

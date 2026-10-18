@@ -3,8 +3,6 @@
 // SPDX-License-Identifier: MPL-2.0
 
 using Content.Shared.Damage;
-using Robust.Shared.GameObjects;
-using Robust.Shared.Serialization.Manager.Attributes;
 
 namespace Content.Shared.Weapons.Hitscan.Components;
 

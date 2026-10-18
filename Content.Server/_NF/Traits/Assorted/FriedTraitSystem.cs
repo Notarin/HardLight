@@ -1,4 +1,3 @@
-using Content.Server.Kitchen.EntitySystems;
 using Content.Server.Nyanotrasen.Kitchen.EntitySystems;
 
 namespace Content.Server._NF.Traits.Assorted;

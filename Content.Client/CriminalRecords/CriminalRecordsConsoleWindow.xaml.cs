@@ -13,7 +13,6 @@ using Robust.Client.UserInterface.XAML;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
-using System.Linq;
 using System.Numerics;
 using Content.Shared.StatusIcon;
 using Robust.Client.GameObjects;
@@ -33,8 +32,7 @@ public sealed partial class CriminalRecordsConsoleWindow : FancyWindow
 
     public readonly EntityUid Console;
 
-    [ValidatePrototypeId<LocalizedDatasetPrototype>]
-    private const string ReasonPlaceholders = "CriminalRecordsWantedReasonPlaceholders";
+    private static readonly ProtoId<LocalizedDatasetPrototype> ReasonPlaceholders = "CriminalRecordsWantedReasonPlaceholders";
 
     public Action<uint?>? OnKeySelected;
     public Action<StationRecordFilterType, string>? OnFiltersChanged;

@@ -1,15 +1,8 @@
 using Content.Server.Antag;
-using Content.Server.GameTicking.Rules;
-using Content.Server.GameTicking.Rules.Components;
-using Content.Server.Silicons.Borgs;
-using Content.Shared.Destructible;
-using Content.Shared.Mind;
 using Content.Shared.Mind.Components;
 using Content.Shared.Roles;
 using Content.Shared.Roles.Components;
-using Content.Shared.Silicons.Borgs.Components;
 using Content.Shared.Xenoborgs.Components;
-using Robust.Shared.Audio;
 using Robust.Shared.Player;
 
 namespace Content.Server.Xenoborgs;
@@ -17,9 +10,7 @@ namespace Content.Server.Xenoborgs;
 public sealed partial class XenoborgSystem : EntitySystem
 {
     [Dependency] private readonly AntagSelectionSystem _antag = default!;
-    [Dependency] private readonly BorgSystem _borg = default!;
     [Dependency] private readonly SharedRoleSystem _roles = default!;
-    [Dependency] private readonly XenoborgsRuleSystem _xenoborgsRule = default!;
 
     private static readonly Color XenoborgBriefingColor = Color.BlueViolet;
 

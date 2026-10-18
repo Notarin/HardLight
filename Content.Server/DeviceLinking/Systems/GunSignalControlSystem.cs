@@ -1,6 +1,5 @@
 using Content.Server.DeviceLinking.Components;
 using Content.Shared.DeviceLinking.Events;
-using Content.Shared.Maths;
 using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Systems;
 using Robust.Shared.Map;

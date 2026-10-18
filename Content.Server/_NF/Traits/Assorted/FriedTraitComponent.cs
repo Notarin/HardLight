@@ -1,4 +1,3 @@
-using System.Numerics;
 using Content.Shared.Nyanotrasen.Kitchen.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 

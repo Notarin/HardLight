@@ -1,11 +1,9 @@
 using Content.Shared._NF.LoggingExtensions; // Frontier
 using Content.Shared._NF.Item; // Frontier
-using Content.Shared.Clothing.Components;
 using Content.Shared.Database;
 using Content.Shared.Hands.Components;
 using Content.Shared.Item;
 using Robust.Shared.Containers;
-using Robust.Shared.Map;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
 
@@ -199,7 +197,6 @@ public abstract partial class SharedHandsSystem : EntitySystem
     /// <summary>
     ///     Puts an item into any hand, preferring the active hand, or puts it on the floor.
     /// </summary>
-    /// <param name="dropNear">If true, the item will be dropped near the owner of the hand if possible.</param>
     public void PickupOrDrop(
         EntityUid? uid,
         EntityUid entity,

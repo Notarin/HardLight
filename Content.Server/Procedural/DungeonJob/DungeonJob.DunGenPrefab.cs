@@ -1,8 +1,6 @@
 using System.Numerics;
-using System.Threading.Tasks;
 using Content.Shared.Procedural;
 using Content.Shared.Procedural.DungeonGenerators;
-using Content.Shared.Whitelist;
 using Robust.Shared.Map;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
@@ -14,7 +12,7 @@ public sealed partial class DungeonJob
     /// <summary>
     /// <see cref="PrefabDunGen"/>
     /// </summary>
-    private async Task<Dungeon> GeneratePrefabDunGen(Vector2i position, DungeonData data, PrefabDunGen prefab, HashSet<Vector2i> reservedTiles, Random random)
+    private async Task<Dungeon> GeneratePrefabDunGen(Vector2i position, DungeonData data, PrefabDunGen prefab, HashSet<Vector2i> reservedTiles, IRobustRandom random)
     {
         if (!data.Tiles.TryGetValue(DungeonDataKey.FallbackTile, out var tileProto) ||
             !data.Whitelists.TryGetValue(DungeonDataKey.Rooms, out var roomWhitelist))
@@ -297,7 +295,7 @@ public sealed partial class DungeonJob
         return dungeon;
     }
 
-    private void SetDungeonEntrance(Dungeon dungeon, DungeonRoom room, HashSet<Vector2i> reservedTiles, Random random)
+    private void SetDungeonEntrance(Dungeon dungeon, DungeonRoom room, HashSet<Vector2i> reservedTiles, IRobustRandom random)
     {
         // TODO: Move to dungeonsystem.
 

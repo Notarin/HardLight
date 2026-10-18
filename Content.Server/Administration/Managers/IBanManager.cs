@@ -1,7 +1,5 @@
-using System.Collections.Immutable;
 using System.Net;
 using System.Net.Sockets;
-using System.Threading.Tasks;
 using Content.Shared.Database;
 using Content.Shared.Roles;
 using Robust.Shared.Network;
@@ -23,13 +21,6 @@ public interface IBanManager
     /// <summary>
     /// Bans the specified target, address range and / or HWID. One of them must be non-null
     /// </summary>
-    /// <param name="target">Target user, username or GUID, null for none</param>
-    /// <param name="banningAdmin">The person who banned our target</param>
-    /// <param name="addressRange">Address range, null for none</param>
-    /// <param name="hwid">H</param>
-    /// <param name="minutes">Number of minutes to ban for. 0 and null mean permanent</param>
-    /// <param name="severity">Severity of the resulting ban note</param>
-    /// <param name="reason">Reason for the ban</param>
     [Obsolete("Use CreateServerBan(CreateBanInfo) instead")]
     public void CreateServerBan(NetUserId? target,
         string? targetUsername,
@@ -257,7 +248,7 @@ public abstract class CreateBanInfo
     /// <param name="minutes">The duration of the ban, in minutes.</param>
     /// <returns>The current object, for easy chaining.</returns>
     /// <exception cref="ArgumentOutOfRangeException">
-    /// Thrown if <see cref="minutes"/> is not a positive number.
+    /// Thrown if minutes is not a positive number.
     /// </exception>
     public CreateBanInfo WithMinutes(int minutes)
     {
@@ -274,7 +265,7 @@ public abstract class CreateBanInfo
     /// <param name="minutes">The duration of the ban, in minutes.</param>
     /// <returns>The current object, for easy chaining.</returns>
     /// <exception cref="ArgumentOutOfRangeException">
-    /// Thrown if <see cref="minutes"/> is not a positive number.
+    /// Thrown if minutes is not a positive number.
     /// </exception>
     public CreateBanInfo WithMinutes(uint minutes)
     {
@@ -291,7 +282,7 @@ public abstract class CreateBanInfo
     /// <param name="duration">The duration of the ban.</param>
     /// <returns>The current object, for easy chaining.</returns>
     /// <exception cref="ArgumentOutOfRangeException">
-    /// Thrown if <see cref="duration"/> is not a positive amount of time.
+    /// Thrown if duration is not a positive amount of time.
     /// </exception>
     public CreateBanInfo WithDuration(TimeSpan duration)
     {

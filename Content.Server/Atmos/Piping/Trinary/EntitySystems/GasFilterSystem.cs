@@ -32,7 +32,6 @@ using Content.Server.Administration.Logs;
 using Content.Server.Atmos.EntitySystems;
 using Content.Server.Atmos.Piping.Components;
 using Content.Server.Atmos.Piping.Trinary.Components;
-using Content.Server.NodeContainer;
 using Content.Server.NodeContainer.EntitySystems;
 using Content.Server.NodeContainer.Nodes;
 using Content.Shared.Atmos;
@@ -98,7 +97,7 @@ namespace Content.Server.Atmos.Piping.Trinary.EntitySystems
             var outletAir = outletNode.Air;
 
             // We multiply the transfer rate in L/s by the seconds passed since the last process to get the liters.
-            var transferVol = filter.TransferRate * _atmosphereSystem.PumpSpeedup() * args.dt;
+            var transferVol = filter.TransferRate * _atmosphereSystem.PumpSpeedup() * args.Dt;
 
             if (transferVol <= 0)
             {

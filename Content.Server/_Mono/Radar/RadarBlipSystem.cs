@@ -5,7 +5,6 @@ using Content.Shared.HL.CCVar;
 using NFRadarBlipShape = Content.Shared._NF.Radar.RadarBlipShape;
 using Content.Shared.Shuttles.Components;
 using RadarBlipComponent = Content.Server._NF.Radar.RadarBlipComponent;
-using Robust.Server.GameObjects;
 using Robust.Shared.Configuration;
 using Robust.Shared.Map;
 using Robust.Shared.Network;

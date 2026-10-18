@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
 using Content.Server._NF.PublicTransit.Components;
 using Content.Server._NF.RoundNotifications.Events; // Frontier
@@ -10,11 +8,10 @@ using Content.Server.Ghost;
 using Content.Server.Maps;
 using Content.Server.Roles;
 using Content.Server.Shuttles.Components;
-using Content.Server.Shuttles.Events;
 using Content.Server.Shuttles.Systems;
 using Content.Server.Station.Components;
-using Content.Server.Station.Systems; // Add this if missing
-using Content.Shared._HL.Rescue.Rescue; // Hardlight
+// Add this if missing
+// Hardlight
 using Content.Shared._NF.Shipyard.Components;
 using Content.Shared.CCVar;
 using Content.Shared.Database;
@@ -23,7 +20,6 @@ using Content.Shared.HL.CCVar; // HL
 using Content.Shared.Mind;
 using Content.Shared.Players;
 using Content.Shared.Preferences;
-using Content.Shared.Roles;
 using Content.Shared.Shuttles.Components;
 using JetBrains.Annotations;
 using Prometheus;
@@ -36,7 +32,6 @@ using Robust.Shared.Map.Components;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
 using Robust.Shared.Random;
-using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 using Timer = Robust.Shared.Timing.Timer;
 
@@ -47,7 +42,6 @@ namespace Content.Server.GameTicking
         [Dependency] private readonly DiscordWebhook _discord = default!;
         [Dependency] private readonly RoleSystem _role = default!;
         [Dependency] private readonly ITaskManager _taskManager = default!;
-        [Dependency] private readonly ArrivalsSystem _arrivalsSystem = default!;
         [Dependency] private readonly ShuttleSystem _shuttleSystem = default!;
         [Dependency] private readonly EntityLookupSystem _lookup = default!; // Hardlight
 
@@ -112,7 +106,7 @@ namespace Content.Server.GameTicking
         private void LoadMaps()
         {
             // Prevent loading maps if the default map already exists.
-            if (_mapManager.MapExists(DefaultMap))
+            if (_map.MapExists(DefaultMap))
                 return;
 
             AddGamePresetRules();
@@ -185,10 +179,6 @@ namespace Content.Server.GameTicking
         /// some <see cref="MapLoadOptions"/> using information in a prototype, and raise some events to allow content
         /// to modify the options and react to the map creation.
         /// </remarks>
-        /// <param name="proto">Game map prototype to load in.</param>
-        /// <param name="mapId">The id of the map that was loaded.</param>
-        /// <param name="options">Entity loading options, including whether the maps should be initialized.</param>
-        /// <param name="stationName">Name to assign to the loaded station.</param>
         /// <returns>All loaded entities and grids.</returns>
         public IReadOnlyList<EntityUid> LoadGameMap(
             GameMapPrototype proto,
@@ -628,8 +618,8 @@ namespace Content.Server.GameTicking
             // --- End Corrected Colcomm logic ---
 
             // Aggressively delete the default map after a 30 second delay
-            var defaultMapEntityUid = _mapManager.GetMapEntityId(DefaultMap);
-            if (DefaultMap != null)
+            var defaultMapEntityUid = _map.GetMapOrInvalid(DefaultMap);
+            if (DefaultMap != MapId.Nullspace)
             {
                 Timer.Spawn(TimeSpan.FromSeconds(30), () =>
                 {

@@ -21,7 +21,6 @@ using Robust.Shared.Utility;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Replays;
-using System.Linq;
 using Content.Server._Starlight.Language; // Starlight
 
 namespace Content.Server.Telephone;

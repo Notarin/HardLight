@@ -1,5 +1,4 @@
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using Content.Client.Guidebook.Richtext;
 using Content.Shared.Chemistry.Reagent;
 using JetBrains.Annotations;
@@ -42,7 +41,7 @@ public sealed partial class GuideReagentGroupEmbed : BoxContainer, IDocumentTag
         control = null;
         if (!args.TryGetValue("Group", out var group))
         {
-            Logger.Error("Reagent group embed tag is missing group argument");
+            Logger.GetSawmill("guidebook").Error("Reagent group embed tag is missing group argument");
             return false;
         }
 

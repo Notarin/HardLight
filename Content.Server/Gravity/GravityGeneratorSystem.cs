@@ -1,4 +1,4 @@
-using Content.Server.Emp; // Frontier: Upstream - #28984
+// Frontier: Upstream - #28984
 using Content.Server.Power.Components;
 using Content.Server.Power.EntitySystems;
 using Content.Shared.Gravity;

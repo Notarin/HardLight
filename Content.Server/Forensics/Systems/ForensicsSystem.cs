@@ -287,14 +287,14 @@ namespace Content.Server.Forensics
         public string GenerateDNA()
         {
             var letters = new[] { "A", "C", "G", "T" };
-            var DNA = string.Empty;
+            var dna = string.Empty;
 
             for (var i = 0; i < 16; i++)
             {
-                DNA += letters[_random.Next(letters.Length)];
+                dna += letters[_random.Next(letters.Length)];
             }
 
-            return DNA;
+            return dna;
         }
 
         private void ApplyEvidence(EntityUid user, EntityUid target)

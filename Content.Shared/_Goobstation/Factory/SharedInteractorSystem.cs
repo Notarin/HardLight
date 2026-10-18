@@ -10,7 +10,6 @@ using Content.Shared._Goobstation.DoAfter;
 using Content.Goobstation.Shared.Factory.Filters;
 using Content.Shared.DeviceLinking;
 using Content.Shared.DeviceLinking.Events;
-using Content.Shared.DoAfter;
 using Content.Shared.Examine;
 using Content.Shared.Hands.Components;
 using Content.Shared.Hands.EntitySystems;
@@ -25,9 +24,7 @@ namespace Content.Goobstation.Shared.Factory;
 
 public abstract class SharedInteractorSystem : EntitySystem
 {
-    [Dependency] private readonly AutomationSystem _automation = default!;
     [Dependency] private readonly AutomationFilterSystem _filter = default!;
-    [Dependency] private readonly CollisionWakeSystem _wake = default!;
     [Dependency] private readonly EntityLookupSystem _lookup = default!;
     [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
     [Dependency] private readonly SharedInteractionSystem _interaction = default!;
@@ -110,7 +107,8 @@ public abstract class SharedInteractorSystem : EntitySystem
         {
             SignalState.Momentary => !ent.Comp.AltInteract,
             SignalState.Low => false,
-            SignalState.High => true
+            SignalState.High => true,
+            _ => throw new ArgumentOutOfRangeException(),
         };
         SetAltInteract(ent, alt);
     }
@@ -150,7 +148,7 @@ public abstract class SharedInteractorSystem : EntitySystem
         _appearance.SetData(uid, InteractorVisuals.State, state);
 
     /// <summary>
-    /// Set <see cref="InteractorComponent.AltInteract"> and dirty it.
+    /// Set <see cref="InteractorComponent.AltInteract"/> and dirty it.
     /// </summary>
     public void SetAltInteract(Entity<InteractorComponent> ent, bool alt)
     {

@@ -28,39 +28,27 @@
 
 using System.Numerics;
 using Content.Shared._RMC14.Weapons.Ranged.Prediction;
-using Content.Shared.Administration.Logs;
 using Content.Shared.Camera;
-using Content.Shared.CombatMode.Pacification;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Components;
-using Content.Shared.Damage.Systems;
-using Content.Shared.Database;
 using Content.Shared.DoAfter;
 using Content.Shared.Effects;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Interaction;
-using Content.Shared.Inventory;
-using Content.Shared.Mobs.Components;
 using Content.Shared.Movement.Events; // Mono
 using Content.Shared.Throwing;
-using Content.Shared.Tag;
-using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Systems;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Map;
 using Robust.Shared.Network;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
-using Robust.Shared.Physics.Dynamics;
 using Robust.Shared.Physics.Events;
 using Robust.Shared.Physics.Systems;
-using Robust.Shared.Player;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
-using Robust.Shared.Threading;
 using System.Collections.Concurrent;
 using Robust.Shared.Timing;
-using Content.Shared._Mono;
 
 namespace Content.Shared.Projectiles;
 
@@ -78,7 +66,6 @@ public abstract partial class SharedProjectileSystem : EntitySystem
     [Dependency] private readonly SharedCameraRecoilSystem _sharedCameraRecoil = default!;
     [Dependency] private readonly SharedPhysicsSystem _physics = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
 
     [Dependency] private readonly IGameTiming _gameTiming = default!;
     [Dependency] private readonly INetManager _net = default!;

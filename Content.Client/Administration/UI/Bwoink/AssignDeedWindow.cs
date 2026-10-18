@@ -1,9 +1,7 @@
-using System;
 using System.Numerics;
 using Content.Shared.Administration;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.CustomControls;
-using Robust.Shared.Maths;
 using Robust.Shared.Utility;
 
 namespace Content.Client.Administration.UI.Bwoink

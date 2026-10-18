@@ -3,7 +3,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 using Content.Shared._Goobstation.Factory.Slots;
-using Content.Shared._Goobstation.Factory;
 using Content.Shared.DeviceLinking;
 using Content.Shared.DeviceLinking.Events;
 

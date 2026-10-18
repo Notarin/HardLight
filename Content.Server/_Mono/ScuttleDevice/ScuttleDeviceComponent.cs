@@ -1,8 +1,5 @@
 using Robust.Shared.Audio;
-using Robust.Shared.Localization;
 using Robust.Shared.Map;
-using Robust.Shared.Prototypes;
-using System;
 
 namespace Content.Server._Mono.ScuttleDevice;
 
@@ -115,7 +112,7 @@ public sealed partial class ScuttleDeviceComponent : Component
 
     public TimeSpan NukeSongLength;
 
-    public ResolvedSoundSpecifier SelectedNukeSong = String.Empty;
+    public ResolvedSoundSpecifier? SelectedNukeSong;
 
     /// <summary>
     ///     Check if nuke has already played last alert sound

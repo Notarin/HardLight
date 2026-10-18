@@ -5,7 +5,6 @@ using Content.Shared.Sprite;
 using Content.Shared.Movement.Systems;
 using Robust.Client.GameObjects;
 using Robust.Shared.Configuration;
-using Robust.Shared.GameObjects;
 using Robust.Shared.Reflection;
 
 namespace Content.Client.Movement.Systems;
@@ -79,7 +78,7 @@ public sealed class ClientSpriteMovementSystem : SharedSpriteMovementSystem
             desiredState = effectiveEnabled ? toggle.StateOn : toggle.StateOff;
 
         if (!string.IsNullOrEmpty(desiredState))
-            sprite.LayerSetState(layerIndex, desiredState!);
+            _sprite.LayerSetRsiState((ent, sprite), layerIndex, desiredState!);
     }
 
     private int ResolveLayerIndex(EntityUid uid, SpriteComponent sprite, string layerKey)

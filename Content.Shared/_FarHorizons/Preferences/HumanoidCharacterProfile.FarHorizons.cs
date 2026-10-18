@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.Preferences.Loadouts;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;

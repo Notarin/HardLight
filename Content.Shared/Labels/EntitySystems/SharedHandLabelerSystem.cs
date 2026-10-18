@@ -120,17 +120,17 @@ public abstract class SharedHandLabelerSystem : EntitySystem
         Labeling(uid, target, args.User, handLabeler);
     }
 
-    private void Labeling(EntityUid uid, EntityUid target, EntityUid User, HandLabelerComponent handLabeler)
+    private void Labeling(EntityUid uid, EntityUid target, EntityUid user, HandLabelerComponent handLabeler)
     {
         AddLabelTo(uid, handLabeler, target, out var result);
         if (result == null)
             return;
 
-        _popupSystem.PopupClient(result, User, User);
+        _popupSystem.PopupClient(result, user, user);
 
         // Log labeling
         _adminLogger.Add(LogType.Action, LogImpact.Low,
-            $"{ToPrettyString(User):user} labeled {ToPrettyString(target):target} with {ToPrettyString(uid):labeler}");
+            $"{ToPrettyString(user):user} labeled {ToPrettyString(target):target} with {ToPrettyString(uid):labeler}");
     }
 
     private void OnHandLabelerLabelChanged(EntityUid uid, HandLabelerComponent handLabeler, HandLabelerLabelChangedMessage args)

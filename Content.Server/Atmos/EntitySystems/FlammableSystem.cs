@@ -25,7 +25,6 @@ using Content.Shared.Timing;
 using Content.Shared.Toggleable;
 using Content.Shared.Weapons.Melee.Events;
 using Content.Shared.FixedPoint;
-using Content.Shared.Hands;
 using Robust.Server.Audio;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Events;
@@ -413,8 +412,11 @@ namespace Content.Server.Atmos.EntitySystems
             _stunSystem.TryParalyze(uid, TimeSpan.FromSeconds(2f), true);
 
             // TODO FLAMMABLE: Make this not use TimerComponent...
-            uid.SpawnTimer(2000, () =>
+            Robust.Shared.Timing.Timer.Spawn(2000, () =>
             {
+                if (Deleted(uid))
+                    return;
+
                 flammable.Resisting = false;
                 flammable.FireStacks -= 1f;
                 UpdateAppearance(uid, flammable);
@@ -460,7 +462,7 @@ namespace Content.Server.Atmos.EntitySystems
             foreach (var uid in toProcess)
             {
                 if (!TryComp<FlammableComponent>(uid, out var flammable) ||
-                    !TryComp<TransformComponent>(uid, out _))
+                    !TryComp(uid, out TransformComponent? _))
                     continue;
 
                 // Slowly dry ourselves off if wet.

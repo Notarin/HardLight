@@ -5,7 +5,6 @@ using Content.Server._NF.Bank;
 using Content.Shared._NF.Bank.Components;
 using Content.Shared.Mind;
 using Content.Shared.NukeOps;
-using Content.Shared.Popups;
 using Content.Shared.Database;
 
 namespace Content.Server.NukeOps;
@@ -33,10 +32,10 @@ public sealed class NukeDetonationRewardSystem : EntitySystem
     private void OnNukeExploded(NukeExplodedEvent ev)
     {
         // Iterate all operatives and pay them.
-        var ops = EntityQuery<NukeOperativeComponent>();
-        foreach (var op in ops)
+        var query = EntityQueryEnumerator<NukeOperativeComponent>();
+        while (query.MoveNext(out var uid, out var op))
         {
-            if (!_mind.TryGetMind(op.Owner, out var mindId, out var mind))
+            if (!_mind.TryGetMind(uid, out var mindId, out var mind))
                 continue;
 
             if (mind.OwnedEntity is not { } mob || !HasComp<BankAccountComponent>(mob))

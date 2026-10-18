@@ -7,7 +7,7 @@ namespace Content.Shared.Explosion.Components;
 
 /// <summary>
 /// Creates a smoke cloud when triggered, with an optional solution to include in it.
-/// No sound is played incase a grenade is stealthy, use <see cref="SoundOnTriggerComponent"/> if you want a sound.
+/// No sound is played incase a grenade is stealthy, use SoundOnTriggerComponent if you want a sound.
 /// </summary>
 [RegisterComponent, NetworkedComponent, Access(typeof(SharedSmokeOnTriggerSystem))]
 public sealed partial class SmokeOnTriggerComponent : Component

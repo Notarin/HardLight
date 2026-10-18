@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.Access.Systems;
 using Content.Server.Administration.Logs;
 using Content.Server.CriminalRecords.Systems;
@@ -66,7 +65,7 @@ public sealed class IdentitySystem : SharedIdentitySystem
             }
             catch (Exception ex)
             {
-                Logger.Error($"Failed to update identity info for {ToPrettyString(ent)}: {ex}");
+                Log.Error($"Failed to update identity info for {ToPrettyString(ent)}: {ex}");
             }
         }
     }
@@ -111,7 +110,7 @@ public sealed class IdentitySystem : SharedIdentitySystem
 
         if (TerminatingOrDeleted(uid)
             || TerminatingOrDeleted(ident)
-            || !TryComp<MetaDataComponent>(ident, out _))
+            || !TryComp(ident, out MetaDataComponent? _))
         {
             return;
         }

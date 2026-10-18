@@ -6,7 +6,6 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-using System.Linq;
 using Content.Shared.Destructible;
 using Content.Shared.Whitelist;
 using Robust.Shared.Audio.Systems;

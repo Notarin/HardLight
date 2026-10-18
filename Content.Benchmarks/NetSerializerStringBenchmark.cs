@@ -1,7 +1,5 @@
-using System;
 using System.Buffers;
 using System.Diagnostics;
-using System.IO;
 using System.Text;
 using System.Text.Unicode;
 using BenchmarkDotNet.Attributes;

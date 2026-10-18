@@ -14,6 +14,8 @@ public sealed class MutationBloodToxificationSystem : EntitySystem
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
     [Dependency] private readonly DamageableSystem _damageable = default!;
 
+    private static readonly ProtoId<DamageTypePrototype> PoisonDamageType = "Poison";
+
     public override void Initialize()
     {
         base.Initialize();
@@ -40,7 +42,7 @@ public sealed class MutationBloodToxificationSystem : EntitySystem
             if (!_random.Prob(comp.Chance))
                 continue;
 
-            var damage = new DamageSpecifier(_prototypeManager.Index<DamageTypePrototype>("Poison"), comp.ToxinAmount);
+            var damage = new DamageSpecifier(_prototypeManager.Index(PoisonDamageType), comp.ToxinAmount);
             _damageable.TryChangeDamage(uid, damage, true, damageable: damageable);
         }
     }

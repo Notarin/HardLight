@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Client.UserInterface.Fragments;
 using Content.Shared._NF.BountyContracts;
 using Content.Shared.CartridgeLoader;

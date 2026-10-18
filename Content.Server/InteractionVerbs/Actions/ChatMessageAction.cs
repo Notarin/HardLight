@@ -2,7 +2,6 @@ using Content.Server.Chat.Systems;
 using Content.Shared.ActionBlocker;
 using Content.Shared.Chat;
 using Content.Shared.InteractionVerbs;
-using Robust.Shared.Serialization;
 
 namespace Content.Server.InteractionVerbs.Actions;
 
@@ -48,7 +47,7 @@ public sealed partial class ChatMessageAction : InteractionAction
         var locString = $"interaction-{proto.ID}-{MessageLocPrefix}-{index}";
 
         var used = args.Used ?? EntityUid.Invalid;
-        if (!Loc.TryGetString(locString, out var message, ("user", args.User), ("target", args.Target), ("used", used)))
+        if (!deps.Localization.TryGetString(locString, out var message, ("user", args.User), ("target", args.Target), ("used", used)))
         {
             Logger.GetSawmill("action.chat_message").Error($"No chat message found for interaction {proto.ID}! Loc string: {locString}.");
             return false;

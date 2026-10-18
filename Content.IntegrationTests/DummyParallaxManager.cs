@@ -1,7 +1,6 @@
 using System.Numerics;
 using Content.Client.Parallax.Managers;
 using Content.Client.Parallax;
-using Robust.Shared.Maths;
 
 namespace Content.IntegrationTests
 {

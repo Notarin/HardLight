@@ -1,4 +1,3 @@
-using Content.Server.GameTicking.Rules.Components;
 using Content.Server.Popups;
 using Content.Server.Psionics;
 using Content.Server.StationEvents.Components;

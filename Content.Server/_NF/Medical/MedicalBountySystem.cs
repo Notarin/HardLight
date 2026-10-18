@@ -1,5 +1,3 @@
-
-using System.Linq;
 using Content.Server._NF.Bank;
 using Content.Server._NF.Medical.Components;
 using Content.Server.Administration.Logs;

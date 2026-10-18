@@ -6,7 +6,6 @@ using Content.Shared.Explosion;
 using Robust.Shared.Console;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
-using System.Linq;
 using System.Numerics;
 using Robust.Server.GameObjects;
 

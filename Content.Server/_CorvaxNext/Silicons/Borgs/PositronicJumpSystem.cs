@@ -2,7 +2,6 @@ using Content.Server._CorvaxNext.Silicons.Borgs.Components;
 using Content.Server._Mono.SpaceArtillery.Components;
 using Content.Server._NF.Roles.Systems; // VRS: move JobTrackingComponent across shunt (HL #1354)
 using Content.Server.Mech.Systems;
-using Content.Server.Silicons.Borgs;
 using Content.Server.Silicons.Laws;
 using Content.Server.SurveillanceCamera;
 using Content.Shared._CorvaxNext.Silicons.Borgs;
@@ -14,16 +13,12 @@ using Content.Shared.Mech.Components;
 using Content.Shared.Mind;
 using Content.Shared.PAI;
 using Content.Shared.Popups;
-using Content.Shared.Roles.Jobs;
 using Content.Shared.Silicons.Borgs.Components;
-using Content.Shared.Silicons.Laws.Components;
 using Content.Shared.Silicons.StationAi;
 using Content.Shared.Turrets;
 using Content.Shared.Verbs;
 using Robust.Server.GameObjects;
 using Robust.Shared.Containers;
-using Robust.Shared.GameStates;
-using System.Linq;
 
 namespace Content.Server._CorvaxNext.Silicons.Borgs;
 

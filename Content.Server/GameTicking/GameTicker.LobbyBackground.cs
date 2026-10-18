@@ -1,7 +1,6 @@
 using Content.Server.GameTicking.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
-using System.Linq;
 
 namespace Content.Server.GameTicking;
 

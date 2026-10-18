@@ -1,7 +1,6 @@
 using Content.Shared.Nyanotrasen.Abilities.Psionics.Components;
 using Content.Shared.Abilities.Psionics;
 using Content.Server.Abilities.Psionics;
-using Robust.Shared.GameObjects;
 using Robust.Shared.Prototypes;
 
 namespace Content.Server.Nyanotrasen.Psionics
@@ -28,7 +27,7 @@ namespace Content.Server.Nyanotrasen.Psionics
             {
                 if (!_prototypeManager.TryIndex<PsionicPowerPrototype>(powerId, out var proto))
                 {
-                    Logger.Error($"[InnatePsionics] Unknown psionic power prototype '{powerId}' on entity {uid}");
+                    Log.Error($"[InnatePsionics] Unknown psionic power prototype '{powerId}' on entity {uid}");
                     continue;
                 }
 

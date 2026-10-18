@@ -6,7 +6,6 @@ using Content.Shared.FixedPoint;
 using Content.Shared.Fluids.Components;
 using Robust.Shared.Map;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
-using System.Linq;
 
 namespace Content.Server.Chemistry.TileReactions;
 

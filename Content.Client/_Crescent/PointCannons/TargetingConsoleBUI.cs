@@ -1,11 +1,9 @@
-using System.Threading;
 using Content.Shared.PointCannons;
 using Timer = Robust.Shared.Timing.Timer;
 using JetBrains.Annotations;
 using System.Numerics;
 using Robust.Client.GameObjects;
 using Content.Shared.Weapons.Ranged.Events;
-using Content.Client.Weapons.Ranged.Systems;
 
 namespace Content.Client._Crescent.PointCannons;
 
@@ -81,7 +79,7 @@ public sealed class TargetingConsoleBoundUserInterface : BoundUserInterface
         if (disposing)
         {
             _updTimerTok.Cancel();
-            _window?.Dispose();
+            _window?.Close();
         }
     }
 

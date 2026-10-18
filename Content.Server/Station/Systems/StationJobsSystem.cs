@@ -1,5 +1,4 @@
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using Content.Server._HL.ColComm; // HardLight
 using Content.Server._NF.Station.Components;
 using Content.Server.GameTicking;
@@ -8,11 +7,9 @@ using Content.Server.StationRecords.Components;
 using Content.Shared._NF.Shipyard;
 using Content.Shared._NF.Shipyard.Prototypes;
 using Content.Shared.CCVar;
-using Content.Shared.FixedPoint;
 using Content.Shared.GameTicking;
 using Content.Shared.Preferences;
 using Content.Shared.Roles;
-using Content.Shared.Station.Components;
 using JetBrains.Annotations;
 using Robust.Server.Player;
 using Robust.Shared.Configuration;
@@ -713,7 +710,7 @@ public sealed partial class StationJobsSystem : EntitySystem
         return TryGetJobSlot(station, jobPrototypeId, out var job, stationJobs) && job == null;
     }
 
-    /// <inheritdoc cref="TryGetJobSlot(Robust.Shared.GameObjects.EntityUid,string,out System.Nullable{uint},Content.Server.Station.Components.StationJobsComponent?)"/>
+    /// <inheritdoc cref="TryGetJobSlot(Robust.Shared.GameObjects.EntityUid,string,out System.Nullable{int},Content.Server.Station.Components.StationJobsComponent?)"/>
     /// <param name="station">Station to get slot info from.</param>
     /// <param name="job">Job to get slot info for.</param>
     /// <param name="slots">The number of slots remaining. Null if infinite.</param>

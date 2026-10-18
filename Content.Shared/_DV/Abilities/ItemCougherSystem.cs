@@ -1,5 +1,4 @@
 using Content.Shared.Actions;
-using Content.Shared.Actions.Events;
 using Content.Shared.Charges.Systems;
 using Content.Shared.Clothing.Components;
 using Content.Shared.IdentityManagement;

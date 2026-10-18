@@ -11,7 +11,7 @@ using Content.Shared.Power.Generator;
 using Robust.Server.GameObjects;
 using Content.Shared.Radiation.Components; // Frontier
 using Content.Shared.Audio; // Frontier
-using Content.Shared.Materials; // Frontier
+// Frontier
 using Content.Server._NF.Power.Components; // Frontier
 
 namespace Content.Server.Power.Generator;

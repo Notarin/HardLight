@@ -5,8 +5,6 @@ using Content.Shared.Weapons.Ranged.Systems;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Map;
 using Robust.Shared.Physics.Systems;
-using Robust.Shared.Prototypes;
-using Robust.Shared.Serialization;
 using Robust.Shared.Timing;
 
 namespace Content.Server._Funkystation.Genetics.Mutations.Systems;
@@ -18,6 +16,7 @@ public sealed class MutationCryokinesisSystem : EntitySystem
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly IMapManager _mapManager = default!;
+    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
     [Dependency] private readonly SharedPhysicsSystem _physics = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
 
@@ -47,20 +46,20 @@ public sealed class MutationCryokinesisSystem : EntitySystem
         var curTime = _timing.CurTime;
         if (curTime < comp.NextUse) return;
 
-        if (!TryComp<TransformComponent>(uid, out var xform)) return;
+        if (!TryComp(uid, out TransformComponent? xform)) return;
 
         var fromCoords = xform.Coordinates;
         var toCoords = args.Target;
 
-        var fromMap = fromCoords.ToMap(EntityManager, _transform);
+        var fromMap = _transform.ToMapCoordinates(fromCoords);
         var spawnCoords = _mapManager.TryFindGridAt(fromMap, out var gridUid, out _)
-            ? fromCoords.WithEntityId(gridUid, EntityManager)
-            : new EntityCoordinates(_mapManager.GetMapEntityId(fromMap.MapId), fromMap.Position);
+            ? _transform.WithEntityId(fromCoords, gridUid)
+            : new EntityCoordinates(_mapSystem.GetMapOrInvalid(fromMap.MapId), fromMap.Position);
 
         var fireball = Spawn(args.Prototype, spawnCoords);
 
-        var direction = toCoords.ToMapPos(EntityManager, _transform) -
-                        spawnCoords.ToMapPos(EntityManager, _transform);
+        var direction = _transform.ToMapCoordinates(toCoords).Position -
+                        _transform.ToMapCoordinates(spawnCoords).Position;
 
         var userVelocity = _physics.GetMapLinearVelocity(uid);
 

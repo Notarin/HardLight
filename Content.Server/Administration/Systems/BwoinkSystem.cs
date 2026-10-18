@@ -1,12 +1,8 @@
-using System.Linq;
-using System.Net.Http;
 using System.Numerics;
-using System.IO;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using Content.Server.Administration.Managers;
 using Content.Server.Afk;
 using Content.Server.Database;
@@ -28,10 +24,8 @@ using Content.Shared.Shuttles.Components;
 using Content.Server.Shuttles.Components;
 using Content.Shared.Shuttles.Systems;
 using Content.Shared.Access.Systems;
-using Content.Shared.Access.Components;
 using Content.Shared._HL.Rescue.Rescue;
 using Content.Server.Shuttles.Save;
-using Content.Server.Access.Systems;
 using JetBrains.Annotations;
 using Robust.Server.Player;
 using Robust.Shared;
@@ -831,13 +825,6 @@ namespace Content.Server.Administration.Systems
         /// <summary>
         /// Sends a bwoink. Common to both internal messages (sent via the ahelp or admin interface) and webhook messages (sent through the webhook, e.g. via Discord)
         /// </summary>
-        /// <param name="message">The message being sent.</param>
-        /// <param name="senderId">The network GUID of the person sending the message. Frontier: This can be a SystemUserId if originated from a webhook.</param>
-        /// <param name="senderAdmin">The admin privileges of the person sending the message.</param>
-        /// <param name="senderName">The name of the person sending the message.</param>
-        /// <param name="senderChannel">The channel to send a message to, e.g. in case of failure to send</param>
-        /// <param name="sendWebhook">If true, message should be sent off through the webhook if possible</param>
-        /// <param name="fromWebhook">Message originated from a webhook (e.g. Discord)</param>
         private void OnBwoinkInternal(BwoinkTextMessage message, NetUserId senderId, AdminData? senderAdmin, string senderName, INetChannel? senderChannel, bool userOnly, bool sendWebhook, bool fromWebhook)
         {
             var senderAHelpAdmin = senderAdmin?.HasFlag(AdminFlags.Adminhelp) ?? false;
@@ -1854,11 +1841,11 @@ namespace Content.Server.Administration.Systems
 
             var worldPos = Vector2.Zero;
             var mapName = "Unknown";
-            if (attached is { } a && TryComp<TransformComponent>(a, out var xform))
+            if (attached is { } a && TryComp(a, out TransformComponent? xform))
             {
                 var ts = EntityManager.System<SharedTransformSystem>();
                 worldPos = ts.GetWorldPosition(xform);
-                if (xform.MapUid is { } mapUid && TryComp<MetaDataComponent>(mapUid, out var mapMeta))
+                if (xform.MapUid is { } mapUid && TryComp(mapUid, out MetaDataComponent? mapMeta))
                     mapName = mapMeta.EntityName;
             }
 
@@ -1877,7 +1864,7 @@ namespace Content.Server.Administration.Systems
 
         private string TryGetEntityName(EntityUid? uid)
         {
-            if (uid is not { } u || !TryComp<MetaDataComponent>(u, out var meta))
+            if (uid is not { } u || !TryComp(u, out MetaDataComponent? meta))
                 return string.Empty;
             return meta.EntityName;
         }
@@ -1929,7 +1916,7 @@ namespace Content.Server.Administration.Systems
             }
 
             var attached = targetSession.AttachedEntity.Value;
-            if (!TryComp<TransformComponent>(attached, out var xform))
+            if (!TryComp(attached, out TransformComponent? xform))
             {
                 RaiseNetworkEvent(new SpawnAhelpItemResponseMessage(ownerKey, prototypeId, false, "no-transform", proto.Name), session.Channel);
                 return;
@@ -2381,7 +2368,7 @@ namespace Content.Server.Administration.Systems
                 return;
             }
 
-            if (!TryComp<TransformComponent>(shipUid, out var xform) || xform.MapUid is not { } mapUid)
+            if (!TryComp(shipUid, out TransformComponent? xform) || xform.MapUid is not { } mapUid)
             {
                 RaiseNetworkEvent(new UnstickPlayerShipResponseMessage(ownerKey, false, "no-position"), session.Channel);
                 return;
@@ -2394,15 +2381,15 @@ namespace Content.Server.Administration.Systems
             // Try random offsets around the ship — admin override ignores FTL range
             // restrictions so this works even on unpowered ships. We do our own
             // grid-clearance check (same logic as FTLFree) without the range gate.
-            const int Attempts = 80;
-            const float AdminMaxDist = 1000f;  // search up to 1 km
+            const int attempts = 80;
+            const float adminMaxDist = 1000f;  // search up to 1 km
             var ftlBuffer = _shuttle.GetFTLBufferRange(shipUid);
             var minDist = ftlBuffer + 20f;     // just past the ship's own footprint
             Vector2? chosen = null;
-            for (var i = 0; i < Attempts; i++)
+            for (var i = 0; i < attempts; i++)
             {
                 var angle = _random.NextFloat(0f, MathF.Tau);
-                var dist = minDist + (AdminMaxDist - minDist) * (i / (float)Attempts);
+                var dist = minDist + (adminMaxDist - minDist) * (i / (float)attempts);
                 var candidate = origin + new Vector2(MathF.Cos(angle), MathF.Sin(angle)) * dist;
                 if (IsAdminFTLPositionClear(shipUid, xform.MapID, candidate, ftlBuffer))
                 {
@@ -2625,7 +2612,7 @@ namespace Content.Server.Administration.Systems
                     if (playerSession.AttachedEntity is not { } attached)
                         continue;
 
-                    if (!TryComp<TransformComponent>(attached, out var attachedXform))
+                    if (!TryComp(attached, out TransformComponent? attachedXform))
                         continue;
 
                     if (attachedXform.GridUid != shipUid)

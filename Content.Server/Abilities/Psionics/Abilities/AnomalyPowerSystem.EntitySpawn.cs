@@ -1,6 +1,5 @@
 using Content.Shared.Abilities.Psionics;
 using Content.Shared.Actions.Events;
-using Content.Shared.Random.Helpers;
 using Robust.Shared.Random;
 using Content.Shared.Anomaly.Effects.Components;
 using Robust.Shared.Map.Components;

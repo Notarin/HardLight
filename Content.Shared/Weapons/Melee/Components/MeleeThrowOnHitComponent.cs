@@ -1,7 +1,4 @@
-using System.Numerics;
 using Robust.Shared.GameStates;
-using Robust.Shared.Physics.Components;
-using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 using Content.Shared.Whitelist; // Frontier
 
 namespace Content.Shared.Weapons.Melee.Components;

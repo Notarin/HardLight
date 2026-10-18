@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.Eye.Blinding.Components;
 using Content.Shared.Ghost;
 using Content.Shared.Interaction;
@@ -194,8 +193,8 @@ namespace Content.Shared.Examine
             }
 
             var ray = new Ray(origin.Position, dir.Normalized());
-            var rayResults = _occluder
-                .IntersectRayWithPredicate(origin.MapId, ray, length, state, predicate, false);
+            var rayResults = new List<RayCastResults>();
+            _occluder.IntersectRay(rayResults, origin.MapId, ray, length, (state, predicate), static (e, s) => s.predicate(e.Owner, s.state));
 
             if (rayResults.Count == 0) return true;
 
@@ -389,7 +388,7 @@ namespace Content.Shared.Examine
 
         /// <summary>
         ///     Message group handling. Call this if you want the next set of examine messages that you're adding to have
-        ///     a consistent order with regards to each other. This is done so that client & server will always
+        ///     a consistent order with regards to each other. This is done so that client &amp; server will always
         ///     sort messages the same as well as grouped together properly, even if subscriptions are different.
         ///     You should wrap it in a using() block so popping automatically occurs.
         /// </summary>
@@ -418,7 +417,7 @@ namespace Content.Shared.Examine
 
         /// <summary>
         /// Push another message into this examine result, on its own line.
-        /// End message will be grouped by <see cref="priority"/>, then by group if one was started
+        /// End message will be grouped by priority, then by group if one was started
         /// then by ordinal comparison.
         /// </summary>
         /// <seealso cref="PushMarkup"/>
@@ -441,7 +440,7 @@ namespace Content.Shared.Examine
 
         /// <summary>
         /// Push another message parsed from markup into this examine result, on its own line.
-        /// End message will be grouped by <see cref="priority"/>, then by group if one was started
+        /// End message will be grouped by priority, then by group if one was started
         /// then by ordinal comparison.
         /// </summary>
         /// <seealso cref="PushText"/>
@@ -453,7 +452,7 @@ namespace Content.Shared.Examine
 
         /// <summary>
         /// Push another message containing raw text into this examine result, on its own line.
-        /// End message will be grouped by <see cref="priority"/>, then by group if one was started
+        /// End message will be grouped by priority, then by group if one was started
         /// then by ordinal comparison.
         /// </summary>
         /// <seealso cref="PushMarkup"/>
@@ -467,7 +466,7 @@ namespace Content.Shared.Examine
 
         /// <summary>
         /// Adds a message directly without starting a newline after.
-        /// End message will be grouped by <see cref="priority"/>, then by group if one was started
+        /// End message will be grouped by priority, then by group if one was started
         /// then by ordinal comparison.
         /// </summary>
         /// <seealso cref="AddMarkup"/>
@@ -489,7 +488,7 @@ namespace Content.Shared.Examine
 
         /// <summary>
         /// Adds markup directly without starting a newline after.
-        /// End message will be grouped by <see cref="priority"/>, then by group if one was started
+        /// End message will be grouped by priority, then by group if one was started
         /// then by ordinal comparison.
         /// </summary>
         /// <seealso cref="AddText"/>
@@ -501,7 +500,7 @@ namespace Content.Shared.Examine
 
         /// <summary>
         /// Adds text directly without starting a newline after.
-        /// End message will be grouped by <see cref="priority"/>, then by group if one was started
+        /// End message will be grouped by priority, then by group if one was started
         /// then by ordinal comparison.
         /// </summary>
         /// <seealso cref="AddMarkup"/>

@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.Chat.Managers;
 using Content.Shared.Interaction;
 using Content.Shared.InteractionVerbs;

@@ -37,7 +37,7 @@ public sealed partial class SpamEmitSoundComponent : BaseEmitSoundComponent
 
     /// <summary>
     /// Whether the timer is currently running and sounds are being played.
-    /// Do not set this directly, use <see cref="EmitSoundSystem.SetEnabled"/>
+    /// Do not set this directly, use EmitSoundSystem.SetEnabled
     /// </summary>
     [DataField, AutoNetworkedField]
     [Access(typeof(SharedEmitSoundSystem))]

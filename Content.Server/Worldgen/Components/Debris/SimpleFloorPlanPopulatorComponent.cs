@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.Worldgen.Systems.Debris;
 using Content.Server.Worldgen.Tools;
 using Content.Shared.Maps;

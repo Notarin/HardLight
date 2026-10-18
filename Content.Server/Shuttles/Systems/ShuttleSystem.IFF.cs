@@ -3,7 +3,6 @@ using Content.Shared.CCVar;
 using Content.Shared.Shuttles.BUIStates;
 using Content.Shared.Shuttles.Components;
 using Content.Shared.Shuttles.Events;
-using Robust.Server.GameObjects;
 
 namespace Content.Server.Shuttles.Systems;
 

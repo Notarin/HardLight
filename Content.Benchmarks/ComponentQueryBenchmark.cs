@@ -1,7 +1,5 @@
 #nullable enable
-using System;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Configs;
 using Content.IntegrationTests;

@@ -3,16 +3,20 @@ using Content.Shared.Gravity;
 using Content.Shared.Hands.Components;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Interaction;
+#if EXCEPTION_TOLERANCE
 using Robust.Shared.Exceptions;
 using Robust.Shared.Network;
+#endif
 
 namespace Content.Shared.DoAfter;
 
 public abstract partial class SharedDoAfterSystem : EntitySystem
 {
     [Dependency] private readonly IDynamicTypeFactory _factory = default!;
+#if EXCEPTION_TOLERANCE
     [Dependency] private readonly INetManager _netManager = default!;
     [Dependency] private readonly IRuntimeLog _runtimeLog = default!;
+#endif
     [Dependency] private readonly SharedGravitySystem _gravity = default!;
     [Dependency] private readonly SharedInteractionSystem _interaction = default!;
     [Dependency] private readonly SharedHandsSystem _hands = default!;
@@ -54,8 +58,11 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
             {
                 Update(uid, active, comp, time, xformQuery, handsQuery);
             }
-            // ReSharper disable once RedundantCatchClause
+#if EXCEPTION_TOLERANCE
             catch (Exception e)
+#else
+            catch (Exception)
+#endif
             {
 #if EXCEPTION_TOLERANCE
                 // Doafter in question failed to complete..
@@ -80,13 +87,6 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
                         //         configuring the cancellation time. We need this side effect, so dear reader
                         //         if you ever make it so InternalCancel can throw an exception before that
                         //         happens, update this to set cancel time itself in a finally block.
-                        //
-                        //         If the doafter is one using async, this CAN result in that task leaking forever.
-                        //         So we check that here, too.
-                        if (comp.AwaitedDoAfters.Remove(doAfter.Index, out var tcs))
-                        {
-                            tcs.TrySetCanceled();
-                        }
                     }
                 }
 #else
@@ -160,9 +160,6 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
     private bool TryAttemptEvent(DoAfter doAfter)
     {
         var args = doAfter.Args;
-
-        if (args.ExtraCheck?.Invoke() == false)
-            return false;
 
         if (doAfter.AttemptEvent == null)
         {

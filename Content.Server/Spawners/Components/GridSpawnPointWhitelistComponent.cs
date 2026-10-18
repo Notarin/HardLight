@@ -3,7 +3,7 @@ using Content.Shared.Whitelist;
 namespace Content.Server.Spawners.Components;
 
 /// <summary>
-/// Defines whitelist and blacklist for entities that can spawn at a spawnpoint when they are spawned via the <see cref="RuleGridsSystem"/>
+/// Defines whitelist and blacklist for entities that can spawn at a spawnpoint when they are spawned via the RuleGridsSystem
 /// </summary>
 [RegisterComponent]
 public sealed partial class GridSpawnPointWhitelistComponent : Component

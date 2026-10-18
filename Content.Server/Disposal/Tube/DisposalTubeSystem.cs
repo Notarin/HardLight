@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Text;
 using Content.Server.Atmos.EntitySystems;
 using Content.Server.Construction.Completions;
@@ -80,7 +79,6 @@ namespace Content.Server.Disposal.Tube
         /// Handles ui messages from the client. For things such as button presses
         /// which interact with the world and require server action.
         /// </summary>
-        /// <param name="msg">A user interface message from the client.</param>
         private void OnUiAction(EntityUid uid, DisposalTaggerComponent tagger, SharedDisposalTaggerComponent.UiActionMessage msg)
         {
             if (TryComp<PhysicsComponent>(uid, out var physBody) && physBody.BodyType != BodyType.Static)
@@ -99,7 +97,6 @@ namespace Content.Server.Disposal.Tube
         /// Handles ui messages from the client. For things such as button presses
         /// which interact with the world and require server action.
         /// </summary>
-        /// <param name="msg">A user interface message from the client.</param>
         private void OnUiAction(EntityUid uid, DisposalRouterComponent router, SharedDisposalRouterComponent.UiActionMessage msg)
         {
             if (!Exists(msg.Actor))

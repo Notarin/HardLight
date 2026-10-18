@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.Administration.Logs;
 using Content.Server.EUI;
 using Content.Server.Ghost.Roles.Components;
@@ -9,7 +8,6 @@ using Content.Shared.Administration;
 using Content.Shared.CCVar;
 using Content.Shared.Database;
 using Content.Shared.Follower;
-using Content.Shared.GameTicking;
 using Content.Shared.Ghost;
 using Content.Shared.Ghost.Roles;
 using Content.Shared.Mind;
@@ -32,7 +30,6 @@ using Content.Server.Popups;
 using Content.Shared.Verbs;
 using Robust.Shared.Collections;
 using Content.Shared.Ghost.Roles.Components;
-using Content.Shared.Roles.Jobs;
 using Content.Server._NF.Players.GhostRole.Events; // Frontier
 
 namespace Content.Server.Ghost.Roles;
@@ -562,7 +559,7 @@ public sealed class GhostRoleSystem : EntitySystem
 
         foreach (var (id, (uid, _)) in _ghostRoles)
         {
-            if (!TryComp<MetaDataComponent>(uid, out var meta) || meta.EntityLifeStage >= EntityLifeStage.Terminating)
+            if (!TryComp(uid, out MetaDataComponent? meta) || meta.EntityLifeStage >= EntityLifeStage.Terminating)
             {
                 staleRoles.Add(id);
                 continue;
@@ -589,7 +586,7 @@ public sealed class GhostRoleSystem : EntitySystem
 
         foreach (var (id, (uid, role)) in _ghostRoles)
         {
-            if (!TryComp<MetaDataComponent>(uid, out var meta) || meta.EntityLifeStage >= EntityLifeStage.Terminating)
+            if (!TryComp(uid, out MetaDataComponent? meta) || meta.EntityLifeStage >= EntityLifeStage.Terminating)
             {
                 staleRoles.Add(id);
                 continue;

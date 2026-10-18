@@ -58,9 +58,9 @@ public partial record struct TeleportPoint
     [DataField]
     public NetEntity TelePoint;
 
-    public TeleportPoint(string Location, NetEntity TelePoint)
+    public TeleportPoint(string location, NetEntity telePoint)
     {
-        this.Location = Location;
-        this.TelePoint = TelePoint;
+        Location = location;
+        TelePoint = telePoint;
     }
 }

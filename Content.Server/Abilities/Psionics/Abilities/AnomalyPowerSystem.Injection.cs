@@ -1,7 +1,6 @@
 using Content.Shared.Abilities.Psionics;
 using Content.Shared.Actions.Events;
 using Content.Shared.Chemistry.Components.SolutionManager;
-using System.Linq;
 
 namespace Content.Server.Abilities.Psionics;
 
@@ -12,6 +11,8 @@ public sealed partial class AnomalyPowerSystem
     {
         if (args.Injection is null)
             return;
+
+        _injectableQuery = GetEntityQuery<InjectableSolutionComponent>();
 
         if (overcharged)
             InjectionSupercrit(uid, component, args);

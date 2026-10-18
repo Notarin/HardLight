@@ -8,7 +8,7 @@ namespace Content.Shared._FarHorizons.Power.Generation.FissionGenerator;
 public sealed partial class GasTurbineMonitorComponent : Component
 {
     [ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
-    public NetEntity? turbine;
+    public NetEntity? Turbine;
 
     [DataField]
     public ProtoId<SinkPortPrototype> LinkingPort = "GasTurbineDataReceiver";

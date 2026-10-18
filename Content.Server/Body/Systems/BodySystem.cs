@@ -15,11 +15,8 @@ using Robust.Shared.Timing;
 using System.Numerics;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Prototypes;
 
 // Shitmed Change
-using System.Linq;
-using Content.Shared.Damage;
 using Content.Shared.Gibbing.Events;
 
 namespace Content.Server.Body.Systems;

@@ -18,8 +18,6 @@ using Content.Shared.Mobs.Components;
 using Content.Shared.Popups;
 using Content.Shared.Stacks;
 using Content.Shared._Goobstation.Factory.Filters;
-using Content.Shared._Goobstation.Factory;
-using Robust.Shared.Prototypes;
 
 namespace Content.Goobstation.Shared.Factory.Filters;
 
@@ -179,7 +177,8 @@ public sealed class AutomationFilterSystem : EntitySystem
             NameFilterMode.Contain => name.Contains(check),
             NameFilterMode.Start => name.StartsWith(check),
             NameFilterMode.End => name.EndsWith(check),
-            NameFilterMode.Match => name == check
+            NameFilterMode.Match => name == check,
+            _ => throw new ArgumentOutOfRangeException(),
         };
         // entity names usually don't change except for the end including a label
         args.CouldAllow = ent.Comp.Mode switch
@@ -282,7 +281,8 @@ public sealed class AutomationFilterSystem : EntitySystem
             LogicGate.Xor => a != b,
             LogicGate.Nor => !(a || b),
             LogicGate.Nand => !(a && b),
-            LogicGate.Xnor => a == b
+            LogicGate.Xnor => a == b,
+            _ => throw new ArgumentOutOfRangeException(),
         };
         args.CouldAllow = couldAllowA || couldAllowB; // if any subfilter could allow it, this could allow it too
     }

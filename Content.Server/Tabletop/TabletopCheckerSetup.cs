@@ -59,16 +59,16 @@ namespace Content.Server.Tabletop
                 }
             }
 
-            const int NumCrowns = 3;
-            const float Overlap = 0.25f;
+            const int numCrowns = 3;
+            const float overlap = 0.25f;
             const float xOffset = 9f / 32;
             const float xOffsetBlack = 9 + xOffset;
             const float xOffsetWhite = 8 + xOffset;
 
             // Crowns
-            for (var i = 0; i < NumCrowns; i++)
+            for (var i = 0; i < numCrowns; i++)
             {
-                var step = -(Overlap * i);
+                var step = -(overlap * i);
                 pieces[pieceIndex] = entityManager.SpawnEntity(
                     PrototypeCrownBlack,
                     left.Offset(GetOffset(xOffsetBlack), GetOffset(step))
@@ -83,7 +83,7 @@ namespace Content.Server.Tabletop
             // Spares
             for (var i = 0; i < 6; i++)
             {
-                var step = -((Overlap * (NumCrowns + 2)) + (Overlap * i));
+                var step = -((overlap * (numCrowns + 2)) + (overlap * i));
                 pieces[pieceIndex] = entityManager.SpawnEntity(
                     PrototypePieceBlack,
                     left.Offset(GetOffset(xOffsetBlack), GetOffset(step))

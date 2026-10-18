@@ -204,7 +204,7 @@ public sealed class JobTrackingSystem : SharedJobTrackingSystem
 
         foreach (var gridUid in stationData.Grids)
         {
-            if (Deleted(gridUid) || !TryComp<TransformComponent>(gridUid, out var xform))
+            if (Deleted(gridUid) || !TryComp(gridUid, out TransformComponent? xform))
                 continue;
 
             if (xform.MapID == _gameTicker.DefaultMap)

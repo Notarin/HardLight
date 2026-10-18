@@ -16,12 +16,14 @@ public sealed class StasisOverlay : Overlay
 
     public override OverlaySpace Space => OverlaySpace.WorldSpace;
 
+    private static readonly ProtoId<ShaderPrototype> ShaderId = "WideColoredScreenBorder";
+
     private readonly ShaderInstance _coloredScreenBorder;
 
     public StasisOverlay()
     {
         IoCManager.InjectDependencies(this);
-        _coloredScreenBorder = _prototypeManager.Index<ShaderPrototype>("WideColoredScreenBorder").InstanceUnique();
+        _coloredScreenBorder = _prototypeManager.Index(ShaderId).InstanceUnique();
     }
 
     protected override bool BeforeDraw(in OverlayDrawArgs args)

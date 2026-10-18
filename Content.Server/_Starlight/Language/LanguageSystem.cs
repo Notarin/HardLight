@@ -1,9 +1,6 @@
-using System.Linq;
-using Content.Shared._Starlight.Language;
 using Content.Shared._Starlight.Language.Components;
 using Content.Shared._Starlight.Language.Events;
 using Content.Shared._Starlight.Language.Systems;
-using Robust.Shared.Prototypes;
 
 namespace Content.Server._Starlight.Language;
 

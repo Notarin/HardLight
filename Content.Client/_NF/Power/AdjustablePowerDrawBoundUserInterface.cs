@@ -8,7 +8,7 @@ namespace Content.Client._NF.Power;
 /// Controls a machine with adjustable power draw.
 /// </summary>
 /// <seealso cref="BoundUserInterfaceState"/>
-/// <seealso cref="AdjustablePowerDrawWindow"/>
+/// AdjustablePowerDrawWindow
 public sealed class AdjustablePowerDrawBoundUserInterface : BoundUserInterface
 {
     [ViewVariables]

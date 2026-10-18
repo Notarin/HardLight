@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Client._NF.LateJoin.Interfaces;
 using Content.Client._NF.LateJoin.ListItems;
 using Content.Client.Lobby;

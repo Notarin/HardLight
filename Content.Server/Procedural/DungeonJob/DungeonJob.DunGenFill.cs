@@ -1,5 +1,4 @@
 using System.Numerics;
-using System.Threading.Tasks;
 using Content.Shared.Maps;
 using Content.Shared.Procedural;
 using Content.Shared.Procedural.DungeonGenerators;
@@ -32,7 +31,7 @@ public sealed partial class DungeonJob
             if (fill.AllowedTiles != null && !fill.AllowedTiles.Contains(((ContentTileDefinition)_tileDefManager[tileRef.Value.Tile.TypeId]).ID))
                 continue;
 
-            if (!_anchorable.TileFree(_grid, tile, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask))
+            if (!_anchorable.TileFree(GridEntity, tile, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask))
                 continue;
 
             // HardLight: Do not place filler rocks on tiles that already contain anchored map content.

@@ -8,13 +8,15 @@ public sealed class GrainOverlay : Overlay
 {
     [Dependency] private readonly IPrototypeManager _prototype = default!;
 
+    private static readonly ProtoId<ShaderPrototype> ShaderId = "Grain";
+
     private readonly ShaderInstance _shader;
 
     public GrainOverlay()
     {
         IoCManager.InjectDependencies(this);
 
-        _shader = _prototype.Index<ShaderPrototype>("Grain").Instance().Duplicate();
+        _shader = _prototype.Index(ShaderId).Instance().Duplicate();
     }
 
     public override OverlaySpace Space => OverlaySpace.WorldSpace;

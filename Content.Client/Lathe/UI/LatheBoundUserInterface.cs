@@ -3,6 +3,7 @@ using Content.Shared.Lathe;
 using Content.Shared.Research.Components;
 using JetBrains.Annotations;
 using Robust.Client.UserInterface;
+using Robust.Shared.Prototypes;
 
 namespace Content.Client.Lathe.UI
 {
@@ -52,7 +53,7 @@ namespace Content.Client.Lathe.UI
                     _menu?.PopulateRecipes();
                     _menu?.UpdateCategories();
                     _menu?.PopulateQueueList(msg.Queue);
-                    _menu?.SetQueueInfo(msg.CurrentlyProducing);
+                    _menu?.SetQueueInfo(msg.CurrentlyProducing != null && IoCManager.Resolve<IPrototypeManager>().TryIndex(msg.CurrentlyProducing.Value, out var recipe) ? recipe : null);
                     break;
             }
         }

@@ -1,8 +1,5 @@
-using Content.Client.Stylesheets;
 using Robust.Client.Graphics;
-using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
-using Robust.Shared.Maths;
 
 namespace Content.Client.UserInterface.Controls;
 
@@ -15,8 +12,8 @@ public sealed class HLine : PanelContainer
             StyleBox box;
             if (PanelOverride != null)
                 box = PanelOverride;
-            if (TryGetStyleProperty<StyleBox>(StylePropertyPanel, out var _box))
-                box = _box;
+            if (TryGetStyleProperty<StyleBox>(StylePropertyPanel, out var styleBox))
+                box = styleBox;
             else
                 return null;
 

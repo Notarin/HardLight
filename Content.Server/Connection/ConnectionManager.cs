@@ -1,6 +1,4 @@
 using System.Collections.Immutable;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using Content.Server.Administration.Managers;
 using Content.Server.Chat.Managers;
@@ -11,7 +9,6 @@ using Content.Server.Preferences.Managers;
 using Content.Shared.CCVar;
 using Content.Shared._FS.CCVar; // Floofstation
 using Content.Shared._NF.CCVar; // Frontier
-using Content.Shared.GameTicking;
 using Content.Shared.Players.PlayTimeTracking;
 using Robust.Server.Player;
 using Robust.Shared.Configuration;
@@ -68,6 +65,7 @@ namespace Content.Server.Connection
         [Dependency] private readonly IAdminManager _adminManager = default!;
         [Dependency] private readonly MiniAuthManager _authManager = default!; //Frontier
         [Dependency] private readonly DiscordAuthManager _discordAuthManager = default!; // Floofstation
+        [Dependency] private readonly IEntityManager _entMan = default!;
 
         private ISawmill _sawmill = default!;
         private readonly Dictionary<NetUserId, TimeSpan> _temporaryBypasses = [];
@@ -248,7 +246,7 @@ namespace Content.Server.Connection
             var adminData = await _db.GetAdminDataForAsync(e.UserId);
             // New Frontiers - Session Respector - Checks that a player was connected before applying panic bunker/baby jail/no whitelist on low pop checks
             // This code is licensed under AGPLv3. See AGPLv3.txt
-            var wasInGame = EntitySystem.TryGet<GameTicker>(out var ticker) &&
+            var wasInGame = _entMan.TrySystem<GameTicker>(out var ticker) &&
                             ticker.PlayerGameStatuses.ContainsKey(userId); // Frontier: remove status.JoinedGame check, TryGetValue<ContainsKey
 
             if (_cfg.GetCVar(CCVars.PanicBunkerEnabled) && adminData == null && !wasInGame) // Frontier: allow users who joined before panic bunker was enforced to reconnect

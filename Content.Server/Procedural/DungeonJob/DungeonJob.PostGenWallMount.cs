@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using Content.Shared.Procedural;
 using Content.Shared.Procedural.PostGeneration;
 using Content.Shared.Storage;
@@ -11,7 +10,7 @@ public sealed partial class DungeonJob
     /// <summary>
     /// <see cref="WallMountDunGen"/>
     /// </summary>
-    private async Task PostGen(WallMountDunGen gen, DungeonData data, Dungeon dungeon, HashSet<Vector2i> reservedTiles, Random random)
+    private async Task PostGen(WallMountDunGen gen, DungeonData data, Dungeon dungeon, HashSet<Vector2i> reservedTiles, IRobustRandom random)
     {
         if (!data.Tiles.TryGetValue(DungeonDataKey.FallbackTile, out var tileProto))
         {
@@ -34,7 +33,7 @@ public sealed partial class DungeonJob
         foreach (var neighbor in allExterior)
         {
             // Occupado
-            if (dungeon.RoomTiles.Contains(neighbor) || checkedTiles.Contains(neighbor) || !_anchorable.TileFree(_grid, neighbor, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask))
+            if (dungeon.RoomTiles.Contains(neighbor) || checkedTiles.Contains(neighbor) || !_anchorable.TileFree(GridEntity, neighbor, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask))
                 continue;
 
             if (!random.Prob(gen.Prob) || !checkedTiles.Add(neighbor))
@@ -44,7 +43,7 @@ public sealed partial class DungeonJob
             var gridPos = _maps.GridTileToLocal(_gridUid, _grid, neighbor);
             var protoNames = EntitySpawnCollection.GetSpawns(_prototype.Index(spawnProto).Entries, random);
 
-            _entManager.SpawnEntities(gridPos, protoNames);
+            SpawnEntities(gridPos, protoNames);
             count += protoNames.Count;
 
             if (count > 20)

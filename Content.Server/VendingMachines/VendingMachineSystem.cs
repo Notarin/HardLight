@@ -1,9 +1,7 @@
-using System.Linq;
 using Content.Server._NF.Bank;
 using System.Numerics;
 using Content.Server.Cargo.Systems;
 //using Content.Server.Emp; // Frontier: Upstream - #28984
-using Content.Server.Cargo.Components;
 using Content.Server.Popups;
 using Content.Server.Power.Components;
 using Content.Server.Power.EntitySystems;
@@ -31,8 +29,7 @@ using Content.Server._NF.Contraband.Systems; // Frontier
 using Content.Shared.Stacks; // Frontier
 using Content.Server.Stack;
 // using Content.Server._Mono.VendingMachine; // Removed: namespace no longer exists in this branch
-using Content.Shared._Mono.Traits.Physical;
-using Robust.Shared.Containers; // Frontier
+// Frontier
 using Content.Shared._NF.Bank.Components; // Frontier
 using Robust.Shared.Configuration; // HL: CVars
 using Content.Shared.Access.Components;
@@ -297,7 +294,7 @@ namespace Content.Server.VendingMachines
         /// <param name="uid"></param>
         /// <param name="sender">Entity trying to use the vending machine</param>
         /// <param name="vendComponent"></param>
-        public bool IsAuthorized(EntityUid uid, EntityUid sender, VendingMachineComponent? vendComponent = null)
+        public new bool IsAuthorized(EntityUid uid, EntityUid sender, VendingMachineComponent? vendComponent = null)
         {
             if (!Resolve(uid, ref vendComponent))
                 return false;
@@ -351,7 +348,7 @@ namespace Content.Server.VendingMachines
             if (string.IsNullOrEmpty(entry.ID))
                 return false;
 
-            if (!TryComp<TransformComponent>(vendComponent.Owner, out var transformComp))
+            if (!TryComp(uid, out TransformComponent? transformComp))
                 return false;
 
             // Start ejecting: set end time rather than assigning read-only property.
@@ -382,24 +379,6 @@ namespace Content.Server.VendingMachines
         {
             if (!Resolve(uid, ref vendComponent))
                 return;
-
-            var finalState = VendingMachineVisualState.Normal;
-            if (vendComponent.Broken)
-            {
-                finalState = VendingMachineVisualState.Broken;
-            }
-            else if (vendComponent.Ejecting)
-            {
-                finalState = VendingMachineVisualState.Eject;
-            }
-            else if (vendComponent.Denying)
-            {
-                finalState = VendingMachineVisualState.Deny;
-            }
-            else if (!this.IsPowered(uid, EntityManager))
-            {
-                finalState = VendingMachineVisualState.Off;
-            }
 
             // Light and appearance handled by shared system; server override retains visual state via base system dependencies.
             base.TryUpdateVisualState((uid, vendComponent));

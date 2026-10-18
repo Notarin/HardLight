@@ -18,6 +18,7 @@ public sealed class PacketSealingSystem : EntitySystem
     [Dependency] private readonly SharedHandsSystem _hands = default!;
     [Dependency] private readonly SharedStorageSystem _storage = default!;
     [Dependency] private readonly SharedContainerSystem _container = default!;
+    [Dependency] private readonly SharedTransformSystem _transform = default!;
 
     public override void Initialize()
     {
@@ -83,7 +84,7 @@ public sealed class PacketSealingSystem : EntitySystem
         if (!TryPlaceInSameLocation(ent.Owner, wrappedPacket, user))
         {
             // If we can't place it in the same spot, just drop it at user's feet
-            Transform(wrappedPacket).Coordinates = Transform(user).Coordinates;
+            _transform.SetCoordinates(wrappedPacket, Transform(user).Coordinates);
         }
 
         // Remove the empty packet
@@ -144,7 +145,7 @@ public sealed class PacketSealingSystem : EntitySystem
 
         // If it's not in hands or container, it's on the ground/world
         // Keep it in the exact same position
-        Transform(newPacket).Coordinates = oldCoordinates;
+        _transform.SetCoordinates(newPacket, oldCoordinates);
         return true;
     }
 

@@ -1,6 +1,5 @@
 using System.Numerics;
 using Content.Shared.Atmos;
-using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using static Content.Server.Explosion.EntitySystems.ExplosionSystem;
 
@@ -11,7 +10,7 @@ namespace Content.Server.Explosion.EntitySystems;
 /// </summary>
 public sealed class ExplosionGridTileFlood : ExplosionTileFlood
 {
-    public MapGridComponent Grid;
+    public Entity<MapGridComponent> Grid;
     private bool _needToTransform = false;
 
     private Matrix3x2 _matrix = Matrix3x2.Identity;
@@ -37,7 +36,7 @@ public sealed class ExplosionGridTileFlood : ExplosionTileFlood
     private Dictionary<Vector2i, NeighborFlag> _edgeTiles;
 
     public ExplosionGridTileFlood(
-        MapGridComponent grid,
+        Entity<MapGridComponent> grid,
         Dictionary<Vector2i, TileData> airtightMap,
         float maxIntensity,
         float intensityStepSize,
@@ -73,7 +72,7 @@ public sealed class ExplosionGridTileFlood : ExplosionTileFlood
 
         var transformSystem = entityManager.System<SharedTransformSystem>();
         var transform = entityManager.GetComponent<TransformComponent>(Grid.Owner);
-        var size = (float)Grid.TileSize;
+        var size = (float)Grid.Comp.TileSize;
 
         _matrix.M31 = size / 2;
         _matrix.M32 = size / 2;

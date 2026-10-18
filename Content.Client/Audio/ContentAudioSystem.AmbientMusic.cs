@@ -1,13 +1,9 @@
-using System.Linq;
 using Content.Client.Gameplay;
 using Content.Shared.Audio;
 using Content.Shared.CCVar;
 using Content.Shared.GameTicking;
-using Content.Shared.Random;
 using Content.Shared.Random.Rules;
-using Robust.Client.GameObjects;
 using Robust.Client.Player;
-using Robust.Client.ResourceManagement;
 using Robust.Client.State;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Components;
@@ -208,7 +204,7 @@ public sealed partial class ContentAudioSystem
         tracks.RemoveAt(tracks.Count - 1);
 
         var strim = _audio.PlayGlobal(
-            track.ToString(),
+            new SoundPathSpecifier(track),
             Filter.Local(),
             false,
             AudioParams.Default.WithVolume(_musicProto.Sound.Params.Volume + _volumeSlider));

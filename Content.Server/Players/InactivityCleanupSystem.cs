@@ -1,6 +1,5 @@
 using Content.Server.Afk;
 using Content.Server.Afk.Events;
-using Content.Server.Mind;
 using Content.Shared.Ghost;
 using Content.Shared.Mind;
 using Robust.Server.Player;
@@ -19,7 +18,6 @@ public sealed class InactivityCleanupSystem : EntitySystem
     [Dependency] private readonly IAfkManager _afkManager = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly MindSystem _mindSystem = default!;
 
     private readonly Dictionary<NetUserId, TimeSpan> _afkSince = new();
     private readonly Dictionary<NetUserId, TimeSpan> _offlineSince = new();

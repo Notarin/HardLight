@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Content.Server.Procedural;
 using Content.Shared.Procedural;
 using Robust.Shared.Maths;

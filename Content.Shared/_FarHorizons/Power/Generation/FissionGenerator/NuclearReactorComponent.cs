@@ -357,6 +357,6 @@ public sealed partial class NuclearReactorComponent : Component
 [Serializable, NetSerializable, DataDefinition]
 public sealed partial class ReactorCapVisualData
 {
-    public Color color = Color.Black;
-    public string cap = "";
+    public Color Color = Color.Black;
+    public string Cap = "";
 }

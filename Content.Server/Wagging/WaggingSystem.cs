@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.Actions;
 using Content.Server.Humanoid;
 using Content.Shared._CS.Humanoid;
@@ -8,7 +7,6 @@ using Content.Shared.Humanoid.Markings;
 using Content.Shared.Mobs;
 using Content.Shared.Toggleable;
 using Content.Shared.Wagging;
-using Robust.Shared.Prototypes;
 
 namespace Content.Server.Wagging;
 
@@ -19,7 +17,6 @@ public sealed class WaggingSystem : EntitySystem
 {
     [Dependency] private readonly ActionsSystem _actions = default!;
     [Dependency] private readonly HumanoidAppearanceSystem _humanoidAppearance = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
     [Dependency] private readonly CoyoteMarkingSystem _coyoteMarking = default!; // Coyote, obviously
 
     public override void Initialize()

@@ -17,7 +17,6 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
-using System.Linq;
 using System.Numerics;
 using Content.Shared.Actions;
 
@@ -429,7 +428,7 @@ public abstract class SharedAnomalySystem : EntitySystem
             if (!settings.CanSpawnOnEntities)
             {
                 var valid = true;
-                foreach (var ent in grid.GetAnchoredEntities(tileref.GridIndices))
+                foreach (var ent in _map.GetAnchoredEntities(xform.GridUid.Value, grid, tileref.GridIndices))
                 {
                     if (!physQuery.TryGetComponent(ent, out var body))
                         continue;

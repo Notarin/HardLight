@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Client.Light.Components;
 using Robust.Client.GameObjects;
 using Robust.Client.Animations;
@@ -108,9 +107,6 @@ public sealed class LightBehaviorSystem : EntitySystem
     /// If no ID is specified then all light behaviours will be stopped.
     /// Multiple light behaviours can have the same ID.
     /// </summary>
-    /// <param name="id"></param>
-    /// <param name="removeBehaviour">Should the behaviour(s) also be removed permanently?</param>
-    /// <param name="resetToOriginalSettings">Should the light have its original settings applied?</param>
     public void StopLightBehaviour(Entity<LightBehaviourComponent> entity, string id = "", bool removeBehaviour = false, bool resetToOriginalSettings = false)
     {
         if (!TryComp(entity, out AnimationPlayerComponent? animation))

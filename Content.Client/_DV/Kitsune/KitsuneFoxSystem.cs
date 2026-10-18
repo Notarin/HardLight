@@ -13,7 +13,7 @@ public sealed class KitsuneFoxSystem : VisualizerSystem<KitsuneFoxComponent>
         if (!AppearanceSystem.TryGetData<Color>(uid, KitsuneColorVisuals.Color, out var color, args.Component))
             return;
 
-        if (sprite.LayerMapTryGet(KitsuneColorVisuals.Layer, out var layer))
-            sprite.LayerSetColor(layer, color);
+        if (SpriteSystem.LayerMapTryGet((uid, sprite), KitsuneColorVisuals.Layer, out var layer, false))
+            SpriteSystem.LayerSetColor((uid, sprite), layer, color);
     }
 }

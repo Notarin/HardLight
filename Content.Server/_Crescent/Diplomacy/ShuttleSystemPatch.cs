@@ -1,6 +1,3 @@
-using Content.Server.Shuttles;
-
-
 namespace Content.Server._Crescent.Diplomacy;
 
 

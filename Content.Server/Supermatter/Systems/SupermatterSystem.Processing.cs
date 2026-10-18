@@ -3,10 +3,8 @@ using Content.Shared.Radiation.Components;
 using Content.Shared.Supermatter.Components;
 using System.Text;
 using Content.Shared.Chat;
-using System.Linq;
 using Content.Shared.Audio;
 using Content.Shared.CCVar;
-using Content.Server.Chat.Systems;
 
 namespace Content.Server.Supermatter.Systems;
 
@@ -282,8 +280,6 @@ public sealed partial class SupermatterSystem
         SendSupermatterAnnouncement(uid, message, global);
     }
 
-    /// <param name="global">If true, sends a station announcement</param>
-    /// <param name="customSender">Localisation string for a custom announcer name</param>
     public void SendSupermatterAnnouncement(EntityUid uid, string message, bool global = false, string? customSender = null)
     {
         if (global)

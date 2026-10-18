@@ -1,10 +1,8 @@
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using Content.Shared.Physics;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
-using Robust.Shared.Random;
 
 namespace Content.Shared.Maps
 {
@@ -24,10 +22,11 @@ namespace Content.Shared.Maps
 
             mapManager ??= IoCManager.Resolve<IMapManager>();
             var pos = entityManager.System<SharedTransformSystem>().ToMapCoordinates(coordinates);
-            if (!mapManager.TryFindGridAt(pos, out _, out var grid))
+            if (!mapManager.TryFindGridAt(pos, out var gridUid, out var grid))
                 return null;
 
-            if (!grid.TryGetTileRef(coordinates, out var tile))
+            var mapSystem = entityManager.System<SharedMapSystem>();
+            if (!mapSystem.TryGetTileRef(gridUid, grid, coordinates, out var tile))
                 return null;
 
             return tile;

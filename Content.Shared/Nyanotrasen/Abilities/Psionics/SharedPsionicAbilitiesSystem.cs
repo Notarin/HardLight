@@ -1,14 +1,12 @@
 using Content.Shared.Abilities.Psionics;
 using Content.Shared.Actions;
 using Content.Shared.Administration.Logs;
-using Content.Shared.Database;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Popups;
 using Content.Shared.Psionics.Glimmer;
 using Robust.Shared.Random;
 using Robust.Shared.Serialization;
-using System;
 
 namespace Content.Shared.Nyanotrasen.Abilities.Psionics
 {
@@ -69,17 +67,13 @@ namespace Content.Shared.Nyanotrasen.Abilities.Psionics
                 return;
 
             // Update all psionic actions based on eligibility
+            var eligible = IsEligibleForPsionics(uid);
             foreach (var action in component.Actions.Values)
             {
                 if (action == null)
                     continue;
 
-                _actions.TryGetActionData(action.Value, out var actionData);
-
-                if (actionData == null)
-                    continue;
-
-                _actions.SetEnabled(actionData.Owner, IsEligibleForPsionics(uid));
+                _actions.SetEnabled(action.Value, eligible);
             }
         }
 

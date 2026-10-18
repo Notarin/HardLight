@@ -1,5 +1,4 @@
 using Content.Shared.Physics;
-using Robust.Shared.Maths;
 using Robust.Shared.Physics.Collision.Shapes;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;

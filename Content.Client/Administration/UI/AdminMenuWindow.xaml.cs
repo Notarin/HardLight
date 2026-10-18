@@ -10,8 +10,6 @@ namespace Content.Client.Administration.UI;
 [GenerateTypedNameReferences]
 public sealed partial class AdminMenuWindow : DefaultWindow
 {
-    public event Action? OnDisposed;
-
     public PlayerTab PlayerTabControl => AdminToolsControl.PlayerTabControl;
     public ObjectsTab ObjectsTabControl => AdminToolsControl.ObjectsTabControl;
 
@@ -21,12 +19,5 @@ public sealed partial class AdminMenuWindow : DefaultWindow
         SetSize = new Vector2(1040, 680);
         Title = Loc.GetString("admin-menu-title");
         RobustXamlLoader.Load(this);
-    }
-
-    protected override void Dispose(bool disposing)
-    {
-        OnDisposed?.Invoke();
-        base.Dispose(disposing);
-        OnDisposed = null;
     }
 }

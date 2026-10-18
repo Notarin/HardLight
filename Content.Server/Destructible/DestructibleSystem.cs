@@ -16,13 +16,10 @@ using Content.Shared.Destructible;
 using Content.Shared.FixedPoint;
 using JetBrains.Annotations;
 using Robust.Server.Audio;
-using Robust.Server.GameObjects;
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
-using System.Linq;
 using Content.Shared.Humanoid;
-using Robust.Shared.Player;
 
 namespace Content.Server.Destructible
 {
@@ -44,7 +41,7 @@ namespace Content.Server.Destructible
         [Dependency] public readonly SharedContainerSystem ContainerSystem = default!;
         [Dependency] public readonly IPrototypeManager PrototypeManager = default!;
         [Dependency] public readonly IComponentFactory ComponentFactory = default!;
-        [Dependency] public readonly IAdminLogManager _adminLogger = default!;
+        [Dependency] private readonly IAdminLogManager _adminLogger = default!;
 
         private EntityQuery<DestructibleComponent> _destructibleQuery; // VRS (Triad #3732);
 

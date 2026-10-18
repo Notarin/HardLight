@@ -53,7 +53,6 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-using System.Linq;
 using Content.Server.Administration.Logs;
 using Content.Server.Cloning.Components;
 using Content.Server.DeviceLinking.Systems;
@@ -68,7 +67,6 @@ using Content.Shared.DeviceLinking.Events;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Mind;
 using Content.Shared.Mobs.Components;
-using Content.Shared.Mobs.Systems;
 using Content.Shared.Power;
 using Robust.Server.GameObjects;
 using Robust.Server.Player;
@@ -264,18 +262,12 @@ namespace Content.Server.Cloning
                 {
                     scanBodyInfo = MetaData(scanBody.Value).EntityName;
 
-                    if (false) // GoobStation: Lets you clone living people
+                    // GoobStation: Lets you clone living people
+                    if (!_mindSystem.TryGetMind(scanBody.Value, out _, out var mind) ||
+                        mind.UserId == null ||
+                        !_playerManager.TryGetSessionById(mind.UserId.Value, out _))
                     {
-                        clonerStatus = ClonerStatus.ScannerOccupantAlive;
-                    }
-                    else
-                    {
-                        if (!_mindSystem.TryGetMind(scanBody.Value, out _, out var mind) ||
-                            mind.UserId == null ||
-                            !_playerManager.TryGetSessionById(mind.UserId.Value, out _))
-                        {
-                            clonerStatus = ClonerStatus.NoMindDetected;
-                        }
+                        clonerStatus = ClonerStatus.NoMindDetected;
                     }
                 }
             }

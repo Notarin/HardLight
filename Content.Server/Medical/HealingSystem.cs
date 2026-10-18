@@ -24,13 +24,9 @@ using Content.Shared._FarHorizons.Medical.ConditionalHealing; // Far Horizons
 using Content.Shared.Eye.Blinding.Components; // Far Horizons
 using Content.Shared.Eye.Blinding.Systems; // Far Horizons
 using Robust.Shared.Audio.Systems;
-using Robust.Shared.Random;
-using Robust.Shared.Audio;
 
 // Shitmed Change
 using Content.Shared._Shitmed.Targeting;
-using Content.Shared.Body.Components;
-using System.Linq;
 
 namespace Content.Server.Medical;
 

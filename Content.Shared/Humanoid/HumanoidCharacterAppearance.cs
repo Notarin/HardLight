@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.Humanoid.Markings;
 using Content.Shared.Humanoid.Prototypes;
 using Robust.Shared.Prototypes;
@@ -180,7 +179,7 @@ public sealed partial class HumanoidCharacterAppearance : ICharacterAppearance, 
         );
     }
 
-    private static IReadOnlyList<Color> RealisticEyeColors = new List<Color>
+    private static readonly IReadOnlyList<Color> RealisticEyeColors = new List<Color>
     {
         Color.Brown,
         Color.Gray,

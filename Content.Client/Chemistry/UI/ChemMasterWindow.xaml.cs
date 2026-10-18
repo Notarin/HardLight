@@ -8,7 +8,6 @@ using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.XAML;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
-using System.Linq;
 using System.Numerics;
 using Content.Shared.FixedPoint;
 using Robust.Client.Graphics;
@@ -18,7 +17,7 @@ using Robust.Client.GameObjects;
 namespace Content.Client.Chemistry.UI
 {
     /// <summary>
-    /// Client-side UI used to control a <see cref="SharedChemMasterComponent"/>
+    /// Client-side UI used to control a SharedChemMasterComponent
     /// </summary>
     [GenerateTypedNameReferences]
     public sealed partial class ChemMasterWindow : FancyWindow

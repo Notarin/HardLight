@@ -1,12 +1,9 @@
 // SPDX-FileCopyrightText: 2026 HardLight contributors
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-using System;
 using Content.Shared.Weapons.Hitscan.Components;
 using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Events;
-using Robust.Shared.GameObjects;
-using Robust.Shared.Maths;
 using Robust.Shared.Timing;
 using Timer = Robust.Shared.Timing.Timer;
 
@@ -30,7 +27,7 @@ public sealed class BeamPrismSystem : EntitySystem
         if (args.Reflected)
             return;
 
-        if (!TryComp<TransformComponent>(uid, out var xform))
+        if (!TryComp(uid, out TransformComponent? xform))
             return;
 
         args.Direction = _transform.GetWorldRotation(xform).ToWorldVec();

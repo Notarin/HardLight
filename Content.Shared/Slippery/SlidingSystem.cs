@@ -1,6 +1,4 @@
-using Content.Shared.Movement.Events;
 using Content.Shared.Standing;
-using Content.Shared.Stunnable;
 using Robust.Shared.Physics.Events;
 
 namespace Content.Shared.Slippery;

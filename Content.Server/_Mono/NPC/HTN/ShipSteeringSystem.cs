@@ -2,7 +2,6 @@ using Content.Server._Mono.Projectiles.TargetSeeking;
 using Content.Server.Physics.Controllers;
 using Content.Server.Shuttles.Components;
 using Content.Server.Shuttles.Systems;
-using Content.Shared._Mono;
 using Content.Shared._Mono.SpaceArtillery;
 using Content.Shared._NF.Shuttles.Events;
 using Content.Shared.Emp;
@@ -288,9 +287,9 @@ public sealed partial class ShipSteeringSystem : EntitySystem
 
     private void ScanForObstacles(in SteeringContext ctx, in SteeringConfig config, in BrakeContext brake)
     {
-        var SearchBuffer = config.SearchBuffer;
-        var ScanDistanceBuffer = config.ScanDistanceBuffer;
-        var ProjectileSearchBounds = config.ProjectileSearchBounds;
+        var searchBuffer = config.SearchBuffer;
+        var scanDistanceBuffer = config.ScanDistanceBuffer;
+        var projectileSearchBounds = config.ProjectileSearchBounds;
 
         var shipPosVec = ctx.ShipPos.Position;
         var shipVel = ctx.ShipBody.LinearVelocity;
@@ -300,10 +299,10 @@ public sealed partial class ShipSteeringSystem : EntitySystem
         var scanDistance = brake.BrakeAccel == 0f ?
                                config.MaxObstructorDistance
                                : MathF.Min(config.MaxObstructorDistance, brake.BrakePath * 2f);
-        scanDistance += shipAABB.Size.Length() * 0.5f + ScanDistanceBuffer;
+        scanDistance += shipAABB.Size.Length() * 0.5f + scanDistanceBuffer;
 
         var scanBoundsLocal = shipAABB
-            .Enlarged(SearchBuffer)
+            .Enlarged(searchBuffer)
             .ExtendToContain(new Vector2(0, scanDistance));
 
         var scanBounds = new Box2(scanBoundsLocal.BottomLeft + shipPosVec, scanBoundsLocal.TopRight + shipPosVec);
@@ -317,7 +316,7 @@ public sealed partial class ShipSteeringSystem : EntitySystem
         _avoidProjs.Clear();
         if (config.AvoidProjectiles)
             _avoidProjs = _lookup.GetEntitiesInRange<ShipWeaponProjectileComponent>(
-                ctx.ShipPos, ProjectileSearchBounds, LookupFlags.Approximate | LookupFlags.Dynamic | LookupFlags.Sensors);
+                ctx.ShipPos, projectileSearchBounds, LookupFlags.Approximate | LookupFlags.Dynamic | LookupFlags.Sensors);
 
         // pool all queried ents
         _avoidPotentialEnts.Clear();
@@ -421,16 +420,16 @@ public sealed partial class ShipSteeringSystem : EntitySystem
                 var k = 0.5f * Vector2.Dot(toObsDir, accel);
 
                 // 1. Solve crossing the Front Tangent Plane (Entering the obstacle bounds)
-                float t_f;
+                float tf;
                 var desc_f = l * l + 4f * k * obsDistanceFront;
                 if (desc_f < 0f)
-                    t_f = l != 0f ? obsDistanceFront / l : -1f;
+                    tf = l != 0f ? obsDistanceFront / l : -1f;
                 else
                 {
-                    t_f = desc_f < 0f || k == 0f ? -1f : ((-l + MathF.Sqrt(desc_f)) * 0.5f / k);
+                    tf = desc_f < 0f || k == 0f ? -1f : ((-l + MathF.Sqrt(desc_f)) * 0.5f / k);
                 }
 
-                if (t_f < 0f || t_f > simTime)
+                if (tf < 0f || tf > simTime)
                     continue;
 
                 // 2. Resolve longitudinal exit/stop trajectory
@@ -439,19 +438,19 @@ public sealed partial class ShipSteeringSystem : EntitySystem
                 if (desc_c < 0f)
                 {
                     // The ship stops longitudinally inside the front half of the obstacle
-                    var t_stop = -l / (2f * k);
-                    p_end = relVel * t_stop + 0.5f * accel * t_stop * t_stop;
+                    var tStop = -l / (2f * k);
+                    p_end = relVel * tStop + 0.5f * accel * tStop * tStop;
                 }
                 else
                 {
-                    var t_c = ((-l + MathF.Sqrt(desc_c)) * 0.5f / k);
-                    if (t_c < 0f) t_c = t_f; // Failsafe bounds
-                    p_end = relVel * t_c + 0.5f * accel * t_c * t_c;
+                    var tc = ((-l + MathF.Sqrt(desc_c)) * 0.5f / k);
+                    if (tc < 0f) tc = tf; // Failsafe bounds
+                    p_end = relVel * tc + 0.5f * accel * tc * tc;
                 }
 
                 // 3. Line-segment to Circle-Center intersection.
                 // Represents exact path traveled while navigating across the physical dimension of the obstacle.
-                var p_start = relVel * t_f + 0.5f * accel * t_f * t_f;
+                var p_start = relVel * tf + 0.5f * accel * tf * tf;
                 var seg = p_end - p_start;
                 var l2 = seg.LengthSquared();
                 var hits = false;
@@ -464,8 +463,8 @@ public sealed partial class ShipSteeringSystem : EntitySystem
                 else
                 {
                     // Find closest point on the segment to the obstacle's actual center point
-                    var t_seg = Math.Clamp(Vector2.Dot(toObsVec - p_start, seg) / l2, 0f, 1f);
-                    var proj = p_start + seg * t_seg;
+                    var tSeg = Math.Clamp(Vector2.Dot(toObsVec - p_start, seg) / l2, 0f, 1f);
+                    var proj = p_start + seg * tSeg;
                     if ((proj - toObsVec).LengthSquared() <= sumRadius * sumRadius)
                         hits = true;
                 }
@@ -473,7 +472,7 @@ public sealed partial class ShipSteeringSystem : EntitySystem
                 if (!hits)
                     continue;
 
-                var t = MathF.Max(0f, t_f - ctx.FrameTime);
+                var t = MathF.Max(0f, tf - ctx.FrameTime);
 
                 var ctime = sector.ImpactTime;
                 if ((ctime == null || ctime > t) && (!sector.Priority || obstacle.IsGrid))

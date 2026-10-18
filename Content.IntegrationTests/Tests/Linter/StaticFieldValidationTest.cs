@@ -1,10 +1,7 @@
-using System.Collections.Generic;
-using System.Linq;
 using Content.Shared.Tag;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Reflection;
-using Robust.Shared.Serialization.Manager.Attributes;
 
 namespace Content.IntegrationTests.Tests.Linter;
 

@@ -9,7 +9,6 @@ using Robust.Client.Graphics;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.XAML;
-using Robust.Shared.Log;
 using Robust.Shared.Timing;
 
 namespace Content.Client.Gateway.UI;
@@ -102,7 +101,7 @@ public sealed partial class GatewayWindow : FancyWindow,
             var name = dest.Name;
             var locked = dest.Locked && _nextUnlock > _timing.CurTime;
 
-            Logger.Debug($"Gateway UI: Destination {name} - IsDockingArm: {dest.IsDockingArm}, Locked: {locked}");
+            Logger.GetSawmill("gateway").Debug($"Gateway UI: Destination {name} - IsDockingArm: {dest.IsDockingArm}, Locked: {locked}");
 
             var box = new BoxContainer()
             {

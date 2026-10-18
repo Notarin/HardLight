@@ -427,7 +427,7 @@ public enum LogType
     InteractUsing = 92,
 
     /// <summary>
-    /// Storage & entity-storage related interactions
+    /// Storage &amp; entity-storage related interactions
     /// </summary>
     Storage = 93,
 

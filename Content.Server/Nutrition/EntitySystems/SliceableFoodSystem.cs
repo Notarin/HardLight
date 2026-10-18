@@ -17,8 +17,6 @@ using Robust.Shared.Containers;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
 using Content.Shared.Destructible;
-using System;
-using System.Linq;
 using System.Text;
 
 namespace Content.Server.Nutrition.EntitySystems;

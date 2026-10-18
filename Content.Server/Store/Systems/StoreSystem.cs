@@ -6,12 +6,9 @@ using Content.Shared.Interaction;
 using Content.Shared.Popups;
 using Content.Shared.Stacks;
 using Content.Shared.Store.Components;
-using JetBrains.Annotations;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
-using System.Linq;
 using Robust.Shared.Timing;
-using Content.Shared.Mind;
 
 namespace Content.Server.Store.Systems;
 

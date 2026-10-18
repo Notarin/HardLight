@@ -7,11 +7,8 @@ using Content.Shared.Gateway;
 using Content.Shared.Popups;
 using Content.Shared.Teleportation.Components;
 using Content.Shared.Teleportation.Systems;
-using Content.Shared.Verbs;
 using Robust.Server.GameObjects;
-using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
-using Robust.Shared.GameObjects;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
@@ -107,7 +104,7 @@ public sealed class GatewaySystem : EntitySystem
             if (!dest.Enabled || destUid == uid)
                 continue;
 
-            if (TerminatingOrDeleted(destUid) || !TryComp<MetaDataComponent>(destUid, out var destMeta))
+            if (TerminatingOrDeleted(destUid) || !TryComp(destUid, out MetaDataComponent? destMeta))
                 continue;
 
             // Show destination if either no destination comp on the map or it's ours.
@@ -131,7 +128,7 @@ public sealed class GatewaySystem : EntitySystem
                 // Fallback to grid's ID if applicable.
                 Name = dest.Name.IsEmpty && destXform.GridUid != null &&
                        !TerminatingOrDeleted(destXform.GridUid.Value) &&
-                       TryComp<MetaDataComponent>(destXform.GridUid.Value, out var gridMeta)
+                       TryComp(destXform.GridUid.Value, out MetaDataComponent? gridMeta)
                     ? FormattedMessage.FromUnformatted(gridMeta.EntityName)
                     : dest.Name,
                 Portal = HasComp<PortalComponent>(destUid),
@@ -148,7 +145,7 @@ public sealed class GatewaySystem : EntitySystem
 
         if (current is { } currentUid &&
             !TerminatingOrDeleted(currentUid) &&
-            TryComp<MetaDataComponent>(currentUid, out var currentMeta) &&
+            TryComp(currentUid, out MetaDataComponent? currentMeta) &&
             currentMeta.EntityLifeStage < EntityLifeStage.Terminating)
         {
             currentNet = GetNetEntity(currentUid, currentMeta);

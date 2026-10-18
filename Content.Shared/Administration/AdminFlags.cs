@@ -54,9 +54,9 @@ namespace Content.Shared.Administration
         /// </summary>
         Mapping = 1 << 8,
 
-        /// <summary>
-        ///     Makes you british.
-        /// </summary>
+        // <summary>
+        //     Makes you british.
+        // </summary>
         //Piss = 1 << 9,
 
         /// <summary>

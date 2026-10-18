@@ -1,7 +1,5 @@
 using Content.Shared._DV.TapeRecorder;
 using Robust.Client.UserInterface;
-using Robust.Shared.Prototypes;
-using Robust.Shared.Timing;
 using Timer = Robust.Shared.Timing.Timer;
 
 namespace Content.Client._DV.TapeRecorder.UI;

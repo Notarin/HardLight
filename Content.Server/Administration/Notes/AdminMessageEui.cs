@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.Database;
 using Content.Server.EUI;
 using Content.Shared.Administration.Notes;

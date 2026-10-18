@@ -1,9 +1,7 @@
 using Content.Shared.ActionBlocker;
-using Content.Shared.Instruments;
 using Content.Shared.Instruments.UI;
 using Content.Shared.Interaction;
 using Robust.Client.Audio.Midi;
-using Robust.Client.Player;
 using Robust.Client.UserInterface;
 
 namespace Content.Client.Instruments.UI
@@ -69,8 +67,8 @@ namespace Content.Client.Instruments.UI
                 _instrumentMenu?.RemoveInstrument(instrument);
             }
 
-            _bandMenu?.Dispose();
-            _channelsMenu?.Dispose();
+            _bandMenu?.Close();
+            _channelsMenu?.Close();
         }
 
         public void RefreshBands()

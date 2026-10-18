@@ -1,5 +1,4 @@
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using Content.Server.Administration.Logs;
 using Content.Server.DeviceLinking.Systems;
 using Content.Shared._FarHorizons.Power.Generation.FissionGenerator;
@@ -57,7 +56,7 @@ public sealed partial class NuclearReactorMonitorSystem : EntitySystem
             if (!HasComp<NuclearReactorComponent>(source))
                 continue;
 
-            comp.reactor = GetNetEntity(source);
+            comp.Reactor = GetNetEntity(source);
             Dirty(uid, comp);
             return; // The return is to make it behave such that the first connetion that's a reactor is the one chosen
         }
@@ -68,7 +67,7 @@ public sealed partial class NuclearReactorMonitorSystem : EntitySystem
         if (!HasComp<NuclearReactorComponent>(args.Source))
             return;
 
-        comp.reactor = GetNetEntity(args.Source);
+        comp.Reactor = GetNetEntity(args.Source);
         Dirty(uid, comp);
     }
 
@@ -77,14 +76,14 @@ public sealed partial class NuclearReactorMonitorSystem : EntitySystem
         if (args.Port != comp.LinkingPort)
             return;
 
-        comp.reactor = null;
+        comp.Reactor = null;
         Dirty(uid, comp);
     }
 
     public bool TryGetReactorComp(NuclearReactorMonitorComponent reactorMonitor, [NotNullWhen(true)] out NuclearReactorComponent? reactorComponent)
     {
         reactorComponent = null;
-        if (!_entityManager.TryGetEntity(reactorMonitor.reactor, out var reactorEnt) || reactorEnt == null)
+        if (!_entityManager.TryGetEntity(reactorMonitor.Reactor, out var reactorEnt) || reactorEnt == null)
             return false;
 
         if (!_entityManager.TryGetComponent<NuclearReactorComponent>(reactorEnt, out var reactor))
@@ -150,7 +149,7 @@ public sealed partial class NuclearReactorMonitorSystem : EntitySystem
                 _logQueue.Add(key, new LogData
                 {
                     CreationTime = _gameTiming.RealTime,
-                    Reactor = comp.reactor!.Value,
+                    Reactor = comp.Reactor!.Value,
                     SetControlRodInsertion = reactor.ControlRodInsertion
                 });
             else
@@ -174,7 +173,7 @@ public sealed partial class NuclearReactorMonitorSystem : EntitySystem
         if (!_entityManager.TryGetComponent<DeviceLinkSinkComponent>(uid, out var sink) || sink.LinkedSources.Count < 1)
             return;
 
-        if (!_entityManager.TryGetEntity(comp.reactor, out var uidReactor))
+        if (!_entityManager.TryGetEntity(comp.Reactor, out var uidReactor))
             return;
 
         if (!_entityManager.TryGetComponent<DeviceLinkSourceComponent>(uidReactor, out var source))
@@ -189,7 +188,7 @@ public sealed partial class NuclearReactorMonitorSystem : EntitySystem
             return;
 
         _uiSystem.CloseUi(uid, NuclearReactorUiKey.Key);
-        comp.reactor = null;
+        comp.Reactor = null;
         _signal.RemoveSinkFromSource(uidReactor.Value, uid, source, sink);
         Dirty(uid, comp);
     }

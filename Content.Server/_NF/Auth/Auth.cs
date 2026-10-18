@@ -1,11 +1,7 @@
-using System.Threading;
-using System.Threading.Tasks;
-using System.Net.Http;
 using System.Net.Http.Json;
 using System.Net.Http.Headers;
 using Content.Shared.CCVar;
 using Robust.Shared.Configuration;
-using Robust.Shared.Log;
 using JetBrains.Annotations;
 
 namespace Content.Server._NF.Auth;

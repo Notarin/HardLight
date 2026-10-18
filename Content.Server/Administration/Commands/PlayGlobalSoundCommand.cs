@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.Audio;
 using Content.Shared.Administration;
 using Robust.Server.Player;
@@ -88,7 +87,7 @@ public sealed class PlayGlobalSoundCommand : IConsoleCommand
         }
 
         audio = audio.AddVolume(-8);
-        _entManager.System<ServerGlobalSoundSystem>().PlayAdminGlobal(filter, args[0], audio, replay);
+        _entManager.System<ServerGlobalSoundSystem>().PlayAdminGlobal(filter, new ResolvedPathSpecifier(args[0]), audio, replay);
     }
 
     public CompletionResult GetCompletion(IConsoleShell shell, string[] args)

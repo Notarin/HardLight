@@ -2,7 +2,6 @@ using Content.Shared.Actions;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
-using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
 namespace Content.Shared.Speech.Components;
 
@@ -36,7 +35,7 @@ public sealed partial class MeleeSpeechComponent : Component
 }
 
 /// <summary>
-/// Key representing which <see cref="PlayerBoundUserInterface"/> is currently open.
+/// Key representing which PlayerBoundUserInterface is currently open.
 /// Useful when there are multiple UI for an object. Here it's future-proofing only.
 /// </summary>
 [Serializable, NetSerializable]

@@ -1,10 +1,6 @@
 using Content.Server.Objectives.Components;
 using Content.Shared.Mind;
 using Content.Shared.Objectives.Components;
-using Content.Server.GameTicking.Rules;
-using Content.Server.Revolutionary.Components;
-using Robust.Shared.Random;
-using System.Linq;
 
 namespace Content.Server.Objectives.Systems;
 
@@ -16,8 +12,6 @@ public sealed class PickObjectiveTargetSystem : EntitySystem
 {
     [Dependency] private readonly TargetObjectiveSystem _target = default!;
     [Dependency] private readonly SharedMindSystem _mind = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly TraitorRuleSystem _traitorRule = default!;
 
     public override void Initialize()
     {

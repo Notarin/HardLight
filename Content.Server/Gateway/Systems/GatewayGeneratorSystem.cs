@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.Gateway.Components;
 using Content.Shared.Gateway.Components;
 using Content.Server.Parallax;
@@ -26,7 +25,6 @@ public sealed class GatewayGeneratorSystem : EntitySystem
 {
     [Dependency] private readonly IConfigurationManager _cfgManager = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
     [Dependency] private readonly IPrototypeManager _protoManager = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly ITileDefinitionManager _tileDefManager = default!;
@@ -98,17 +96,17 @@ public sealed class GatewayGeneratorSystem : EntitySystem
             return;
 
         var tileDef = _tileDefManager["FloorSteel"];
-        const int MaxOffset = 256;
+        const int maxOffset = 256;
         var tiles = new List<(Vector2i Index, Tile Tile)>();
         var seed = _random.Next();
-        var random = new Random(seed);
-        var mapId = _mapManager.CreateMap();
-        var mapUid = _mapManager.GetMapEntityId(mapId);
+        var random = new RobustRandom();
+        random.SetSeed(seed);
+        var mapUid = _maps.CreateMap(out var mapId);
 
         var gatewayName = _salvage.GetFTLName(_protoManager.Index(PlanetNamesId), seed);
         _metadata.SetEntityName(mapUid, gatewayName);
 
-        var origin = new Vector2i(random.Next(-MaxOffset, MaxOffset), random.Next(-MaxOffset, MaxOffset));
+        var origin = new Vector2i(random.Next(-maxOffset, maxOffset), random.Next(-maxOffset, maxOffset));
 
         _biome.EnsurePlanet(mapUid, _protoManager.Index(ContinentalId), seed);
 
@@ -177,7 +175,8 @@ public sealed class GatewayGeneratorSystem : EntitySystem
         // Do dungeon
         var seed = ent.Comp.Seed;
         var origin = ent.Comp.Origin;
-        var random = new Random(seed);
+        var random = new RobustRandom();
+        random.SetSeed(seed);
         var dungeonDistance = random.Next(3, 6);
         var dungeonRotation = _dungeon.GetDungeonRotation(seed);
         var dungeonPosition = (origin + dungeonRotation.RotateVec(new Vector2i(0, dungeonDistance))).Floored();

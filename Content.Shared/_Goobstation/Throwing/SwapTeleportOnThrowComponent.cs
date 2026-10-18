@@ -1,6 +1,5 @@
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
-using Robust.Shared.GameObjects;
 
 namespace Content.Goobstation.Shared.Throwing;
 

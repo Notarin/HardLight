@@ -1,6 +1,5 @@
-using System.Linq;
 using System.Numerics;
-using System.Threading;
+using Robust.Shared.Audio;
 using Content.Server.Access.Systems;
 using Content.Server.Administration.Logs;
 using Content.Server.Administration.Managers;
@@ -79,8 +78,7 @@ public sealed partial class EmergencyShuttleSystem : EntitySystem
 
     private bool _emergencyShuttleEnabled;
 
-    [ValidatePrototypeId<TagPrototype>]
-    private const string DockTag = "DockEmergency";
+    private static readonly ProtoId<TagPrototype> DockTag = "DockEmergency";
 
     private EntityUid? _singletonColcommMap;
     private EntityUid? _singletonColcommGrid;
@@ -478,7 +476,7 @@ public sealed partial class EmergencyShuttleSystem : EntitySystem
                 playDefaultSound: false);
 
             // TODO: Need filter extensions or something don't blame me.
-            _audio.PlayGlobal("/Audio/Misc/notice1.ogg", Filter.Broadcast(), true);
+            _audio.PlayGlobal(new SoundPathSpecifier("/Audio/Misc/notice1.ogg"), Filter.Broadcast(), true);
             return;
         }
 
@@ -532,9 +530,9 @@ public sealed partial class EmergencyShuttleSystem : EntitySystem
 
         // Play announcement audio.
 
-        var audioFile = result.ResultType == ShuttleDockResultType.NoDock
-            ? "/Audio/Misc/notice1.ogg"
-            : "/Audio/Announcements/shuttle_dock.ogg";
+        SoundSpecifier audioFile = result.ResultType == ShuttleDockResultType.NoDock
+            ? new SoundPathSpecifier("/Audio/Misc/notice1.ogg")
+            : new SoundPathSpecifier("/Audio/Announcements/shuttle_dock.ogg");
 
         // TODO: Need filter extensions or something don't blame me.
         _audio.PlayGlobal(audioFile, Filter.Broadcast(), true);

@@ -1,6 +1,5 @@
 using Content.Server.Administration;
 using Content.Server.Body.Systems;
-using Content.Server.Cargo.Components;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Administration;
 using Content.Shared.Body.Components;
@@ -16,7 +15,6 @@ using Robust.Shared.Containers;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
-using System.Linq;
 using Content.Shared.Research.Prototypes;
 using Content.Server._NF.Cargo.Components; // Frontier
 using Content.Server.Materials.Components; // Frontier
@@ -240,7 +238,6 @@ public sealed class PricingSystem : EntitySystem
     /// <summary>
     /// Appraises an entity, returning it's price.
     /// </summary>
-    /// <param name="uid">The entity to appraise.</param>
     /// <returns>The price of the entity.</returns>
     /// <remarks>
     /// This fires off an event to calculate the price.

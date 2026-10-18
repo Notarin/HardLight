@@ -3,9 +3,6 @@ using Content.Shared.CCVar;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Configuration;
-using Robust.Shared.IoC;
-using Robust.Shared.Localization;
-using Robust.Shared.Utility;
 
 namespace Content.Client.Info
 {

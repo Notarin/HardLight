@@ -1,5 +1,3 @@
-using System;
-
 namespace Content.Goobstation.Shared.StationRadio.Components;
 
 [RegisterComponent]

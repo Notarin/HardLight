@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Content.Server._EinsteinEngines.Silicon.Charge;
 using Content.Server._EinsteinEngines.Silicon.Death;
 using Content.Shared._EinsteinEngines.Silicon.Components;

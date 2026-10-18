@@ -18,7 +18,6 @@ using Content.Shared.Damage;
 using Content.Shared._DV.Mail;
 using Content.Shared.Destructible;
 using Content.Shared.Delivery;
-using Content.Shared.Emag.Components;
 using Content.Shared.Emag.Systems;
 using Content.Shared.Examine;
 using Content.Shared.Fluids.Components;
@@ -37,8 +36,6 @@ using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Threading;
 using Timer = Robust.Shared.Timing.Timer;
 using Content.Server._NF.Bank; // Frontier
 using Content.Server._NF.SectorServices; // Frontier

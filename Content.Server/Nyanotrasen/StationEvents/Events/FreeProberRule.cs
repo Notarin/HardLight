@@ -1,7 +1,5 @@
-using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Random;
-using Content.Server.GameTicking.Rules.Components;
 using Content.Server.Power.Components;
 using Content.Server.Station.Systems;
 using Content.Server.StationEvents.Components;
@@ -18,6 +16,7 @@ internal sealed class FreeProberRule : StationEventSystem<FreeProberRuleComponen
     [Dependency] private readonly AnchorableSystem _anchorable = default!;
     [Dependency] private readonly GlimmerSystem _glimmerSystem = default!;
     [Dependency] private readonly StationSystem _stationSystem = default!;
+    [Dependency] private readonly SharedMapSystem _map = default!;
 
     private static readonly string ProberPrototype = "GlimmerProber";
     private static readonly int SpawnDirections = 4;
@@ -26,31 +25,31 @@ internal sealed class FreeProberRule : StationEventSystem<FreeProberRuleComponen
     {
         base.Started(uid, component, gameRule, args);
 
-        List<EntityUid> PossibleSpawns = new();
+        List<EntityUid> possibleSpawns = new();
 
         var query = EntityQueryEnumerator<GlimmerSourceComponent>();
         while (query.MoveNext(out var glimmerSource, out var glimmerSourceComponent))
         {
             if (glimmerSourceComponent.AddToGlimmer && glimmerSourceComponent.Active)
             {
-                PossibleSpawns.Add(glimmerSource);
+                possibleSpawns.Add(glimmerSource);
             }
         }
 
-        if (PossibleSpawns.Count == 0 || _glimmerSystem.Glimmer >= 500 || _robustRandom.Prob(0.25f))
+        if (possibleSpawns.Count == 0 || _glimmerSystem.Glimmer >= 500 || _robustRandom.Prob(0.25f))
         {
             var queryBattery = EntityQueryEnumerator<PowerNetworkBatteryComponent>();
             while (query.MoveNext(out var battery, out var _))
             {
-                PossibleSpawns.Add(battery);
+                possibleSpawns.Add(battery);
             }
         }
 
-        if (PossibleSpawns.Count > 0)
+        if (possibleSpawns.Count > 0)
         {
-            _robustRandom.Shuffle(PossibleSpawns);
+            _robustRandom.Shuffle(possibleSpawns);
 
-            foreach (var source in PossibleSpawns)
+            foreach (var source in possibleSpawns)
             {
                 var xform = Transform(source);
 
@@ -62,7 +61,8 @@ internal sealed class FreeProberRule : StationEventSystem<FreeProberRuleComponen
                 if (!TryComp<MapGridComponent>(gridUid, out var grid))
                     continue;
 
-                var tileIndices = grid.TileIndicesFor(coordinates);
+                var gridEnt = (gridUid.Value, grid);
+                var tileIndices = _map.TileIndicesFor(gridEnt, coordinates);
 
                 for (var i = 0; i < SpawnDirections; i++)
                 {
@@ -70,10 +70,10 @@ internal sealed class FreeProberRule : StationEventSystem<FreeProberRuleComponen
                     var offsetIndices = tileIndices.Offset(direction.AsDir());
 
                     // This doesn't check against the prober's mask/layer, because it hasn't spawned yet...
-                    if (!_anchorable.TileFree(grid, offsetIndices))
+                    if (!_anchorable.TileFree(gridEnt, offsetIndices))
                         continue;
 
-                    Spawn(ProberPrototype, grid.GridTileToLocal(offsetIndices));
+                    Spawn(ProberPrototype, _map.GridTileToLocal(gridUid.Value, grid, offsetIndices));
                     return;
                 }
             }

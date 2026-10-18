@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.Store.Systems;
 using Content.Server.StoreDiscount.Systems;
 using Content.Shared.FixedPoint;

@@ -24,7 +24,7 @@ public abstract class SharedPrizeballLayingSystem : EntitySystem
     {
         // Todo figure out how to only make verb appear for player mobs
         var target = args.Target;
-        if (!args.CanInteract || user.Owner == target || !user.Comp.hasPballs() || !TryComp(target, out ActorComponent? actor))
+        if (!args.CanInteract || user.Owner == target || !user.Comp.HasPballs() || !TryComp(target, out ActorComponent? actor))
             return;
 
         InnateVerb verbLayPball = new()
@@ -38,12 +38,12 @@ public abstract class SharedPrizeballLayingSystem : EntitySystem
 
     protected void AddPballs(EntityUid uid, PrizeballLayingComponent comp, float amt)
     {
-        comp.pballs = Math.Clamp(comp.pballs + amt, 0, comp.MaxPballs);
+        comp.Pballs = Math.Clamp(comp.Pballs + amt, 0, comp.MaxPballs);
         if (amt > 0)
         {
-            comp.pballsFlavorAccum += amt;
+            comp.PballsFlavorAccum += amt;
         }
-        DirtyField(uid, comp, nameof(PrizeballLayingComponent.pballs));
+        DirtyField(uid, comp, nameof(PrizeballLayingComponent.Pballs));
     }
 
     protected virtual void AttemptLayInside(Entity<PrizeballLayingComponent> user, EntityUid target) { }

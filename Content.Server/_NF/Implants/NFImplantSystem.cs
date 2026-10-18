@@ -4,7 +4,6 @@ using Content.Server.Implants;
 using Content.Shared._NF.Implants.Components;
 using Content.Shared.Implants;
 using Content.Shared.Implants.Components;
-using Content.Shared.Paper;
 using Robust.Shared.Containers;
 
 namespace Content.Server._NF.Implants;

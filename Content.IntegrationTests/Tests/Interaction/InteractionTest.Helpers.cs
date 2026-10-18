@@ -1,7 +1,5 @@
 #nullable enable
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Numerics;
 using System.Reflection;
 using Content.Client.Construction;
@@ -148,7 +146,7 @@ public abstract partial class InteractionTest
     /// <summary>
     /// Place an entity prototype into the players hand. Deletes any currently held entity.
     /// </summary>
-    /// <param name="entity">The entity type & quantity to spawn and place into the users hand</param>
+    /// <param name="entity">The entity type &amp; quantity to spawn and place into the users hand</param>
     /// <param name="enableToggleable">Whether or not to automatically enable any toggleable items</param>
     protected async Task<NetEntity> PlaceInHands(EntitySpecifier entity, bool enableToggleable = true)
     {
@@ -272,7 +270,7 @@ public abstract partial class InteractionTest
     /// <summary>
     /// Place an entity prototype into the players hand and interact with the given entity (or target position).
     /// </summary>
-    /// <param name="entity">The entity type & quantity to spawn and place into the users hand</param>
+    /// <param name="entity">The entity type &amp; quantity to spawn and place into the users hand</param>
     /// <param name="awaitDoAfters">Whether or not to wait for any do-afters to complete</param>
     protected async Task InteractUsing(EntitySpecifier entity, bool awaitDoAfters = true)
     {
@@ -600,8 +598,8 @@ public abstract partial class InteractionTest
     /// <summary>
     /// Check that some entity is close to a certain coordinate location.
     /// </summary>
-    /// <param name="target">The entity to check the location for. Defaults to <see cref="target"/></param>
-    /// <param name="coordinates">The coordinates the entity should be at.</param>
+    /// <param name="target">The entity to check the location for. Defaults to Target</param>
+    /// <param name="coords">The coordinates the entity should be at.</param>
     /// <param name="radius">The maximum allowed distance from the target coords</param>
     protected void AssertLocation(NetEntity? target, NetCoordinates coords, float radius = 0.01f)
     {
@@ -805,7 +803,7 @@ public abstract partial class InteractionTest
             gridUid = gridEnt;
             gridComp = gridEnt.Comp;
             var gridXform = SEntMan.GetComponent<TransformComponent>(gridUid);
-            Transform.SetWorldPosition(gridXform, pos.Position);
+            Transform.SetWorldPosition((gridUid, gridXform), pos.Position);
             MapSystem.SetTile((gridUid, gridComp), SEntMan.GetCoordinates(coords ?? TargetCoords), tile);
 
             if (!MapMan.TryFindGridAt(pos, out _, out _))

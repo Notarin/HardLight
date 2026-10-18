@@ -1,4 +1,4 @@
-using Content.Shared.Stacks; // Frontier: stack types
+// Frontier: stack types
 using Robust.Shared.Prototypes;
 
 namespace Content.Shared.Construction.Prototypes; // NOTE: currently exists under base namespace.

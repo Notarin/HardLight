@@ -1,6 +1,5 @@
 using Content.Shared.IdentityManagement;
 using Robust.Client.GameObjects;
-using System.Linq;
 
 namespace Content.Client.ContextMenu.UI
 {

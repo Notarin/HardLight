@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.Access;
 using Robust.Shared.Prototypes;
 

@@ -1,7 +1,5 @@
-using System.Threading.Tasks;
 using Content.Shared.Procedural;
 using Content.Shared.Procedural.DungeonGenerators;
-using Content.Shared.Procedural.PostGeneration;
 using Robust.Shared.Map;
 using Robust.Shared.Random;
 
@@ -12,7 +10,7 @@ public sealed partial class DungeonJob
     /// <summary>
     /// <see cref="ReplaceTileDunGen"/>
     /// </summary>
-    private async Task<Dungeon> GenerateTileReplacementDunGen(ReplaceTileDunGen gen, DungeonData data, HashSet<Vector2i> reservedTiles, Random random)
+    private async Task<Dungeon> GenerateTileReplacementDunGen(ReplaceTileDunGen gen, DungeonData data, HashSet<Vector2i> reservedTiles, IRobustRandom random)
     {
         var tiles = _maps.GetAllTilesEnumerator(_gridUid, _grid);
         var replacements = new List<(Vector2i Index, Tile Tile)>();

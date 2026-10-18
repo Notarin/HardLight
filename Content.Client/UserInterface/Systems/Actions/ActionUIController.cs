@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Numerics;
 using Content.Client.Actions;
 using Content.Client.Construction;
@@ -12,7 +11,6 @@ using Content.Client.UserInterface.Systems.Actions.Widgets;
 using Content.Client.UserInterface.Systems.Actions.Windows;
 using Content.Client.UserInterface.Systems.Gameplay;
 using Content.Shared.Actions;
-using Content.Shared.Charges.Systems;
 using Content.Shared.Input;
 using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
@@ -192,7 +190,7 @@ public sealed class ActionUIController : UIController, IOnStateChanged<GameplayS
                 return TryTargetEntityWorld(args, actionId, entMapTarget, user, comp) || !entMapTarget.InteractOnMiss;
 
             default:
-                Logger.Error($"Unknown targeting action: {actionId.GetType()}");
+                Log.Error($"Unknown targeting action: {actionId.GetType()}");
                 return false;
         }
     }
@@ -492,7 +490,7 @@ public sealed class ActionUIController : UIController, IOnStateChanged<GameplayS
 
         for (; i < existing.Count; i++)
         {
-            existing[i].Dispose();
+            existing[i].Orphan();
         }
     }
 
@@ -773,7 +771,7 @@ public sealed class ActionUIController : UIController, IOnStateChanged<GameplayS
             _window.SearchBar.OnTextChanged -= OnSearchChanged;
             _window.FilterButton.OnItemSelected -= OnFilterSelected;
 
-            _window.Dispose();
+            _window.Close();
             _window = null;
         }
     }

@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using YamlDotNet.RepresentationModel;
 
 namespace Content.Tools

@@ -7,10 +7,6 @@ using static Robust.Client.UserInterface.Controls.BaseButton;
 using Robust.Client.UserInterface;
 using Content.Client.Shuttles.Save;
 using Robust.Client.UserInterface.Controls;
-using Robust.Client.UserInterface.XAML;
-using Robust.Shared.IoC;
-using Robust.Shared.Log;
-using System.Linq;
 
 // Suppress naming style rule for the _NF namespace prefix (project convention)
 #pragma warning disable IDE1006
@@ -19,6 +15,8 @@ namespace Content.Client._NF.Shipyard.BUI;
 public sealed class ShipyardConsoleBoundUserInterface : BoundUserInterface
 {
     [Dependency] private readonly ShipFileManagementSystem _shipFileManagementSystem = default!;
+
+    private static readonly ISawmill Sawmill = Logger.GetSawmill("shipyard");
 
     private ShipyardConsoleMenu? _menu;
     // private ShipyardRulesPopup? _rulesWindow; // Frontier
@@ -74,7 +72,7 @@ public sealed class ShipyardConsoleBoundUserInterface : BoundUserInterface
         // Only log if there are ships to avoid spam when no ships are saved
         if (shipCount > 0)
         {
-            Logger.Debug($"InitializeSaveLoadControls: ShipFileManagementSystem has {shipCount} ships");
+            Sawmill.Debug($"InitializeSaveLoadControls: ShipFileManagementSystem has {shipCount} ships");
         }
 
         _loadShipButton = _menu.FindControl<Button>("LoadShipButton");
@@ -104,7 +102,7 @@ public sealed class ShipyardConsoleBoundUserInterface : BoundUserInterface
         // Load the currently selected ship from the saved ships list
         if (_savedShipsList == null || _selectedShipIndex < 0 || _selectedShipIndex >= _savedShipsList.Count)
         {
-            Logger.Warning("No ship selected for loading");
+            Sawmill.Warning("No ship selected for loading");
             return;
         }
 
@@ -119,16 +117,16 @@ public sealed class ShipyardConsoleBoundUserInterface : BoundUserInterface
             {
                 // Send the load message through the console's BoundUserInterface system
                 SendMessage(new ShipyardConsoleLoadMessage(yamlData, filePath));
-                Logger.Info($"Sent ship load request for '{selectedItem.Text}' via console");
+                Sawmill.Info($"Sent ship load request for '{selectedItem.Text}' via console");
             }
             else
             {
-                Logger.Error($"Failed to load YAML data for ship '{selectedItem.Text}'");
+                Sawmill.Error($"Failed to load YAML data for ship '{selectedItem.Text}'");
             }
         }
         catch (Exception ex)
         {
-            Logger.Error($"Error loading ship '{selectedItem.Text}': {ex.Message}");
+            Sawmill.Error($"Error loading ship '{selectedItem.Text}': {ex.Message}");
         }
     }
 
@@ -144,7 +142,7 @@ public sealed class ShipyardConsoleBoundUserInterface : BoundUserInterface
     {
         // Refresh the ship list when a ship is loaded
         RefreshSavedShipList();
-        Logger.Debug($"Ship '{shipName}' was loaded - refreshed saved ship list");
+        Sawmill.Debug($"Ship '{shipName}' was loaded - refreshed saved ship list");
     }
 
     private void RefreshSavedShipList()
@@ -243,7 +241,6 @@ public sealed class ShipyardConsoleBoundUserInterface : BoundUserInterface
         _shipFileManagementSystem.ReloadSavedShips();
     }
 
-    [Obsolete]
     protected override void Dispose(bool disposing)
     {
         base.Dispose(disposing);

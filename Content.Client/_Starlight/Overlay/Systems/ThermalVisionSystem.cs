@@ -1,5 +1,3 @@
-using Content.Client.Eye.Blinding;
-using Content.Client.GameTicking.Managers;
 using Content.Shared.Eye.Blinding.Components;
 using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
@@ -7,11 +5,7 @@ using Robust.Client.Player;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
-using Content.Shared.Inventory.Events;
-using Content.Shared.Flash.Components;
 using Content.Shared._Starlight.Overlay;
-using Content.Shared.Mech.Components;
-using Content.Shared.Mech;
 
 namespace Content.Client._Starlight.Overlay;
 
@@ -24,6 +18,8 @@ public sealed class ThermalVisionSystem : SharedThermalVisionSystem
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
     [Dependency] private readonly FlashImmunitySystem _flashImmunity = default!;
 
+    private static readonly ProtoId<ShaderPrototype> BrightnessShaderId = "BrightnessShader";
+    private static readonly ProtoId<ShaderPrototype> ThermalVisionShaderId = "ThermalVisionScreenShader";
 
     private ThermalVisionEntityHighlightOverlay _throughWallsOverlay = default!;
     private ThermalVisionOverlay _overlay = default!;
@@ -45,8 +41,8 @@ public sealed class ThermalVisionSystem : SharedThermalVisionSystem
 
         SubscribeLocalEvent<ThermalVisionComponent, FlashImmunityCheckEvent>(OnFlashImmunityChanged);
 
-        _throughWallsOverlay = new(_prototypeManager.Index<ShaderPrototype>("BrightnessShader"));
-        _overlay = new(_prototypeManager.Index<ShaderPrototype>("ThermalVisionScreenShader"));
+        _throughWallsOverlay = new(_prototypeManager.Index(BrightnessShaderId));
+        _overlay = new(_prototypeManager.Index(ThermalVisionShaderId));
     }
 
     private void OnFlashImmunityChanged(Entity<ThermalVisionComponent> ent, ref FlashImmunityCheckEvent args)

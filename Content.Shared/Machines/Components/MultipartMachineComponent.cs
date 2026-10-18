@@ -3,7 +3,6 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
-using Robust.Shared.Utility;
 
 namespace Content.Shared.Machines.Components;
 
@@ -16,7 +15,7 @@ public sealed partial class MultipartMachineComponent : Component
 {
     /// <summary>
     /// Dictionary of Enum values to specific parts of this machine.
-    /// Each key can be specified as 'enum.<EnumName>.<EnumValue>` in Yaml.
+    /// Each key can be specified as 'enum.&lt;EnumName&gt;.&lt;EnumValue&gt;` in Yaml.
     /// </summary>
     [DataField, AutoNetworkedField]
     public Dictionary<Enum, MachinePart> Parts = [];

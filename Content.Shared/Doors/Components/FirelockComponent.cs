@@ -37,7 +37,7 @@ namespace Content.Shared.Doors.Components
         // temperature. This does mean a cold room will trigger hot-air pop-ups
 
         /// <summary>
-        /// If true, and if this door has an <see cref="AtmosAlarmableComponent"/>, then it will only auto-close if the
+        /// If true, and if this door has an AtmosAlarmableComponent, then it will only auto-close if the
         /// alarm is set to danger.
         /// </summary>
         [DataField("alarmAutoClose"), ViewVariables(VVAccess.ReadWrite)]

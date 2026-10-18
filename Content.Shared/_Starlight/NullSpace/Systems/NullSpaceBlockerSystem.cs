@@ -9,7 +9,7 @@ public sealed class NullSpaceBlockerSystem : EntitySystem
 {
     [Dependency] private readonly INetManager _net = default!;
     [Dependency] private readonly SharedPvsOverrideSystem _pvs = default!;
-    public EntProtoId _shadekinShadow = "ShadekinShadow";
+    public EntProtoId ShadekinShadow = "ShadekinShadow";
     public override void Initialize()
     {
         base.Initialize();
@@ -45,6 +45,6 @@ public sealed class NullSpaceBlockerSystem : EntitySystem
         RemComp(uid, nullspace);
 
         if (_net.IsServer)
-            SpawnAtPosition(_shadekinShadow, Transform(uid).Coordinates);
+            SpawnAtPosition(ShadekinShadow, Transform(uid).Coordinates);
     }
 }

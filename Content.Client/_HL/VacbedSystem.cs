@@ -7,6 +7,7 @@ namespace Content.Client._HL.Vacbed;
 public sealed class VacbedSystem : SharedVacbedSystem
 {
     [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency] private readonly SpriteSystem _sprite = default!;
 
     public override void Initialize()
     {
@@ -28,14 +29,7 @@ public sealed class VacbedSystem : SharedVacbedSystem
             return;
         }
 
-        if (isEmpty)
-        {
-            args.Sprite.LayerSetState(VacbedVisualLayers.Base, "vacbed");
-        }
-        else
-        {
-            args.Sprite.LayerSetState(VacbedVisualLayers.Base, "vacbed_filled");
-        }
+        _sprite.LayerSetRsiState((uid, args.Sprite), VacbedVisualLayers.Base, isEmpty ? "vacbed" : "vacbed_filled");
     }
 }
 

@@ -1,10 +1,8 @@
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using Content.Server.Botany;
-using Content.Server.Chat;
 using Content.Server.Chat.Managers;
 using Content.Server.Chat.Systems;
-using Content.Server.Chemistry.Containers.EntitySystems;
+using Content.Shared.Chemistry.EntitySystems;
 using Content.Server.Fluids.EntitySystems;
 using Content.Server.Research.Systems;
 using Content.Shared.Abilities.Psionics;
@@ -38,7 +36,7 @@ public sealed class OracleSystem : EntitySystem
     [Dependency] private readonly PuddleSystem _puddles = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly ResearchSystem _research = default!;
-    [Dependency] private readonly SolutionContainerSystem _solutions = default!;
+    [Dependency] private readonly SharedSolutionContainerSystem _solutions = default!;
     [Dependency] private readonly ThrowingSystem _throwing = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
 

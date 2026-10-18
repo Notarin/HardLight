@@ -132,15 +132,15 @@ public sealed partial class InjectorComponent : Component
 
     #region Arguments for injection doafter
 
-    /// <inheritdoc cref=DoAfterArgs.NeedHand>
+    /// <inheritdoc cref="DoAfterArgs.NeedHand"/>
     [DataField]
     public bool NeedHand = true;
 
-    /// <inheritdoc cref=DoAfterArgs.BreakOnHandChange>
+    /// <inheritdoc cref="DoAfterArgs.BreakOnHandChange"/>
     [DataField]
     public bool BreakOnHandChange = true;
 
-    /// <inheritdoc cref=DoAfterArgs.MovementThreshold>
+    /// <inheritdoc cref="DoAfterArgs.MovementThreshold"/>
     [DataField]
     public float MovementThreshold = 0.1f;
 

@@ -156,7 +156,7 @@ public sealed partial class ReactorPartComponent : Component
     #endregion
 
     /// <summary>
-    /// Creates a new <see cref="ReactorPartComponent"> with information from an existing one.
+    /// Creates a new <see cref="ReactorPartComponent"/> with information from an existing one.
     /// </summary>
     /// <param name="source"></param>
     public ReactorPartComponent(ReactorPartComponent source)
@@ -194,6 +194,6 @@ public sealed partial class ReactorPartComponent : Component
 [NetworkedComponent]
 public sealed class ReactorNeutron
 {
-    public Direction dir = Direction.North;
-    public float velocity = 1;
+    public Direction Dir = Direction.North;
+    public float Velocity = 1;
 }

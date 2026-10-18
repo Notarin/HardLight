@@ -1,9 +1,4 @@
-using System.IO;
-using System.Linq;
 using System.Numerics;
-using Content.Shared._NF.Cloning;
-using Content.Shared.CCVar;
-using Content.Shared.Decals;
 using Content.Shared.Examine;
 using Content.Shared.Humanoid.Markings;
 using Content.Shared._Shitmed.Humanoid.Events; // Shitmed Change
@@ -17,7 +12,6 @@ using Robust.Shared.GameObjects.Components.Localization;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.Manager;
 using Robust.Shared.Serialization.Markdown;
 using Robust.Shared.Utility;
@@ -42,6 +36,7 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
     [Dependency] private readonly ISerializationManager _serManager = default!;
     [Dependency] private readonly MarkingManager _markingManager = default!;
     [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
+    [Dependency] private readonly GrammarSystem _grammar = default!;
 
     public static readonly ProtoId<SpeciesPrototype> DefaultSpecies = "Human";
 
@@ -176,7 +171,7 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
         targetHumanoid.Gender = sourceHumanoid.Gender;
         targetHumanoid.CustomSpecies = sourceHumanoid.CustomSpecies;
         if (TryComp<GrammarComponent>(target, out var grammar))
-            grammar.Gender = sourceHumanoid.Gender;
+            _grammar.SetGender((target, grammar), sourceHumanoid.Gender);
 
         // Apply scaling (height and width)
         if (sourceHumanoid.Height != 1.0f || sourceHumanoid.Width != 1.0f)
@@ -372,9 +367,6 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
     ///     Sets the color of this humanoid mob's base layer. See <see cref="SetBaseLayerId"/> for a
     ///     description of how base layers work.
     /// </summary>
-    /// <param name="uid">The humanoid mob's UID.</param>
-    /// <param name="layer">The layer to target on this humanoid mob.</param>
-    /// <param name="color">The color to set this base layer to.</param>
     public void SetBaseLayerColor(EntityUid uid, HumanoidVisualLayers layer, Color? color, bool sync = true, HumanoidAppearanceComponent? humanoid = null)
     {
         if (!Resolve(uid, ref humanoid))
@@ -499,7 +491,7 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
         humanoid.Gender = profile.Gender;
         if (TryComp<GrammarComponent>(uid, out var grammar))
         {
-            grammar.Gender = profile.Gender;
+            _grammar.SetGender((uid, grammar), profile.Gender);
         }
 
         humanoid.Age = profile.Age;
@@ -520,12 +512,6 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
     /// <summary>
     ///     Adds a marking to this humanoid.
     /// </summary>
-    /// <param name="uid">Humanoid mob's UID</param>
-    /// <param name="marking">Marking ID to use</param>
-    /// <param name="color">Color to apply to all marking layers of this marking</param>
-    /// <param name="sync">Whether to immediately sync this marking or not</param>
-    /// <param name="forced">If this marking was forced (ignores marking points)</param>
-    /// <param name="humanoid">Humanoid component of the entity</param>
     public void AddMarking(EntityUid uid, string marking, bool isGlowing, Color? color = null, bool sync = true, bool forced = false, HumanoidAppearanceComponent? humanoid = null) //starlight
     {
         if (!Resolve(uid, ref humanoid)

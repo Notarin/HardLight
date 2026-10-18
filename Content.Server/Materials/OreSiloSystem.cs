@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.Pinpointer;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Materials.OreSilo;

@@ -19,7 +19,6 @@ using Content.Shared.Popups;
 using Robust.Server.Audio;
 using Robust.Server.Containers;
 using Robust.Server.GameObjects;
-using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
@@ -225,7 +224,6 @@ public sealed partial class PolymorphSystem : EntitySystem
                 continue;
 
             var copy = _serialization.CreateCopy(comp, notNullableOverride: true);
-            copy.Owner = child;
             AddComp(child, copy, true);
         }
         // Startlight end
@@ -315,8 +313,6 @@ public sealed partial class PolymorphSystem : EntitySystem
     /// <summary>
     /// Reverts a polymorphed entity back into its original form
     /// </summary>
-    /// <param name="uid">The entityuid of the entity being reverted</param>
-    /// <param name="component"></param>
     public EntityUid? Revert(Entity<PolymorphedEntityComponent?> ent)
     {
         var (uid, component) = ent;

@@ -1,5 +1,3 @@
-using Content.Server._Funkystation.Genetics.Mutations.Systems;
-
 namespace Content.Server._Funkystation.Genetics.Mutations.Components;
 
 [RegisterComponent]

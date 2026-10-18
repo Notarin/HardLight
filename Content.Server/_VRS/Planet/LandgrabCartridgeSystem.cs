@@ -8,8 +8,6 @@ using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Shuttles.Components;
 using Robust.Server.GameObjects;
 using Robust.Server.Player;
-using Robust.Shared.GameObjects;
-using Robust.Shared.IoC;
 using Robust.Shared.Map;
 using Robust.Shared.Player;
 
@@ -26,7 +24,7 @@ public sealed class LandgrabCartridgeSystem : EntitySystem
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly SharedHandsSystem _hands = default!;
     [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
+    [Dependency] private readonly MapSystem _mapSystem = default!;
     [Dependency] private readonly PopupSystem _popup = default!;
 
     public override void Initialize()
@@ -182,7 +180,7 @@ public sealed class LandgrabCartridgeSystem : EntitySystem
             return;
         }
 
-        var mapUid = _mapManager.GetMapEntityId(mapId);
+        var mapUid = _mapSystem.GetMapOrInvalid(mapId);
         var mapNet = GetNetEntity(mapUid);
 
         // Stamp upstream component so the disk lights up shuttle consoles' dest list.
@@ -277,7 +275,7 @@ public sealed class LandgrabCartridgeSystem : EntitySystem
     private bool TryGetWielder(EntityUid loaderUid, out EntityUid wielder)
     {
         wielder = EntityUid.Invalid;
-        if (!TryComp<TransformComponent>(loaderUid, out var xform))
+        if (!TryComp(loaderUid, out TransformComponent? xform))
             return false;
         if (xform.ParentUid == EntityUid.Invalid)
             return false;
@@ -289,7 +287,7 @@ public sealed class LandgrabCartridgeSystem : EntitySystem
     {
         mapId = MapId.Nullspace;
         worldPos = Vector2.Zero;
-        if (!TryComp<TransformComponent>(actor, out var xform))
+        if (!TryComp(actor, out TransformComponent? xform))
             return false;
         mapId = xform.MapID;
         if (mapId == MapId.Nullspace)

@@ -58,7 +58,7 @@ public abstract partial class SharedStationAiSystem : EntitySystem
     [Dependency] private readonly SharedMindSystem _mind = default!;
     [Dependency] private readonly SharedMoverController _mover = default!;
     [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedPowerReceiverSystem PowerReceiver = default!;
+    [Dependency] private readonly SharedPowerReceiverSystem _powerReceiver = default!;
     [Dependency] private readonly SharedTransformSystem _xforms = default!;
     [Dependency] private readonly SharedUserInterfaceSystem _uiSystem = default!;
     [Dependency] private readonly StationAiVisionSystem _vision = default!;
@@ -471,13 +471,13 @@ public abstract partial class SharedStationAiSystem : EntitySystem
     /// <param name="ent"></param>
     public void RecenterAiEye(Entity<StationAiCoreComponent> ent)
     {
-        if (!TryComp<TransformComponent>(ent, out var coreTransComp))
+        if (!TryComp(ent, out TransformComponent? coreTransComp))
             return;
 
         if (ent.Comp?.RemoteEntity == null)
             return;
 
-        if (!TryComp<TransformComponent>(ent.Comp.RemoteEntity, out var eyeTransComp))
+        if (!TryComp(ent.Comp.RemoteEntity, out TransformComponent? eyeTransComp))
             return;
 
         _xforms.DropNextTo((EntityUid)ent.Comp.RemoteEntity, (EntityUid)ent);

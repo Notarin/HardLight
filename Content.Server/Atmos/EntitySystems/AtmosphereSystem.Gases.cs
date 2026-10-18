@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Runtime.CompilerServices;
 using Content.Server.Atmos.Reactions;
 using Content.Shared.Atmos;
@@ -111,8 +110,8 @@ namespace Content.Server.Atmos.EntitySystems
         }
 
         /// <summary>
-        ///     Merges the <see cref="giver"/> gas mixture into the <see cref="receiver"/> gas mixture.
-        ///     The <see cref="giver"/> gas mixture is not modified by this method.
+        ///     Merges the giver gas mixture into the receiver gas mixture.
+        ///     The giver gas mixture is not modified by this method.
         /// </summary>
         public void Merge(GasMixture receiver, GasMixture giver)
         {
@@ -237,7 +236,7 @@ namespace Content.Server.Atmos.EntitySystems
         }
 
         /// <summary>
-        ///     Scrubs specified gases from a gas mixture into a <see cref="destination"/> gas mixture.
+        ///     Scrubs specified gases from a gas mixture into a destination gas mixture.
         /// </summary>
         public void ScrubInto(GasMixture mixture, GasMixture destination, IReadOnlyCollection<Gas> filterGases)
         {

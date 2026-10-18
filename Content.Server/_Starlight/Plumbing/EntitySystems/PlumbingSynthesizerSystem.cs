@@ -1,14 +1,11 @@
 using Content.Server._Starlight.Plumbing.Components;
 using Content.Server.Power.EntitySystems;
 using Content.Server.PowerCell;
-using Content.Server.UserInterface;
 using Content.Shared._Starlight.Plumbing;
 using Content.Shared._Starlight.Plumbing.Components;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Chemistry.Reagent;
 using Content.Shared.FixedPoint;
-using Content.Shared.PowerCell;
-using Content.Shared.Power.EntitySystems;
 using Content.Shared.UserInterface;
 using JetBrains.Annotations;
 using Robust.Server.GameObjects;
@@ -31,7 +28,6 @@ public sealed class PlumbingSynthesizerSystem : EntitySystem
     [Dependency] private readonly SharedSolutionContainerSystem _solutionSystem = default!;
     [Dependency] private readonly UserInterfaceSystem _ui = default!;
     [Dependency] private readonly PowerCellSystem _powerCell = default!;
-    [Dependency] private readonly BatterySystem _battery = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;

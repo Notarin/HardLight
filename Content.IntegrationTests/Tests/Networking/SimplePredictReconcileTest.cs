@@ -1,5 +1,4 @@
 #nullable enable
-using System.Collections.Generic;
 using System.Numerics;
 using Robust.Client.GameStates;
 using Robust.Client.Timing;

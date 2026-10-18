@@ -9,7 +9,6 @@ using Content.Shared.Verbs;
 using Content.Shared.Whitelist;
 using Content.Shared.Administration.Logs;
 using Content.Shared.Database;
-using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
 using Robust.Shared.Map;
@@ -20,7 +19,7 @@ using Robust.Shared.Timing;
 namespace Content.Shared.Salvage.Fulton;
 
 /// <summary>
-/// Provides extraction devices that teleports the attached entity after <see cref="FultonDuration"/> elapses to the linked beacon.
+/// Provides extraction devices that teleports the attached entity after FultonDuration elapses to the linked beacon.
 /// </summary>
 public abstract partial class SharedFultonSystem : EntitySystem
 {
@@ -34,7 +33,7 @@ public abstract partial class SharedFultonSystem : EntitySystem
     [Dependency] private readonly SharedStackSystem _stack = default!;
     [Dependency] protected readonly SharedTransformSystem TransformSystem = default!;
     [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
-    [Dependency] protected readonly ISharedAdminLogManager _adminLogger = default!;
+    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
     public static readonly EntProtoId EffectProto = "FultonEffect";
     protected static readonly Vector2 EffectOffset = Vector2.Zero;
 

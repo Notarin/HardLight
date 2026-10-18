@@ -1,4 +1,3 @@
-using Content.Server.NodeContainer;
 using Content.Server.NodeContainer.NodeGroups;
 using Content.Server.Power.EntitySystems;
 using Content.Shared.NodeContainer;
@@ -52,14 +51,6 @@ public sealed partial class PowerMonitoringDeviceComponent : Component
     /// </remarks>
     [ViewVariables]
     public EntityUid CollectionMaster;
-
-    /// <summary>
-    ///     Indicates if this entity represents a group of entities
-    /// </summary>
-    /// <remarks>
-    ///     Used when grouping multiple entities into a single power monitoring console entry
-    /// </remarks>
-    public bool IsCollectionMaster { get { return Owner == CollectionMaster; } }
 
     /// <summary>
     ///     A list of other entities that are to be represented by this entity

@@ -4,8 +4,8 @@ using Robust.Shared.Prototypes;
 namespace Content.Shared.Explosion.Components;
 
 /// <summary>
-///     Specifies an explosion that can be spawned by this entity. The explosion itself is spawned via <see
-///     cref="ExplosionSystem.TriggerExplosive"/>.
+///     Specifies an explosion that can be spawned by this entity. The explosion itself is spawned via
+///     ExplosionSystem.TriggerExplosive.
 /// </summary>
 /// <remarks>
 ///      The total intensity may be overridden by whatever system actually calls TriggerExplosive(), but this
@@ -36,11 +36,11 @@ public sealed partial class ExplosiveComponent : Component
 
     /// <summary>
     ///     The total intensity of this explosion. The radius of the explosion scales like the cube root of this
-    ///     number (see <see cref="ExplosionSystem.RadiusToIntensity"/>).
+    ///     number (see ExplosionSystem.RadiusToIntensity).
     /// </summary>
     /// <remarks>
-    ///     This number can be overridden by passing optional argument to <see
-    ///     cref="ExplosionSystem.TriggerExplosive"/>.
+    ///     This number can be overridden by passing optional argument to
+    ///     ExplosionSystem.TriggerExplosive.
     /// </remarks>
     [DataField]
     public float TotalIntensity = 10;

@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Client.Guidebook.Controls;
 using Content.Client.Guidebook.Richtext;
 using Content.Shared.Guidebook;

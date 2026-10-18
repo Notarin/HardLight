@@ -1,5 +1,4 @@
 using System.Collections.Immutable;
-using System.Linq;
 using System.Net;
 using Content.Shared.CCVar;
 using Content.Shared.Database;

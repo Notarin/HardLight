@@ -8,20 +8,19 @@ using Content.Shared.Inventory.Events;
 using Content.Shared.Item;
 using Content.Shared.Popups;
 using Robust.Shared.Containers;
-using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 
 namespace Content.Shared.Inventory.VirtualItem;
 
 /// <summary>
 /// In charge of managing virtual items.
-/// Virtual items are used to block a <see cref="SlotButton"/>
-/// or a <see cref="HandButton"/> with a non-existent item that
+/// Virtual items are used to block a SlotButton
+/// or a HandButton with a non-existent item that
 /// is a visual copy of another for whatever use
 /// </summary>
 /// <remarks>
-/// The slot visuals are managed by <see cref="HandsUiController"/>
-/// and <see cref="InventoryUiController"/>, see the <see cref="VirtualItemComponent"/>
+/// The slot visuals are managed by HandsUiController
+/// and InventoryUiController, see the <see cref="VirtualItemComponent"/>
 /// references there for more information
 /// </remarks>
 public abstract class SharedVirtualItemSystem : EntitySystem

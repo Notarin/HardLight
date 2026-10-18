@@ -16,8 +16,7 @@ using Content.Shared._NF.CCVar;
 using Content.Shared.HL.CCVar; // HardLight
 using Robust.Shared.Configuration;
 using System.Diagnostics.CodeAnalysis;
-using System.IO; // HardLight
-using System.Linq;
+// HardLight
 using System.Numerics;
 using System.Reflection;
 using System.Text; // HardLight
@@ -34,10 +33,8 @@ using Robust.Shared.Containers;
 using Content.Server._NF.Station.Components;
 using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.Utility;
-using Robust.Shared.ContentPack;
 using Content.Shared.Shuttles.Components; // For IFFComponent
 using Content.Shared.Timing;
-using Content.Server.Gravity;
 using Robust.Shared.Physics;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics.Components; // For GravitySystem
@@ -256,12 +253,6 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
     // Docked-grid deed creation logic removed from Shipyard; use Shuttle Records console instead
 
     /// <summary>
-    /// Adds a ship to the shipyard, calculates its price, and attempts to ftl-dock it to the given station
-    /// </summary>
-    /// <param name="stationUid">The ID of the station to dock the shuttle to</param>
-    /// <param name="shuttlePath">The path to the shuttle file to load. Must be a grid file!</param>
-    /// <param name="shuttleEntityUid">The EntityUid of the shuttle that was purchased</param>
-    /// <summary>
     /// Purchases a shuttle and docks it to the grid the console is on, independent of station data.
     /// </summary>
     /// <param name="consoleUid">The entity of the shipyard console to dock to its grid</param>
@@ -331,7 +322,6 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
     /// <summary>
     /// Loads a shuttle into the shipyard staging map from a grid file.
     /// </summary>
-    /// <param name="shuttlePath">The path to the grid file to load. Must be a grid file!</param>
     /// <returns>Returns the EntityUid of the shuttle</returns>
     private bool TryAddShuttle(ResPath shuttlePath, [NotNullWhen(true)] out EntityUid? shuttleGrid)
     {
@@ -1432,12 +1422,6 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
     }
 
     /// <summary>
-    /// Checks a shuttle to make sure that it is docked to the given station, and that there are no lifeforms aboard. Then it teleports tagged items on top of the console, appraises the grid, outputs to the server log, and deletes the grid
-    /// </summary>
-    /// <param name="stationUid">The ID of the station that the shuttle is docked to</param>
-    /// <param name="shuttleUid">The grid ID of the shuttle to be appraised and sold</param>
-    /// <param name="consoleUid">The ID of the console being used to sell the ship</param>
-    /// <summary>
     /// Sells a shuttle, checking that it is docked to the grid the console is on, and not to a station.
     /// </summary>
     /// <param name="shuttleUid">The grid ID of the shuttle to be appraised and sold</param>
@@ -1613,7 +1597,7 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
             if (entry.PrototypeId is not { } prototypeId || !_prototypeManager.TryIndex<EntityPrototype>(prototypeId, out var prototype))
                 continue;
 
-            price += _pricing.GetEstimatedPrice(prototype) * entry.SpawnProbability * entry.GetAmount(Random.Shared, getAverage: true);
+            price += _pricing.GetEstimatedPrice(prototype) * entry.SpawnProbability * entry.GetAmount(getAverage: true);
         }
 
         foreach (var group in orGroups)
@@ -1625,7 +1609,7 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
 
                 price += _pricing.GetEstimatedPrice(prototype)
                          * (entry.SpawnProbability / group.CumulativeProbability)
-                         * entry.GetAmount(Random.Shared, getAverage: true);
+                         * entry.GetAmount(getAverage: true);
             }
         }
 

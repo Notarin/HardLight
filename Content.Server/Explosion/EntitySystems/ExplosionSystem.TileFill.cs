@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Numerics;
 using Content.Shared.Administration;
 using Content.Shared.Explosion.Components;
@@ -107,7 +106,7 @@ public sealed partial class ExplosionSystem
                 airtightMap = new();
 
             var initialGridData = new ExplosionGridTileFlood(
-                Comp<MapGridComponent>(epicentreGrid.Value),
+                (epicentreGrid.Value, Comp<MapGridComponent>(epicentreGrid.Value)),
                 airtightMap,
                 maxIntensity,
                 stepSize,
@@ -196,7 +195,7 @@ public sealed partial class ExplosionSystem
                         airtightMap = new();
 
                     data = new ExplosionGridTileFlood(
-                        Comp<MapGridComponent>(grid),
+                        (grid, Comp<MapGridComponent>(grid)),
                         airtightMap,
                         maxIntensity,
                         stepSize,

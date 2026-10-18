@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.Body.Systems;
 using Content.Shared.Clothing.Components;
 using Content.Shared.Humanoid;

@@ -1,7 +1,4 @@
 using Robust.Shared.Serialization;
-using System;
-using System.Collections.Generic;
-using Robust.Shared.GameObjects;
 
 namespace Content.Shared.Shuttles.Save
 {

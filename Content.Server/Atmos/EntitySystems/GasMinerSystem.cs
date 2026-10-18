@@ -33,7 +33,7 @@ public sealed class GasMinerSystem : SharedGasMinerSystem
         }
         // SpawnAmount is declared in mol/s so to get the amount of gas we hope to mine, we have to multiply this by
         // how long we have been waiting to spawn it and further cap the number according to the miner's state.
-        else if ((toSpawn = CapSpawnAmount(ent, miner.SpawnAmount * args.dt, environment)) == 0)
+        else if ((toSpawn = CapSpawnAmount(ent, miner.SpawnAmount * args.Dt, environment)) == 0)
         {
             miner.MinerState = GasMinerState.Idle;
         }

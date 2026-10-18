@@ -1,8 +1,5 @@
 using System.Collections.Immutable;
-using System.Linq;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using Content.Server.Chat.Managers;
 using Content.Server.Database;
 using Content.Server.GameTicking;
@@ -32,7 +29,6 @@ public sealed partial class BanManager : IBanManager, IPostInjectInit
     [Dependency] private readonly IEntitySystemManager _systems = default!;
     [Dependency] private readonly IConfigurationManager _cfg = default!;
     [Dependency] private readonly ILocalizationManager _localizationManager = default!;
-    [Dependency] private readonly ServerDbEntryManager _entryManager = default!;
     [Dependency] private readonly IChatManager _chat = default!;
     [Dependency] private readonly INetManager _netManager = default!;
     [Dependency] private readonly ILogManager _logManager = default!;

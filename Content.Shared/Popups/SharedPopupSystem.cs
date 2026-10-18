@@ -56,8 +56,6 @@ namespace Content.Shared.Popups
         ///     Filtered variant of <see cref="PopupCoordinates(string, EntityCoordinates, PopupType)"/>, which should only be used
         ///     if the filtering has to be more specific than simply PVS range based.
         /// </summary>
-        /// <param name="filter">Filter for the players that will see the popup.</param>
-        /// <param name="recordReplay">If true, this pop-up will be considered as a globally visible pop-up that gets shown during replays.</param>
         public abstract void PopupCoordinates(string? message, EntityCoordinates coordinates, Filter filter, bool recordReplay, PopupType type = PopupType.Small);
 
         /// <summary>
@@ -73,7 +71,7 @@ namespace Content.Shared.Popups
         /// <summary>
         ///    Variant of <see cref="PopupCoordinates(string, EntityCoordinates, PopupType)"/> for use with prediction. The local client will
         ///    the popup to the recipient, and the server will show it to every other player in PVS range. If recipient is null, the local
-        //     client will do nothing and the server will show the message to every player in PVS range.
+        ///    client will do nothing and the server will show the message to every player in PVS range.
         /// </summary>
         public abstract void PopupPredictedCoordinates(string? message, EntityCoordinates coordinates, EntityUid? recipient, PopupType type = PopupType.Small);
 

@@ -1,6 +1,5 @@
 using Content.Shared.DeviceLinking.Events;
 using Content.Server.DeviceLinking.Systems;
-using Content.Shared.DeviceLinking.Systems;
 using Content.Server.Power.Components;
 using Content.Server.Power.EntitySystems;
 using Content.Server.PowerCell;
@@ -178,10 +177,9 @@ public sealed partial class EnergyDomeSystem : EntitySystem
 
         if (HasComp<PowerCellDrawComponent>(generatorUid))
         {
-            _powerCell.TryGetBatteryFromSlot(generatorUid, out var cell);
-            if (cell != null)
+            if (_powerCell.TryGetBatteryFromSlot(generatorUid, out var cellUid, out var cell))
             {
-                _battery.UseCharge(cell.Owner, energyLeak);
+                _battery.UseCharge(cellUid.Value, energyLeak, cell);
 
                 if (cell.CurrentCharge == 0)
                     TurnOff((generatorUid, generatorComp), true);

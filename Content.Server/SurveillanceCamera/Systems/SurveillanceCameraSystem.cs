@@ -1,6 +1,6 @@
 using Content.Server.DeviceNetwork.Systems;
 //using Content.Server.Emp; // Frontier: Upstream - #28984
-using Content.Server.Power.Components; // Frontier
+// Frontier
 using Content.Shared.ActionBlocker;
 using Content.Shared.DeviceNetwork;
 using Content.Shared.DeviceNetwork.Events;

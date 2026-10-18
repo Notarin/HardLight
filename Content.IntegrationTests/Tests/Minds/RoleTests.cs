@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.Roles;
 using Content.Shared.Roles;
 using Content.Shared.Roles.Jobs;

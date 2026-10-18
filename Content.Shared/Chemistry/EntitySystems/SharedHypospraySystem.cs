@@ -2,18 +2,17 @@ using Content.Shared.Chemistry.Components;
 using Content.Shared.Timing;
 using Content.Shared.Verbs;
 using Content.Shared.Popups;
-using Robust.Shared.Player;
 using Content.Shared.Administration.Logs;
 
 namespace Content.Shared.Chemistry.EntitySystems;
 
 public abstract class SharedHypospraySystem : EntitySystem
 {
-    [Dependency] protected readonly UseDelaySystem _useDelay = default!;
-    [Dependency] protected readonly SharedPopupSystem _popup = default!;
-    [Dependency] protected readonly SharedSolutionContainerSystem _solutionContainers = default!;
-    [Dependency] protected readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] protected readonly ReactiveSystem _reactiveSystem = default!;
+    [Dependency] protected readonly UseDelaySystem UseDelay = default!;
+    [Dependency] protected readonly SharedPopupSystem Popup = default!;
+    [Dependency] protected readonly SharedSolutionContainerSystem SolutionContainers = default!;
+    [Dependency] protected readonly ISharedAdminLogManager AdminLogger = default!;
+    [Dependency] protected readonly ReactiveSystem ReactiveSystem = default!;
 
     public override void Initialize()
     {
@@ -47,7 +46,7 @@ public abstract class SharedHypospraySystem : EntitySystem
     {
         SetMode(entity, !entity.Comp.OnlyAffectsMobs);
         string msg = entity.Comp.OnlyAffectsMobs ? "hypospray-verb-mode-inject-mobs-only" : "hypospray-verb-mode-inject-all";
-        _popup.PopupClient(Loc.GetString(msg), entity, user);
+        Popup.PopupClient(Loc.GetString(msg), entity, user);
     }
 
     public void SetMode(Entity<HyposprayComponent> entity, bool onlyAffectsMobs)

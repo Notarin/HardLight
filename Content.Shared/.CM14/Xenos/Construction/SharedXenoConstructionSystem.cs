@@ -1,11 +1,7 @@
 using Content.Shared.Coordinates.Helpers;
 using Content.Shared.Popups;
 using Content.Shared.Actions;
-using Content.Shared.Actions.Events;
-using Content.Shared.CM14.Xenos.Construction;
 using Content.Shared.CM14.Xenos.Construction.Events;
-using Content.Shared.CM14.Xenos;
-using Content.Shared.UserInterface;
 using Content.Shared.DoAfter;
 using Content.Shared.Maps;
 using Content.Shared.Physics;
@@ -13,8 +9,6 @@ using Robust.Shared.Player;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Network;
-using JetBrains.Annotations;
-using Robust.Shared.GameObjects;
 
 namespace Content.Shared.CM14.Xenos.Construction;
 
@@ -75,7 +69,7 @@ public abstract class SharedXenoConstructionSystem : EntitySystem
         _ui.CloseUi(xeno.Owner, XenoChooseStructureUI.Key, actor.PlayerSession);
 
         // Prefer TryOpenUi with the actor entity (matches evolution flow and validates open state)
-        var opened = _ui.TryOpenUi(xeno.Owner, XenoChooseStructureUI.Key, actor.Owner);
+        var opened = _ui.TryOpenUi(xeno.Owner, XenoChooseStructureUI.Key, xeno.Owner);
         if (!opened)
         {
             // Fallback to the session-based overload used elsewhere in the codebase.
@@ -171,10 +165,10 @@ public abstract class SharedXenoConstructionSystem : EntitySystem
 
     private bool CanBuildOnTilePopup(Entity<XenoComponent> xeno, EntityCoordinates target)
     {
-        if (target.GetGridUid(EntityManager) is not { } gridId ||
+        if (_transform.GetGrid(target) is not { } gridId ||
             !TryComp(gridId, out MapGridComponent? grid))
         {
-            Log.Info($"[XenoBuild][dbg] No grid at target {target}; gridId={(target.GetGridUid(EntityManager)?.ToString() ?? "<null>")}");
+            Log.Info($"[XenoBuild][dbg] No grid at target {target}; gridId={(_transform.GetGrid(target)?.ToString() ?? "<null>")}");
             _popup.PopupClient("You can't build there!", target, xeno);
             return false;
         }
@@ -204,7 +198,7 @@ public abstract class SharedXenoConstructionSystem : EntitySystem
     {
         var origin = _transform.GetMoverCoordinates(xeno);
         target = target.SnapToGrid(EntityManager, _map);
-        if (!origin.InRange(EntityManager, _transform, target, range))
+        if (!_transform.InRange(origin, target, range))
         {
             _popup.PopupClient(Loc.GetString("cm-xeno-cant-reach-there"), target, xeno);
             return false;

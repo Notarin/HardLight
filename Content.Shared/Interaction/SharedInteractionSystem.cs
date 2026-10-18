@@ -1,5 +1,4 @@
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using Content.Shared._NF.LoggingExtensions;
 using Content.Shared.ActionBlocker;
 using Content.Shared.Administration.Logs;
@@ -28,7 +27,7 @@ using Content.Shared.Timing;
 using Content.Shared.UserInterface;
 using Content.Shared.Verbs;
 using Content.Shared.Wall;
-using Content.Shared._Goobstation.DoAfter; // Goobstation
+// Goobstation
 using JetBrains.Annotations;
 using Robust.Shared.Containers;
 using Robust.Shared.Input;
@@ -58,6 +57,7 @@ namespace Content.Shared.Interaction
         [Dependency] private readonly ActionBlockerSystem _actionBlockerSystem = default!;
         [Dependency] private readonly RotateToFaceSystem _rotateToFaceSystem = default!;
         [Dependency] private readonly SharedContainerSystem _containerSystem = default!;
+        [Dependency] private readonly SharedMapSystem _map = default!;
         [Dependency] private readonly SharedPhysicsSystem _broadphase = default!;
         [Dependency] private readonly SharedTransformSystem _transform = default!;
         [Dependency] private readonly SharedVerbSystem _verbSystem = default!;
@@ -386,9 +386,6 @@ namespace Content.Shared.Interaction
         /// <remarks>
         ///     Checks Whether combat mode is enabled and whether the user can actually interact with the given entity.
         /// </remarks>
-        /// <param name="altInteract">Whether to use default or alternative interactions (usually as a result of
-        /// alt+clicking). If combat mode is enabled, the alternative action is to perform the default non-combat
-        /// interaction. Having an item in the active hand also disables alternative interactions.</param>
         public void UserInteraction(
             EntityUid user,
             EntityCoordinates coordinates,
@@ -587,7 +584,7 @@ namespace Content.Shared.Interaction
 
         protected bool ValidateInteractAndFace(EntityUid user, EntityCoordinates coordinates)
         {
-            if (!TryComp<TransformComponent>(user, out var userXform))
+            if (!TryComp(user, out TransformComponent? userXform))
                 return false;
 
             // Verify user is on the same map as the entity they clicked on
@@ -900,8 +897,8 @@ namespace Content.Shared.Interaction
                     ignoreAnchored = angleDelta < wallMount.Arc / 2 || Math.Tau - angleDelta < wallMount.Arc / 2;
                 }
 
-                if (ignoreAnchored && _mapManager.TryFindGridAt(targetCoords, out _, out var grid))
-                    ignored.UnionWith(grid.GetAnchoredEntities(targetCoords));
+                if (ignoreAnchored && _mapManager.TryFindGridAt(targetCoords, out var gridUid, out var grid))
+                    ignored.UnionWith(_map.GetAnchoredEntities((gridUid, grid), targetCoords));
             }
 
             Ignored combinedPredicate = e => e == target || (predicate?.Invoke(e) ?? false) || ignored.Contains(e);
@@ -1070,12 +1067,6 @@ namespace Content.Shared.Interaction
         /// <summary>
         ///     Used when clicking on an entity resulted in no other interaction. Used for low-priority interactions.
         /// </summary>
-        /// <param name="user"><inheritdoc cref="InteractUsing"/></param>
-        /// <param name="used"><inheritdoc cref="InteractUsing"/></param>
-        /// <param name="target"><inheritdoc cref="InteractUsing"/></param>
-        /// <param name="clickLocation"><inheritdoc cref="InteractUsing"/></param>
-        /// <param name="canReach">Whether the <paramref name="user"/> is in range of the <paramref name="target"/>.
-        ///     </param>
         /// <returns>True if the interaction was handled. Otherwise, false.</returns>
         public bool InteractDoAfter(EntityUid user, EntityUid used, EntityUid? target, EntityCoordinates clickLocation, bool canReach, bool checkDeletion = true)
         {

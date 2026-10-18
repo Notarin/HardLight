@@ -1,12 +1,8 @@
-using System;
 using Content.Shared.CCVar;
 using Content.Shared.Sprite;
-using Content.Shared.Toggleable;
 using Content.Shared.Movement.Components;
-using Content.Client.Options;
 using Robust.Client.GameObjects;
 using Robust.Shared.Configuration;
-using Robust.Shared.GameObjects;
 using Robust.Client.Graphics;
 using Robust.Shared.Reflection;
 

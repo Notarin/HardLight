@@ -1,12 +1,8 @@
 using System.Numerics;
 using Content.Shared._VRS.Planet;
-using Content.Shared.Maps;
 using Content.Shared.Parallax.Biomes;
 using Robust.Client.Graphics;
-using Robust.Client.UserInterface;
 using Robust.Shared.Map;
-using Robust.Shared.Map.Components;
-using Robust.Shared.Maths;
 
 namespace Content.Client.Shuttles.UI;
 

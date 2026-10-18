@@ -1,7 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
-using Content.Server.NodeContainer;
-using Content.Server.NodeContainer.Nodes;
 using Content.Server.Power.Components;
 using Content.Server.Power.Nodes;
 using Content.Server.Shuttles.Components;
@@ -9,8 +5,6 @@ using Content.Server.Shuttles.Events;
 using Content.Shared.NodeContainer;
 using Content.Shared.Power;
 using Robust.Shared.Map.Components;
-using Robust.Shared.Utility;
-using Robust.Shared.Log;
 using Content.Server.NodeContainer.EntitySystems;
 using Content.Shared.Starlight.CCVar;
 using Robust.Shared.Configuration;
@@ -24,7 +18,7 @@ namespace Content.Server.Power.EntitySystems
     {
         #region Dependencies
 
-        [Dependency] public readonly SharedMapSystem _mapSystem = default!;
+        [Dependency] private readonly SharedMapSystem _mapSystem = default!;
         [Dependency] private IConfigurationManager _configurationManager = default!;
         private readonly HashSet<EntityUid> _dockConnectionsChecked = new();
 
@@ -102,7 +96,7 @@ namespace Content.Server.Power.EntitySystems
 
         public IEnumerable<CableNode> GetDockCableNodes(EntityUid dock)
         {
-            if (!TryComp<TransformComponent>(dock, out var xform) || xform.GridUid == null)
+            if (!TryComp(dock, out TransformComponent? xform) || xform.GridUid == null)
                 yield break;
             if (!TryComp<MapGridComponent>(xform.GridUid.Value, out var grid))
                 yield break;
@@ -115,7 +109,7 @@ namespace Content.Server.Power.EntitySystems
                     continue;
                 if (!TryComp<NodeContainerComponent>(ent, out var nodeContainer))
                     continue;
-                if (!TryComp<TransformComponent>(ent, out var entXform) || !entXform.Anchored)
+                if (!TryComp(ent, out TransformComponent? entXform) || !entXform.Anchored)
                     continue;
                 foreach (var node in nodeContainer.Nodes.Values.OfType<CableNode>())
                 {
@@ -165,7 +159,7 @@ namespace Content.Server.Power.EntitySystems
         {
             if (!ShouldDockCableType(node))
                 return;
-            if (!TryComp<TransformComponent>(node.Owner, out var xform) || xform.GridUid == null || !xform.Anchored)
+            if (!TryComp(node.Owner, out TransformComponent? xform) || xform.GridUid == null || !xform.Anchored)
                 return;
             if (!TryComp<MapGridComponent>(xform.GridUid.Value, out var grid))
                 return;
@@ -181,7 +175,7 @@ namespace Content.Server.Power.EntitySystems
             {
                 var docking = Comp<DockingComponent>(ent);
                 var otherDock = docking.DockedWith!.Value;
-                var otherCables = GetDockCableNodes(otherDock).Where(p => TryComp<TransformComponent>(p.Owner, out var pXform) && pXform.Anchored);
+                var otherCables = GetDockCableNodes(otherDock).Where(p => TryComp(p.Owner, out TransformComponent? pXform) && pXform.Anchored);
                 foreach (var otherCable in otherCables)
                 {
                     if (CanConnect(node, otherCable))
@@ -223,7 +217,7 @@ namespace Content.Server.Power.EntitySystems
             if (!_dockConnectionsChecked.Add(cableEntity))
                 return;
 
-            if (!TryComp<TransformComponent>(cableEntity, out var xform) || xform.GridUid == null || !xform.Anchored)
+            if (!TryComp(cableEntity, out TransformComponent? xform) || xform.GridUid == null || !xform.Anchored)
                 return;
             if (!TryComp<MapGridComponent>(xform.GridUid.Value, out var grid))
                 return;
@@ -239,7 +233,7 @@ namespace Content.Server.Power.EntitySystems
             {
                 var docking = Comp<DockingComponent>(ent);
                 var otherDock = docking.DockedWith!.Value;
-                var cablesOther = GetDockCableNodes(otherDock).Where(p => TryComp<TransformComponent>(p.Owner, out var pXform) && pXform.Anchored);
+                var cablesOther = GetDockCableNodes(otherDock).Where(p => TryComp(p.Owner, out TransformComponent? pXform) && pXform.Anchored);
                 foreach (var other in cablesOther)
                 {
                     if (CanConnect(cableNode, other))
@@ -261,9 +255,9 @@ namespace Content.Server.Power.EntitySystems
 
         public IEnumerable<(EntityUid, EntityUid)> GetAllDockedPairs()
         {
-            foreach (var dockEntity in EntityQuery<DockingComponent>())
+            var query = EntityQueryEnumerator<DockingComponent>();
+            while (query.MoveNext(out var dockA, out var dockEntity))
             {
-                var dockA = dockEntity.Owner;
                 if (dockEntity.DockedWith is not { } dockB)
                     continue;
                 if (dockA.CompareTo(dockB) < 0)

@@ -28,7 +28,7 @@ public sealed partial class TargetSeekerAlertComponent : Component
     public EntityUid? Audio = null;
 
     /// <summary>
-    ///     The key of the sound specified in <see cref="DistanceAlertSounds"/> currently playing.
+    ///     The key of the sound specified in DistanceAlertSounds currently playing.
     /// </summary>
     // This isn't the most amazing solution but it's necessary to prevent spamming the sound. GetHashCode is a bit overkill and it might(?) not always work either.
     [DataField, ViewVariables(VVAccess.ReadOnly)]
@@ -37,7 +37,7 @@ public sealed partial class TargetSeekerAlertComponent : Component
 
 /// <summary>
 ///     Specifies information for an entity with <see cref="TargetSeekerAlertComponent"/> about
-///         what it does when a seeker is closer than <paramref name="MaximumDistance"/> from the
+///         what it does when a seeker is closer than MaximumDistance from the
 ///         entity.
 /// </summary>
 [DataDefinition]

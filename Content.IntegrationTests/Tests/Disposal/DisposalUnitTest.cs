@@ -1,5 +1,4 @@
 #nullable enable annotations
-using System.Linq;
 using System.Numerics;
 using Content.Server.Disposal.Unit;
 using Content.Server.Power.Components;

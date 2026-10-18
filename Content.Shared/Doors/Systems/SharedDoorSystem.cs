@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.Access.Components;
 using Content.Shared.Access.Systems;
 using Content.Shared._Floof.Lock; // HardLight
@@ -486,9 +485,6 @@ public abstract partial class SharedDoorSystem : EntitySystem
     /// <summary>
     /// Immediately start closing a door
     /// </summary>
-    /// <param name="uid"> The uid of the door</param>
-    /// <param name="door"> The doorcomponent of the door</param>
-    /// <param name="user"> The user (if any) opening the door</param>
     public bool CanClose(EntityUid uid, DoorComponent? door = null, EntityUid? user = null, bool partial = false)
     {
         if (!Resolve(uid, ref door))
@@ -579,7 +575,7 @@ public abstract partial class SharedDoorSystem : EntitySystem
     }
 
     /// <summary>
-    /// Crushes everyone colliding with us by more than <see cref="IntersectPercentage"/>%.
+    /// Crushes everyone colliding with us by more than IntersectPercentage%.
     /// </summary>
     public void Crush(EntityUid uid, DoorComponent? door = null, PhysicsComponent? physics = null)
     {
@@ -609,7 +605,7 @@ public abstract partial class SharedDoorSystem : EntitySystem
     }
 
     /// <summary>
-    ///     Get all entities that collide with this door by more than <see cref="IntersectPercentage"/> percent.\
+    ///     Get all entities that collide with this door by more than IntersectPercentage percent.\
     /// </summary>
     public IEnumerable<EntityUid> GetColliding(EntityUid uid, PhysicsComponent? physics = null)
     {

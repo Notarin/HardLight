@@ -1,7 +1,5 @@
 using System.Globalization;
-using System.Linq;
 using System.Text.RegularExpressions;
-using Robust.Shared.Utility;
 
 namespace Content.Shared.Localizations
 {

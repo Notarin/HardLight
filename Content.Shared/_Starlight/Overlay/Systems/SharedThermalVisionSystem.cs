@@ -1,16 +1,10 @@
-using System;
 using Content.Shared.Actions;
-using Content.Shared.Clothing.Components;
-using Content.Shared.Clothing.EntitySystems;
-using Content.Shared._Starlight.Overlay;
 using Robust.Shared.Prototypes;
-using static Content.Shared.Weapons.Ranged.Systems.SharedGunSystem;
 
 namespace Content.Shared.Eye.Blinding.Components;
 
 public abstract class SharedThermalVisionSystem : EntitySystem
 {
-    [Dependency] private readonly ActionContainerSystem _actionContainer = default!;
     [Dependency] private readonly SharedActionsSystem _actionsSystem = default!;
 
     protected virtual bool IsPredict() => false;

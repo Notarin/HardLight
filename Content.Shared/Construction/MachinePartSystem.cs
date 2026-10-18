@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.Construction.Components;
 using Content.Shared.Construction.Prototypes; // Frontier: restore MachinePartComponent
 using Content.Shared.Examine;

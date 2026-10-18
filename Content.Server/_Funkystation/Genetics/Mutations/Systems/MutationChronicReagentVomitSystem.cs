@@ -62,7 +62,7 @@ public sealed class MutationChronicReagentVomitSystem : EntitySystem
         _vomit.Vomit(uid, thirstAdded: -30f, hungerAdded: -30f);
 
         // Then, add solution to puddle
-        if (TryComp<TransformComponent>(uid, out var xform))
+        if (TryComp(uid, out TransformComponent? xform))
         {
             if (_puddle.TrySpillAt(xform.Coordinates, solution, out var puddleUid))
             {

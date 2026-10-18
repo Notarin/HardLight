@@ -1,6 +1,5 @@
 using Content.Shared._Starlight.Shadekin;
 using Content.Shared.Verbs;
-using Robust.Shared.Utility;
 
 namespace Content.Server._Starlight.Shadekin;
 

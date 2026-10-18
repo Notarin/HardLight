@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.Humanoid.Components;
 using Content.Server.Spawners.Components;
 using Content.Server.Storage.Components;

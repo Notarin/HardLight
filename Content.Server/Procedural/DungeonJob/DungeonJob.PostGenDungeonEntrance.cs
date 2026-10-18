@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using Content.Shared.Maps;
 using Content.Shared.Procedural;
 using Content.Shared.Procedural.PostGeneration;
@@ -12,7 +11,7 @@ public sealed partial class DungeonJob
     /// <summary>
     /// <see cref="DungeonEntranceDunGen"/>
     /// </summary>
-    private async Task PostGen(DungeonEntranceDunGen gen, DungeonData data, Dungeon dungeon, HashSet<Vector2i> reservedTiles, Random random)
+    private async Task PostGen(DungeonEntranceDunGen gen, DungeonData data, Dungeon dungeon, HashSet<Vector2i> reservedTiles, IRobustRandom random)
     {
         if (!data.Tiles.TryGetValue(DungeonDataKey.FallbackTile, out var tileProto) ||
             !data.SpawnGroups.TryGetValue(DungeonDataKey.Entrance, out var entrance))
@@ -62,13 +61,13 @@ public sealed partial class DungeonJob
                     }
 
                     // Check if exterior spot free.
-                    if (!_anchorable.TileFree(_grid, tile, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask))
+                    if (!_anchorable.TileFree(GridEntity, tile, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask))
                     {
                         continue;
                     }
 
                     // Check if interior spot free (no guarantees on exterior but ClearDoor should handle it)
-                    if (!_anchorable.TileFree(_grid, dirVec, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask))
+                    if (!_anchorable.TileFree(GridEntity, dirVec, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask))
                     {
                         continue;
                     }

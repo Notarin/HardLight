@@ -10,7 +10,8 @@ using Content.Shared.Power.EntitySystems;
 using Content.Shared.Verbs;
 using Robust.Shared.GameStates;
 using Robust.Shared.Utility;
-using Content.Shared.Emp; // Frontier: Upstream - #28984
+
+// Frontier: Upstream - #28984
 
 namespace Content.Server.Power.EntitySystems
 {

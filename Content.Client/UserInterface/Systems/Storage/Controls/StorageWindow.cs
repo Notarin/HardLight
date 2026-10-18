@@ -1,5 +1,4 @@
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Numerics;
 using Content.Client.Hands.Systems;
 using Content.Client.Items.Systems;

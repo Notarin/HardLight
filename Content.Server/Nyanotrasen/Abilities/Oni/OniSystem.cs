@@ -1,10 +1,8 @@
-using Content.Server.Tools;
 using Content.Shared.Damage.Events;
 using Content.Shared.Weapons.Melee.Events;
 using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Systems;
 using Content.Shared.Wieldable.Components;
-using System.Linq;
 using Robust.Shared.Containers;
 
 namespace Content.Server.Abilities.Oni
@@ -41,20 +39,20 @@ namespace Content.Server.Abilities.Oni
                 if (TryComp<GunWieldBonusComponent>(args.Entity, out var bonus) && HasComp<WieldableComponent>(args.Entity))
                 {
                     //GunWieldBonus values are stored as negative.
-                    heldComp.minAngleAdded = (gun.MinAngle + bonus.MinAngle) * GunInaccuracyFactor;
-                    heldComp.angleIncreaseAdded = (gun.AngleIncrease + bonus.AngleIncrease) * GunInaccuracyFactor;
-                    heldComp.maxAngleAdded = (gun.MaxAngle + bonus.MaxAngle) * GunInaccuracyFactor;
+                    heldComp.MinAngleAdded = (gun.MinAngle + bonus.MinAngle) * GunInaccuracyFactor;
+                    heldComp.AngleIncreaseAdded = (gun.AngleIncrease + bonus.AngleIncrease) * GunInaccuracyFactor;
+                    heldComp.MaxAngleAdded = (gun.MaxAngle + bonus.MaxAngle) * GunInaccuracyFactor;
                 }
                 else
                 {
-                    heldComp.minAngleAdded = gun.MinAngle * GunInaccuracyFactor;
-                    heldComp.angleIncreaseAdded = gun.AngleIncrease * GunInaccuracyFactor;
-                    heldComp.maxAngleAdded = gun.MaxAngle * GunInaccuracyFactor;
+                    heldComp.MinAngleAdded = gun.MinAngle * GunInaccuracyFactor;
+                    heldComp.AngleIncreaseAdded = gun.AngleIncrease * GunInaccuracyFactor;
+                    heldComp.MaxAngleAdded = gun.MaxAngle * GunInaccuracyFactor;
                 }
 
-                gun.MinAngle += heldComp.minAngleAdded;
-                gun.AngleIncrease += heldComp.angleIncreaseAdded;
-                gun.MaxAngle += heldComp.maxAngleAdded;
+                gun.MinAngle += heldComp.MinAngleAdded;
+                gun.AngleIncrease += heldComp.AngleIncreaseAdded;
+                gun.MaxAngle += heldComp.MaxAngleAdded;
                 _gunSystem.RefreshModifiers(args.Entity); // Make sure values propagate to modified values (this also dirties the gun for us)
                 // End Frontier
             }
@@ -86,9 +84,9 @@ namespace Content.Server.Abilities.Oni
             if (TryComp<GunComponent>(args.Entity, out var gun) &&
                 TryComp<HeldByOniComponent>(args.Entity, out var heldComp))
             {
-                gun.MinAngle -= heldComp.minAngleAdded;
-                gun.AngleIncrease -= heldComp.angleIncreaseAdded;
-                gun.MaxAngle -= heldComp.maxAngleAdded;
+                gun.MinAngle -= heldComp.MinAngleAdded;
+                gun.AngleIncrease -= heldComp.AngleIncreaseAdded;
+                gun.MaxAngle -= heldComp.MaxAngleAdded;
                 _gunSystem.RefreshModifiers(args.Entity); // Make sure values propagate to modified values (this also dirties the gun for us)
             }
             // End Frontier

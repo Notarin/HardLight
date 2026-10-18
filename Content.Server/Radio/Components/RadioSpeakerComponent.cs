@@ -1,4 +1,4 @@
-using Content.Server.Chat.Systems; // Frontier: InGameICChatType
+// Frontier: InGameICChatType
 using Content.Server.Radio.EntitySystems;
 using Content.Shared.Chat;
 using Content.Shared.Radio;

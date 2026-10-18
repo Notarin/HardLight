@@ -1,7 +1,3 @@
-using Robust.Shared.GameObjects;
-using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
-using Robust.Shared.Serialization.Manager.Attributes;
-
 namespace Content.Shared._Mono.Weapons;
 
 /// <summary>

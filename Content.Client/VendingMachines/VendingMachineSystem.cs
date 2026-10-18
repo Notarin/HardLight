@@ -1,9 +1,9 @@
-using System.Linq;
 using Content.Shared.VendingMachines;
 using Robust.Client.Animations;
 using Robust.Client.GameObjects;
 using Robust.Shared.GameStates;
-using Robust.Shared.Containers; // Frontier
+
+// Frontier
 
 namespace Content.Client.VendingMachines;
 

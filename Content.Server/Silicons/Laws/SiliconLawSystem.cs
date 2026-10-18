@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.Administration;
 using Content.Server.Chat.Managers;
 using Content.Server.Radio.Components;
@@ -16,7 +15,6 @@ using Content.Shared.Roles;
 using Content.Shared.Silicons.Laws;
 using Content.Shared.Silicons.Laws.Components;
 using Content.Shared.Silicons.StationAi; // Corvax-Next-AiRemoteControl
-using Content.Shared.Wires;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio;
 using Robust.Shared.Containers;
@@ -158,7 +156,7 @@ public sealed class SiliconLawSystem : SharedSiliconLawSystem
 
         var obeysTo = Loc.GetString(lawset.ObeysTo);
         var secrecyLaw = Loc.GetString("law-emag-secrecy", ("faction", obeysTo));
-        var emaggerName = Name(args.user);
+        var emaggerName = Name(args.User);
         var customLaw = Loc.GetString("law-emag-custom", ("name", emaggerName), ("title", obeysTo));
         // HardLight end
 

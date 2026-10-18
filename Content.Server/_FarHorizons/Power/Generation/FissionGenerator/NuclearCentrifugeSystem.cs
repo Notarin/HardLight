@@ -95,13 +95,13 @@ public sealed class NuclearCentrifugeSystem : EntitySystem
         if (!this.IsPowered(uid, _entityManager))
             return;
 
-        if (!_entityManager.TryGetComponent<ReactorPartComponent>(args.Used, out var ReactorPart) || !ReactorPart.HasRodType(ReactorPartComponent.RodTypes.FuelRod))
+        if (!_entityManager.TryGetComponent<ReactorPartComponent>(args.Used, out var reactorPart) || !reactorPart.HasRodType(ReactorPartComponent.RodTypes.FuelRod))
         {
             _popupSystem.PopupEntity(Loc.GetString("nuclear-centrifuge-wrong-item", ("item", args.Used)), uid);
             return;
         }
 
-        if (ReactorPart.Properties == null || ReactorPart.Properties.FissileIsotopes < 0.1)
+        if (reactorPart.Properties == null || reactorPart.Properties.FissileIsotopes < 0.1)
         {
             _popupSystem.PopupEntity(Loc.GetString("nuclear-centrifuge-unfit-item", ("item", args.Used)), uid);
             return;
@@ -113,7 +113,7 @@ public sealed class NuclearCentrifugeSystem : EntitySystem
         if (!_audio.IsPlaying(comp.AudioProcess))
             comp.AudioProcess = _audio.PlayPvs(comp.SoundProcess, uid, AudioParams.Default.WithLoop(true).WithVolume(-2))?.Entity;
 
-        comp.FuelToExtract += ReactorPart.Properties.FissileIsotopes;
+        comp.FuelToExtract += reactorPart.Properties.FissileIsotopes;
         comp.Processing = true;
         _entityManager.DeleteEntity(args.Used);
 

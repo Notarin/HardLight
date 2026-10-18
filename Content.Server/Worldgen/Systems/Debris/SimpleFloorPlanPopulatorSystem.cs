@@ -36,7 +36,7 @@ public sealed class SimpleFloorPlanPopulatorSystem : BaseWorldSystem
 
         foreach (var tile in tiles)
         {
-            var coords = grid.GridTileToLocal(tile.GridIndices);
+            var coords = _map.GridTileToLocal(uid, grid, tile.GridIndices);
             var selector = tile.Tile.GetContentTileDefinition(_tileDefinition).ID;
             if (!component.Caches.TryGetValue(selector, out var cache))
                 continue;

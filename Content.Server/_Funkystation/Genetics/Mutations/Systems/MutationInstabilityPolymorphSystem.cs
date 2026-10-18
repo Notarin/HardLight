@@ -1,8 +1,6 @@
-using System.Linq;
 using Content.Server._Funkystation.Genetics.Components;
 using Content.Server._Funkystation.Genetics.Mutations.Components;
 using Content.Server._Funkystation.Genetics.Systems;
-using Content.Server.Polymorph.Components;
 using Content.Server.Polymorph.Systems;
 using Content.Shared._Funkystation.Genetics.Prototypes;
 using Robust.Shared.Prototypes;

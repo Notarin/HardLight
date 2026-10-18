@@ -1,12 +1,8 @@
 #nullable enable
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 using BenchmarkDotNet.Attributes;
 using Content.IntegrationTests;
 using Content.IntegrationTests.Pair;
 using Content.Server.Mind;
-using Content.Server.Warps;
 using Content.Shared.Warps;
 using Robust.Shared;
 using Robust.Shared.Analyzers;
@@ -39,7 +35,7 @@ public class PvsBenchmark
     private IEntityManager _entMan = default!;
     private ICommonSession[] _players = default!;
     private EntityCoordinates[] _spawns = default!;
-    public int _cycleOffset = 0;
+    public int CycleOffset = 0;
     private SharedTransformSystem _sys = default!;
     private EntityCoordinates[] _locations = default!;
 
@@ -148,7 +144,7 @@ public class PvsBenchmark
     /// This effectively provides a lower bound on "real" pvs tick time, as it is missing:
     /// - PVS chunks getting dirtied and needing to be rebuilt
     /// - Fetching component states for dirty components
-    /// - Compressing & sending network messages
+    /// - Compressing &amp; sending network messages
     /// - Sending PVS leave messages
     /// </summary>
     [Benchmark]
@@ -165,12 +161,12 @@ public class PvsBenchmark
     [Benchmark]
     public void CycleTick()
     {
-        _cycleOffset = (_cycleOffset + 1) % _players.Length;
+        CycleOffset = (CycleOffset + 1) % _players.Length;
         _pair.Server.WaitPost(() =>
         {
             for (var i = 0; i < PlayerCount; i++)
             {
-                _sys.SetCoordinates(_players[i].AttachedEntity!.Value, _locations[(i + _cycleOffset) % _players.Length]);
+                _sys.SetCoordinates(_players[i].AttachedEntity!.Value, _locations[(i + CycleOffset) % _players.Length]);
             }
         }).Wait();
         _pair.Server.PvsTick(_players);

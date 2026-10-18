@@ -3,12 +3,10 @@ using Content.Server.Power.Components;
 using Content.Server.Electrocution;
 using Content.Server.Lightning;
 using Content.Server.Explosion.EntitySystems;
-using Content.Server.Construction;
 using Content.Server.Ghost;
 using Content.Server.Revenant.EntitySystems;
 using Content.Shared.Audio;
 using Content.Shared.Construction.EntitySystems;
-using Content.Shared.Coordinates.Helpers;
 using Content.Shared.GameTicking;
 using Content.Shared.Psionics.Glimmer;
 using Content.Shared.Verbs;
@@ -17,7 +15,6 @@ using Content.Shared.Damage;
 using Content.Shared.Destructible;
 using Content.Shared.Construction.Components;
 using Robust.Shared.Audio;
-using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Random;
 using Robust.Shared.Physics.Components;
@@ -73,9 +70,6 @@ namespace Content.Server.Psionics.Glimmer
         /// <summary>
         /// Update relevant state on an Entity.
         /// </summary>
-        /// <param name="glimmerTierDelta">The number of steps in tier
-        /// difference since last update. This can be zero for the sake of
-        /// toggling the enabled states.</param>
         private void UpdateEntityState(EntityUid uid, SharedGlimmerReactiveComponent component, GlimmerTier currentGlimmerTier, int glimmerTierDelta)
         {
             var isEnabled = true;
@@ -119,7 +113,7 @@ namespace Content.Server.Psionics.Glimmer
         private void OnMapInit(EntityUid uid, SharedGlimmerReactiveComponent component, MapInitEvent args)
         {
             if (component.RequiresApcPower && !HasComp<ApcPowerReceiverComponent>(uid))
-                Logger.Warning($"{ToPrettyString(uid)} had RequiresApcPower set to true but no ApcPowerReceiverComponent was found on init.");
+                Log.Warning($"{ToPrettyString(uid)} had RequiresApcPower set to true but no ApcPowerReceiverComponent was found on init.");
 
             UpdateEntityState(uid, component, LastGlimmerTier, (int)LastGlimmerTier);
         }
@@ -310,7 +304,7 @@ namespace Content.Server.Psionics.Glimmer
             {
                 var tileIndices = _mapSystem.TileIndicesFor(gridUid.Value, grid, coordinates);
 
-                if (_anchorableSystem.TileFree(grid, tileIndices, physics.CollisionLayer, physics.CollisionMask) &&
+                if (_anchorableSystem.TileFree((gridUid.Value, grid), tileIndices, physics.CollisionLayer, physics.CollisionMask) &&
                     _transformSystem.AnchorEntity(uid, xform))
                 {
                     return;
@@ -404,7 +398,7 @@ namespace Content.Server.Psionics.Glimmer
     /// <see cref="GlimmerSystem.GetGlimmerTier"/> has the exact
     /// values corresponding to tiers.
     /// </summary>
-    public class GlimmerTierChangedEvent : EntityEventArgs
+    public sealed class GlimmerTierChangedEvent : EntityEventArgs
     {
         /// <summary>
         /// What was the last glimmer tier before this event fired?

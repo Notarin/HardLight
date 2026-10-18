@@ -1,11 +1,9 @@
-using System.Linq;
 using System.Numerics;
 using Content.Server.Shuttles.Components;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Collision.Shapes;
-using Robust.Shared.Physics.Components;
 using Content.Shared.Shuttles.Components; // Frontier
 
 namespace Content.Server.Shuttles.Systems;
@@ -127,7 +125,6 @@ public sealed partial class DockingSystem
     /// <summary>
     /// Tries to get a valid docking configuration for the shuttle to the target grid.
     /// </summary>
-    /// <param name="priorityTag">Priority docking tag to prefer, e.g. for emergency shuttle</param>
     public DockingConfig? GetDockingConfig(EntityUid shuttleUid, EntityUid targetGrid, string? priorityTag = null, DockType dockType = DockType.Airlock) // Frontier: add dockType
     {
         var gridDocks = GetDocks(targetGrid);

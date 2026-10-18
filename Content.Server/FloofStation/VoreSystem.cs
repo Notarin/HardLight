@@ -1,17 +1,13 @@
 using Content.Server.Carrying;
 using Content.Server.Body.Components;
-using Content.Server.Medical.SuitSensors;
 using Content.Server._Starlight.NullSpace;
 using Content.Shared._Common.Consent;
 using Content.Shared._Starlight.NullSpace;
 using Content.Shared.Body.Components;
-using Content.Shared.Body.Events;
 using Content.Shared.Carrying;
-using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Destructible;
 using Content.Shared.DoAfter;
 using Content.Shared.FloofStation;
-using Content.Shared.Medical.SuitSensor;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Movement.Pulling.Components;
 using Content.Shared.Polymorph;
@@ -37,7 +33,6 @@ public sealed class VoreSystem : EntitySystem
     [Dependency] private readonly IPlayerManager _players = default!;
     [Dependency] private readonly MobStateSystem _mobState = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SuitSensorSystem _suitSensors = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly NullSpacePhaseSystem _phase = default!;
 

@@ -94,7 +94,6 @@ namespace Content.Shared.Examine
         [DataField(required: true)]
         public FormattedMessage Message;
 
-        /// <param name="component">Should be set to _componentFactory.GetComponentName(component.GetType()) to properly function.</param>
         public ExamineEntry(string component, float priority, FormattedMessage message)
         {
             Component = component;

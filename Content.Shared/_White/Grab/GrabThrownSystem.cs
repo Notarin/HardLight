@@ -82,7 +82,6 @@ public sealed class GrabThrownSystem : EntitySystem
     /// <param name="thrower">Entity that throws</param>
     /// <param name="vector">Direction</param>
     /// <param name="grabThrownSpeed">How fast you fly when thrown</param>
-    /// <param name="staminaDamage">Stamina damage on collide</param>
     /// <param name="damageToUid">Damage to entity on collide</param>
     public void Throw(
         EntityUid uid,

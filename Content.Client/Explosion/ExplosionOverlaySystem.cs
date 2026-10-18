@@ -4,13 +4,12 @@ using Robust.Client.Graphics;
 using Robust.Client.ResourceManagement;
 using Robust.Shared.GameStates;
 using Robust.Shared.Graphics.RSI;
-using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 
 namespace Content.Client.Explosion;
 
 /// <summary>
-///     This system is responsible for showing the client-side explosion effects (light source & fire-overlay). The
+///     This system is responsible for showing the client-side explosion effects (light source &amp; fire-overlay). The
 ///     fire overlay code is just a bastardized version of the atmos plasma fire overlay and uses the same texture.
 /// </summary>
 public sealed class ExplosionOverlaySystem : EntitySystem
@@ -19,7 +18,7 @@ public sealed class ExplosionOverlaySystem : EntitySystem
     [Dependency] private readonly IResourceCache _resCache = default!;
     [Dependency] private readonly IOverlayManager _overlayMan = default!;
     [Dependency] private readonly SharedPointLightSystem _lights = default!;
-    [Dependency] private readonly IMapManager _mapMan = default!;
+    [Dependency] private readonly SharedMapSystem _map = default!;
     [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
 
     public override void Initialize()
@@ -69,7 +68,7 @@ public sealed class ExplosionOverlaySystem : EntitySystem
         }
 
         // Map may have been deleted.
-        if (_mapMan.MapExists(component.Epicenter.MapId))
+        if (_map.MapExists(component.Epicenter.MapId))
         {
             // spawn in a client-side light source at the epicenter
             var lightEntity = Spawn("ExplosionLight", component.Epicenter);

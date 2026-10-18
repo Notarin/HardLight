@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.Power.Components;
 using Content.Server.Solar.Components;
 using Content.Shared.GameTicking;

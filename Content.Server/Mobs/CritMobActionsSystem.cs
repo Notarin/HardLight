@@ -3,12 +3,10 @@ using Content.Server.Chat.Systems;
 using Content.Server.Ghost;
 using Content.Server.Mind;
 using Content.Server.Popups;
-using Content.Server.Speech.Muting;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Chat; // For InGameICChatType
-using Robust.Server.Console;
 using Robust.Shared.Player;
 using Content.Shared.Speech.Muting;
 

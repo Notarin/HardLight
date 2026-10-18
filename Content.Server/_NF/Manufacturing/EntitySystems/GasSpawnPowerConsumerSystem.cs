@@ -141,7 +141,6 @@ public sealed partial class GasSpawnPowerConsumerSystem : EntitySystem
     /// Gets the actual effective power in watts for some amount of input power.
     /// No range check on power.
     /// </summary>
-    /// <param name="power">Input power level, in watts.</param>
     /// <returns>Effective power, in watts.</returns>
     private float GetEffectivePower(Entity<GasSpawnPowerConsumerComponent> ent, float power)
     {
@@ -156,7 +155,6 @@ public sealed partial class GasSpawnPowerConsumerSystem : EntitySystem
     /// <summary>
     /// Gets the expected gas generation rate in moles per second.
     /// </summary>
-    /// <param name="power">Input power level, in watts</param>
     /// <returns>Expected item generation time in seconds</returns>
     public float GetGasSpawnRate(Entity<GasSpawnPowerConsumerComponent> ent, float power)
     {

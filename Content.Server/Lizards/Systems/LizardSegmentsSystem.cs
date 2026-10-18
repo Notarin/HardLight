@@ -1,5 +1,4 @@
 using Content.Shared.Lizards.Components;
-using Robust.Shared.Map;
 
 namespace Content.Server.Lizards.Systems;
 

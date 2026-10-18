@@ -1,7 +1,5 @@
 using Content.Shared._Starlight.EdgeConnection;
-using Robust.Shared.GameObjects;
 using Robust.Shared.Map.Components;
-using Robust.Shared.Maths;
 
 namespace Content.Server._Starlight.EdgeConnection;
 

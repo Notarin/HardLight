@@ -1,11 +1,8 @@
 using System.Runtime.CompilerServices;
 using Content.Server.Atmos.Components;
-using Content.Server.Maps;
 using Content.Shared.Atmos;
 using Content.Shared.Atmos.Components;
-using Content.Shared.Maps;
 using Content.Shared.Shuttles.Components; // Frontier
-using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 
 namespace Content.Server.Atmos.EntitySystems;
@@ -108,9 +105,9 @@ public partial class AtmosphereSystem
     /// </summary>
     /// <param name="mapGrid">The grid in question.</param>
     /// <param name="tile">The indices of the tile.</param>
-    private void PryTile(MapGridComponent mapGrid, Vector2i tile)
+    private void PryTile(Entity<MapGridComponent> mapGrid, Vector2i tile)
     {
-        if (!mapGrid.TryGetTileRef(tile, out var tileRef))
+        if (!_mapSystem.TryGetTileRef(mapGrid.Owner, mapGrid.Comp, tile, out var tileRef))
             return;
 
         _tile.PryTile(tileRef);
@@ -120,7 +117,7 @@ public partial class AtmosphereSystem
     /// <summary>
     ///     Checks if atmos input devices are allowed to run on the given map entity.
     /// </summary>
-    /// <param name="mapGrid">The map in question.</param>
+    /// <param name="mapUid">The map in question.</param>
     public bool AtmosInputCanRunOnMap(EntityUid? mapUid)
     {
         // Frontier: check running gas extraction

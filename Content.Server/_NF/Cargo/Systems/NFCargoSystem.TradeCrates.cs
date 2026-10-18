@@ -1,4 +1,3 @@
-using System.Threading;
 using Content.Server._NF.Trade;
 using Content.Server.Cargo.Systems;
 using Content.Server.GameTicking;

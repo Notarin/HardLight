@@ -1,5 +1,4 @@
 using Content.Server.Body.Systems;
-using Content.Server.Floofstation.Traits;
 using Content.Server.Nutrition.EntitySystems;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.Reagent;
@@ -62,7 +61,7 @@ namespace Content.Server.Body.Components
         public readonly List<ReagentDelta> ReagentDeltas = new();
 
         /// <summary>
-        ///     Used to track quantity changes when ingesting & digesting reagents
+        ///     Used to track quantity changes when ingesting &amp; digesting reagents
         /// </summary>
         public sealed class ReagentDelta
         {

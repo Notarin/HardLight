@@ -1,6 +1,5 @@
 using Content.Shared.Humanoid;
 using Content.Shared.Alert;
-using System.Linq;
 using Robust.Server.GameObjects;
 using Content.Shared.Examine;
 using Robust.Server.Containers;
@@ -16,12 +15,7 @@ using Robust.Shared.Timing;
 using Content.Shared._Starlight.NullSpace;
 using Content.Shared.Actions;
 using Content.Shared.Popups;
-using Content.Shared.Inventory;
-using Robust.Shared.Random;
-using Content.Server._Starlight.NullSpace;
 using Content.Server.Stunnable;
-using Content.Server.DoAfter;
-using Content.Shared.Ensnaring;
 using Robust.Shared.Audio.Systems;
 
 namespace Content.Server._Starlight.Shadekin;
@@ -38,13 +32,7 @@ public sealed partial class ShadekinSystem : EntitySystem
     [Dependency] private readonly MovementSpeedModifierSystem _speed = default!;
     [Dependency] private readonly SharedActionsSystem _actionsSystem = default!;
     [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly InventorySystem _inventorySystem = default!;
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly NullSpacePhaseSystem _nullspace = default!;
     [Dependency] private readonly StunSystem _stunSystem = default!;
-    [Dependency] private readonly DoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly SharedEnsnareableSystem _ensnareable = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly EyeSystem _eye = default!;
 
@@ -57,7 +45,7 @@ public sealed partial class ShadekinSystem : EntitySystem
         public float InnerWidth { get; set; }
         public float OuterWidth { get; set; }
     }
-    private readonly Dictionary<string, List<LightCone>> lightMasks = new()
+    private readonly Dictionary<string, List<LightCone>> _lightMasks = new()
     {
         ["/Textures/Effects/LightMasks/cone.png"] = new List<LightCone>
     {
@@ -174,7 +162,7 @@ public sealed partial class ShadekinSystem : EntitySystem
             var attenuation = 1 - (denom * denom);
             var calculatedLight = 0f;
 
-            if (light.Comp.MaskPath is not null && lightMasks.TryGetValue(light.Comp.MaskPath, out var cones))
+            if (light.Comp.MaskPath is not null && _lightMasks.TryGetValue(light.Comp.MaskPath, out var cones))
             {
                 var angleToTarget = GetAngle(light, light.Comp, uid);
                 foreach (var cone in cones)

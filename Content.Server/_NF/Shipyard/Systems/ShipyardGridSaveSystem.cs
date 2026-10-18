@@ -1,5 +1,3 @@
-using System.IO;
-using System.Threading.Tasks;
 using Content.Server.Popups;
 using Content.Server.Atmos.Piping.Components;
 using Content.Server.Chemistry.Components;
@@ -46,11 +44,8 @@ using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes; // HardLight
-using Robust.Shared.Log;
 using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.Markdown.Mapping;
-using Robust.Shared.Serialization.Markdown.Sequence;
-using Robust.Shared.Serialization.Markdown.Value;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 using YamlDotNet.Core;
@@ -101,7 +96,6 @@ public sealed class ShipyardGridSaveSystem : EntitySystem
     [Dependency] private readonly SharedDeviceLinkSystem _deviceLink = default!;
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!; // HardLight
     [Dependency] private readonly AppearanceSystem _appearance = default!; // HardLight
-    [Dependency] private readonly SharedTransformSystem _transform = default!; // VRS: eject players before ship save (HL #1694)
 
     private ISawmill _sawmill = default!;
     private MapLoaderSystem _mapLoader = default!;
@@ -877,7 +871,7 @@ public sealed class ShipyardGridSaveSystem : EntitySystem
 
     private bool IsNonPersistentShipSavePrototype(EntityUid uid)
     {
-        if (!TryComp<MetaDataComponent>(uid, out var meta) || meta.EntityPrototype is not { } proto)
+        if (!TryComp(uid, out MetaDataComponent? meta) || meta.EntityPrototype is not { } proto)
             return false;
 
         return NonPersistentShipSaveEntityPrototypes.Contains(proto.ID);

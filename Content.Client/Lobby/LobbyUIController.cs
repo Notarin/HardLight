@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Client.Guidebook;
 using Content.Client.Humanoid;
 using Content.Client.Inventory;
@@ -147,8 +146,8 @@ public sealed class LobbyUIController : UIController, IOnStateEntered<LobbyState
     public void OnStateExited(LobbyState state)
     {
         PreviewPanel?.SetLoaded(false);
-        _profileEditor?.Dispose();
-        _characterSetup?.Dispose();
+        _profileEditor?.Orphan();
+        _characterSetup?.Orphan();
 
         _characterSetup = null;
         _profileEditor = null;

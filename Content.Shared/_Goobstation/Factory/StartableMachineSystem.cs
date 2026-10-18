@@ -54,7 +54,8 @@ public sealed class StartableMachineSystem : EntitySystem
             {
                 SignalState.Momentary => !ent.Comp.AutoStart,
                 SignalState.High => true,
-                SignalState.Low => false
+                SignalState.Low => false,
+                _ => throw new ArgumentOutOfRangeException(),
             };
         }
     }

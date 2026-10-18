@@ -3,7 +3,7 @@ using Robust.Shared.Serialization;
 namespace Content.Shared.Atmos.Piping.Binary.Components
 {
     /// <summary>
-    /// Key representing which <see cref="PlayerBoundUserInterface"/> is currently open.
+    /// Key representing which PlayerBoundUserInterface is currently open.
     /// Useful when there are multiple UI for an object. Here it's future-proofing only.
     /// </summary>
     [Serializable, NetSerializable]
@@ -15,7 +15,7 @@ namespace Content.Shared.Atmos.Piping.Binary.Components
     #region Enums
 
     /// <summary>
-    /// Used in <see cref="GasCanisterVisualizer"/> to determine which visuals to update.
+    /// Used in GasCanisterVisualizer to determine which visuals to update.
     /// </summary>
     [Serializable, NetSerializable]
     public enum GasCanisterVisuals
@@ -27,7 +27,7 @@ namespace Content.Shared.Atmos.Piping.Binary.Components
     #endregion
 
     /// <summary>
-    /// Represents a <see cref="GasCanisterComponent"/> state that can be sent to the client
+    /// Represents a GasCanisterComponent state that can be sent to the client
     /// </summary>
     [Serializable, NetSerializable]
     public sealed class GasCanisterBoundUserInterfaceState : BoundUserInterfaceState

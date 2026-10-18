@@ -1,5 +1,3 @@
-using System.IO;
-using System.Threading.Tasks;
 using Content.Client.Viewport;
 using Content.Shared.Input;
 using Robust.Client.Graphics;

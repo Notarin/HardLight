@@ -19,7 +19,7 @@ public sealed partial class VentHordeRuleComponent : Component
 
     /// <summary>
     /// The vent that has been chosen to spawn the entities.
-    /// Spawning logic is handled by <see cref="VentHordeSpawnerComponent"/>
+    /// Spawning logic is handled by VentHordeSpawnerComponent
     /// </summary>
     [DataField]
     public EntityUid? ChosenVent;

@@ -1,5 +1,4 @@
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Numerics;
 using Content.Server._NF.Shuttles.Components; // Frontier: FTL knockdown immunity
 using Content.Server.Shuttles.Components;
@@ -9,7 +8,6 @@ using Content.Shared.Body.Components;
 using Content.Shared.Buckle.Components;
 using Content.Shared.CCVar;
 using Content.Shared.Database;
-using Content.Shared.Ghost;
 using Content.Shared.Maps;
 using Content.Shared.Parallax;
 using Content.Shared.SegmentedEntity;
@@ -51,8 +49,8 @@ public sealed partial class ShuttleSystem
     public float DefaultStartupTime;
     public float DefaultTravelTime;
     public float DefaultArrivalTime;
-    private TimeSpan FTLCooldown;
-    private TimeSpan ArrivalsFTLCooldown;
+    private TimeSpan _ftlCooldown;
+    private TimeSpan _arrivalsFtlCooldown;
     public float FTLMassLimit;
     private TimeSpan _hyperspaceKnockdownTime = TimeSpan.FromSeconds(5);
 
@@ -109,8 +107,8 @@ public sealed partial class ShuttleSystem
         _cfg.OnValueChanged(CCVars.FTLStartupTime, time => DefaultStartupTime = time, true);
         _cfg.OnValueChanged(CCVars.FTLTravelTime, time => DefaultTravelTime = time, true);
         _cfg.OnValueChanged(CCVars.FTLArrivalTime, time => DefaultArrivalTime = time, true);
-        _cfg.OnValueChanged(CCVars.FTLCooldown, time => FTLCooldown = TimeSpan.FromSeconds(time), true);
-        _cfg.OnValueChanged(CCVars.ArrivalsFTLCooldown, time => ArrivalsFTLCooldown = TimeSpan.FromSeconds(time), true);
+        _cfg.OnValueChanged(CCVars.FTLCooldown, time => _ftlCooldown = TimeSpan.FromSeconds(time), true);
+        _cfg.OnValueChanged(CCVars.ArrivalsFTLCooldown, time => _arrivalsFtlCooldown = TimeSpan.FromSeconds(time), true);
         _cfg.OnValueChanged(CCVars.FTLMassLimit, time => FTLMassLimit = time, true);
         _cfg.OnValueChanged(CCVars.HyperspaceKnockdownTime, time => _hyperspaceKnockdownTime = TimeSpan.FromSeconds(time), true);
     }
@@ -632,12 +630,12 @@ public sealed partial class ShuttleSystem
         }
 
         comp.State = FTLState.Cooldown;
-        var baseCooldown = HasComp<ArrivalsShuttleComponent>(uid) ? ArrivalsFTLCooldown : FTLCooldown;
+        var baseCooldown = HasComp<ArrivalsShuttleComponent>(uid) ? _arrivalsFtlCooldown : _ftlCooldown;
         var speedFactor = GetFTLSpeedFactor(uid);
         var cooldown = entity.Comp2.FTLCooldownOverride ?? baseCooldown * speedFactor;
         comp.StateTime = StartEndTime.FromCurTime(_gameTiming, cooldown);
         _console.RefreshShuttleConsoles(uid);
-        _mapManager.SetMapPaused(mapId, false);
+        _mapSystem.SetPaused(mapId, false);
         Smimsh(uid, xform: xform);
 
         var ftlEvent = new FTLCompletedEvent(uid, _mapSystem.GetMap(mapId));
@@ -949,15 +947,14 @@ public sealed partial class ShuttleSystem
             {
                 // Compute each dock port’s world position using a half-tile forward offset along its local forward.
                 // This mirrors DockingSystem.Dock’s anchor calculation: LocalPosition + LocalRotation.ToWorldVec() / 2f
-                var aWorldPos = _transform.GetWorldPosition(dockAXform) + dockAXform.WorldRotation.ToWorldVec() / 2f;
-                var bWorldPos = _transform.GetWorldPosition(dockBXform) + dockBXform.WorldRotation.ToWorldVec() / 2f;
+                var aWorldPos = _transform.GetWorldPosition(dockAXform) + _transform.GetWorldRotation(dockAXform).ToWorldVec() / 2f;
+                var bWorldPos = _transform.GetWorldPosition(dockBXform) + _transform.GetWorldRotation(dockBXform).ToWorldVec() / 2f;
 
                 var delta = bWorldPos - aWorldPos;
 
                 // Translate the entire shuttle grid by delta so the first pair coincides exactly.
                 // Important: only adjust position (not rotation) to avoid drifting post-dock.
-                var shuttleXform = shuttle.Comp;
-                shuttleXform.WorldPosition += delta;
+                _transform.SetWorldPosition(shuttle, _transform.GetWorldPosition(shuttle.Comp) + delta);
             }
         }
 
@@ -972,8 +969,6 @@ public sealed partial class ShuttleSystem
     /// Tries to get the target position to FTL near the target coordinates.
     /// If the target coordinates have a mapgrid then will try to offset the AABB.
     /// </summary>
-    /// <param name="minOffset">Min offset for the final FTL.</param>
-    /// <param name="maxOffset">Max offset for the final FTL from the box we spawn.</param>
     private bool TryGetFTLProximity(
         EntityUid shuttleUid,
         EntityCoordinates targetCoordinates,

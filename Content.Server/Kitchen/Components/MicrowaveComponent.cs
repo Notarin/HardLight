@@ -6,7 +6,7 @@ using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 using Content.Shared.Kitchen; // Frontier
-using Robust.Shared.Serialization; // Frontier
+// Frontier
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 using Content.Shared.Kitchen.Components; // Frontier
 
@@ -111,6 +111,7 @@ namespace Content.Server.Kitchen.Components
 
         /// <summary>
         /// Chance of lightning occurring when we microwave a metallic object
+        /// </summary>
         [DataField, ViewVariables(VVAccess.ReadWrite)]
         public float LightningChance = .75f;
 

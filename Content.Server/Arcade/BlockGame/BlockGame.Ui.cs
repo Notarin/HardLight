@@ -1,6 +1,4 @@
 using Content.Shared.Arcade;
-using System.Linq;
-using Robust.Shared.Player;
 
 namespace Content.Server.Arcade.BlockGame;
 
@@ -206,7 +204,6 @@ public sealed partial class BlockGame
     /// <summary>
     /// Handles broadcasting the full player-visible game state to a specific player/spectator.
     /// </summary>
-    /// <param name="session">The target recipient.</param>
     private void FullUpdate(EntityUid actor)
     {
         UpdateFieldUI(actor);

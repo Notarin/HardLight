@@ -4,8 +4,6 @@ using Content.Server.Power.Components;
 using Content.Server.Power.EntitySystems;
 using Content.Shared.Electrocution;
 using Robust.Shared.Random;
-using Robust.Shared.Timing;
-using Content.Server._EinsteinEngines.Power.Components;
 
 namespace Content.Server._EinsteinEngines.Power.Systems;
 

@@ -1,5 +1,4 @@
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using Content.Shared.Body.Components;
 using Content.Shared.Body.Events;
 using Content.Shared.Body.Organ;
@@ -15,7 +14,6 @@ using Content.Shared.Humanoid;
 using Content.Shared._Shitmed.Body.Events;
 using Content.Shared._Shitmed.Body.Part;
 using Content.Shared._Shitmed.BodyEffects;
-using Content.Shared._Shitmed.Targeting.Events;
 using Content.Shared.Inventory;
 using Content.Shared.Random;
 using Robust.Shared.Prototypes;
@@ -208,7 +206,7 @@ public partial class SharedBodySystem
         // I don't know if this can cause issues, since any part that's being detached HAS to have a Body.
         // though I really just want the compiler to shut the fuck up.
         var bodyUid = body.GetValueOrDefault();
-        if (TryComp(partEnt, out TransformComponent? transform) && _gameTiming.IsFirstTimePredicted)
+        if (TryComp(partEnt, out TransformComponent? transform) && _timing.IsFirstTimePredicted)
         {
             var enableEvent = new BodyPartEnableChangedEvent(false);
             RaiseLocalEvent(partEnt, ref enableEvent);
@@ -954,7 +952,7 @@ public partial class SharedBodySystem
     }
 
     /// <summary>
-    ///     Returns a list of ValueTuples of <see cref="T"/> and OrganComponent on each organ
+    ///     Returns a list of ValueTuples of T and OrganComponent on each organ
     ///     in the given part.
     /// </summary>
     /// <param name="uid">The part entity id to check on.</param>
@@ -981,7 +979,7 @@ public partial class SharedBodySystem
     }
 
     /// <summary>
-    ///     Tries to get a list of ValueTuples of <see cref="T"/> and OrganComponent on each organs
+    ///     Tries to get a list of ValueTuples of T and OrganComponent on each organs
     ///     in the given part.
     /// </summary>
     /// <param name="uid">The part entity id to check on.</param>

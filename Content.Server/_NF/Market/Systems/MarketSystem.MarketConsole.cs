@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server._NF.Cargo.Systems;
 using Content.Server._NF.Market.Components;
 using Content.Server._NF.Market.Extensions;
@@ -13,7 +12,6 @@ using Content.Shared.Stacks;
 using Content.Shared.Storage;
 using Content.Shared.Materials;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Utility;
 
 
 namespace Content.Server._NF.Market.Systems;
@@ -154,8 +152,6 @@ public sealed partial class MarketSystem
     /// <summary>
     /// Inserts market data for all materials contained within a MaterialStorageComponent.
     /// </summary>
-    /// <param name="marketDataComponent"></param>
-    /// <param name="materialStorageComponent"></param>
     private void UpsertMaterialStorage(CargoMarketDataComponent marketDataComponent, MaterialStorageComponent materialStorageComponent, EntityUid sold)
     {
         foreach (var (materialProto, amount) in materialStorageComponent.Storage)

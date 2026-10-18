@@ -3,11 +3,11 @@ using Content.Client.VendingMachines.UI;
 using Content.Shared.VendingMachines;
 using Robust.Client.UserInterface;
 using Robust.Shared.Input;
-using System.Linq;
 using Robust.Client.GameObjects;
 using Content.Shared._NF.Bank.Components; // Frontier
 using Content.Shared.Containers.ItemSlots; // Frontier
-using Content.Shared.Stacks; // Frontier
+
+// Frontier
 
 namespace Content.Client.VendingMachines
 {
@@ -116,7 +116,6 @@ namespace Content.Client.VendingMachines
             SendPredictedMessage(new VendingMachineEjectMessage(selectedItem.Type, selectedItem.ID));
         }
 
-        [Obsolete]
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
@@ -128,7 +127,7 @@ namespace Content.Client.VendingMachines
 
             _menu.OnItemSelected -= OnItemSelected;
             _menu.OnClose -= Close;
-            _menu.Dispose();
+            _menu.Close();
         }
 
         // Frontier: update cash slot balance

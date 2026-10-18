@@ -14,7 +14,7 @@ namespace Content.Server.Atmos.Piping.Unary.Components
         public bool Enabled { get; set; } = true;
 
         /// <summary>
-        ///     Target volume to transfer. If <see cref="WideNet"/> is enabled, actual transfer rate will be much higher.
+        ///     Target volume to transfer. If WideNet is enabled, actual transfer rate will be much higher.
         /// </summary>
         [DataField]
         public float TransferRate

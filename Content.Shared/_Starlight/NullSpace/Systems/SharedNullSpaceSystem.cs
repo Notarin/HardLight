@@ -19,7 +19,7 @@ namespace Content.Shared._Starlight.NullSpace;
 public abstract partial class SharedNullSpaceSystem : EntitySystem
 {
     [Dependency] private readonly PullingSystem _pulling = default!;
-    public EntProtoId _shadekinShadow = "ShadekinShadow";
+    public EntProtoId ShadekinShadow = "ShadekinShadow";
 
     public override void Initialize()
     {
@@ -51,7 +51,7 @@ public abstract partial class SharedNullSpaceSystem : EntitySystem
     {
         if (args.NewMobState == MobState.Critical || args.NewMobState == MobState.Dead)
         {
-            SpawnAtPosition(_shadekinShadow, Transform(uid).Coordinates);
+            SpawnAtPosition(ShadekinShadow, Transform(uid).Coordinates);
             RemComp(uid, component);
 
             if (TryComp<PullableComponent>(uid, out var pullable) && pullable.BeingPulled)
@@ -61,7 +61,7 @@ public abstract partial class SharedNullSpaceSystem : EntitySystem
 
     private void OnStunned(Entity<NullSpaceComponent> ent, ref StunnedEvent args)
     {
-        SpawnAtPosition(_shadekinShadow, Transform(ent).Coordinates);
+        SpawnAtPosition(ShadekinShadow, Transform(ent).Coordinates);
         RemComp(ent, ent.Comp);
     }
 

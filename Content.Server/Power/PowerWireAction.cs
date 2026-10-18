@@ -3,7 +3,7 @@ using Content.Shared.Electrocution;
 using Content.Server.Power.Components;
 using Content.Server.Power.EntitySystems;
 using Content.Server.Wires;
-using Content.Shared.Emp; // Frontier: Upstream - #28984
+// Frontier: Upstream - #28984
 using Content.Shared.Power;
 using Content.Shared.Wires;
 

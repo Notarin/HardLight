@@ -5,7 +5,6 @@ using Content.Shared.Voting;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.CustomControls;
-using Robust.Shared.IoC;
 
 namespace Content.Client.Administration.UI.Voting;
 
@@ -144,11 +143,10 @@ public sealed class VoteAuditWindow : DefaultWindow
         RequestList();
     }
 
-    protected override void Dispose(bool disposing)
+    protected override void ExitedTree()
     {
-        base.Dispose(disposing);
-        if (disposing)
-            _voteManager.VoteAuditResponseReceived -= OnResponseReceived;
+        base.ExitedTree();
+        _voteManager.VoteAuditResponseReceived -= OnResponseReceived;
     }
 
     // ── Networking ────────────────────────────────────────────────────────

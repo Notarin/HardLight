@@ -1,7 +1,6 @@
 using Content.Shared._Goobstation.MartialArts.Components;
 using Content.Shared._Goobstation.MartialArts.Events;
 using Content.Shared.Clothing;
-using Content.Shared.Damage;
 using Content.Shared.Eye.Blinding.Components;
 using Content.Shared.Movement.Pulling.Components;
 using Content.Shared.StatusEffect;

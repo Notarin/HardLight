@@ -5,7 +5,7 @@ namespace Content.Shared.Fluids.Components;
 /// <summary>
 /// Makes a solution contained in this entity spillable.
 /// Spills can occur when a container with this component overflows,
-/// is used to melee attack something, is equipped (see <see cref="SpillWorn"/>),
+/// is used to melee attack something, is equipped (see SpillWorn),
 /// lands after being thrown, or has the Spill verb used.
 /// </summary>
 [RegisterComponent]

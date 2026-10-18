@@ -1,10 +1,8 @@
-using System.Linq;
 using Content.Shared.Administration.Logs;
 using Content.Shared.UserInterface;
 using Content.Shared.Database;
 using Content.Shared.Examine;
 using Content.Shared.Interaction;
-using Content.Shared.Random.Helpers;
 using Content.Shared.Popups;
 using Content.Shared.Tag;
 using Robust.Shared.Player;
@@ -611,6 +609,5 @@ public record struct PaperWriteEvent(EntityUid User, EntityUid Paper);
 /// <summary>
 /// Cancellable event for attempting to write on a piece of paper.
 /// </summary>
-/// <param name="paper">The paper that the writing will take place on.</param>
 [ByRefEvent]
 public record struct PaperWriteAttemptEvent(EntityUid Paper, string? FailReason = null, bool Cancelled = false);

@@ -20,7 +20,6 @@ using Robust.Shared.Configuration;
 using Robust.Server.Player;
 using Robust.Shared.Console;
 using Robust.Shared.Prototypes;
-using System.Linq;
 using Content.Server.Players.JobWhitelist;
 
 namespace Content.Server.Administration.Commands;
@@ -65,7 +64,7 @@ public sealed class PermaBrigCommand : LocalizedCommands
             }
             if (!Enum.TryParse(_cfg.GetCVar(CCVars.ImprisonmentDefaultSeverity), out NoteSeverity severity))
             {
-                Logger.WarningS("admin.role_ban", "Imprisonment roleban severity could not be parsed from config! Defaulting to medium.");
+                Logger.GetSawmill("admin.role_ban").Warning("Imprisonment roleban severity could not be parsed from config! Defaulting to medium.");
                 severity = NoteSeverity.Medium;
             }
             foreach (var proto in _prototypes.EnumeratePrototypes<JobPrototype>().Where(value => value.ID != "Prisoner"))

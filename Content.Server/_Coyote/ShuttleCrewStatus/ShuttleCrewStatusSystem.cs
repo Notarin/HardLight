@@ -1,6 +1,4 @@
-using Content.Server.GameTicking;
 using Content.Server.Shuttles.Components;
-using Content.Server.Shuttles.Systems;
 using Content.Shared.GameTicking;
 using Content.Shared.Shuttles.Components;
 using Content.Shared.Shuttles.Systems;
@@ -19,7 +17,6 @@ public sealed class ShuttleCrewStatusSystem : EntitySystem
 {
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly ISharedPlayerManager _playerManager = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly SharedShuttleSystem _shuttle = default!;
 
     /// <summary>
@@ -136,7 +133,7 @@ public sealed class ShuttleCrewStatusSystem : EntitySystem
                 continue;
 
             // Check if the player entity still exists
-            if (!TryComp<TransformComponent>(playerEntity, out var playerXform))
+            if (!TryComp(playerEntity, out TransformComponent? playerXform))
                 continue;
 
             // Check if the player is on this grid

@@ -1,5 +1,4 @@
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Numerics;
 using Content.Client.Pinpointer.UI;
 using Content.Client.Stylesheets;

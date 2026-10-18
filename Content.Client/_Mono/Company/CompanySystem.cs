@@ -1,7 +1,6 @@
 using Content.Shared._Mono.Company;
 using Content.Shared.Examine;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Localization;
 
 namespace Content.Client._Mono.Company;
 

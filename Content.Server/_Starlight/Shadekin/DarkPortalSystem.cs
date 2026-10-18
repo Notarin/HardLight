@@ -1,16 +1,9 @@
 using Content.Shared.Teleportation.Systems;
 using Content.Shared._Starlight.Shadekin;
-using Content.Shared.Anomaly.Components;
-using Content.Server.Light.EntitySystems;
 using Content.Shared.Verbs;
-using Content.Shared.Anomaly;
-using Content.Shared.Alert;
 using Content.Shared.Actions;
-using Robust.Shared.Random;
 using Content.Shared.Movement.Pulling.Components;
 using Content.Shared.Examine;
-using Content.Server.Anomaly;
-using Content.Shared.Light.Components;
 using Content.Shared.Throwing;
 using Content.Shared.Teleportation.Components;
 
@@ -19,13 +12,7 @@ namespace Content.Server._Starlight.Shadekin;
 public sealed class DarkPortalSystem : EntitySystem
 {
     [Dependency] private readonly LinkedEntitySystem _link = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly PoweredLightSystem _light = default!;
-    [Dependency] private readonly ShadekinSystem _shadekin = default!;
-    [Dependency] private readonly SharedAnomalySystem _sharedAnomalySystem = default!;
-    [Dependency] private readonly AnomalySystem _anomalySystem = default!;
     [Dependency] private readonly SharedActionsSystem _actionsSystem = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
 
     public override void Initialize()
     {

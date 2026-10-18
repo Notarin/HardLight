@@ -8,14 +8,14 @@ namespace Content.Shared.Xenoarchaeology.Artifact.XAT;
 /// <typeparam name="T">Type of XAT component that system will work with.</typeparam>
 public abstract class BaseQueryUpdateXATSystem<T> : BaseXATSystem<T> where T : Component
 {
-    protected EntityQuery<XenoArtifactComponent> _xenoArtifactQuery;
+    protected EntityQuery<XenoArtifactComponent> XenoArtifactQuery;
 
     /// <inheritdoc />
     public override void Initialize()
     {
         base.Initialize();
 
-        _xenoArtifactQuery = GetEntityQuery<XenoArtifactComponent>();
+        XenoArtifactQuery = GetEntityQuery<XenoArtifactComponent>();
     }
 
     /// <inheritdoc />
@@ -31,7 +31,7 @@ public abstract class BaseQueryUpdateXATSystem<T> : BaseXATSystem<T> where T : C
             if (node.Attached == null)
                 continue;
 
-            var artifact = _xenoArtifactQuery.Get(GetEntity(node.Attached.Value));
+            var artifact = XenoArtifactQuery.Get(GetEntity(node.Attached.Value));
 
             if (TerminatingOrDeleted(artifact)) // HL: Handle Deleted artifacts
                 continue;

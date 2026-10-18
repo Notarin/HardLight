@@ -1,6 +1,5 @@
 using Content.Server.Popups;
 using Content.Server.Radio.EntitySystems;
-using Content.Server.StationRecords;
 using Content.Server.StationRecords.Systems;
 using Content.Shared.Access.Systems;
 using Content.Shared.PsionicsRecords;
@@ -13,9 +12,7 @@ using System.Diagnostics.CodeAnalysis;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Psionics.Components;
 
-/// <summary>
-/// EVERYTHING HERE IS A MODIFIED VERSION OF CRIMINAL RECORDS
-/// </summary>
+// EVERYTHING HERE IS A MODIFIED VERSION OF CRIMINAL RECORDS
 
 namespace Content.Server.PsionicsRecords.Systems;
 

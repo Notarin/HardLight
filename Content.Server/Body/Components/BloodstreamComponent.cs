@@ -1,7 +1,7 @@
 using Content.Server.Body.Systems;
 using Content.Server.Chemistry.EntitySystems;
 using Content.Server.Traits; // EE
-using Content.Server.Traits.Assorted; // EE
+// EE
 using Content.Shared.Alert;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.Reagent;

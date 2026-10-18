@@ -9,12 +9,11 @@ using Content.Shared.ActionBlocker;
 using Content.Shared.Actions;
 using Content.Shared.Administration.Logs;
 using Content.Shared.Audio;
-using Content.Shared.Buckle.Components; // Frontier: firing when buckled in space
+// Frontier: firing when buckled in space
 using Content.Shared.CombatMode;
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Damage;
 using Content.Shared.Examine;
-using Content.Shared.Gravity;
 using Content.Shared.Hands;
 using Content.Shared.Hands.Components;
 using Content.Shared.Item;
@@ -48,7 +47,6 @@ using Robust.Shared.Serialization;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 using Content.Goobstation.Common.Weapons.Multishot;
-using Content.Shared.Weapons.Ranged.Events;
 
 namespace Content.Shared.Weapons.Ranged.Systems;
 
@@ -70,7 +68,6 @@ public abstract partial class SharedGunSystem : EntitySystem
     [Dependency] protected readonly SharedAudioSystem Audio = default!;
     [Dependency] private readonly SharedCombatModeSystem _combatMode = default!;
     [Dependency] protected readonly SharedContainerSystem Containers = default!;
-    [Dependency] private readonly SharedGravitySystem _gravity = default!;
     [Dependency] protected readonly SharedPointLightSystem Lights = default!;
     [Dependency] protected readonly SharedPopupSystem PopupSystem = default!;
     [Dependency] protected readonly SharedPhysicsSystem Physics = default!;
@@ -81,10 +78,10 @@ public abstract partial class SharedGunSystem : EntitySystem
     [Dependency] protected readonly ThrowingSystem ThrowingSystem = default!;
     [Dependency] private readonly UseDelaySystem _useDelay = default!;
     [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
-    [Dependency] protected readonly SharedGunPredictionSystem? _gunPrediction = default!;
+    [Dependency] private readonly SharedGunPredictionSystem? _gunPrediction = default!;
 
-    protected EntityQuery<PhysicsComponent> _physQuery; // Mono
-    protected EntityQuery<ProjectileComponent> _projQuery; // Mono
+    private EntityQuery<PhysicsComponent> _physQuery; // Mono
+    private EntityQuery<ProjectileComponent> _projQuery; // Mono
 
     private const float InteractNextFire = 0.3f;
     private const double SafetyNextFire = 0.5;
@@ -716,7 +713,7 @@ public abstract partial class SharedGunSystem : EntitySystem
         var coordinates = xform.Coordinates;
         coordinates = coordinates.Offset(offsetPos);
 
-        TransformSystem.SetLocalRotation(xform, Random.NextAngle());
+        TransformSystem.SetLocalRotation(entity, Random.NextAngle(), xform);
         TransformSystem.SetCoordinates(entity, xform, coordinates);
 
         // decides direction the casing ejects and only when not cycling
@@ -789,7 +786,7 @@ public abstract partial class SharedGunSystem : EntitySystem
         Physics.ApplyLinearImpulse(toEnt, -dirVec * totalImpulse, pos);
     }
 
-    public void RefreshModifiers(Entity<GunComponent?> gun, EntityUid? User = null) // GoobStation: User for NoWieldNeeded
+    public void RefreshModifiers(Entity<GunComponent?> gun, EntityUid? user = null) // GoobStation: User for NoWieldNeeded
     {
         if (!Resolve(gun, ref gun.Comp))
             return;
@@ -806,14 +803,14 @@ public abstract partial class SharedGunSystem : EntitySystem
             comp.ShotsPerBurst,
             comp.FireRate,
             comp.ProjectileSpeed,
-            User // Goobstation: User for NoWieldNeeded
+            user // Goobstation: User for NoWieldNeeded
         );
 
         // Begin DeltaV additions
         // Raise an event at the user of the gun so they have a chance to modify the gun's details.
-        if (User != null)
+        if (user != null)
         {
-            RaiseLocalEvent(User.Value, ref ev);
+            RaiseLocalEvent(user.Value, ref ev);
         }
         // End DeltaV additions
 
@@ -896,17 +893,12 @@ public abstract partial class SharedGunSystem : EntitySystem
 /// <remarks>
 ///     Handling this in server exclusively will lead to mispredicts.
 /// </remarks>
-/// <param name="User">The user that attempted to fire this gun.</param>
-/// <param name="Cancelled">Set this to true if the shot should be cancelled.</param>
-/// <param name="ThrowItems">Set this to true if the ammo shouldn't actually be fired, just thrown.</param>
 [ByRefEvent]
 public record struct AttemptShootEvent(EntityUid User, string? Message, bool Cancelled = false, bool ThrowItems = false);
 
 /// <summary>
 ///     Raised directed on the gun after firing.
 /// </summary>
-/// <param name="User">The user that fired this gun.</param>
-/// <param name="Gun">The gun that fired.</param>
 [ByRefEvent]
 public record struct GunShotEvent(EntityUid User, EntityUid Gun, List<(EntityUid? Uid, IShootable Shootable)> Ammo, EntityCoordinates FromCoordinates, EntityCoordinates ToCoordinates); // Mono - pass coordinates
 

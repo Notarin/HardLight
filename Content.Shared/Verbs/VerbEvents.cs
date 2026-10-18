@@ -1,7 +1,6 @@
 using Content.Shared.ActionBlocker;
 using Content.Shared.Hands.Components;
 using Content.Shared.Interaction;
-using Robust.Shared.Containers;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
 
@@ -88,7 +87,7 @@ namespace Content.Shared.Verbs
         ///     Can the user physically access the target?
         /// </summary>
         /// <remarks>
-        ///     This is a combination of <see cref="ContainerHelpers.IsInSameOrParentContainer"/> and
+        ///     This is a combination of ContainerHelpers.IsInSameOrParentContainer and
         ///     <see cref="SharedInteractionSystem.InRangeUnobstructed"/>.
         /// </remarks>
         public readonly bool CanAccess = false;
@@ -130,7 +129,7 @@ namespace Content.Shared.Verbs
         ///     The entity currently being held by the active hand.
         /// </summary>
         /// <remarks>
-        ///     This is only ever not null when <see cref="ActionBlockerSystem.CanUseHeldEntity(EntityUid)"/> is true and the user
+        ///     This is only ever not null when ActionBlockerSystem.CanUseHeldEntity(EntityUid) is true and the user
         ///     has hands.
         /// </remarks>
         public readonly EntityUid? Using;

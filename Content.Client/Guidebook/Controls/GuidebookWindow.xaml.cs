@@ -1,5 +1,3 @@
-using System.Diagnostics;
-using System.Linq;
 using Content.Client.Guidebook.RichText;
 using Content.Client.UserInterface.ControlExtensions;
 using Content.Client.UserInterface.Controls;
@@ -230,7 +228,7 @@ public sealed partial class GuidebookWindow : FancyWindow, ILinkClickHandler, IA
         {
             // TODO GUIDEBOOK Maybe allow duplicate entries?
             // E.g., for adding medicine under both chemicals & the chemist job
-            Logger.Error($"Adding duplicate guide entry: {id}");
+            _sawmill.Error($"Adding duplicate guide entry: {id}");
             return null;
         }
 

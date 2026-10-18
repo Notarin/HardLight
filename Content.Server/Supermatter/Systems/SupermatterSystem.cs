@@ -20,7 +20,6 @@ using Content.Shared.Examine;
 using Content.Server.DoAfter;
 using Content.Server.Popups;
 using Content.Shared.Audio;
-using Content.Shared.Actions.Events;
 
 namespace Content.Server.Supermatter.Systems;
 
@@ -59,12 +58,12 @@ public sealed partial class SupermatterSystem : EntitySystem
     {
         base.Update(frameTime);
 
-        foreach (var sm in EntityQuery<SupermatterComponent>())
+        var query = EntityQueryEnumerator<SupermatterComponent>();
+        while (query.MoveNext(out var uid, out var sm))
         {
             if (!sm.Activated)
-                return;
+                continue;
 
-            var uid = sm.Owner;
             sm.UpdateAccumulator += frameTime;
 
             if (sm.UpdateAccumulator >= sm.UpdateTimer)

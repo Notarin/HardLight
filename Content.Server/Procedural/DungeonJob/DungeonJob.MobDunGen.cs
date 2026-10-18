@@ -1,6 +1,4 @@
-using System.Threading.Tasks;
 using Content.Server.Ghost.Roles.Components;
-using Content.Server.NPC.Components;
 using Content.Server.NPC.Systems;
 using Content.Shared.Physics;
 using Content.Shared.Procedural;
@@ -16,7 +14,7 @@ public sealed partial class DungeonJob
     private async Task PostGen(
         MobsDunGen gen,
         Dungeon dungeon,
-        Random random)
+        IRobustRandom random)
     {
         var availableRooms = new ValueList<DungeonRoom>();
         availableRooms.AddRange(dungeon.Rooms);
@@ -32,7 +30,7 @@ public sealed partial class DungeonJob
             {
                 var tile = availableTiles.RemoveSwap(random.Next(availableTiles.Count));
 
-                if (!_anchorable.TileFree(_grid, tile, (int)CollisionGroup.MachineLayer,
+                if (!_anchorable.TileFree(GridEntity, tile, (int)CollisionGroup.MachineLayer,
                         (int)CollisionGroup.MachineLayer))
                 {
                     continue;

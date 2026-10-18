@@ -21,17 +21,12 @@ using Robust.Shared.Physics.Collision.Shapes;
 using Robust.Shared.Physics.Dynamics;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
-using System.Linq;
 // Starlight Start
 using Content.Shared.Atmos.EntitySystems;
 using Content.Shared.Atmos.Components;
 using Content.Shared._Starlight.Atmos.EntitySystems;
-using Content.Shared.Hands.Components;
 using System.Numerics;
-using Content.Shared.Verbs;
-using Robust.Shared.Utility;
 using Content.Shared.NodeContainer;
-using Content.Shared.Atmos;
 using Content.Shared._Starlight.Atmos;
 // Starlight End
 
@@ -830,7 +825,7 @@ public sealed class RCDSystem : EntitySystem
                 }
 
                 var entityCoords = _mapSystem.GridTileToLocal(gridUid, mapGrid, position);
-                var mapCoords = new MapCoordinates(entityCoords.ToMapPos(EntityManager, _transform), entityCoords.GetMapId(EntityManager));
+                var mapCoords = _transform.ToMapCoordinates(entityCoords);
 
                 var ent = Spawn(proto, mapCoords, rotation: rotation);
                 // Starlight edit End: RPD

@@ -1,11 +1,8 @@
-using System.Linq;
 using System.Numerics;
 using Content.Server.Administration;
-using Content.Server.Construction.Conditions;
 using Content.Server.Popups;
 using Content.Server.Shuttles.Systems;
 using Content.Server.Weapons.Ranged.Systems;
-using Content.Shared.Body.Components;
 // using Content.Shared.Crescent.Radar;
 using Content.Shared.Interaction;
 using Content.Shared.Interaction.Events;
@@ -15,36 +12,27 @@ using Content.Shared.Shuttles.BUIStates;
 using Content.Shared.UserInterface;
 using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Shuttles.Components;
-using Robust.Server.GameObjects;
 using Robust.Server.GameStates;
-using Robust.Shared.Containers;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
-using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Player;
-using System;
 // using Content.Server._Crescent.Hardpoint;
-using Content.Server.Power.Components;
 // using Content.Shared._Crescent.Hardpoints;
-using Content.Shared.Communications;
 using Content.Shared.Physics;
 
 namespace Content.Server.PointCannons;
 
-public class PointCannonSystem : EntitySystem
+public sealed partial class PointCannonSystem : EntitySystem
 {
     [Dependency] private readonly ISharedPlayerManager _playerMan = default!;
-    [Dependency] private readonly TransformSystem _formSys = default!;
     [Dependency] private readonly SharedUserInterfaceSystem _uiSys = default!;
     [Dependency] private readonly PopupSystem _popSys = default!;
     [Dependency] private readonly QuickDialogSystem _dialogSys = default!;
     [Dependency] private readonly GunSystem _gunSys = default!;
     [Dependency] private readonly ShuttleConsoleSystem _shuttleConSys = default!;
     [Dependency] private readonly PvsOverrideSystem _pvsSys = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly MapSystem _maps = default!;
     // [Dependency] private readonly HardpointSystem _hardpoint = default!;
 
     public override void Initialize()
@@ -295,8 +283,8 @@ public class PointCannonSystem : EntitySystem
         if (console.CannonGroups[group].Contains(cannonUid))
         {
             // SPCR 2024 - For fixing the old ships before we added this functionality
-            if (cannonComponent.LinkedConsoleId is null)
-                cannonComponent.LinkedConsoleId = consoleUid;
+            if (!cannonComponent.LinkedConsoleIds.Contains(consoleUid))
+                cannonComponent.LinkedConsoleIds.Add(consoleUid);
             return;
         }
 
@@ -305,7 +293,6 @@ public class PointCannonSystem : EntitySystem
             console.CannonGroups["all"].Add(cannonUid);
 
         console.RegenerateCannons = true;
-        cannonComponent.LinkedConsoleId = consoleUid;
         cannonComponent.LinkedConsoleIds.Add(consoleUid);
 
 

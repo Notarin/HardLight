@@ -3,7 +3,6 @@ using Content.Server.Silicons.Laws;
 using Content.Shared._CorvaxNext.Silicons.Borgs;
 using Content.Shared._CorvaxNext.Silicons.Borgs.Components;
 using Content.Shared.Actions;
-using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Damage;
 using Content.Shared.Mind;
 using Content.Shared.Mobs;

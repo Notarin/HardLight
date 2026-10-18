@@ -1,5 +1,4 @@
 using Robust.Client.UserInterface.Controls;
-using System.Linq;
 using System.Numerics;
 
 namespace Content.Client.UserInterface.Controls;

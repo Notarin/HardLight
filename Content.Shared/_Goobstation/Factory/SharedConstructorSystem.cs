@@ -1,6 +1,5 @@
 using Content.Shared._Goobstation.Construction;
 using Content.Shared.Administration.Logs;
-using Content.Shared.Database;
 using Content.Shared.Examine;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
@@ -9,9 +8,9 @@ namespace Content.Shared._Goobstation.Factory;
 
 public abstract class SharedConstructorSystem : EntitySystem
 {
-    [Dependency] protected readonly ISharedAdminLogManager _adminLogger = default!;
+    [Dependency] protected readonly ISharedAdminLogManager AdminLogger = default!;
     [Dependency] protected readonly IPrototypeManager Proto = default!;
-    [Dependency] protected readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly SharedTransformSystem _transform = default!;
 
     public override void Initialize()
     {

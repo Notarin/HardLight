@@ -1,10 +1,8 @@
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using Content.Shared.Humanoid.Prototypes;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
-using Robust.Shared.Utility;
 
 namespace Content.Shared.Humanoid.Markings;
 
@@ -60,8 +58,6 @@ public sealed partial class MarkingSet
     ///     process the list, truncating if necessary. Markings that
     ///     do not exist as a prototype will be removed.
     /// </summary>
-    /// <param name="markings">The lists of markings to use.</param>
-    /// <param name="pointsPrototype">The ID of the points dictionary prototype.</param>
     public MarkingSet(List<Marking> markings, string pointsPrototype, MarkingManager? markingManager = null, IPrototypeManager? prototypeManager = null)
     {
         IoCManager.Resolve(ref markingManager, ref prototypeManager);
@@ -89,7 +85,6 @@ public sealed partial class MarkingSet
     ///     without point validation. This will still validate every
     ///     marking, to ensure that it can be placed into the set.
     /// </summary>
-    /// <param name="markings">The list of markings to use.</param>
     public MarkingSet(List<Marking> markings, MarkingManager? markingManager = null)
     {
         IoCManager.Resolve(ref markingManager);
@@ -108,7 +103,6 @@ public sealed partial class MarkingSet
     /// <summary>
     ///     Construct a MarkingSet only with a points dictionary.
     /// </summary>
-    /// <param name="pointsPrototype">The ID of the points dictionary prototype.</param>
     public MarkingSet(string pointsPrototype, MarkingManager? markingManager = null, IPrototypeManager? prototypeManager = null)
     {
         IoCManager.Resolve(ref markingManager, ref prototypeManager);
@@ -273,7 +267,6 @@ public sealed partial class MarkingSet
     /// </summary>
     /// <param name="skinColor">Skin color for marking coloring.</param>
     /// <param name="eyeColor">Eye color for marking coloring.</param>
-    /// <param name="hairColor">Hair color for marking coloring.</param>
     /// <param name="markingManager">Marking manager.</param>
     public void EnsureDefault(Color? skinColor = null, Color? eyeColor = null, MarkingManager? markingManager = null)
     {
@@ -807,7 +800,7 @@ public sealed class MarkingsEnumerator : IEnumerator<Marking>
     private List<Marking> _markings;
     private bool _reverse;
 
-    int position;
+    private int _position;
 
     public MarkingsEnumerator(List<Marking> markings, bool reverse)
     {
@@ -816,11 +809,11 @@ public sealed class MarkingsEnumerator : IEnumerator<Marking>
 
         if (_reverse)
         {
-            position = _markings.Count;
+            _position = _markings.Count;
         }
         else
         {
-            position = -1;
+            _position = -1;
         }
     }
 
@@ -828,13 +821,13 @@ public sealed class MarkingsEnumerator : IEnumerator<Marking>
     {
         if (_reverse)
         {
-            position--;
-            return (position >= 0);
+            _position--;
+            return (_position >= 0);
         }
         else
         {
-            position++;
-            return (position < _markings.Count);
+            _position++;
+            return (_position < _markings.Count);
         }
     }
 
@@ -842,11 +835,11 @@ public sealed class MarkingsEnumerator : IEnumerator<Marking>
     {
         if (_reverse)
         {
-            position = _markings.Count;
+            _position = _markings.Count;
         }
         else
         {
-            position = -1;
+            _position = -1;
         }
     }
 
@@ -855,11 +848,11 @@ public sealed class MarkingsEnumerator : IEnumerator<Marking>
 
     object IEnumerator.Current
     {
-        get => _markings[position];
+        get => _markings[_position];
     }
 
     public Marking Current
     {
-        get => _markings[position];
+        get => _markings[_position];
     }
 }

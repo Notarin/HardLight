@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Client._NF.LateJoin.Controls;
 using Content.Client._NF.LateJoin.Interfaces;
 using Content.Client.GameTicking.Managers;

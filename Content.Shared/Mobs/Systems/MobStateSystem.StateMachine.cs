@@ -1,5 +1,4 @@
 using Content.Shared.Database;
-using Content.Shared.Humanoid;
 using Content.Shared.Mobs.Components;
 using Robust.Shared.Player;
 using Content.Shared._Shitmed.Body.Organ;

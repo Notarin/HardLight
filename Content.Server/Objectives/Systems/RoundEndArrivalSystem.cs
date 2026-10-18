@@ -1,9 +1,7 @@
 using Content.Shared.Shuttles.Components;
 using Content.Server.Salvage.Expeditions;
 using Content.Server.Shuttles.Systems;
-using Robust.Shared.GameObjects;
 using Robust.Shared.Map;
-using Robust.Shared.Map.Components;
 
 namespace Content.Server.Objectives.Systems;
 
@@ -15,7 +13,7 @@ namespace Content.Server.Objectives.Systems;
 public sealed class RoundEndArrivalSystem : EntitySystem
 {
     [Dependency] private readonly EmergencyShuttleSystem _emergencyShuttle = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
+    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
 
     /// <summary>
@@ -51,6 +49,6 @@ public sealed class RoundEndArrivalSystem : EntitySystem
     private EntityUid GetTargetMap(EntityCoordinates coordinates)
     {
         var mapId = _transform.GetMapId(coordinates);
-        return _transform.GetMap(coordinates) ?? _mapManager.GetMapEntityId(mapId);
+        return _transform.GetMap(coordinates) ?? _mapSystem.GetMapOrInvalid(mapId);
     }
 }

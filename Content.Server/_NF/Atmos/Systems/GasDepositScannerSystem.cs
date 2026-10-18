@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server._NF.Atmos.Components;
 using Content.Server.Atmos.EntitySystems;
 using Content.Server.Popups;

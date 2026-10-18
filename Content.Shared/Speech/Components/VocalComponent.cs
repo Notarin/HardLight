@@ -4,7 +4,6 @@ using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
-using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.Dictionary;
 
 namespace Content.Shared.Speech.Components;
 
@@ -17,7 +16,7 @@ public sealed partial class VocalComponent : Component
 {
     /// <summary>
     ///     Emote sounds prototype id for each sex (not gender).
-    ///     Entities without <see cref="HumanoidComponent"/> considered to be <see cref="Sex.Unsexed"/>.
+    ///     Entities without HumanoidComponent considered to be <see cref="Sex.Unsexed"/>.
     /// </summary>
     [DataField]
     [AutoNetworkedField]

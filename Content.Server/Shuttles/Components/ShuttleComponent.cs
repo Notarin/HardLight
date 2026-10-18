@@ -1,5 +1,4 @@
 using System.Numerics;
-using Robust.Shared.Timing;
 
 namespace Content.Server.Shuttles.Components
 {

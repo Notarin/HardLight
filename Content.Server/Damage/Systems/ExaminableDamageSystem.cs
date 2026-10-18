@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.Damage.Components;
 using Content.Server.Destructible;
 using Content.Server.Destructible.Thresholds.Triggers;

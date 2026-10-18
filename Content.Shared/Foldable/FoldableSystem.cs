@@ -1,11 +1,9 @@
 using Content.Shared.Buckle;
 using Content.Shared.Buckle.Components;
-using Content.Shared.Construction.EntitySystems;
 using Content.Shared.Popups;
 using Content.Shared.Storage.Components;
 using Content.Shared.Verbs;
 using Robust.Shared.Containers;
-using Robust.Shared.Physics.Components;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
 
@@ -160,7 +158,6 @@ public sealed class FoldableSystem : EntitySystem
 /// <summary>
 /// Event raised on an entity to determine if it can be folded.
 /// </summary>
-/// <param name="Cancelled"></param>
 [ByRefEvent]
 public record struct FoldAttemptEvent(FoldableComponent Comp, bool Cancelled = false);
 

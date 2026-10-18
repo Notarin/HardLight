@@ -1,5 +1,3 @@
-using System.Linq;
-using System.Text.Json.Serialization;
 using Content.Shared.Chemistry;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Database;
@@ -9,7 +7,6 @@ using JetBrains.Annotations;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Content.Shared.Chemistry.Reagent;
-using Robust.Shared.Toolshed.TypeParsers;
 
 namespace Content.Shared.EntityEffects;
 
@@ -21,7 +18,7 @@ namespace Content.Shared.EntityEffects;
 [MeansImplicitUse]
 public abstract partial class EntityEffect
 {
-    private protected string _id => this.GetType().Name;
+    private protected string Id => this.GetType().Name;
     /// <summary>
     ///     The list of conditions required for the effect to activate. Not required.
     /// </summary>

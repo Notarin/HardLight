@@ -1,4 +1,3 @@
-using Content.Shared.SprayPainter.Components;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 

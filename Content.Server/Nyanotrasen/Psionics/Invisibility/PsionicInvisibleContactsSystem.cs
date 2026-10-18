@@ -3,7 +3,6 @@ using Content.Shared.Stealth.Components;
 using Content.Shared.Whitelist;
 using Robust.Shared.Physics.Events;
 using Robust.Shared.Physics.Systems;
-using Robust.Shared.Timing;
 
 namespace Content.Server.Psionics
 {

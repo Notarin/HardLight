@@ -7,8 +7,9 @@ namespace Content.Server._CD.Traits;
 public sealed partial class SyntheticComponent : Component // HardLight: Synth<Synthetic
 {
     /// <summary>
-    /// The chance that the synthetic is alerted of an ion storm, // HardLight: synth<synthetic
+    /// The chance that the synthetic is alerted of an ion storm,
     /// </summary>
+    /// <remarks>HardLight: synth</remarks>
     [DataField]
     public float AlertChance = 0.3f;
 }

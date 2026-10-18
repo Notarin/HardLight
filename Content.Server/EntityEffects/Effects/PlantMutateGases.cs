@@ -3,7 +3,6 @@ using Content.Shared.Atmos;
 using Content.Shared.EntityEffects;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
-using System.Linq;
 
 namespace Content.Server.EntityEffects.Effects;
 

@@ -1,6 +1,6 @@
 
 // Overlaps with existing namespace.
-using System.Linq;
+
 using Content.Server.Kitchen.Components;
 using Content.Server.Power.Components;
 using Content.Shared._NF.Kitchen.Components;

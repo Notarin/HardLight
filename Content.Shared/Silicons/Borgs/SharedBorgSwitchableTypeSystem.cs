@@ -1,5 +1,5 @@
 using Content.Shared._CD.Silicons.Borgs;
-using Content.Shared.Starlight; // Starlight-edit
+// Starlight-edit
 using Content.Shared.Actions;
 using Content.Shared.Interaction;
 using Content.Shared.Interaction.Components;
@@ -23,8 +23,7 @@ public abstract class SharedBorgSwitchableTypeSystem : EntitySystem
     [Dependency] protected readonly IPrototypeManager Prototypes = default!;
     [Dependency] private readonly InteractionPopupSystem _interactionPopup = default!;
 
-    [ValidatePrototypeId<EntityPrototype>]
-    public const string ActionId = "ActionSelectBorgType";
+    public static readonly EntProtoId ActionId = "ActionSelectBorgType";
 
     public override void Initialize()
     {

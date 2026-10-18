@@ -1,7 +1,5 @@
-using Content.Shared.Nyanotrasen.Kitchen.Prototypes;
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
-using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
 namespace Content.Shared.Nyanotrasen.Kitchen.Components
 {

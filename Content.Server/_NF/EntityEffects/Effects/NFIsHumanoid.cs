@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.EntityEffects;
 using Content.Shared.Humanoid;
 using Content.Shared.Humanoid.Prototypes;

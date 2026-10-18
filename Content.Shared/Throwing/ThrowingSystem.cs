@@ -5,7 +5,6 @@ using Content.Shared.Camera;
 using Content.Shared.CCVar;
 using Content.Shared.Construction.Components;
 using Content.Shared.Database;
-using Content.Shared.Friction;
 using Content.Shared.Gravity;
 using Content.Shared.Projectiles;
 using Robust.Shared.Configuration;
@@ -78,14 +77,6 @@ public sealed class ThrowingSystem : EntitySystem
     /// <summary>
     ///     Tries to throw the entity if it has a physics component, otherwise does nothing.
     /// </summary>
-    /// <param name="uid">The entity being thrown.</param>
-    /// <param name="direction">A vector pointing from the entity to its destination.</param>
-    /// <param name="baseThrowSpeed">Throw velocity. Gets modified if compensateFriction is true.</param>
-    /// <param name="pushbackRatio">The ratio of impulse applied to the thrower - defaults to 10 because otherwise it's not enough to properly recover from getting spaced</param>
-    /// <param name="friction">friction value used for the distance calculation. If set to null this defaults to the standard tile values</param>
-    /// <param name="compensateFriction">True will adjust the throw so the item stops at the target coordinates. False means it will land at the target and keep sliding.</param>
-    /// <param name="doSpin">Whether spin will be applied to the thrown entity.</param>
-    /// <param name="unanchor">If true and the thrown entity has <see cref="AnchorableComponent"/>, unanchor the thrown entity</param>
     public void TryThrow(EntityUid uid,
         Vector2 direction,
         float baseThrowSpeed = 10.0f,
@@ -120,14 +111,6 @@ public sealed class ThrowingSystem : EntitySystem
     /// <summary>
     ///     Tries to throw the entity if it has a physics component, otherwise does nothing.
     /// </summary>
-    /// <param name="uid">The entity being thrown.</param>
-    /// <param name="direction">A vector pointing from the entity to its destination.</param>
-    /// <param name="baseThrowSpeed">Throw velocity. Gets modified if compensateFriction is true.</param>
-    /// <param name="pushbackRatio">The ratio of impulse applied to the thrower - defaults to 10 because otherwise it's not enough to properly recover from getting spaced</param>
-    /// <param name="friction">friction value used for the distance calculation. If set to null this defaults to the standard tile values</param>
-    /// <param name="compensateFriction">True will adjust the throw so the item stops at the target coordinates. False means it will land at the target and keep sliding.</param>
-    /// <param name="doSpin">Whether spin will be applied to the thrown entity.</param>
-    /// <param name="unanchor">If true and the thrown entity has <see cref="AnchorableComponent"/>, unanchor the thrown entity</param>
     public void TryThrow(EntityUid uid,
         Vector2 direction,
         PhysicsComponent physics,

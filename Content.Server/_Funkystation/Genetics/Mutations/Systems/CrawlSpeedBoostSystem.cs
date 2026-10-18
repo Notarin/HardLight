@@ -2,7 +2,6 @@ using Content.Shared._Funkystation.Genetics.Mutations.Components;
 using Content.Shared._Funkystation.Genetics.Mutations.Systems;
 using Content.Shared.Movement.Systems;
 using Content.Shared.Standing;
-using Content.Shared.Standing;
 
 namespace Content.Server._Funkystation.Genetics.Mutations.Systems;
 

@@ -1,4 +1,4 @@
-using System.Threading;
+using Robust.Shared.Audio;
 using Content.Server.Administration.Logs;
 using Content.Server.AlertLevel;
 using Content.Shared.CCVar;
@@ -112,9 +112,9 @@ namespace Content.Server.RoundEnd
         /// </summary>
         public EntityUid? GetColcomm()
         {
-            AllEntityQuery<StationColcommComponent>().MoveNext(out var Colcomm);
+            AllEntityQuery<StationColcommComponent>().MoveNext(out var colcomm);
 
-            return Colcomm == null ? null : Colcomm.MapEntity;
+            return colcomm == null ? null : colcomm.MapEntity;
         }
 
         public bool CanCallOrRecall()
@@ -191,7 +191,7 @@ namespace Content.Server.RoundEnd
                 null,
                 Color.Gold);
 
-            _audio.PlayGlobal("/Audio/Announcements/shuttlecalled.ogg", Filter.Broadcast(), true);
+            _audio.PlayGlobal(new SoundPathSpecifier("/Audio/Announcements/shuttlecalled.ogg"), Filter.Broadcast(), true);
 
             LastCountdownStart = _gameTiming.CurTime;
             ExpectedCountdownEnd = _gameTiming.CurTime + countdownTime;
@@ -239,7 +239,7 @@ namespace Content.Server.RoundEnd
             _chatSystem.DispatchGlobalAnnouncement(Loc.GetString("round-end-system-shuttle-recalled-announcement"),
                 Loc.GetString("Station"), false, colorOverride: Color.Gold);
 
-            _audio.PlayGlobal("/Audio/Announcements/shuttlerecalled.ogg", Filter.Broadcast(), true);
+            _audio.PlayGlobal(new SoundPathSpecifier("/Audio/Announcements/shuttlerecalled.ogg"), Filter.Broadcast(), true);
 
             LastCountdownStart = null;
             ExpectedCountdownEnd = null;

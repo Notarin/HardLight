@@ -1,9 +1,7 @@
 using Content.Shared.Abilities.Psionics;
 using Content.Shared.Actions.Events;
 using Content.Shared.Mobs.Components;
-using System.Linq;
 using System.Numerics;
-using Content.Shared.Database;
 using Robust.Shared.Collections;
 
 namespace Content.Server.Abilities.Psionics;

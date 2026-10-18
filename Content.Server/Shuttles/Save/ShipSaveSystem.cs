@@ -1,19 +1,9 @@
-using Robust.Shared.GameObjects;
-using Robust.Shared.IoC;
-using Robust.Shared.Network;
 using Robust.Shared.Player;
-using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Content.Server.Administration.Managers;
 using Content.Shared.Administration;
 using Content.Shared.Shuttles.Save;
 using Content.Shared._NF.Shipyard.Components;
-using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Robust.Shared.Log;
 
 namespace Content.Server.Shuttles.Save
 {
@@ -48,7 +38,7 @@ namespace Content.Server.Shuttles.Save
             if (!_entityManager.TryGetComponent<ShuttleDeedComponent>(deedUid, out var deed) || deed.ShuttleUid == null ||
                 !_entityManager.TryGetEntity(deed.ShuttleUid.Value, out var shuttleNetUid))
             {
-                Logger.Warning($"Player {playerSession.Name} attempted ship save without a valid shuttle deed / shuttle reference on ID {deedUid}");
+                Log.Warning($"Player {playerSession.Name} attempted ship save without a valid shuttle deed / shuttle reference on ID {deedUid}");
                 return;
             }
 
@@ -60,52 +50,52 @@ namespace Content.Server.Shuttles.Save
             // trust model (whoever holds the ID can save the ship).
             if (!IsAuthorizedForDeed(playerSession, deedUid))
             {
-                Logger.Warning($"Player {playerSession.Name} attempted ship save on deed {deedUid} they do not possess (and are not admin); rejecting.");
+                Log.Warning($"Player {playerSession.Name} attempted ship save on deed {deedUid} they do not possess (and are not admin); rejecting.");
                 return;
             }
 
             var gridToSave = shuttleNetUid.Value;
             if (!_entityManager.HasComponent<MapGridComponent>(gridToSave))
             {
-                Logger.Warning($"Player {playerSession.Name} deed shuttle {gridToSave} is not a grid");
+                Log.Warning($"Player {playerSession.Name} deed shuttle {gridToSave} is not a grid");
                 return;
             }
 
             var shipName = deed.ShuttleName ?? $"SavedShip_{DateTime.Now:yyyyMMdd_HHmmss}";
 
             var shipyardGridSaveSystem = _entitySystemManager.GetEntitySystem<Content.Server._NF.Shipyard.Systems.ShipyardGridSaveSystem>();
-            Logger.Info($"Player {playerSession.Name} is saving deed-referenced ship {shipName} (grid {gridToSave})");
+            Log.Info($"Player {playerSession.Name} is saving deed-referenced ship {shipName} (grid {gridToSave})");
             var result = shipyardGridSaveSystem.TrySaveGridAsTrackedShip(gridToSave, deedUid, shipName, playerSession);
             if (result == Content.Server._NF.Shipyard.Systems.ShipyardGridSaveSystem.TrackedShipSaveResult.Queued)
             {
-                Logger.Info($"Queued tracked ship save for {shipName}");
+                Log.Info($"Queued tracked ship save for {shipName}");
             }
             else if (result == Content.Server._NF.Shipyard.Systems.ShipyardGridSaveSystem.TrackedShipSaveResult.AlreadyInProgress)
             {
-                Logger.Info($"Skipped duplicate tracked ship save request for {shipName}");
+                Log.Info($"Skipped duplicate tracked ship save request for {shipName}");
             }
             else
             {
-                Logger.Error($"Failed to save ship {shipName}");
+                Log.Error($"Failed to save ship {shipName}");
             }
         }
         public void RequestSaveShip(EntityUid deedUid, ICommonSession? playerSession)
         {
             if (playerSession == null)
             {
-                Logger.Warning($"Attempted to save ship for deed {deedUid} without a valid player session.");
+                Log.Warning($"Attempted to save ship for deed {deedUid} without a valid player session.");
                 return;
             }
 
             if (!_entityManager.TryGetComponent<ShuttleDeedComponent>(deedUid, out var deedComponent))
             {
-                Logger.Warning($"Player {playerSession.Name} tried to save ship with invalid deed UID: {deedUid}");
+                Log.Warning($"Player {playerSession.Name} tried to save ship with invalid deed UID: {deedUid}");
                 return;
             }
 
             if (deedComponent.ShuttleUid == null || !_entityManager.TryGetEntity(deedComponent.ShuttleUid.Value, out var shuttleUid) || !_entityManager.TryGetComponent<MapGridComponent>(shuttleUid.Value, out var grid))
             {
-                Logger.Warning($"Player {playerSession.Name} tried to save ship with deed {deedUid} but no valid shuttle UID found.");
+                Log.Warning($"Player {playerSession.Name} tried to save ship with deed {deedUid} but no valid shuttle UID found.");
                 return;
             }
 
@@ -115,21 +105,21 @@ namespace Content.Server.Shuttles.Save
             // Get the ShipyardGridSaveSystem and use it to save the ship
             var shipyardGridSaveSystem = _entitySystemManager.GetEntitySystem<Content.Server._NF.Shipyard.Systems.ShipyardGridSaveSystem>();
 
-            Logger.Info($"Player {playerSession.Name} is saving ship {shipName} via ShipyardGridSaveSystem");
+            Log.Info($"Player {playerSession.Name} is saving ship {shipName} via ShipyardGridSaveSystem");
 
             // Save the ship using the tracked grid-based system so cleanup only happens after the client writes the file.
             var result = shipyardGridSaveSystem.TrySaveGridAsTrackedShip(shuttleUid.Value, deedUid, shipName, playerSession);
             if (result == Content.Server._NF.Shipyard.Systems.ShipyardGridSaveSystem.TrackedShipSaveResult.Queued)
             {
-                Logger.Info($"Queued tracked ship save for {shipName}");
+                Log.Info($"Queued tracked ship save for {shipName}");
             }
             else if (result == Content.Server._NF.Shipyard.Systems.ShipyardGridSaveSystem.TrackedShipSaveResult.AlreadyInProgress)
             {
-                Logger.Info($"Skipped duplicate tracked ship save request for {shipName}");
+                Log.Info($"Skipped duplicate tracked ship save request for {shipName}");
             }
             else
             {
-                Logger.Error($"Failed to save ship {shipName}");
+                Log.Error($"Failed to save ship {shipName}");
             }
         }
 
@@ -139,7 +129,7 @@ namespace Content.Server.Shuttles.Save
             if (playerSession == null)
                 return;
 
-            Logger.Info($"Player {playerSession.Name} requested to load ship from YAML data");
+            Log.Info($"Player {playerSession.Name} requested to load ship from YAML data");
 
             // TODO: Implement ship loading from saved files
             // This would involve deserializing the ship data and spawning it in the game world
@@ -153,7 +143,7 @@ namespace Content.Server.Shuttles.Save
                 return;
 
             // Client handles available ships from local user data
-            Logger.Info($"Player {playerSession.Name} requested available ships - client handles this locally");
+            Log.Info($"Player {playerSession.Name} requested available ships - client handles this locally");
         }
 
         private void OnAdminSendPlayerShips(AdminSendPlayerShipsMessage msg, EntitySessionEventArgs args)

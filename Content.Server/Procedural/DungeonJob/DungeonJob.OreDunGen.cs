@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using Content.Shared.Maps; // Upstream#33105
 using Content.Shared.Procedural;
 using Content.Shared.Procedural.Components;
@@ -17,12 +16,11 @@ public sealed partial class DungeonJob
     private async Task PostGen(
         OreDunGen gen,
         Dungeon dungeon,
-        Random random)
+        IRobustRandom random)
     {
         // Doesn't use dungeon data because layers and we don't need top-down support at the moment.
 
         // Upstream#33105 - maskable room generation (Thank you, TheShuEd!)
-        var emptyTiles = false;
         var replaceEntities = new Dictionary<Vector2i, EntityUid>();
         var availableTiles = new List<Vector2i>();
         var tiles = _maps.GetAllTilesEnumerator(_gridUid, _grid);
@@ -79,7 +77,7 @@ public sealed partial class DungeonJob
             else
             {
                 // If entity mask null - we ignore the tiles that have anything on them.
-                if (!_anchorable.TileFree(_grid, tile, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask))
+                if (!_anchorable.TileFree(GridEntity, tile, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask))
                     continue;
 
                 var anchored = _maps.GetAnchoredEntitiesEnumerator(_gridUid, _grid, tile); // HardLight

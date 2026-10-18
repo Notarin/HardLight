@@ -2,7 +2,6 @@ using System.Numerics;
 using Content.Server._Mono.FireControl;
 using Content.Server._Mono.NPC.HTN;
 using Content.Shared.DeviceLinking.Events;
-using Content.Server.DeviceLinking.Systems;
 using Content.Server.Power.Components;
 using Content.Server.Power.EntitySystems;
 using Content.Server.Weapons.Ranged.Systems;
@@ -24,7 +23,6 @@ namespace Content.Server._Mono.SpaceArtillery;
 public sealed partial class SpaceArtillerySystem : EntitySystem
 {
     [Dependency] private readonly GunSystem _gun = default!;
-    [Dependency] private readonly DeviceLinkSystem _deviceLink = default!;
     [Dependency] private readonly BatterySystem _battery = default!;
     [Dependency] private readonly SharedTransformSystem _xform = default!;
     [Dependency] private readonly SharedCameraRecoilSystem _recoilSystem = default!;

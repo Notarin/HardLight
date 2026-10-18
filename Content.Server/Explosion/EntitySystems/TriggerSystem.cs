@@ -1,13 +1,10 @@
 using Content.Server.Administration.Logs;
 using Content.Server.Body.Components;
 using Content.Server.Body.Systems;
-using Content.Server.Chemistry.EntitySystems;
 using Content.Server.Explosion.Components;
 using Content.Server.Flash;
 using Content.Server.Electrocution;
-using Content.Server.Pinpointer;
 using Content.Shared.Chemistry.EntitySystems;
-using Content.Shared.FixedPoint;
 using Content.Shared.Flash.Components;
 using Content.Server.Radio.EntitySystems;
 using Content.Shared.Chemistry.Components;
@@ -20,7 +17,6 @@ using Content.Shared.Interaction;
 using Content.Shared.Interaction.Events;
 using Content.Shared.Inventory;
 using Content.Shared.Mobs;
-using Robust.Shared.Timing;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Payload.Components;
 using Content.Shared.Radio;
@@ -39,7 +35,6 @@ using Content.Server.Station.Systems;
 using Content.Shared.Humanoid;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
-using Robust.Shared.Utility;
 using Content.Shared.Body.Components; // Frontier: Gib organs
 
 namespace Content.Server.Explosion.EntitySystems
@@ -219,7 +214,7 @@ namespace Content.Server.Explosion.EntitySystems
         {
             var xform = Transform(ent);
 
-            if (ent.Comp.mapCoords)
+            if (ent.Comp.MapCoords)
             {
                 var mapCoords = _transformSystem.GetMapCoordinates(ent, xform);
                 Spawn(ent.Comp.Proto, mapCoords);
@@ -305,8 +300,7 @@ namespace Content.Server.Explosion.EntitySystems
                 return;
 
             // Gets location of the implant
-            var ownerXform = Transform(uid);
-            var pos = ownerXform.MapPosition;
+            var pos = _transformSystem.GetMapCoordinates(uid);
             var x = (int)pos.X;
             var y = (int)pos.Y;
             var posText = $"({x}, {y})";

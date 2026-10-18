@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using ImGuiNET;
 using Robust.Shared.Maths;
 using static ImGuiNET.ImGui;

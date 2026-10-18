@@ -1,6 +1,4 @@
 using System.Numerics;
-using System.Threading;
-using System.Threading.Tasks;
 using Content.Server.NPC.Queries;
 using Content.Server.NPC.Systems;
 using Robust.Shared.Map;

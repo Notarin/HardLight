@@ -10,6 +10,6 @@ public sealed class HypospraySystem : SharedHypospraySystem
     public override void Initialize()
     {
         base.Initialize();
-        Subs.ItemStatus<HyposprayComponent>(ent => new HyposprayStatusControl(ent, _solutionContainers));
+        Subs.ItemStatus<HyposprayComponent>(ent => new HyposprayStatusControl(ent, SolutionContainers));
     }
 }

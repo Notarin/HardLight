@@ -1,8 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using Content.Server._NF.SectorServices;
 using Content.Server._NF.ShuttleRecords.Components;
-using Content.Server.Administration.Logs;
 using Content.Server.GameTicking;
 using Content.Server.Popups;
 using Content.Shared._NF.ShuttleRecords;
@@ -109,7 +107,6 @@ public sealed partial class ShuttleRecordsSystem : SharedShuttleRecordsSystem
 
     /**
      * Edits an existing record if one exists for the given entity
-     * <param name="record">The record to add.</param>
      */
     public bool TryGetRecord(NetEntity uid, [NotNullWhen(true)] out ShuttleRecord? record)
     {

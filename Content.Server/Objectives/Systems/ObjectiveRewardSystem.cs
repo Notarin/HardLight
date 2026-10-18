@@ -10,7 +10,6 @@ using Content.Server.Objectives.Components;
 using Content.Server._NF.Bank;
 using Content.Shared.Chat; // HardLight
 using Content.Shared.Mind;
-using Content.Shared.Objectives.Components;
 using Content.Shared.Objectives.Systems;
 using Content.Shared.Popups;
 using Content.Shared.Preferences; // HardLight

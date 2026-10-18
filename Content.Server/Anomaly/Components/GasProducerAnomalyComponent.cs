@@ -42,17 +42,17 @@ public sealed partial class GasProducerAnomalyComponent : Component
     /// The radius of random gas spawns.
     /// </summary>
     [DataField("spawnRadius", required: true)]
-    public float spawnRadius = 3;
+    public float SpawnRadius = 3;
 
     /// <summary>
     /// The number of tiles which will be modified.
     /// </summary>
     [DataField("tileCount")]
-    public int tileCount = 1;
+    public int TileCount = 1;
 
     /// <summary>
     /// The the amount the tempurature should be modified by (negative for decreasing temp)
     /// </summary>
     [DataField("tempChange")]
-    public float tempChange = 0;
+    public float TempChange = 0;
 }

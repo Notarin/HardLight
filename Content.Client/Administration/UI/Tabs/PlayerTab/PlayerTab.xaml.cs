@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Client.Administration.Systems;
 using Content.Client.UserInterface.Controls;
 using Content.Shared.Administration;
@@ -100,20 +99,17 @@ public sealed partial class PlayerTab : Control
         RefreshPlayerList(_players);
     }
 
-    protected override void Dispose(bool disposing)
+    protected override void ExitedTree()
     {
-        base.Dispose(disposing);
+        base.ExitedTree();
 
-        if (disposing)
-        {
-            _adminSystem.PlayerListChanged -= RefreshPlayerList;
-            _adminSystem.OverlayEnabled -= OverlayEnabled;
-            _adminSystem.OverlayDisabled -= OverlayDisabled;
+        _adminSystem.PlayerListChanged -= RefreshPlayerList;
+        _adminSystem.OverlayEnabled -= OverlayEnabled;
+        _adminSystem.OverlayDisabled -= OverlayDisabled;
 
-            OverlayButton.OnPressed -= OverlayButtonPressed;
+        OverlayButton.OnPressed -= OverlayButtonPressed;
 
-            ListHeader.OnHeaderClicked -= HeaderClicked;
-        }
+        ListHeader.OnHeaderClicked -= HeaderClicked;
     }
 
     #region ListContainer

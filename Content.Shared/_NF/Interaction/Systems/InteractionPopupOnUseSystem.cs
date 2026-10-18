@@ -6,7 +6,6 @@ using Content.Shared.Whitelist;
 using Content.Shared._NF.Interaction.Components;
 using Robust.Shared.Audio.Systems;
 using Content.Shared.Popups;
-using Content.Shared.Explosion.EntitySystems;
 using Robust.Shared.Audio;
 using Robust.Shared.Network;
 using Robust.Shared.Random;

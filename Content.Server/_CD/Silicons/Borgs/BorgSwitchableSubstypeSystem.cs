@@ -1,7 +1,5 @@
-using Content.Shared._CD.Silicons;
 using Content.Shared._CD.Silicons.Borgs;
 using Content.Shared.Inventory;
-using Robust.Shared.Prototypes;
 
 namespace Content.Server._CD.Silicons.Borgs;
 

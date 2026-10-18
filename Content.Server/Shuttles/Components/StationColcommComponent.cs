@@ -1,5 +1,4 @@
 using Content.Shared.Roles; // HardLight
-using Robust.Shared.Map;
 using Robust.Shared.Prototypes; // HardLight
 using Robust.Shared.Utility;
 

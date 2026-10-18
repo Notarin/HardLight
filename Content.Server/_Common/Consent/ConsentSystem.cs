@@ -6,7 +6,6 @@ using Content.Shared.Mind;
 using Content.Shared.Mind.Components;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
-using System.Linq;
 
 namespace Content.Server._Common.Consent;
 
@@ -94,9 +93,9 @@ public sealed class ConsentSystem : SharedConsentSystem
 
     protected override bool ConsentTextUpdatedSinceLastRead(Entity<ConsentComponent> targetEnt, EntityUid readerUid)
     {
-        if (!_mindSystem.TryGetMind(readerUid, out _, out var readerMind)
+        if (!MindSystem.TryGetMind(readerUid, out _, out var readerMind)
             || readerMind.UserId is not NetUserId readerUserId
-            || !_mindSystem.TryGetMind(targetEnt, out _, out var entMind)
+            || !MindSystem.TryGetMind(targetEnt, out _, out var entMind)
             || entMind.UserId is not NetUserId targetUserId)
         {
             return false;
@@ -107,9 +106,9 @@ public sealed class ConsentSystem : SharedConsentSystem
 
     protected override void UpdateReadReceipt(Entity<ConsentComponent> targetEnt, EntityUid readerUid)
     {
-        if (!_mindSystem.TryGetMind(readerUid, out _, out var readerMind)
+        if (!MindSystem.TryGetMind(readerUid, out _, out var readerMind)
             || readerMind.UserId is not NetUserId readerUserId
-            || !_mindSystem.TryGetMind(targetEnt, out _, out var entMind)
+            || !MindSystem.TryGetMind(targetEnt, out _, out var entMind)
             || entMind.UserId is not NetUserId targetUserId)
         {
             return;

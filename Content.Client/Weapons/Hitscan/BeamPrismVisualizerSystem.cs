@@ -1,9 +1,6 @@
 using Content.Shared.Weapons.Hitscan;
 using Content.Shared.Weapons.Hitscan.Components;
 using Robust.Client.GameObjects;
-using Robust.Client.Graphics;
-using Robust.Shared.GameObjects;
-using Robust.Shared.Maths;
 using Robust.Shared.Utility;
 
 namespace Content.Client.Weapons.Hitscan;

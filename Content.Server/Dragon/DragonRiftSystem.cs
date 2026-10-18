@@ -6,7 +6,6 @@ using Content.Shared.Damage;
 using Content.Shared.Dragon;
 using Content.Shared.Examine;
 using Content.Shared.Sprite;
-using Robust.Shared.GameObjects;
 using Robust.Shared.Map;
 using Robust.Shared.Player;
 using Robust.Shared.Serialization.Manager;
@@ -83,7 +82,7 @@ public sealed class DragonRiftSystem : EntitySystem
                 var msg = Loc.GetString("carp-rift-warning",
                     ("location", FormattedMessage.RemoveMarkupOrThrow(_navMap.GetNearestBeaconString((uid, xform)))));
                 _chat.DispatchGlobalAnnouncement(msg, playSound: false, colorOverride: Color.Red);
-                _audio.PlayGlobal("/Audio/Misc/notice1.ogg", Filter.Broadcast(), true);
+                _audio.PlayGlobal(new SoundPathSpecifier("/Audio/Misc/notice1.ogg"), Filter.Broadcast(), true);
                 _navMap.SetBeaconEnabled(uid, true);
             }
 

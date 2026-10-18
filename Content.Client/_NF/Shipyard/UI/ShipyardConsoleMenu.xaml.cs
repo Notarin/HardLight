@@ -1,6 +1,4 @@
-using System.Linq;
 using Content.Client.UserInterface.Controls;
-using Content.Client._NF.Shipyard.BUI;
 using Content.Shared._NF.Bank;
 using Content.Shared._NF.Shipyard.BUI;
 using Content.Shared._NF.Shipyard.Prototypes;

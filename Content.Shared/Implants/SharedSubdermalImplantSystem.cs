@@ -8,7 +8,6 @@ using JetBrains.Annotations;
 using Robust.Shared.Containers;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
-using System.Linq;
 
 namespace Content.Shared.Implants;
 

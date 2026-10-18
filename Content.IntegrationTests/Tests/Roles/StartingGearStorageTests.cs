@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.Roles;
 using Content.Server.Storage.EntitySystems;
 using Robust.Shared.GameObjects;

@@ -7,7 +7,6 @@ using Content.Shared.Power.Generator;
 using Content.Shared.Verbs;
 using Robust.Server.Audio;
 using Robust.Server.GameObjects;
-using Robust.Shared.Player;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
 using Content.Shared.ActionBlocker; // Frontier
@@ -15,7 +14,7 @@ using Content.Shared.ActionBlocker; // Frontier
 namespace Content.Server.Power.Generator;
 
 /// <summary>
-/// Implements logic for portable generators (the PACMAN). Primarily UI & power switching behavior.
+/// Implements logic for portable generators (the PACMAN). Primarily UI &amp; power switching behavior.
 /// </summary>
 /// <seealso cref="PortableGeneratorComponent"/>
 public sealed class PortableGeneratorSystem : SharedPortableGeneratorSystem

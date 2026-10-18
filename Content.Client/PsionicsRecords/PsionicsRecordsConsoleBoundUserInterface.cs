@@ -1,15 +1,14 @@
 using Content.Shared.Access.Systems;
 using Content.Shared.PsionicsRecords;
 using Content.Shared.PsionicsRecords.Components;
-using Content.Shared.Psionics;
 using Content.Shared.StationRecords;
 using Robust.Client.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
-/// <summary>
-/// EVERYTHING HERE IS A MODIFIED VERSION OF CRIMINAL RECORDS
-/// </summary>
+// <summary>
+// EVERYTHING HERE IS A MODIFIED VERSION OF CRIMINAL RECORDS
+// </summary>
 
 namespace Content.Client.PsionicsRecords;
 

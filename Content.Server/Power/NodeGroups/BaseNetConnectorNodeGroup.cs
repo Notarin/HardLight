@@ -1,5 +1,4 @@
 using Content.Server.NodeContainer.NodeGroups;
-using Content.Server.NodeContainer.Nodes;
 using Content.Server.Power.Components;
 using Content.Shared.NodeContainer;
 using Content.Shared.NodeContainer.NodeGroups;
@@ -32,6 +31,7 @@ namespace Content.Server.Power.NodeGroups
                          comp.NodeId == node.Name) &&
                         (NodeGroupID)comp.Voltage == node.NodeGroupID)
                     {
+                        comp.NetConnectorOwner = node.Owner;
                         SetNetConnectorNet(comp);
                     }
                 }

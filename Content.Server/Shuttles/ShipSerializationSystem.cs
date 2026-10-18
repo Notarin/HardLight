@@ -1,46 +1,26 @@
-using Robust.Shared.GameObjects;
-using Robust.Shared.IoC;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Serialization.Manager;
 using Robust.Shared.Serialization.Markdown.Mapping;
-using Robust.Shared.Serialization.Markdown.Value;
 using Robust.Shared.Serialization.Markdown.Sequence;
-using System.Linq;
-using System.Text;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Numerics;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 using Content.Shared.Shuttles.Save;
 using Robust.Shared.Network;
-using Robust.Shared.Maths;
-using System;
-using Content.Shared.Coordinates;
-using Content.Shared.Coordinates.Helpers;
 using Content.Shared.FixedPoint;
-using Robust.Shared.Log;
 using Robust.Server.GameObjects;
-using Content.Server.Atmos.Components;
-using Content.Server.Atmos;
-using Content.Server.Atmos.EntitySystems;
 using Robust.Shared.Containers;
-using Robust.Server.Physics;
 using Content.Shared.Atmos;
 using Robust.Shared.Timing;
 using Robust.Shared.Console;
 using Content.Shared.Decals;
 using Content.Server.Decals;
 using static Content.Shared.Decals.DecalGridComponent;
-using Robust.Shared.Physics.Components;
-using Robust.Shared.Physics;
 using Robust.Shared.Configuration;
 using Content.Server._DV.Body.Systems; // HardLight edit - feather colors
 using Content.Shared._DV.Body.Components; // HardLight edit - feather colors
-using Content.Shared._NF.CCVar;
-using Robust.Shared.Player;
-using Robust.Server.Player;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.Components.SolutionManager;
 using Content.Shared.Chemistry.EntitySystems;
@@ -60,13 +40,11 @@ using Content.Shared.SprayPainter.Prototypes;
 using Content.Shared.Materials;
 using Content.Shared.Storage;
 using Content.Shared.Storage.EntitySystems;
-using Robust.Shared.Prototypes;
 using Content.Shared.Paint;
 using Content.Shared.Labels.Components;
 using Content.Shared.Labels.EntitySystems;
 using Content.Shared.NameModifier.Components;
 using Content.Shared.Sprite;
-using Content.Shared.Tag;
 using Content.Shared.Clothing.Components;
 using Content.Shared.Clothing.EntitySystems;
 using Content.Server.Clothing.Systems;
@@ -102,7 +80,6 @@ namespace Content.Server.Shuttles.Save
         [Dependency] private readonly SharedStackSystem _stackSystem = default!;
         [Dependency] private readonly ConstructionSystem _constructionSystem = default!;
         [Dependency] private readonly LabelSystem _labelSystem = default!;
-        [Dependency] private readonly TagSystem _tagSystem = default!;
         [Dependency] private readonly ChameleonClothingSystem _chameleonSystem = default!;
         [Dependency] private readonly SharedAtmosPipeLayersSystem _pipeLayersSystem = default!;
         [Dependency] private readonly ToggleableClothingSystem _toggleableClothingSystem = default!;
@@ -794,7 +771,6 @@ namespace Content.Server.Shuttles.Save
             //     - uid: 1
             //       components: [ { type: Transform, pos: X,Y, rot: <float> rad, parent: <uid|invalid> }, ... ]
             // We only need prototype, position, rotation. Component state intentionally omitted.
-            var parsedEntityCount = 0;
             // Refactored path: enumerate live grid children to capture full component and container data,
             // while preserving original grid rotation. Apply anchored-only filtering and recurse into containers.
             var serializedEntities = new HashSet<EntityUid>();
@@ -1176,7 +1152,7 @@ namespace Content.Server.Shuttles.Save
                 foreach (var uid in EntityManager.GetEntities())
                 {
                     if (uid == gridUid) continue;
-                    if (!TryComp<TransformComponent>(uid, out var xform)) continue;
+                    if (!TryComp(uid, out TransformComponent? xform)) continue;
                     if (xform.GridUid == gridUid && xform.ParentUid != gridUid)
                     {
                         // Reparent to grid root to ensure motion / FTL docking carries them.
@@ -1218,7 +1194,7 @@ namespace Content.Server.Shuttles.Save
 
             // Move grid to the specified offset position
             var gridXform = Transform(newGrid);
-            gridXform.WorldPosition = offset;
+            _transform.SetWorldPosition((newGrid, gridXform), offset);
             // Apply original saved rotation (if any) before spawning entities/tiles so local positions remain valid.
             var savedRot = Angle.Zero;
             if (shipGridData.Metadata != null && Math.Abs(shipGridData.Metadata.OriginalGridRotation) > 0.0001f)
@@ -1863,12 +1839,6 @@ namespace Content.Server.Shuttles.Save
             }
         }
 
-        /// <param name="roomMode">
-        /// When true, skips the generic <see cref="SerializeComponent"/> path (which calls
-        /// <c>_serializationManager.WriteValue</c> on every component via expensive reflection,
-        /// then discards the output). Room saves use Properties-based paths only; the generic
-        /// DataNode round-trip is broken for rooms and produces only bloat.
-        /// </param>
         private List<ComponentData> SerializeEntityComponents(EntityUid entityUid, bool roomMode = false)
         {
             var componentDataList = new List<ComponentData>();
@@ -2955,7 +2925,7 @@ namespace Content.Server.Shuttles.Save
                         var newComponent = (Component)Activator.CreateInstance(componentType)!;
                         _entityManager.AddComponent(entityUid, newComponent);
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         // Failed to create component - continuing
                         return;
@@ -2985,7 +2955,7 @@ namespace Content.Server.Shuttles.Save
                     // Continue execution - partial restoration is better than none
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Failed to restore component - continuing
                 // Don't throw - continue with other components
@@ -3605,7 +3575,7 @@ namespace Content.Server.Shuttles.Save
                     return false;
                 }
 
-                if (!containerManager.TryGetContainer(containerSlot, out var container))
+                if (!_containerSystem.TryGetContainer(containerEntity, containerSlot, out var container, containerManager))
                 {
                     _sawmill.Warning($"Container slot '{containerSlot}' not found on entity {containerEntity}");
                     return false;
@@ -3701,7 +3671,7 @@ namespace Content.Server.Shuttles.Save
 
                 // Check if position is occupied (basic check)
                 var lookup = _entityManager.System<EntityLookupSystem>();
-                var mapCoords = coords.ToMap(_entityManager, _transform);
+                var mapCoords = _transform.ToMapCoordinates(coords);
                 var entitiesAtPos = lookup.GetEntitiesIntersecting(mapCoords.MapId, new Box2(testPos - Vector2.One * 0.1f, testPos + Vector2.One * 0.1f));
                 if (!entitiesAtPos.Any())
                 {
@@ -3773,7 +3743,7 @@ namespace Content.Server.Shuttles.Save
             }
         }
 
-        private void ReconstructEntitiesLegacyMode(GridData gridData, MapGridComponent newGrid, Dictionary<string, EntityUid> entityIdMapping, bool clearDefaults = false)
+        private void ReconstructEntitiesLegacyMode(GridData gridData, Entity<MapGridComponent> newGrid, Dictionary<string, EntityUid> entityIdMapping, bool clearDefaults = false)
         {
             _sawmill.Info("Using legacy reconstruction mode for backward compatibility");
 

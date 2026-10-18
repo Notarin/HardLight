@@ -9,9 +9,7 @@ using Content.Shared.Weapons.Melee.Events;
 using Content.Shared.Chat; // For InGameICChatType
 using Robust.Shared.Map;
 using Robust.Shared.Player;
-using System.Linq;
 using System.Numerics;
-using Content.Shared._Goobstation.MartialArts.Events;
 
 namespace Content.Server.Weapons.Melee;
 
@@ -97,7 +95,7 @@ public sealed class MeleeWeaponSystem : SharedMeleeWeaponSystem
         var coordinates = targetXform.Coordinates;
         if (!coordinates.IsValid(EntityManager))
         {
-            if (user != null && TryComp<TransformComponent>(user.Value, out var userXform))
+            if (user != null && TryComp(user.Value, out TransformComponent? userXform))
                 coordinates = userXform.Coordinates;
             else
                 return; // No valid coordinates available

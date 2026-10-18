@@ -1,6 +1,4 @@
-using System.Linq;
 using System.Numerics;
-using System.Threading;
 using Content.Client.Verbs;
 using Content.Shared.Examine;
 using Content.Shared.IdentityManagement;
@@ -371,7 +369,6 @@ namespace Content.Client.Examine
             var vbox = _examineTooltipOpen?.GetChild(0).GetChild(0);
             if (vbox == null)
             {
-                buttonsHBox.Dispose();
                 return;
             }
 
@@ -438,7 +435,8 @@ namespace Content.Client.Examine
                         button.OnPressed -= VerbButtonPressed;
                     }
                 }
-                _examineTooltipOpen.Dispose();
+                _examineTooltipOpen.Close();
+                _examineTooltipOpen.Orphan();
                 _examineTooltipOpen = null;
             }
 

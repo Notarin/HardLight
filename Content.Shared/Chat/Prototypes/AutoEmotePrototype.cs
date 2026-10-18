@@ -24,20 +24,20 @@ public sealed partial class AutoEmotePrototype : IPrototype
 
     /// <summary>
     /// Probability of performing the emote each interval.
-    /// <summary>
+    /// </summary>
     [DataField("chance")]
     public float Chance = 1;
 
     /// <summary>
     /// Also send the emote in chat.
-    /// <summary>
+    /// </summary>
     [DataField("withChat")]
     public bool WithChat = true;
 
     /// <summary>
     /// Hide the chat message from the chat window, only showing the popup.
     /// This does nothing if WithChat is false.
-    /// <summary>
+    /// </summary>
     [DataField("hiddenFromChatWindow")]
     public bool HiddenFromChatWindow = false;
 }

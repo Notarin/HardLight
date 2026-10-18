@@ -1,5 +1,4 @@
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using Content.Server.Atmos.Monitor.Components;
 using Content.Server.DeviceNetwork.Systems;
 using Content.Shared.Atmos.Monitor;
@@ -205,9 +204,6 @@ public sealed class AtmosAlarmableSystem : EntitySystem
     ///     Forces this alarmable to have a specific alert. This will not be reset until the alarmable
     ///     is manually reset. This will store the alarmable as a device in its network states.
     /// </summary>
-    /// <param name="uid"></param>
-    /// <param name="alarmType"></param>
-    /// <param name="alarmable"></param>
     public void ForceAlert(EntityUid uid, AtmosAlarmType alarmType,
         AtmosAlarmableComponent? alarmable = null, DeviceNetworkComponent? devNet = null, TagComponent? tags = null)
     {
@@ -241,8 +237,6 @@ public sealed class AtmosAlarmableSystem : EntitySystem
     /// <summary>
     ///     Resets the state of this alarmable to normal.
     /// </summary>
-    /// <param name="uid"></param>
-    /// <param name="alarmable"></param>
     public void Reset(EntityUid uid, AtmosAlarmableComponent? alarmable = null, TagComponent? tags = null)
     {
         if (!Resolve(uid, ref alarmable, ref tags, false) || alarmable.LastAlarmState == AtmosAlarmType.Normal)

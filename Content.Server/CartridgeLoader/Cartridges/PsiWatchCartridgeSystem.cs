@@ -1,14 +1,11 @@
 using Content.Server.Station.Systems;
-using Content.Server.StationRecords;
 using Content.Server.StationRecords.Systems;
 using Content.Shared.CartridgeLoader;
 using Content.Shared.CartridgeLoader.Cartridges;
 using Content.Shared.PsionicsRecords;
 using Content.Shared.StationRecords;
 
-/// <summary>
-/// ADAPTED FROM SECWATCH - DELTAV
-/// </summary>
+// ADAPTED FROM SECWATCH - DELTAV
 
 namespace Content.Server.CartridgeLoader.Cartridges;
 

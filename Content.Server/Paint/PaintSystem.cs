@@ -3,13 +3,12 @@ using Content.Shared.Paint;
 using Content.Shared.Sprite;
 using Content.Shared.DoAfter;
 using Content.Shared.Interaction;
-using Content.Server.Chemistry.Containers.EntitySystems;
+using Content.Shared.Chemistry.EntitySystems;
 using Robust.Shared.Audio.Systems;
 using Content.Shared.Humanoid;
 using Robust.Shared.Utility;
 using Content.Shared.Verbs;
 using Content.Shared.SubFloor;
-using Content.Shared.Nutrition.Components;
 using Content.Shared.Inventory;
 using Content.Shared.Nutrition.EntitySystems;
 using Content.Shared.Whitelist;
@@ -23,7 +22,7 @@ public sealed class PaintSystem : SharedPaintSystem
 {
     [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SolutionContainerSystem _solutionContainer = default!;
+    [Dependency] private readonly SharedSolutionContainerSystem _solutionContainer = default!;
     [Dependency] private readonly SharedAppearanceSystem _appearanceSystem = default!;
     [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
     [Dependency] private readonly InventorySystem _inventory = default!;

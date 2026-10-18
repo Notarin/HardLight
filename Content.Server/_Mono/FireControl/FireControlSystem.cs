@@ -8,10 +8,8 @@ using Content.Shared.Weapons.Ranged.Components;
 using Robust.Shared.Map;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Systems;
-using System.Linq;
 using Content.Shared.Physics;
 using System.Numerics;
-using Content.Server._Mono.SpaceArtillery;
 using Content.Server._Mono.SpaceArtillery.Components;
 using Content.Server.Power.EntitySystems;
 using Content.Shared.Shuttles.Components;
@@ -538,7 +536,7 @@ public sealed partial class FireControlSystem : EntitySystem
         var weaponXform = Transform(weapon);
         var weaponCoords = _xform.GetMapCoordinates(weaponXform);
         var weaponPos = weaponCoords.Position;
-        var targetCoords = coords.ToMap(EntityManager, _xform);
+        var targetCoords = _xform.ToMapCoordinates(coords);
         var targetPos = targetCoords.Position;
 
         // Calculate direction

@@ -1,5 +1,4 @@
 #nullable enable
-using System.Collections.Generic;
 using System.Numerics;
 using Content.Shared._DV.Abilities;
 using Content.Shared.Standing;

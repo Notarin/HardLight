@@ -3,15 +3,11 @@ using Content.Server.GameTicking.Rules;
 using Content.Server.Parallax;
 using Content.Server.Shuttles.Components;
 using Content.Server.Shuttles.Systems;
-using Content.Server.Station.Systems;
 using Content.Shared._VRS.Planet;
 using Content.Shared.GameTicking.Components;
-using Content.Shared.Parallax.Biomes;
-using Content.Shared.Shuttles.Components;
 using Content.Shared.Shuttles.Systems;
 using Robust.Server.GameObjects;
 using Robust.Server.GameStates;
-using Robust.Shared.GameStates;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Prototypes;
@@ -27,10 +23,8 @@ namespace Content.Server._VRS.Planet;
 public sealed class VRSPersistentPlanetRuleSystem : GameRuleSystem<VRSPersistentPlanetRuleComponent>
 {
     [Dependency] private readonly BiomeSystem _biome = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
     [Dependency] private readonly MapSystem _map = default!;
     [Dependency] private readonly MetaDataSystem _meta = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly SharedShuttleSystem _shuttle = default!;
     [Dependency] private readonly ShuttleSystem _serverShuttle = default!;
     [Dependency] private readonly IPrototypeManager _proto = default!;
@@ -58,8 +52,7 @@ public sealed class VRSPersistentPlanetRuleSystem : GameRuleSystem<VRSPersistent
 
         // Fresh map for the planet. Biome chunks are generated lazily as
         // players approach, so the map starts effectively empty.
-        _map.CreateMap(out var mapId);
-        var mapUid = _mapManager.GetMapEntityId(mapId);
+        var mapUid = _map.CreateMap(out var mapId);
 
         // Ensure the map has a grid component so PVS chunks can be properly created.
         EnsureComp<MapGridComponent>(mapUid);

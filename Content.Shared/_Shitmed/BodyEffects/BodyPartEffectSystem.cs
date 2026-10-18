@@ -3,11 +3,10 @@ using Content.Shared.Body.Part;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.Manager;
 using Robust.Shared.Timing;
-using System.Linq;
 
 namespace Content.Shared._Shitmed.BodyEffects;
 
-public partial class BodyPartEffectSystem : EntitySystem
+public sealed partial class BodyPartEffectSystem : EntitySystem
 {
     [Dependency] private readonly ISerializationManager _serManager = default!;
     [Dependency] private readonly IGameTiming _gameTiming = default!;

@@ -3,7 +3,6 @@ using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Goobstation.ChronoLegionnaire;
 using Content.Shared.Goobstation.ChronoLegionnaire.Components;
 using Content.Shared.Interaction;
-using Content.Shared.Verbs;
 using Robust.Server.Containers;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio.Systems;
@@ -99,7 +98,7 @@ public sealed class TimelineDisruptorSystem : SharedTimelineDisruptorSystem
         Dirty(uid, disruptor);
     }
 
-    protected void StopDisrupting(Entity<TimelineDisruptorComponent> ent)
+    private void StopDisrupting(Entity<TimelineDisruptorComponent> ent)
     {
         var (_, disruptor) = ent;
 

@@ -1,16 +1,12 @@
 using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
-using System.Threading;
-using System.Threading.Tasks;
 using Content.Server.Administration.Logs;
 using Content.Shared._Common.Consent; // Consent system
 using Content.Shared.Administration.Logs;
-using Content.Shared.Construction.Prototypes;
 using Content.Shared.Database;
 using Content.Shared.Ghost.Roles;
 using Content.Shared.Humanoid;
@@ -22,7 +18,6 @@ using Content.Shared.Roles;
 using Content.Shared.Traits;
 using Microsoft.EntityFrameworkCore;
 using Robust.Shared.Enums;
-using Robust.Shared.IoC;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
@@ -498,12 +493,8 @@ namespace Content.Server.Database
         /// <summary>
         ///     Looks up an user's most recent received un-pardoned ban.
         ///     This will NOT return a pardoned ban.
-        ///     One of <see cref="address"/> or <see cref="userId"/> need to not be null.
+        ///     One of address or userId need to not be null.
         /// </summary>
-        /// <param name="address">The ip address of the user.</param>
-        /// <param name="userId">The id of the user.</param>
-        /// <param name="hwId">The legacy HWId of the user.</param>
-        /// <param name="modernHWIds">The modern HWIDs of the user.</param>
         /// <returns>The user's latest received un-pardoned ban, or null if none exist.</returns>
         public abstract Task<BanDef?> GetBanAsync(
             IPAddress? address,
@@ -515,13 +506,8 @@ namespace Content.Server.Database
         /// <summary>
         ///     Looks up an user's ban history.
         ///     This will return pardoned bans as well.
-        ///     One of <see cref="address"/> or <see cref="userId"/> need to not be null.
+        ///     One of address or userId need to not be null.
         /// </summary>
-        /// <param name="address">The ip address of the user.</param>
-        /// <param name="userId">The id of the user.</param>
-        /// <param name="hwId">The legacy HWId of the user.</param>
-        /// <param name="modernHWIds">The modern HWIDs of the user.</param>
-        /// <param name="includeUnbanned">Include pardoned and expired bans.</param>
         /// <returns>The user's ban history.</returns>
         public abstract Task<List<BanDef>> GetBansAsync(
             IPAddress? address,

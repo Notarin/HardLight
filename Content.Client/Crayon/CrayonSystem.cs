@@ -5,9 +5,7 @@ using Content.Shared.Crayon;
 using Content.Shared.Paper;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
-using Robust.Shared.GameObjects;
 using Robust.Shared.GameStates;
-using Robust.Shared.Localization;
 using Robust.Shared.Timing;
 
 namespace Content.Client.Crayon;

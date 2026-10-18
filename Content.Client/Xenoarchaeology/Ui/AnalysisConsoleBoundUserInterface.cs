@@ -21,7 +21,7 @@ public sealed class AnalysisConsoleBoundUserInterface(EntityUid owner, Enum uiKe
         base.Open();
 
         _consoleMenu = this.CreateWindow<AnalysisConsoleMenu>();
-        _consoleMenu.SetOwner(owner);
+        _consoleMenu.SetOwner(Owner);
 
         _consoleMenu.OnClose += Close;
         _consoleMenu.OpenCentered();
@@ -52,7 +52,7 @@ public sealed class AnalysisConsoleBoundUserInterface(EntityUid owner, Enum uiKe
         if (!disposing)
             return;
 
-        _consoleMenu?.Dispose();
+        _consoleMenu?.Close();
     }
 }
 

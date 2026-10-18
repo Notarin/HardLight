@@ -1,8 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Numerics;
 using Content.Shared.Administration.Logs;
-using Content.Shared.Audio;
 using Content.Shared.Database;
 using Content.Shared.Interaction;
 using Content.Shared.Maps;
@@ -111,9 +109,9 @@ public sealed class FloorTileSystem : EntitySystem
 
         // if user can access tile center then they can place floor
         // otherwise check it isn't blocked by a wall
-        if (!canAccessCenter)
+        if (!canAccessCenter && location.TryGetTileRef(out var tileRef, EntityManager, _mapManager))
         {
-            foreach (var ent in location.GetEntitiesInTile(lookupSystem: _lookup))
+            foreach (var ent in _lookup.GetLocalEntitiesIntersecting(tileRef.Value, flags: LookupFlags.Static))
             {
                 if (physicQuery.TryGetComponent(ent, out var phys) &&
                     phys.BodyType == BodyType.Static &&
@@ -197,7 +195,8 @@ public sealed class FloorTileSystem : EntitySystem
         _adminLogger.Add(LogType.Tile, LogImpact.Low, $"{ToPrettyString(user):actor} placed tile {_tileDefinitionManager[tileId].Name} at {ToPrettyString(gridUid)} {location}");
 
         var tileDef = (ContentTileDefinition)_tileDefinitionManager[tileId];
-        var random = new System.Random((int)_timing.CurTick.Value);
+        var random = new RobustRandom();
+        random.SetSeed((int)_timing.CurTick.Value);
         var variant = _tile.PickVariant(tileDef, random);
 
         var tileRef = _map.GetTileRef(gridUid, mapGrid, location.Offset(new Vector2(offset, offset)));

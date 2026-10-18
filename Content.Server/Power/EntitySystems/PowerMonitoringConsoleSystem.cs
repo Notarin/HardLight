@@ -1,6 +1,4 @@
-using Content.Server.NodeContainer;
 using Content.Server.NodeContainer.EntitySystems;
-using Content.Server.NodeContainer.Nodes;
 using Content.Server.Power.Components;
 using Content.Server.Power.Nodes;
 using Content.Server.Power.NodeGroups;
@@ -13,7 +11,6 @@ using JetBrains.Annotations;
 using Robust.Server.GameObjects;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Utility;
-using System.Linq;
 using Content.Shared.NodeContainer;
 
 namespace Content.Server.Power.EntitySystems;
@@ -55,6 +52,8 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
         SubscribeLocalEvent<GameRuleStartedEvent>(OnPowerGridCheckStarted);
         SubscribeLocalEvent<GameRuleEndedEvent>(OnPowerGridCheckEnded);
     }
+
+    public bool IsCollectionMaster(EntityUid uid, PowerMonitoringDeviceComponent device) => device.CollectionMaster == uid;
 
     #region EventHandling
 
@@ -354,7 +353,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
         while (powerMonitoringDeviceQuery.MoveNext(out var ent, out var device, out var xform))
         {
             // Ignore joint, non-master entities
-            if (device.IsCollectionMasterOrChild && !device.IsCollectionMaster)
+            if (device.IsCollectionMasterOrChild && !IsCollectionMaster(ent, device))
                 continue;
 
             if (xform.Anchored == false || xform.GridUid != gridUid)
@@ -489,7 +488,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
         }
 
         // Master devices add the power values from all entities they represent (if applicable)
-        if (device.IsCollectionMasterOrChild && device.IsCollectionMaster)
+        if (device.IsCollectionMasterOrChild && IsCollectionMaster(uid, device))
         {
             foreach ((var child, var childDevice) in device.ChildDevices)
             {
@@ -497,7 +496,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
                     continue;
 
                 // Safeguard to prevent infinite loops
-                if (childDevice.IsCollectionMaster && childDevice.ChildDevices.ContainsKey(uid))
+                if (IsCollectionMaster(child, childDevice) && childDevice.ChildDevices.ContainsKey(uid))
                     continue;
 
                 var childResult = GetPowerStats(child, childDevice);
@@ -554,7 +553,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
             if (TryComp<PowerMonitoringDeviceComponent>(ent, out var entDevice))
             {
                 // Combine entities represented by an master into a single entry
-                if (entDevice.IsCollectionMasterOrChild && !entDevice.IsCollectionMaster)
+                if (entDevice.IsCollectionMasterOrChild && !IsCollectionMaster(ent, entDevice))
                     ent = entDevice.CollectionMaster;
 
                 if (indexedSources.TryGetValue(ent, out var entry))
@@ -590,7 +589,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
             if (TryComp<PowerMonitoringDeviceComponent>(ent, out var entDevice))
             {
                 // Combine entities represented by an master into a single entry
-                if (entDevice.IsCollectionMasterOrChild && !entDevice.IsCollectionMaster)
+                if (entDevice.IsCollectionMasterOrChild && !IsCollectionMaster(ent, entDevice))
                     ent = entDevice.CollectionMaster;
 
                 if (indexedSources.TryGetValue(ent, out var entry))
@@ -639,7 +638,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
 
         var powerUsage = battery.CurrentReceiving;
 
-        if (TryComp<PowerMonitoringDeviceComponent>(uid, out var device) && device.IsCollectionMaster)
+        if (TryComp<PowerMonitoringDeviceComponent>(uid, out var device) && IsCollectionMaster(uid, device))
         {
             foreach ((var child, var _) in device.ChildDevices)
             {
@@ -668,10 +667,9 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
         var indexedLoads = new Dictionary<EntityUid, PowerMonitoringConsoleEntry>();
         var currentDemand = 0f;
 
-#pragma warning disable CS0618
         foreach (var powerConsumer in netQ.Consumers)
         {
-            var ent = powerConsumer.Owner;
+            var ent = powerConsumer.NetConnectorOwner;
 
             if (uid == ent)
                 continue;
@@ -681,7 +679,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
             if (TryComp<PowerMonitoringDeviceComponent>(ent, out var entDevice))
             {
                 // Combine entities represented by an master into a single entry
-                if (entDevice.IsCollectionMasterOrChild && !entDevice.IsCollectionMaster)
+                if (entDevice.IsCollectionMasterOrChild && !IsCollectionMaster(ent, entDevice))
                     ent = entDevice.CollectionMaster;
 
                 if (indexedLoads.TryGetValue(ent, out var entry))
@@ -695,12 +693,10 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
                 indexedLoads.Add(ent, new PowerMonitoringConsoleEntry(GetNetEntity(ent), entDevice.Group, powerConsumer.ReceivedPower, GetBatteryLevel(ent)));
             }
         }
-#pragma warning restore CS0618
 
-#pragma warning disable CS0618
         foreach (var batteryCharger in netQ.Chargers)
         {
-            var ent = batteryCharger.Owner;
+            var ent = batteryCharger.NetConnectorOwner;
 
             if (uid == ent)
                 continue;
@@ -713,7 +709,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
             if (TryComp<PowerMonitoringDeviceComponent>(ent, out var entDevice))
             {
                 // Combine entities represented by an master into a single entry
-                if (entDevice.IsCollectionMasterOrChild && !entDevice.IsCollectionMaster)
+                if (entDevice.IsCollectionMasterOrChild && !IsCollectionMaster(ent, entDevice))
                     ent = entDevice.CollectionMaster;
 
                 if (indexedLoads.TryGetValue(ent, out var entry))
@@ -727,7 +723,6 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
                 indexedLoads.Add(ent, new PowerMonitoringConsoleEntry(GetNetEntity(ent), entDevice.Group, battery.CurrentReceiving, GetBatteryLevel(ent)));
             }
         }
-#pragma warning restore CS0618
 
         loads = indexedLoads.Values.ToList();
 
@@ -744,7 +739,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
         else if (TryComp<PowerSupplierComponent>(uid, out var entSupplier))
             supplying = entSupplier.CurrentSupply;
 
-        if (TryComp<PowerMonitoringDeviceComponent>(uid, out var device) && device.IsCollectionMaster)
+        if (TryComp<PowerMonitoringDeviceComponent>(uid, out var device) && IsCollectionMaster(uid, device))
         {
             foreach ((var child, var _) in device.ChildDevices)
             {
@@ -813,7 +808,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
         }
 
         // Check to see if the device has a valid existing master
-        if (!device.IsCollectionMaster &&
+        if (!IsCollectionMaster(uid, device) &&
             device.CollectionMaster.IsValid() &&
             TryComp<NodeContainerComponent>(device.CollectionMaster, out var masterNodeContainer) &&
             DevicesHaveMatchingNodes(nodeContainer, masterNodeContainer))
@@ -864,7 +859,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
 
     private void UpdateCollectionChildMetaData(EntityUid child, EntityUid master)
     {
-        if (!TryComp<TransformComponent>(child, out var xform))
+        if (!TryComp(child, out TransformComponent? xform))
             return;
 
         var netEntity = GetNetEntity(child);
@@ -887,7 +882,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
 
     private void UpdateCollectionMasterMetaData(EntityUid master, int childCount)
     {
-        if (!TryComp<TransformComponent>(master, out var xform))
+        if (!TryComp(master, out TransformComponent? xform))
             return;
 
         var netEntity = GetNetEntity(master);
@@ -903,7 +898,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
 
             if (childCount > 0)
             {
-                var name = TryComp<MetaDataComponent>(master, out var meta)
+                var name = TryComp(master, out MetaDataComponent? meta)
                     ? (meta.EntityPrototype?.Name ?? meta.EntityName)
                     : ToPrettyString(master);
                 metaData.EntityName = Loc.GetString("power-monitoring-window-object-array", ("name", name), ("count", childCount + 1));
@@ -911,7 +906,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
 
             else
             {
-                metaData.EntityName = TryComp<MetaDataComponent>(master, out var meta)
+                metaData.EntityName = TryComp(master, out MetaDataComponent? meta)
                     ? meta.EntityName
                     : ToPrettyString(master);
             }
@@ -1009,7 +1004,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
 
             if (entDevice.IsCollectionMasterOrChild)
             {
-                if (!entDevice.IsCollectionMaster)
+                if (!IsCollectionMaster(ent, entDevice))
                 {
                     metaData.CollectionMaster = GetNetEntity(entDevice.CollectionMaster);
                 }

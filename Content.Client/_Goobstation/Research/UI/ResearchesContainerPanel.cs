@@ -2,7 +2,6 @@ using Robust.Client.Graphics;
 using Robust.Client.UserInterface.Controls;
 using Content.Shared._Goobstation.Research;
 using Content.Shared.Research.Prototypes;
-using System.Linq;
 using System.Numerics;
 
 namespace Content.Client._Goobstation.Research.UI;

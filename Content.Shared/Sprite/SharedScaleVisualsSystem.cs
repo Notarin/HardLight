@@ -32,7 +32,7 @@ public abstract class SharedScaleVisualsSystem : EntitySystem
     }
 
     /// <summary>
-    /// Used to set the <see cref="Robust.Client.GameObjects.SpriteComponent.Scale"/> datafield to a certain value from the server.
+    /// Used to set the Robust.Client.GameObjects.SpriteComponent.Scale datafield to a certain value from the server.
     /// </summary>
     public void SetSpriteScale(EntityUid uid, Vector2 scale)
     {

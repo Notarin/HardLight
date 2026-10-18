@@ -1,6 +1,5 @@
 using Content.Shared.Physics;
 using Robust.Shared.Physics;
-using System.Linq;
 using Content.Shared.Movement.Systems;
 using Content.Shared.Revenant.Components;
 using Robust.Shared.Physics.Systems;

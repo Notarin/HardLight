@@ -1,10 +1,6 @@
 using Robust.Client.Graphics;
 using Robust.Client.Player;
-using Content.Shared.CCVar;
 using Robust.Shared.Enums;
-using Robust.Shared.Prototypes;
-using Content.Shared.Eye.Blinding.Components;
-using Robust.Shared.Configuration;
 
 namespace Content.Client._Starlight.Overlay;
 
@@ -23,11 +19,11 @@ public abstract class BaseVisionOverlay : Robust.Client.Graphics.Overlay
 
     public override bool RequestScreenTexture => true;
     public override OverlaySpace Space => OverlaySpace.WorldSpace;
-    private protected readonly ShaderInstance _shader;
+    private protected readonly ShaderInstance Shader;
     public BaseVisionOverlay(ShaderPrototype shader)
     {
         IoCManager.InjectDependencies(this);
-        _shader = shader.InstanceUnique();
+        Shader = shader.InstanceUnique();
     }
 
     protected override bool BeforeDraw(in OverlayDrawArgs args)
@@ -54,9 +50,9 @@ public abstract class BaseVisionOverlay : Robust.Client.Graphics.Overlay
         var worldHandle = args.WorldHandle;
         var viewport = args.WorldBounds;
 
-        _shader.SetParameter("SCREEN_TEXTURE", ScreenTexture);
+        Shader.SetParameter("SCREEN_TEXTURE", ScreenTexture);
 
-        worldHandle.UseShader(_shader);
+        worldHandle.UseShader(Shader);
         worldHandle.DrawRect(viewport, Color.White);
         worldHandle.UseShader(null);
     }

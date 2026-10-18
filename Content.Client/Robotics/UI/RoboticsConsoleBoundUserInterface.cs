@@ -1,5 +1,4 @@
 using Content.Shared.Robotics;
-using Robust.Client.GameObjects;
 using Robust.Client.UserInterface;
 
 namespace Content.Client.Robotics.UI;
@@ -7,7 +6,7 @@ namespace Content.Client.Robotics.UI;
 public sealed class RoboticsConsoleBoundUserInterface : BoundUserInterface
 {
     [ViewVariables]
-    public RoboticsConsoleWindow _window = default!;
+    private RoboticsConsoleWindow? _window;
 
     public RoboticsConsoleBoundUserInterface(EntityUid owner, Enum uiKey) : base(owner, uiKey)
     {
@@ -37,6 +36,6 @@ public sealed class RoboticsConsoleBoundUserInterface : BoundUserInterface
         if (state is not RoboticsConsoleState cast)
             return;
 
-        _window.UpdateState(cast);
+        _window?.UpdateState(cast);
     }
 }

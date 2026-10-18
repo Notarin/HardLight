@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.Administration.Logs;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.Prototypes;
@@ -10,7 +9,6 @@ using Content.Shared.Mobs.Systems;
 using Content.Shared.Popups;
 using Content.Shared.Verbs;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Player;
 
 namespace Content.Shared.Chemistry.EntitySystems;
 

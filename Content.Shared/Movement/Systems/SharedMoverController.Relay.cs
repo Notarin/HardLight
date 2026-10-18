@@ -1,4 +1,3 @@
-using Content.Shared.ActionBlocker;
 using Content.Shared.Movement.Components;
 
 namespace Content.Shared.Movement.Systems;

@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Client.Stylesheets.Fonts;
 using Robust.Client.ResourceManagement;
 using Robust.Client.UserInterface;

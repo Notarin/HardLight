@@ -2,8 +2,6 @@ using Content.Server.EventScheduler;
 using Content.Server.Popups;
 using Content.Shared.Actions;
 using Content.Shared.Cybernetics;
-using Content.Shared.Popups;
-using Robust.Shared.GameObjects;
 using Robust.Shared.Timing;
 
 namespace Content.Server.Cybernetics

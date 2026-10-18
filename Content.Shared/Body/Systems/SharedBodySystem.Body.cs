@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Numerics;
 using Content.Shared.Body.Components;
 using Content.Shared.Body.Organ;
@@ -19,16 +18,11 @@ using Robust.Shared.Utility;
 using Content.Shared._Shitmed.Body.Events;
 using Content.Shared._Shitmed.Body.Part;
 using Content.Shared._Shitmed.Humanoid.Events;
-using Content.Shared._Shitmed.Targeting;
 using Content.Shared.Silicons.Borgs.Components;
 using Content.Shared.Containers.ItemSlots;
-using Content.Shared.Damage;
-using Content.Shared.FixedPoint;
 using Content.Shared.Humanoid;
 using Content.Shared.Inventory.Events;
-using Content.Shared.Rejuvenate;
 using Content.Shared.Standing;
-using Robust.Shared.Timing;
 
 namespace Content.Shared.Body.Systems;
 
@@ -45,7 +39,6 @@ public partial class SharedBodySystem
     [Dependency] private readonly GibbingSystem _gibbingSystem = default!;
     [Dependency] private readonly SharedAudioSystem _audioSystem = default!;
     [Dependency] private readonly ItemSlotsSystem _slots = default!; // Shitmed Change
-    [Dependency] private readonly IGameTiming _gameTiming = default!; // Shitmed Change
 
     private const float GibletLaunchImpulse = 8;
     private const float GibletLaunchImpulseVariance = 3;
@@ -461,7 +454,7 @@ public partial class SharedBodySystem
             || !Initialized(uid)) // We do this last one for urists on test envs.
             return;
 
-        Logger.Debug($"{ToPrettyString(uid)}: ProfileLoadFinished with {HasComp<HumanoidAppearanceComponent>(uid)} and {component}");
+        Log.Debug($"{ToPrettyString(uid)}: ProfileLoadFinished with {HasComp<HumanoidAppearanceComponent>(uid)} and {component}");
         foreach (var part in GetBodyChildren(uid, component))
             EnsureComp<BodyPartAppearanceComponent>(part.Id);
     }

@@ -1,22 +1,16 @@
 using Content.Shared.Gateway.Components;
-using Content.Shared.Popups;
 using Content.Shared.Station.Components;
 using Content.Shared.Teleportation.Components;
-using Content.Shared.Warps;
-using Content.Shared.Whitelist;
 using Robust.Shared.Network;
-using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
 namespace Content.Shared._Starlight.Shadekin;
 
 public sealed class DarkHubSystem : EntitySystem
 {
-    [Dependency] private readonly EntityWhitelistSystem _whitelist = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly INetManager _netMan = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
     public override void Initialize()
     {
         base.Initialize();

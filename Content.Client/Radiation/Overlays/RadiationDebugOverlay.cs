@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Numerics;
 using Content.Client.Radiation.Systems;
 using Robust.Client.Graphics;

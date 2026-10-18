@@ -1,4 +1,3 @@
-using Content.Shared.Chemistry.Reagent;
 using Content.Shared.Psionics.Glimmer;
 using Robust.Shared.Prototypes;
 using Content.Shared.EntityEffects;

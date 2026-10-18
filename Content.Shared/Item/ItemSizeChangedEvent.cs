@@ -4,7 +4,7 @@ namespace Content.Shared.Item;
 /// Raised directed on an entity when its item size / shape changes.
 /// </summary>
 [ByRefEvent]
-public struct ItemSizeChangedEvent(EntityUid Entity)
+public struct ItemSizeChangedEvent(EntityUid entity)
 {
-    public EntityUid Entity = Entity;
+    public EntityUid Entity = entity;
 }

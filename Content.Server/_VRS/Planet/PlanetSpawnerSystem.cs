@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Numerics;
 using Content.Server.Chat.Systems;
 using Content.Server.NPC.HTN;
@@ -6,25 +5,16 @@ using Content.Server.Parallax;
 using Content.Server.Procedural;
 using Content.Server.Shuttles.Components;
 using Content.Server.Shuttles.Events;
-using Content.Shared.Mind.Components;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Parallax.Biomes;
 using Content.Shared.Physics;
-using Content.Shared.Procedural;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
-using Content.Shared.Shuttles.Components;
 using Content.Shared._VRS.Planet;
-using Robust.Server.GameObjects;
 using Robust.Server.Player;
-using Robust.Shared.GameObjects;
-using Robust.Shared.IoC;
-using Robust.Shared.Log;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
-using Robust.Shared.Maths;
-using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
@@ -124,7 +114,7 @@ public sealed class PlanetSpawnerSystem : EntitySystem
         if (!TryComp<PlanetSpawnerComponent>(args.MapUid, out var spawner))
             return;
 
-        if (!TryComp<TransformComponent>(args.Entity, out var shuttleXform))
+        if (!TryComp(args.Entity, out TransformComponent? shuttleXform))
             return;
 
         var mapId = shuttleXform.MapID;
@@ -273,7 +263,7 @@ public sealed class PlanetSpawnerSystem : EntitySystem
         }
 
         // Check what the biome generator would place here when the chunk loads.
-        if (biome != null && _biome.TryGetEntity(tile, biome, grid, out _))
+        if (biome != null && _biome.TryGetEntity(tile, biome, (gridUid, grid), out _))
             return true;
 
         return false;
@@ -411,7 +401,7 @@ public sealed class PlanetSpawnerSystem : EntitySystem
     {
         if (!TryComp<BiomeComponent>(ent.Owner, out var biome) ||
             !TryComp<MapGridComponent>(ent.Owner, out var grid) ||
-            !TryComp<TransformComponent>(ent.Owner, out var xform))
+            !TryComp(ent.Owner, out TransformComponent? xform))
         {
             return;
         }
@@ -626,7 +616,7 @@ public sealed class PlanetSpawnerSystem : EntitySystem
             return;
         if (!TryComp<MapGridComponent>(ent.Owner, out var grid))
             return; // planet must be a biome-on-grid (matches salvage pattern)
-        if (!TryComp<TransformComponent>(ent.Owner, out var xform))
+        if (!TryComp(ent.Owner, out TransformComponent? xform))
             return;
 
         var loadedChunks = biome.LoadedChunks;
@@ -733,7 +723,7 @@ public sealed class PlanetSpawnerSystem : EntitySystem
     {
         if (ent.Comp.SpawnedDungeons.Count == 0)
             return;
-        if (!TryComp<TransformComponent>(ent.Owner, out var xform))
+        if (!TryComp(ent.Owner, out TransformComponent? xform))
             return;
 
         var mapId = xform.MapID;
@@ -870,7 +860,7 @@ public sealed class PlanetSpawnerSystem : EntitySystem
             return;
         if (ent.Comp.RampingMobs.Count == 0)
             return;
-        if (!TryComp<TransformComponent>(ent.Owner, out var planetXform))
+        if (!TryComp(ent.Owner, out TransformComponent? planetXform))
             return;
 
         // Find players currently on this planet map.
@@ -881,7 +871,7 @@ public sealed class PlanetSpawnerSystem : EntitySystem
         {
             if (session.AttachedEntity is not { } playerEnt)
                 continue;
-            if (!TryComp<TransformComponent>(playerEnt, out var pxform) || pxform.MapID != planetMapId)
+            if (!TryComp(playerEnt, out TransformComponent? pxform) || pxform.MapID != planetMapId)
                 continue;
 
             anchorCount++;

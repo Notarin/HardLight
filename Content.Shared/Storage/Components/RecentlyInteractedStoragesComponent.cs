@@ -1,6 +1,5 @@
 // Frontier: cherry-pick upstream#35075
 using Content.Shared.Storage.EntitySystems;
-using Robust.Shared.Analyzers;
 using Robust.Shared.GameStates;
 
 namespace Content.Shared.Storage.Components;

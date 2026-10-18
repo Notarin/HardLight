@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.IntegrationTests.Tests.Interaction;
 using Content.Shared.Stacks;
 using Content.Shared.Weapons.Ranged.Components;

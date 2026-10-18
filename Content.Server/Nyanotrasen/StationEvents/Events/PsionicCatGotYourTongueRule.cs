@@ -1,7 +1,6 @@
 using Robust.Shared.Random;
 using Robust.Shared.Player;
 using Content.Server.Psionics;
-using Content.Server.GameTicking.Rules.Components;
 using Content.Server.StationEvents.Components;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Abilities.Psionics;

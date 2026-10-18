@@ -1,5 +1,3 @@
-using Content.Shared.Damage;
-using Content.Shared.Explosion.EntitySystems;
 using Content.Shared.Weapons.Hitscan.Components;
 using Content.Shared.Weapons.Ranged.Events;
 using Content.Shared.Weapons.Reflect;

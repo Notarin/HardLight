@@ -1,4 +1,3 @@
-using System.Buffers;
 using System.Numerics;
 using Content.Client.Shuttles.Systems;
 using Content.Shared._Mono.Company;
@@ -26,11 +25,11 @@ public sealed partial class ShuttleMapControl : BaseShuttleControl
 {
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly IInputManager _inputs = default!;
-    [Dependency] private readonly IMapManager _mapManager = default!;
     [Dependency] private readonly IEntityManager _entManager = default!; // Frontier
     [Dependency] private readonly Robust.Client.Player.IPlayerManager _playerManager = default!;
     private readonly ShuttleSystem _shuttles;
     private readonly SharedTransformSystem _xformSystem;
+    private readonly SharedMapSystem _mapSystem;
 
     protected override bool Draggable => true;
 
@@ -85,6 +84,7 @@ public sealed partial class ShuttleMapControl : BaseShuttleControl
         RobustXamlLoader.Load(this);
         _shuttles = EntManager.System<ShuttleSystem>();
         _xformSystem = EntManager.System<SharedTransformSystem>();
+        _mapSystem = EntManager.System<SharedMapSystem>();
         var cache = IoCManager.Resolve<IResourceCache>();
 
         _physicsQuery = EntManager.GetEntityQuery<PhysicsComponent>();
@@ -119,7 +119,7 @@ public sealed partial class ShuttleMapControl : BaseShuttleControl
         {
             if (args.Function == EngineKeyFunctions.UIClick)
             {
-                var mapUid = _mapManager.GetMapEntityId(ViewingMap);
+                var mapUid = _mapSystem.GetMapOrInvalid(ViewingMap);
 
                 var beaconsOnly = EntManager.TryGetComponent(mapUid, out FTLDestinationComponent? destComp) &&
                                   destComp.BeaconsOnly;
@@ -215,7 +215,6 @@ public sealed partial class ShuttleMapControl : BaseShuttleControl
     /// <summary>
     /// Gets the map objects that intersect the viewport.
     /// </summary>
-    /// <param name="mapObjects"></param>
     /// <returns></returns>
     private List<IMapObject> GetViewportMapObjects(Matrix3x2 matty, List<IMapObject> mapObjects)
     {
@@ -266,7 +265,7 @@ public sealed partial class ShuttleMapControl : BaseShuttleControl
 
         DrawParallax(handle);
 
-        var viewedMapUid = _mapManager.GetMapEntityId(ViewingMap);
+        var viewedMapUid = _mapSystem.GetMapOrInvalid(ViewingMap);
         var matty = Matrix3Helpers.CreateInverseTransform(Offset, Angle.Zero);
         var realTime = _timing.RealTime;
         var viewBox = new Box2(Offset - WorldRangeVector, Offset + WorldRangeVector);
@@ -688,7 +687,7 @@ public sealed partial class ShuttleMapControl : BaseShuttleControl
     private bool TryGetBeacon(IEnumerable<IMapObject> mapObjects, Matrix3x2 mapTransform, Vector2 mousePos, UIBox2i area, out ShuttleBeaconObject foundBeacon, out Vector2 foundLocalPos)
     {
         // In pixels
-        const float BeaconSnapRange = 32f;
+        const float beaconSnapRange = 32f;
         float nearestValue = float.MaxValue;
         foundLocalPos = Vector2.Zero;
         foundBeacon = default;
@@ -716,7 +715,7 @@ public sealed partial class ShuttleMapControl : BaseShuttleControl
 
             var distance = (localPos - mousePos).Length();
 
-            if (distance > BeaconSnapRange * UIScale ||
+            if (distance > beaconSnapRange * UIScale ||
                 distance > nearestValue)
             {
                 continue;
@@ -733,7 +732,7 @@ public sealed partial class ShuttleMapControl : BaseShuttleControl
     private bool TryGetStation(IEnumerable<IMapObject> mapObjects, Matrix3x2 mapTransform, Vector2 mousePos, UIBox2i area, out ShuttleStationObject foundStation, out Vector2 foundLocalPos)
     {
         // In pixels
-        const float StationSnapRange = 32f;
+        const float stationSnapRange = 32f;
         float nearestValue = float.MaxValue;
         foundLocalPos = Vector2.Zero;
         foundStation = default;
@@ -757,7 +756,7 @@ public sealed partial class ShuttleMapControl : BaseShuttleControl
 
             var distance = (localPos - mousePos).Length();
 
-            if (distance > StationSnapRange * UIScale ||
+            if (distance > stationSnapRange * UIScale ||
                 distance > nearestValue)
             {
                 continue;
@@ -787,7 +786,7 @@ public sealed partial class ShuttleMapControl : BaseShuttleControl
     /// <summary>
     /// Draw the coordinate data with a custom color.
     /// </summary>
-    protected void DrawData(DrawingHandleScreen handle, string text, Color color)
+    private void DrawData(DrawingHandleScreen handle, string text, Color color)
     {
         var font = _font;
         var dimensions = handle.GetDimensions(font, text, 1f);
@@ -797,7 +796,7 @@ public sealed partial class ShuttleMapControl : BaseShuttleControl
 
     private void DrawSafeZoneRing(DrawingHandleScreen handle, Matrix3x2 matty)
     {
-        const float SafeZoneRadius = 5000f;
+        const float safeZoneRadius = 5000f;
         var safeZoneColor = Color.LimeGreen.WithAlpha(0.8f);
 
         // Assume station is at origin (0,0) in map coordinates
@@ -808,7 +807,7 @@ public sealed partial class ShuttleMapControl : BaseShuttleControl
         var localPos = ScalePosition(adjustedPos with { Y = -adjustedPos.Y });
 
         // Scale the radius according to the minimap scale
-        var scaledRadius = SafeZoneRadius * MinimapScale;
+        var scaledRadius = safeZoneRadius * MinimapScale;
 
         // Draw the ring
         handle.DrawCircle(localPos, scaledRadius, safeZoneColor, filled: false);

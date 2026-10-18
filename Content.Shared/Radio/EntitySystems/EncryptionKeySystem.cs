@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.Chat;
 using Content.Shared.DoAfter;
 using Content.Shared.Examine;
@@ -10,16 +9,14 @@ using Content.Shared.Tools.Components;
 using Content.Shared.Wires;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
-using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
-using Robust.Shared.Timing;
 using SharedToolSystem = Content.Shared.Tools.Systems.SharedToolSystem;
 
 namespace Content.Shared.Radio.EntitySystems;
 
 /// <summary>
-///     This system manages encryption keys & key holders for use with radio channels.
+///     This system manages encryption keys &amp; key holders for use with radio channels.
 /// </summary>
 public sealed partial class EncryptionKeySystem : EntitySystem
 {
@@ -223,9 +220,6 @@ public sealed partial class EncryptionKeySystem : EntitySystem
     /// <summary>
     ///     A method for formating list of radio channels for examine events.
     /// </summary>
-    /// <param name="channels">HashSet of channels in headset, encryptionkey or etc.</param>
-    /// <param name="protoManager">IPrototypeManager for getting prototypes of channels with their variables.</param>
-    /// <param name="channelFTLPattern">String that provide id of pattern in .ftl files to format channel with variables of it.</param>
     public void AddChannelsExamine(HashSet<string> channels, string? defaultChannel, ExaminedEvent examineEvent, IPrototypeManager protoManager, string channelFTLPattern)
     {
         RadioChannelPrototype? proto;

@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.Roles;
 using Robust.Shared.Network;
 using Robust.Shared.Prototypes;
@@ -145,9 +144,6 @@ namespace Content.Shared.GameTicking
     /// <summary>
     /// General job information for each station-like entity (both stations and shuttles)
     /// </summary>
-    /// <param name="stationName">The name of the station.</param>
-    /// <param name="jobsAvailable">A dictionary of job prototypes and the number of jobs positions available for it.</param>
-    /// <param name="isLateJoinStation">If true, this entity is a station, and not a player ship (displayed under the "Crew" tab).</param>
     [Serializable, NetSerializable]
     public sealed class StationJobInformation(
         string stationName,
@@ -169,11 +165,6 @@ namespace Content.Shared.GameTicking
     /// <summary>
     /// Additional optional station-specific fields.
     /// </summary>
-    /// <param name="stationSubtext">The subtext that is shown under the station name.</param>
-    /// <param name="stationDescription">A longer description of the station, describing what the player can
-    /// do there</param>
-    /// <param name="stationIcon">The icon that represents the station and is shown next to the name.</param>
-    /// <param name="lobbySortOrder">The order in which this station should be displayed in the station picker.</param>
     [Serializable, NetSerializable]
     public sealed class StationDisplayInformation(
         LocId? stationSubtext,

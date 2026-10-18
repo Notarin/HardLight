@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.Verbs;
 using Content.Shared.Examine;
 using Content.Shared.Verbs;

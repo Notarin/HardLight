@@ -1,4 +1,3 @@
-using Robust.Client.GameObjects;
 using Robust.Client.UserInterface;
 using static Content.Shared.Atmos.Components.GasAnalyzerComponent;
 
@@ -38,13 +37,12 @@ namespace Content.Client.Atmos.UI
             Close();
         }
 
-        [Obsolete]
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
 
             if (disposing)
-                _window?.Dispose();
+                _window?.Close();
         }
     }
 }

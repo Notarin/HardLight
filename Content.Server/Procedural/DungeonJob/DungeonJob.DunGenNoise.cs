@@ -1,5 +1,4 @@
 using System.Numerics;
-using System.Threading.Tasks;
 using Content.Shared.Maps;
 using Content.Shared.Procedural;
 using Content.Shared.Procedural.DungeonGenerators;
@@ -19,7 +18,7 @@ public sealed partial class DungeonJob
         NoiseDunGen dungen,
         HashSet<Vector2i> reservedTiles,
         int seed,
-        Random random)
+        IRobustRandom random)
     {
         var tiles = new List<(Vector2i, Tile)>();
         var matrix = Matrix3Helpers.CreateTranslation(position);

@@ -7,6 +7,7 @@
         <ServerGarbageCollection>true</ServerGarbageCollection>
         <IsTestProject>false</IsTestProject>
         <StartupObject>Content.YAMLLinter.Program</StartupObject>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
 
   <ItemGroup>

@@ -9,7 +9,6 @@ using Content.Shared.Singularity.Components;
 using Content.Shared.Singularity.EntitySystems;
 using Content.Shared.Tag;
 using Robust.Shared.Containers;
-using Robust.Shared.GameObjects;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics.Components;
@@ -53,7 +52,7 @@ public sealed class EventHorizonSystem : SharedEventHorizonSystem
 
         SubscribeLocalEvent<MapGridComponent, EventHorizonAttemptConsumeEntityEvent>(PreventConsume);
         SubscribeLocalEvent<GhostComponent, EventHorizonAttemptConsumeEntityEvent>(PreventConsume);
-        SubscribeLocalEvent<TelegnosticProjectionComponent, EventHorizonAttemptConsumeEntityEvent>(PreventConsume); ///Nyano - Summary: the telegnositic projection has the same trait as ghosts.
+        SubscribeLocalEvent<TelegnosticProjectionComponent, EventHorizonAttemptConsumeEntityEvent>(PreventConsume); //Nyano - Summary: the telegnositic projection has the same trait as ghosts.
         SubscribeLocalEvent<StationDataComponent, EventHorizonAttemptConsumeEntityEvent>(PreventConsume);
         SubscribeLocalEvent<EventHorizonComponent, MapInitEvent>(OnHorizonMapInit);
         SubscribeLocalEvent<EventHorizonComponent, StartCollideEvent>(OnStartCollide);
@@ -291,7 +290,7 @@ public sealed class EventHorizonSystem : SharedEventHorizonSystem
     /// </summary>
     public bool CanConsumeTile(EntityUid hungry, TileRef tile, MapGridComponent grid, EventHorizonComponent eventHorizon)
     {
-        foreach (var blockingEntity in grid.GetAnchoredEntities(tile.GridIndices))
+        foreach (var blockingEntity in _mapSystem.GetAnchoredEntities(tile.GridUid, grid, tile.GridIndices))
         {
             if (!CanConsumeEntity(hungry, blockingEntity, eventHorizon))
                 return false;

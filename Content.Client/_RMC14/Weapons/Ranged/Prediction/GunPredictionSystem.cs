@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Client.Projectiles;
 using Content.Shared._RMC14.Weapons.Ranged.Prediction;
 using Content.Shared.Projectiles;
@@ -7,9 +6,7 @@ using Content.Shared.Weapons.Ranged.Systems;
 using Robust.Client.GameObjects;
 using Robust.Client.Physics;
 using Robust.Client.Player;
-using Robust.Shared.GameObjects;
 using Robust.Shared.Map;
-using Robust.Shared.Player;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Events;
 using Robust.Shared.Physics.Systems;
@@ -25,6 +22,7 @@ public sealed class GunPredictionSystem : SharedGunPredictionSystem
     [Dependency] private readonly ProjectileSystem _projectile = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly SpriteSystem _sprite = default!;
 
     private EntityQuery<IgnorePredictionHideComponent> _ignorePredictionHideQuery;
     private EntityQuery<SpriteComponent> _spriteQuery;
@@ -90,7 +88,7 @@ public sealed class GunPredictionSystem : SharedGunPredictionSystem
     {
         // Ensure the client's predicted projectile sprite is visible
         if (_spriteQuery.TryComp(ent, out var sprite))
-            sprite.Visible = true;
+            _sprite.SetVisible((ent, sprite), true);
     }
 
     private void OnClientProjectileStartCollide(Entity<PredictedProjectileClientComponent> ent, ref StartCollideEvent args)
@@ -122,7 +120,7 @@ public sealed class GunPredictionSystem : SharedGunPredictionSystem
         // Impact effects will be handled on the server side
         if (ent.Comp.ClientEnt == _player.LocalEntity && _spriteQuery.TryComp(ent, out var sprite))
         {
-            sprite.Visible = true;
+            _sprite.SetVisible((ent, sprite), true);
         }
     }
 
@@ -138,7 +136,7 @@ public sealed class GunPredictionSystem : SharedGunPredictionSystem
         while (serverProjectiles.MoveNext(out var uid, out var serverProjectile, out var sprite))
         {
             if (serverProjectile.ClientEnt == _player.LocalEntity && !sprite.Visible)
-                sprite.Visible = true;
+                _sprite.SetVisible((uid, sprite), true);
         }
 
         // TODO gun prediction remove this once the client reliably detects collisions
@@ -168,14 +166,14 @@ public sealed class GunPredictionSystem : SharedGunPredictionSystem
         }
 
         var predictedQuery = EntityQueryEnumerator<PredictedProjectileHitComponent, SpriteComponent, TransformComponent>();
-        while (predictedQuery.MoveNext(out var hit, out var sprite, out var xform))
+        while (predictedQuery.MoveNext(out var uid, out var hit, out var sprite, out var xform))
         {
             var origin = hit.Origin;
             var coordinates = xform.Coordinates;
             if (!origin.TryDistance(EntityManager, _transform, coordinates, out var distance) ||
                 distance >= hit.Distance)
             {
-                sprite.Visible = false;
+                _sprite.SetVisible((uid, sprite), false);
             }
         }
     }

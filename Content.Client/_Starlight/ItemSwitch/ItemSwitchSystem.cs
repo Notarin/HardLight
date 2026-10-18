@@ -1,16 +1,13 @@
 using Content.Shared.Starlight.ItemSwitch;
-using Content.Shared.Interaction.Events;
-using Content.Shared.Interaction;
-using Content.Shared.Item;
 using Content.Shared.Item.ItemToggle.Components;
-using Content.Shared.Toggleable;
-using Content.Shared.Verbs;
 using Robust.Client.GameObjects;
 
 namespace Content.Client._Starlight.ItemSwitch;
 
 public sealed class ItemSwitchSystem : SharedItemSwitchSystem
 {
+    [Dependency] private readonly SpriteSystem _sprite = default!;
+
     public override void Initialize()
     {
         base.Initialize();
@@ -25,6 +22,6 @@ public sealed class ItemSwitchSystem : SharedItemSwitchSystem
         base.UpdateVisuals(ent, key);
         if (TryComp(ent, out SpriteComponent? sprite) && ent.Comp.States.TryGetValue(key, out var state))
             if (state.Sprite != null)
-                sprite.LayerSetSprite(0, state.Sprite);
+                _sprite.LayerSetSprite((ent, sprite), 0, state.Sprite);
     }
 }

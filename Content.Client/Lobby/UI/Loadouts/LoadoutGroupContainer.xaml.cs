@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.Clothing;
 using Content.Shared.Preferences;
 using Content.Shared.Preferences.Loadouts;

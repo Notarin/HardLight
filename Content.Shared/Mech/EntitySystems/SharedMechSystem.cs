@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.Access.Components;
 using Content.Shared.ActionBlocker;
 using Content.Shared.Actions;
@@ -14,7 +13,6 @@ using Content.Shared.Mech.Equipment.Components;
 using Content.Shared.Movement.Components;
 using Content.Shared.Movement.Systems;
 using Content.Shared.Popups;
-using Content.Shared.Shuttles.BUIStates;
 using Content.Shared.Weapons.Melee;
 using Content.Shared.Whitelist;
 using Robust.Shared.Containers;
@@ -26,7 +24,6 @@ using Content.Shared.NPC.Components;
 using Content.Shared._NF.Mech.Equipment.Events; // Frontier
 
 // Goobstation Change
-using Content.Shared.Emag.Components;
 using Content.Shared.Emag.Systems;
 using Content.Shared.Weapons.Ranged.Events;
 using Robust.Shared.Configuration;
@@ -404,9 +401,6 @@ public abstract class SharedMechSystem : EntitySystem
     /// <summary>
     /// Attempts to insert a pilot into the mech.
     /// </summary>
-    /// <param name="uid"></param>
-    /// <param name="toInsert"></param>
-    /// <param name="component"></param>
     /// <returns>Whether or not the entity was inserted</returns>
     public bool TryInsert(EntityUid uid,
         EntityUid? toInsert,

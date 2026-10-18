@@ -1,6 +1,5 @@
-using System.Linq;
 using System.Numerics;
-using Content.Client.Stylesheets;
+using Content.Client.Stylesheets.Palette;
 using Content.Client.UserInterface.Systems.MenuBar.Widgets;
 using Content.Shared.Construction.Prototypes;
 using Content.Shared.Whitelist;
@@ -223,7 +222,7 @@ namespace Content.Client.Construction.UI
 
                 var itemButtonPanelContainer = new PanelContainer
                 {
-                    PanelOverride = new StyleBoxFlat { BackgroundColor = StyleNano.ButtonColorDefault },
+                    PanelOverride = new StyleBoxFlat(Palettes.Navy.Element),
                     Children = { itemButton },
                 };
 
@@ -282,7 +281,7 @@ namespace Content.Client.Construction.UI
 
                 if (!_constructionSystem!.TryGetRecipePrototype(recipe.ID, out var targetProtoId))
                 {
-                    Logger.Error("Cannot find the target prototype in the recipe cache with the id \"{0}\" of {1}.",
+                    Logger.GetSawmill("construction").Error("Cannot find the target prototype in the recipe cache with the id \"{0}\" of {1}.",
                         recipe.ID,
                         nameof(ConstructionPrototype));
                     continue;
@@ -306,7 +305,7 @@ namespace Content.Client.Construction.UI
                 return;
 
             button.Modulate = select ? Color.Green : Color.Transparent;
-            var buttonColor = select ? StyleNano.ButtonColorDefault : Color.Transparent;
+            var buttonColor = select ? Palettes.Navy.Element : Color.Transparent;
             buttonPanel.PanelOverride = new StyleBoxFlat { BackgroundColor = buttonColor };
         }
 

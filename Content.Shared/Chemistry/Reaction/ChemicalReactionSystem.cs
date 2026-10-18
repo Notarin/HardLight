@@ -1,5 +1,4 @@
 using System.Collections.Frozen;
-using System.Linq;
 using Content.Shared.Administration.Logs;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.Reagent;
@@ -94,9 +93,6 @@ namespace Content.Shared.Chemistry.Reaction
         /// <summary>
         ///     Checks if a solution can undergo a specified reaction.
         /// </summary>
-        /// <param name="solution">The solution to check.</param>
-        /// <param name="reaction">The reaction to check.</param>
-        /// <param name="lowestUnitReactions">How many times this reaction can occur.</param>
         /// <returns></returns>
         private bool CanReact(Entity<SolutionComponent> soln, ReactionPrototype reaction, ReactionMixerComponent? mixerComponent, out FixedPoint2 lowestUnitReactions)
         {

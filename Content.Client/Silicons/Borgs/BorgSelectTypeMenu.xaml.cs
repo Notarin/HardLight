@@ -1,8 +1,4 @@
-using System.Linq;
-using Content.Client._CD.Silicons.Borgs.UI;
 using Content.Client.UserInterface.Controls;
-using Content.Client.UserInterface.Systems.Guidebook;
-using Content.Shared._CD.Silicons;
 using Content.Shared._CD.Silicons.Borgs;
 using Content.Shared.Guidebook;
 using Content.Shared.Silicons.Borgs;
@@ -29,7 +25,6 @@ public sealed partial class BorgSelectTypeMenu : FancyWindow
     public event Action<ProtoId<BorgTypePrototype>>? ConfirmedBorgType;
     public event Action<BorgSubtypePrototype?>? ConfirmedBorgSubtype; // CD event - borg subtypes
 
-    [ValidatePrototypeId<GuideEntryPrototype>]
     private static readonly List<ProtoId<GuideEntryPrototype>> GuidebookEntries = new() { "Cyborgs", "Robotics" };
 
     public BorgSelectTypeMenu()

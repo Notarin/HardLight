@@ -1,6 +1,5 @@
 using Content.Shared._NC.Radio;
 using JetBrains.Annotations;
-using Robust.Client.GameObjects;
 
 namespace Content.Client._NC.Radio.UI;
 
@@ -42,7 +41,6 @@ public sealed class HandheldRadioBoundUserInterface : BoundUserInterface
         _menu.OpenCentered();
     }
 
-    [Obsolete]
     protected override void Dispose(bool disposing)
     {
         base.Dispose(disposing);

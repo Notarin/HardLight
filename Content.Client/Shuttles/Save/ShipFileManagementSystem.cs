@@ -1,12 +1,4 @@
 using Content.Shared.Shuttles.Save;
-using Robust.Shared.GameObjects;
-using Robust.Shared.IoC;
-using Robust.Shared.Network;
-using System;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Linq;
-using Robust.Shared.Log;
 using Robust.Shared.ContentPack;
 // Alias not needed; type is available via using Content.Shared.Shuttles.Save
 
@@ -84,7 +76,7 @@ namespace Content.Client.Shuttles.Save
         private void HandleSaveShipDataClient(SendShipSaveDataClientMessage message)
         {
             // Save ship data to user data directory using sandbox-safe resource manager
-            Logger.Info($"Client received ship save data for: {message.ShipName}");
+            Log.Info($"Client received ship save data for: {message.ShipName}");
 
             // Ensure directory exists before saving
             EnsureSavedShipsDirectoryExists();
@@ -95,7 +87,7 @@ namespace Content.Client.Shuttles.Save
             {
                 using var writer = _resourceManager.UserData.OpenWriteText(new(fileName));
                 writer.Write(message.ShipData);
-                Logger.Info($"Saved ship {message.ShipName} to user data: {fileName}");
+                Log.Info($"Saved ship {message.ShipName} to user data: {fileName}");
 
                 // Cache the data and update available ships list only after the file exists on disk.
                 CachedShipData[fileName] = message.ShipData;
@@ -114,7 +106,7 @@ namespace Content.Client.Shuttles.Save
             }
             catch (Exception ex)
             {
-                Logger.Error($"Failed to save ship {message.ShipName}: {ex.Message}");
+                Log.Error($"Failed to save ship {message.ShipName}: {ex.Message}");
                 RaiseNetworkEvent(new ShipSaveWriteResultMessage(message.RequestId, false, error: ex.Message));
             }
         }
@@ -123,8 +115,8 @@ namespace Content.Client.Shuttles.Save
         {
             // Don't clear locally loaded ships - server message is for server-side ships only
             // The client handles local ship files independently
-            Logger.Debug($"Instance #{_instanceId}: Received {message.ShipNames.Count} available ships from server (not clearing local ships)");
-            Logger.Debug($"Instance #{_instanceId}: Current state before processing: {AvailableShips.Count} ships, {CachedShipData.Count} cached");
+            Log.Debug($"Instance #{_instanceId}: Received {message.ShipNames.Count} available ships from server (not clearing local ships)");
+            Log.Debug($"Instance #{_instanceId}: Current state before processing: {AvailableShips.Count} ships, {CachedShipData.Count} cached");
 
             // Only add server ships that aren't already in our local list
             foreach (var serverShip in message.ShipNames)
@@ -132,16 +124,16 @@ namespace Content.Client.Shuttles.Save
                 if (!AvailableShips.Contains(serverShip))
                 {
                     AvailableShips.Add(serverShip);
-                    Logger.Debug($"Instance #{_instanceId}: Added server ship: {serverShip}");
+                    Log.Debug($"Instance #{_instanceId}: Added server ship: {serverShip}");
                 }
             }
 
-            Logger.Info($"Instance #{_instanceId}: Final state after processing: {AvailableShips.Count} ships");
+            Log.Info($"Instance #{_instanceId}: Final state after processing: {AvailableShips.Count} ships");
         }
 
         private void HandleShipConvertedToSecureFormat(ShipConvertedToSecureFormatMessage message)
         {
-            Logger.Warning($"Legacy ship '{message.ShipName}' was automatically converted to secure format by server");
+            Log.Warning($"Legacy ship '{message.ShipName}' was automatically converted to secure format by server");
 
             // Find and overwrite the original file with the converted version
             var originalFile = AvailableShips.FirstOrDefault(ship =>
@@ -159,18 +151,18 @@ namespace Content.Client.Shuttles.Save
                     // Update cached data
                     CachedShipData[originalFile] = message.ConvertedYamlData;
 
-                    Logger.Info($"Successfully overwrote legacy ship file '{originalFile}' with secure format");
-                    Logger.Info($"Ship '{message.ShipName}' is now protected against tampering");
+                    Log.Info($"Successfully overwrote legacy ship file '{originalFile}' with secure format");
+                    Log.Info($"Ship '{message.ShipName}' is now protected against tampering");
                 }
                 catch (Exception ex)
                 {
-                    Logger.Error($"Failed to overwrite legacy ship file '{originalFile}': {ex.Message}");
-                    Logger.Warning($"Legacy ship '{message.ShipName}' conversion failed - please manually re-save the ship to get secure format");
+                    Log.Error($"Failed to overwrite legacy ship file '{originalFile}': {ex.Message}");
+                    Log.Warning($"Legacy ship '{message.ShipName}' conversion failed - please manually re-save the ship to get secure format");
                 }
             }
             else
             {
-                Logger.Warning($"Could not find original file for converted ship '{message.ShipName}' - creating new file");
+                Log.Warning($"Could not find original file for converted ship '{message.ShipName}' - creating new file");
 
                 // Create a new file with the converted data
                 var fileName = $"/Exports/{message.ShipName}_converted_{DateTime.Now:yyyyMMdd_HHmmss}.yml";
@@ -186,11 +178,11 @@ namespace Content.Client.Shuttles.Save
                         AvailableShips.Add(fileName);
                     }
 
-                    Logger.Info($"Created new secure format file for converted ship: {fileName}");
+                    Log.Info($"Created new secure format file for converted ship: {fileName}");
                 }
                 catch (Exception ex)
                 {
-                    Logger.Error($"Failed to create converted ship file: {ex.Message}");
+                    Log.Error($"Failed to create converted ship file: {ex.Message}");
                 }
             }
         }
@@ -234,7 +226,7 @@ namespace Content.Client.Shuttles.Save
                 }
                 catch (Exception ex)
                 {
-                    Logger.Error($"Failed to load ship data from {filePath}: {ex.Message}");
+                    Log.Error($"Failed to load ship data from {filePath}: {ex.Message}");
                     return null;
                 }
             }
@@ -247,13 +239,13 @@ namespace Content.Client.Shuttles.Save
         {
             try
             {
-                Logger.Info($"Instance #{_instanceId}: Attempting to find saved ship files...");
+                Log.Info($"Instance #{_instanceId}: Attempting to find saved ship files...");
 
                 // Try UserData.Find to enumerate all .yml files
                 var (ymlFiles, directories) = _resourceManager.UserData.Find("*.yml", recursive: true);
 
                 var ymlFilesList = ymlFiles.ToList();
-                Logger.Info($"Instance #{_instanceId}: Found {ymlFilesList.Count.ToString()} .yml files total");
+                Log.Info($"Instance #{_instanceId}: Found {ymlFilesList.Count.ToString()} .yml files total");
 
                 foreach (var file in ymlFiles)
                 {
@@ -277,13 +269,13 @@ namespace Content.Client.Shuttles.Save
                             }
                             catch (Exception shipEx)
                             {
-                                Logger.Error($"Failed to cache metadata for {filePath}: {shipEx.Message}");
+                                Log.Error($"Failed to cache metadata for {filePath}: {shipEx.Message}");
                             }
                         }
                     }
                 }
 
-                Logger.Debug($"Instance #{_instanceId}: Final result: Loaded {AvailableShips.Count} saved ships from Exports directory");
+                Log.Debug($"Instance #{_instanceId}: Final result: Loaded {AvailableShips.Count} saved ships from Exports directory");
 
                 // Trigger UI update
                 ShipsUpdated?.Invoke();
@@ -292,11 +284,11 @@ namespace Content.Client.Shuttles.Save
             {
                 // In test environments, the Find method may not be implemented
                 // This is expected and should not cause test failures
-                Logger.Debug($"Instance #{_instanceId}: Ship file enumeration not available in test environment");
+                Log.Debug($"Instance #{_instanceId}: Ship file enumeration not available in test environment");
             }
             catch (Exception ex)
             {
-                Logger.Error($"Instance #{_instanceId}: Failed to load existing ships: {ex.Message}");
+                Log.Error($"Instance #{_instanceId}: Failed to load existing ships: {ex.Message}");
             }
         }
 
@@ -328,7 +320,7 @@ namespace Content.Client.Shuttles.Save
                             }
                             catch (Exception shipEx)
                             {
-                                Logger.Error($"Failed to load ship data for {shipFile}: {shipEx.Message}");
+                                Log.Error($"Failed to load ship data for {shipFile}: {shipEx.Message}");
                             }
                         }
                     }
@@ -336,7 +328,7 @@ namespace Content.Client.Shuttles.Save
             }
             catch (Exception ex)
             {
-                Logger.Error($"Failed to load ship index: {ex.Message}");
+                Log.Error($"Failed to load ship index: {ex.Message}");
             }
         }
 
@@ -358,7 +350,7 @@ namespace Content.Client.Shuttles.Save
             }
             catch (Exception ex)
             {
-                Logger.Error($"Failed to update ship index: {ex.Message}");
+                Log.Error($"Failed to update ship index: {ex.Message}");
             }
         }
 
@@ -381,7 +373,7 @@ namespace Content.Client.Shuttles.Save
             }
             catch (Exception ex)
             {
-                Logger.Warning($"Failed to cache metadata for {filePath}: {ex.Message}");
+                Log.Warning($"Failed to cache metadata for {filePath}: {ex.Message}");
             }
         }
 
@@ -405,15 +397,15 @@ namespace Content.Client.Shuttles.Save
         public List<string> GetSavedShipFiles()
         {
             /*
-            Logger.Info($"GetSavedShipFiles called on Instance #{_instanceId}: returning {_staticAvailableShips.Count} ships");
-            Logger.Info($"Cache contains {_staticCachedShipData.Count} cached ships");
+            Log.Info($"GetSavedShipFiles called on Instance #{_instanceId}: returning {_staticAvailableShips.Count} ships");
+            Log.Info($"Cache contains {_staticCachedShipData.Count} cached ships");
             foreach (var ship in _staticAvailableShips)
             {
-                Logger.Info($"  - Available: {ship}");
+                Log.Info($"  - Available: {ship}");
             }
             foreach (var cached in _staticCachedShipData.Keys)
             {
-                Logger.Info($"  - Cached: {cached}");
+                Log.Info($"  - Cached: {cached}");
             }*/
             // Return list of ships available from server and cached locally
             return AvailableShips.Where(path => !IsRoomGridFile(path)).ToList();
@@ -466,18 +458,18 @@ namespace Content.Client.Shuttles.Save
                         }
                         catch (Exception ex)
                         {
-                            Logger.Warning($"Failed to get metadata for {filename}: {ex.Message}");
+                            Log.Warning($"Failed to get metadata for {filename}: {ex.Message}");
                         }
                     }
                 }
 
                 // Send response back to admin
                 RaiseNetworkEvent(new AdminSendPlayerShipsMessage(ships, message.AdminName));
-                Logger.Info($"Sent {ships.Count} ship details to admin {message.AdminName}");
+                Log.Info($"Sent {ships.Count} ship details to admin {message.AdminName}");
             }
             catch (Exception ex)
             {
-                Logger.Error($"Failed to handle admin request for player ships: {ex.Message}");
+                Log.Error($"Failed to handle admin request for player ships: {ex.Message}");
             }
         }
 
@@ -489,16 +481,16 @@ namespace Content.Client.Shuttles.Save
                 if (CachedShipData.TryGetValue(message.ShipFilename, out var shipData))
                 {
                     RaiseNetworkEvent(new AdminSendShipDataMessage(shipData, message.ShipFilename, message.AdminName));
-                    Logger.Info($"Sent ship data for {message.ShipFilename} to admin {message.AdminName}");
+                    Log.Info($"Sent ship data for {message.ShipFilename} to admin {message.AdminName}");
                 }
                 else
                 {
-                    Logger.Warning($"Admin {message.AdminName} requested ship data for {message.ShipFilename} but file not found");
+                    Log.Warning($"Admin {message.AdminName} requested ship data for {message.ShipFilename} but file not found");
                 }
             }
             catch (Exception ex)
             {
-                Logger.Error($"Failed to handle admin request for ship data: {ex.Message}");
+                Log.Error($"Failed to handle admin request for ship data: {ex.Message}");
             }
         }
 
@@ -542,7 +534,7 @@ namespace Content.Client.Shuttles.Save
 
                     // Delete original file
                     _resourceManager.UserData.Delete(originalPath);
-                    Logger.Info($"Moved local ship file to backup: {message.FilePath} -> {destinationPath}");
+                    Log.Info($"Moved local ship file to backup: {message.FilePath} -> {destinationPath}");
                 }
 
                 // Remove original entry from caches and list (do not add backup to menu)
@@ -556,7 +548,7 @@ namespace Content.Client.Shuttles.Save
             }
             catch (Exception ex)
             {
-                Logger.Warning($"Failed to move local ship file '{message.FilePath}' to backup: {ex.Message}");
+                Log.Warning($"Failed to move local ship file '{message.FilePath}' to backup: {ex.Message}");
             }
         }
 

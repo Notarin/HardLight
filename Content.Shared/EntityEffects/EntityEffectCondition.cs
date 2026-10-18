@@ -8,7 +8,7 @@ namespace Content.Shared.EntityEffects;
 [MeansImplicitUse]
 public abstract partial class EntityEffectCondition
 {
-    [JsonPropertyName("id")] private protected string _id => this.GetType().Name;
+    [JsonPropertyName("id")] private protected string Id => this.GetType().Name;
 
     public abstract bool Condition(EntityEffectBaseArgs args);
 

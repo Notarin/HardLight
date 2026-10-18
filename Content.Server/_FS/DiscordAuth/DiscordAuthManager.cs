@@ -1,8 +1,5 @@
 using System.Net;
-using System.Net.Http;
 using System.Net.Http.Json;
-using System.Threading;
-using System.Threading.Tasks;
 using Content.Shared.CCVar;
 using Content.Shared._FS.CCVar;
 using Content.Shared._FS.DiscordAuth;
@@ -13,7 +10,6 @@ using Robust.Shared.Enums;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
 using Content.Server.Database;
-using System.Drawing.Printing;
 
 namespace Content.Server._FS.DiscordAuth;
 

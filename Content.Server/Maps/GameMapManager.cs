@@ -1,6 +1,5 @@
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using Content.Server.GameTicking;
 using Content.Shared.CCVar;
 using Robust.Server.Player;

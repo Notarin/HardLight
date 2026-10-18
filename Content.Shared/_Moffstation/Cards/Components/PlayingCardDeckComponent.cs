@@ -4,7 +4,6 @@ using Content.Shared._Moffstation.Extensions;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
-using Robust.Shared.Utility;
 
 namespace Content.Shared._Moffstation.Cards.Components;
 

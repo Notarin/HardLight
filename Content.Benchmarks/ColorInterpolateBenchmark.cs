@@ -2,7 +2,6 @@
 using System.Runtime.Intrinsics;
 using System.Runtime.Intrinsics.X86;
 #endif
-using System;
 using System.Runtime.CompilerServices;
 using BenchmarkDotNet.Attributes;
 using Robust.Shared.Analyzers;
@@ -30,7 +29,8 @@ namespace Content.Benchmarks
         [GlobalSetup]
         public void Setup()
         {
-            var random = new Random(3005);
+            var random = new RobustRandom();
+            random.SetSeed(3005);
 
             _colors = new (Color, Color)[N];
             _output = new Color[N];

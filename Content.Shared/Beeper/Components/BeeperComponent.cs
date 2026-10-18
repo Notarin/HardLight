@@ -1,6 +1,5 @@
 using Content.Shared.Beeper.Systems;
 using Content.Shared.FixedPoint;
-using Content.Shared.ProximityDetection.Systems;
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
 
@@ -17,7 +16,7 @@ namespace Content.Shared.Beeper.Components;
 public sealed partial class BeeperComponent : Component
 {
     /// <summary>
-    /// How much to scale the interval by (< 0 = min, > 1 = max)
+    /// How much to scale the interval by (&lt; 0 = min, &gt; 1 = max)
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
     public FixedPoint2 IntervalScaling = 0;

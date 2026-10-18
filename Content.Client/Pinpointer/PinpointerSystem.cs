@@ -24,7 +24,7 @@ public sealed class PinpointerSystem : SharedPinpointerSystem
             // Frontier: ensure question mark is aligned with the screen
             if (!pinpointer.HasTarget)
             {
-                sprite.LayerSetRotation(PinpointerLayers.Screen, Angle.Zero);
+                _sprite.LayerSetRotation((uid, sprite), PinpointerLayers.Screen, Angle.Zero);
                 continue;
             }
             // End Frontier: ensure question mark is aligned with the screen

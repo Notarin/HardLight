@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Client.Message;
 using Content.Client.UserInterface.ControlExtensions;
 using Content.Shared.Atmos.Prototypes;
@@ -21,8 +20,7 @@ namespace Content.Client.Guidebook.Controls;
 [UsedImplicitly, GenerateTypedNameReferences]
 public sealed partial class GuideReagentReaction : BoxContainer, ISearchableControl
 {
-    [ValidatePrototypeId<MixingCategoryPrototype>]
-    private const string DefaultMixingCategory = "DummyMix";
+    private static readonly ProtoId<MixingCategoryPrototype> DefaultMixingCategory = "DummyMix";
 
     private readonly IPrototypeManager _protoMan;
 

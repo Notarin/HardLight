@@ -1,6 +1,5 @@
 using Content.Shared.Arcade;
 using Robust.Shared.Random;
-using System.Linq;
 
 namespace Content.Server.Arcade.BlockGame;
 

@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.Access.Components; // Coyote
 using Content.Server.Access.Systems; // Coyote
 using Content.Server.Administration;
@@ -8,30 +7,24 @@ using Content.Server.Station.Components;
 using Content.Server.Station.Systems;
 using Content.Server.StationRecords;
 using Content.Server.StationRecords.Systems;
-using Content.Shared._NF.Roles.Components; // HardLight
+// HardLight
 using Content.Shared.Administration;
 using Content.Shared.CCVar;
 using Content.Shared.CrewManifest;
-using Content.Shared.GameTicking;
-using Content.Shared.Mind.Components; // HardLight
+// HardLight
 using Content.Shared.Roles;
 using Content.Shared.SSDIndicator;
-using Content.Shared.StationRecords;
 using Robust.Shared.Configuration;
 using Robust.Shared.Console;
 using Robust.Shared.Player;
-using Robust.Shared.Prototypes;
-using Robust.Shared.Utility;
 
 namespace Content.Server.CrewManifest;
 
 public sealed class CrewManifestSystem : EntitySystem
 {
     [Dependency] private readonly StationSystem _stationSystem = default!;
-    [Dependency] private readonly StationRecordsSystem _recordsSystem = default!;
     [Dependency] private readonly EuiManager _euiManager = default!;
     [Dependency] private readonly IConfigurationManager _configManager = default!;
-    [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
     [Dependency] private readonly IdCardSystem _idCardSystem = default!; // Coyote
 
     /// <summary>
@@ -117,7 +110,6 @@ public sealed class CrewManifestSystem : EntitySystem
     /// <summary>
     ///     Gets the crew manifest for a given station, along with the name of the station.
     /// </summary>
-    /// <param name="station">Entity uid of the station.</param>
     /// <returns>The name and crew manifest entries (unordered) of the station.</returns>
     public CrewManifestEntries GetCrewManifest() // coyote: remove args, remove name
     {

@@ -1,9 +1,9 @@
 using System.Numerics;
-using System.Threading.Tasks;
 using Content.Shared.Maps;
 using Content.Shared.Procedural;
 using Content.Shared.Procedural.PostGeneration;
 using Robust.Shared.Map;
+using Robust.Shared.Random;
 
 namespace Content.Server.Procedural.DungeonJob;
 
@@ -12,7 +12,7 @@ public sealed partial class DungeonJob
     /// <summary>
     /// <see cref="CorridorDunGen"/>
     /// </summary>
-    private async Task PostGen(CorridorDunGen gen, DungeonData data, Dungeon dungeon, HashSet<Vector2i> reservedTiles, Random random)
+    private async Task PostGen(CorridorDunGen gen, DungeonData data, Dungeon dungeon, HashSet<Vector2i> reservedTiles, IRobustRandom random)
     {
         if (!data.Tiles.TryGetValue(DungeonDataKey.FallbackTile, out var tileProto))
         {

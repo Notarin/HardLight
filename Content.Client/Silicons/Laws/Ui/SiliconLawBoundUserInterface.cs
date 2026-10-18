@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.Silicons.Laws;
 using Content.Shared.Silicons.Laws.Components;
 using JetBrains.Annotations;

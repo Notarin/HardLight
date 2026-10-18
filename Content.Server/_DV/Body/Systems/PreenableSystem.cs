@@ -1,21 +1,16 @@
 using Content.Server.Body.Components;
-using Content.Server.Chat.Systems;
 using Content.Server.Forensics;
 using Content.Shared._DV.Body.Components;
 using Content.Shared._DV.Body.Events;
 using Content.Shared.Damage;
 using Content.Shared.DoAfter;
-using Content.Shared.FixedPoint;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Humanoid;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Paper;
 using Content.Shared.Popups;
-using Content.Shared.StatusEffect;
 using Content.Shared.Verbs;
-using Robust.Shared.Physics.Systems;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
 namespace Content.Server._DV.Body.Systems;
@@ -25,15 +20,10 @@ public sealed class PreenableSystem : EntitySystem
     [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
     [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
     [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
     [Dependency] private readonly IPrototypeManager _prototype = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly ForensicsSystem _forensics = default!; // HardLight: server-only in this codebase
     [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
-    [Dependency] private readonly StatusEffectsSystem _statusEffects = default!;
-    [Dependency] private readonly ChatSystem _chat = default!; // HardLight: server-only in this codebase
-    [Dependency] private readonly IRobustRandom _random = default!;
 
     public override void Initialize()
     {

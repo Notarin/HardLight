@@ -15,13 +15,13 @@ namespace Content.Server._VRS.Planet;
 ///         that are clear of player plots, shuttles and previously-spawned
 ///         dungeons.</item>
 /// </list>
-/// Place this on the planet's map entity alongside <see cref="PlanetPlotRegistryComponent"/>.
+/// Place this on the planet's map entity alongside PlanetPlotRegistryComponent.
 /// </summary>
 [RegisterComponent]
 public sealed partial class PlanetSpawnerComponent : Component
 {
     /// <summary>
-    /// Wandering-mob marker layers added to the planet's <see cref="BiomeComponent"/> on map init.
+    /// Wandering-mob marker layers added to the planet's BiomeComponent on map init.
     /// </summary>
     [DataField]
     public List<ProtoId<BiomeMarkerLayerPrototype>> WanderingMobLayers = new()

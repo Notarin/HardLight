@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.Administration.Managers;
 using Content.Server.Popups;
 using Content.Shared.Administration;

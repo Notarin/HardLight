@@ -1,8 +1,5 @@
 using Content.Shared.Abilities.Psionics;
-using Robust.Shared.Localization;
 using Robust.Shared.Player;
-using Robust.Shared.Prototypes;
-using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.Manager;
 
 namespace Content.Shared.Nyanotrasen.Abilities.Psionics;

@@ -137,7 +137,7 @@ public abstract partial class SharedStationAiSystem
             !ValidateAi((ev.Actor, aiComp))))
         {
             // Don't allow the AI to interact with anything that isn't powered.
-            if (!PowerReceiver.IsPowered(ev.Target))
+            if (!_powerReceiver.IsPowered(ev.Target))
             {
                 ShowDeviceNotRespondingPopup(ev.Actor);
                 ev.Cancel();

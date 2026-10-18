@@ -1,6 +1,4 @@
 #nullable enable
-using System.Collections.Generic;
-using System.Linq;
 using Content.Server.Body.Components;
 using Content.Server.GameTicking;
 using Content.Server.GameTicking.Presets;
@@ -183,7 +181,7 @@ public sealed class NukeOpsTest
         }
 
         Assert.That(!entMan.EntityExists(nukieStationEnt)); // its not supposed to be a station!
-        Assert.That(server.MapMan.MapExists(gridsRule.Map));
+        Assert.That(mapSys.MapExists(gridsRule.Map));
         var nukieMap = mapSys.GetMap(gridsRule.Map!.Value);
 
         var targetStation = entMan.GetComponent<StationDataComponent>(ruleComp.TargetStation!.Value);

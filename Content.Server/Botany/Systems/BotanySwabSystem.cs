@@ -6,7 +6,6 @@ using Content.Shared.Interaction;
 using Content.Shared.Swab;
 using Content.Shared.Interaction.Events;
 using Robust.Shared.Containers;
-using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 
 namespace Content.Server.Botany.Systems;

@@ -1,14 +1,10 @@
 using System.Collections.Immutable;
-using System.IO;
 using System.Net;
 using System.Text.Json;
-using System.Threading;
-using System.Threading.Tasks;
 using Content.Server.Administration.Logs;
 using Content.Shared._Common.Consent; // Consent system
 using Content.Shared.Administration.Logs;
 using Content.Shared.CCVar;
-using Content.Shared.Construction.Prototypes;
 using Content.Shared.Database;
 using Content.Shared.Preferences;
 using Content.Shared.Ghost.Roles; // Frontier: ghost role whitelists
@@ -68,12 +64,8 @@ namespace Content.Server.Database
         /// <summary>
         ///     Looks up an user's most recent received un-pardoned ban.
         ///     This will NOT return a pardoned ban.
-        ///     One of <see cref="address"/> or <see cref="userId"/> need to not be null.
+        ///     One of address or userId need to not be null.
         /// </summary>
-        /// <param name="address">The ip address of the user.</param>
-        /// <param name="userId">The id of the user.</param>
-        /// <param name="hwId">The legacy HWID of the user.</param>
-        /// <param name="modernHWIds">The modern HWIDs of the user.</param>
         /// <returns>The user's latest received un-pardoned ban, or null if none exist.</returns>
         Task<BanDef?> GetBanAsync(
             IPAddress? address,
@@ -84,13 +76,8 @@ namespace Content.Server.Database
 
         /// <summary>
         ///     Looks up an user's ban history.
-        ///     One of <see cref="address"/> or <see cref="userId"/> need to not be null.
+        ///     One of address or userId need to not be null.
         /// </summary>
-        /// <param name="address">The ip address of the user.</param>
-        /// <param name="userId">The id of the user.</param>
-        /// <param name="hwId">The legacy HWId of the user.</param>
-        /// <param name="modernHWIds">The modern HWIDs of the user.</param>
-        /// <param name="includeUnbanned">If true, bans that have been expired or pardoned are also included.</param>
         /// <returns>The user's ban history.</returns>
         Task<List<BanDef>> GetBansAsync(
             IPAddress? address,
@@ -189,8 +176,6 @@ namespace Content.Server.Database
         /// <remarks>
         /// This does nothing if the player is not an admin.
         /// </remarks>
-        /// <param name="userId">The user ID of the admin.</param>
-        /// <param name="deadminned">Whether the admin is deadminned or not.</param>
         Task UpdateAdminDeadminnedAsync(NetUserId userId, bool deadminned, CancellationToken cancel = default);
 
         Task RemoveAdminRankAsync(int rankId, CancellationToken cancel = default);

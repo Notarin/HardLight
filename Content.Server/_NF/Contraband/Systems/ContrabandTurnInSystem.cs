@@ -1,6 +1,5 @@
 using Content.Server._NF.Contraband.Components;
 using Content.Server.Cargo.Components;
-using Content.Server.Cargo.Systems;
 using Content.Server.Stack;
 using Content.Server.Station.Systems;
 using Content.Shared._NF.Contraband;

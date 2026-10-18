@@ -1,9 +1,7 @@
-using System.Linq;
 using Content.Client.UserInterface.Systems.Chat;
 using Content.Shared.CCVar;
 using Content.Shared.Chat;
 using Content.Shared.Examine;
-using Content.Shared.GameTicking;
 using Content.Shared.Popups;
 using JetBrains.Annotations;
 using Robust.Client.Graphics;

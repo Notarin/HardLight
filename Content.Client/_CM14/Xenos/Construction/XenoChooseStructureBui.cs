@@ -24,6 +24,8 @@ public sealed class XenoChooseStructureBui : BoundUserInterface
 
     protected override void Open()
     {
+        base.Open();
+
         _window = new XenoChooseStructureWindow();
         _window.OnClose += Close;
 
@@ -74,7 +76,7 @@ public sealed class XenoChooseStructureBui : BoundUserInterface
         base.Dispose(disposing);
         if (disposing)
         {
-            _window?.Dispose();
+            _window?.Close();
             _window = null;
         }
     }

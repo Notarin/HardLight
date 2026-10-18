@@ -2,7 +2,6 @@ using Content.Shared.Abilities.Psionics;
 //using Content.Shared.Vehicle.Components;
 using Content.Server.Abilities.Psionics;
 using Content.Shared.Eye;
-using Content.Server.NPC.Systems;
 using Robust.Shared.Containers;
 using Robust.Server.GameObjects;
 
@@ -17,13 +16,13 @@ namespace Content.Server.Psionics
         public override void Initialize()
         {
             base.Initialize();
-            /// Masking
+            // Masking
             SubscribeLocalEvent<PotentialPsionicComponent, MapInitEvent>(OnInit);
             SubscribeLocalEvent<PsionicInsulationComponent, ComponentInit>(OnInsulInit);
             SubscribeLocalEvent<PsionicInsulationComponent, ComponentShutdown>(OnInsulShutdown);
             // OnEyeInit method is commented out - removed subscription
 
-            /// Layer
+            // Layer
             SubscribeLocalEvent<PsionicallyInvisibleComponent, ComponentInit>(OnInvisInit);
             SubscribeLocalEvent<PsionicallyInvisibleComponent, ComponentShutdown>(OnInvisShutdown);
 

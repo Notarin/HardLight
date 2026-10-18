@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.DeviceNetwork.Components;
 using Content.Shared.DeviceNetwork.Events;
 using Content.Shared.DeviceNetwork.Systems;
@@ -117,7 +116,7 @@ public sealed class DeviceListSystem : SharedDeviceListSystem
 
         foreach (var recipient in args.Recipients)
         {
-            if (component.Devices.Contains(recipient.Owner) == component.IsAllowList)
+            if (component.Devices.Contains(recipient.DeviceUid) == component.IsAllowList)
                 filteredRecipients.Add(recipient);
         }
 

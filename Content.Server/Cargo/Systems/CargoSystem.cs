@@ -1,7 +1,6 @@
 using Content.Server.Cargo.Components;
 using Content.Server.DeviceLinking.Systems;
 using Content.Server.Popups;
-using Content.Server.Shuttles.Systems;
 using Content.Server.Stack;
 using Content.Server.Station.Systems;
 using Content.Shared.Access.Systems;
@@ -10,7 +9,6 @@ using Content.Server.Radio.EntitySystems;
 using Content.Shared.Cargo;
 using Content.Shared.Cargo.Components;
 using Content.Shared.Cargo.Prototypes;
-using Content.Shared.CCVar;
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Paper;

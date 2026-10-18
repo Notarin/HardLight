@@ -1,10 +1,8 @@
-using System.Threading.Tasks;
 using Content.Server.NPC.Pathfinding;
 using Content.Shared.Maps;
 using Content.Shared.NPC;
 using Content.Shared.Procedural;
 using Content.Shared.Procedural.DungeonGenerators;
-using Robust.Shared.Collections;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
 
@@ -15,7 +13,7 @@ public sealed partial class DungeonJob
     /// <summary>
     /// <see cref="ExteriorDunGen"/>
     /// </summary>
-    private async Task<List<Dungeon>> GenerateExteriorDungen(Vector2i position, ExteriorDunGen dungen, HashSet<Vector2i> reservedTiles, Random random)
+    private async Task<List<Dungeon>> GenerateExteriorDungen(Vector2i position, ExteriorDunGen dungen, HashSet<Vector2i> reservedTiles, IRobustRandom random)
     {
         DebugTools.Assert(_grid.ChunkCount > 0);
 
@@ -52,7 +50,9 @@ public sealed partial class DungeonJob
 
         var config = _prototype.Index(dungen.Proto);
         var nextSeed = random.Next();
-        var dungeons = await GetDungeons(dungeonSpawn.Value, config, config.Data, config.Layers, reservedTiles, nextSeed, new Random(nextSeed));
+        var nextRandom = new RobustRandom();
+        nextRandom.SetSeed(nextSeed);
+        var dungeons = await GetDungeons(dungeonSpawn.Value, config, config.Data, config.Layers, reservedTiles, nextSeed, nextRandom);
 
         return dungeons;
     }

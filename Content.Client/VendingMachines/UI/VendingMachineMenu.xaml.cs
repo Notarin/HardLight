@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Numerics;
 using Content.Client.Stylesheets;
 using Content.Client.UserInterface.Controls;
@@ -15,7 +14,6 @@ using Content.Shared.Chemistry.Reagent;
 using FancyWindow = Content.Client.UserInterface.Controls.FancyWindow;
 using Robust.Client.UserInterface;
 using Content.Shared.IdentityManagement;
-using Robust.Client.Graphics;
 
 namespace Content.Client.VendingMachines.UI
 {
@@ -49,13 +47,9 @@ namespace Content.Client.VendingMachines.UI
             VendingContents.ItemKeyBindDown += (args, data) => OnItemSelected?.Invoke(args, data);
         }
 
-        protected override void Dispose(bool disposing)
+        protected override void ExitedTree()
         {
-            base.Dispose(disposing);
-
-            // Don't clean up dummies during disposal or we'll just have to spawn them again
-            if (!disposing)
-                return;
+            base.ExitedTree();
 
             // Delete any dummy items we spawned
             foreach (var entity in _dummies.Values)

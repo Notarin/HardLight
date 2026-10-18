@@ -1,4 +1,3 @@
-using System.Threading;
 using Content.Server.GameTicking;
 using Content.Server.RoundEnd;
 using Content.Shared.CCVar;

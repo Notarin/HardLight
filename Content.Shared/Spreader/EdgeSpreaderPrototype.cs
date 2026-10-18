@@ -3,7 +3,7 @@ using Robust.Shared.Prototypes;
 namespace Content.Shared.Spreader;
 
 /// <summary>
-/// Adds this node group to <see cref="Content.Server.Spreader.SpreaderSystem"/> for tick updates.
+/// Adds this node group to Content.Server.Spreader.SpreaderSystem for tick updates.
 /// </summary>
 [Prototype]
 public sealed partial class EdgeSpreaderPrototype : IPrototype

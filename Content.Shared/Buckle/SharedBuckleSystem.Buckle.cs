@@ -11,14 +11,12 @@ using Content.Shared.Movement.Events;
 using Content.Shared.Movement.Pulling.Events;
 using Content.Shared.Popups;
 using Content.Shared.Pulling.Events;
-using Content.Shared.Rotation;
 using Content.Shared.Standing;
 using Content.Shared.Storage.Components;
 using Content.Shared.Stunnable;
 using Content.Shared.Throwing;
 using Content.Shared.Whitelist;
 using Robust.Shared.Containers;
-using Robust.Shared.GameStates;
 using Robust.Shared.Map;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Events;
@@ -230,15 +228,6 @@ public abstract partial class SharedBuckleSystem
     /// <summary>
     /// Checks whether or not buckling is possible
     /// </summary>
-    /// <param name="buckleUid"> Uid of the owner of BuckleComponent </param>
-    /// <param name="user">
-    ///     Uid of a third party entity,
-    ///     i.e, the uid of someone else you are dragging to a chair.
-    ///     Can equal buckleUid sometimes
-    /// </param>
-    /// <param name="strapUid"> Uid of the owner of strap component </param>
-    /// <param name="strapComp"></param>
-    /// <param name="buckleComp"></param>
     private bool CanBuckle(EntityUid buckleUid,
         EntityUid? user,
         EntityUid strapUid,
@@ -349,13 +338,6 @@ public abstract partial class SharedBuckleSystem
     /// <summary>
     /// Attempts to buckle an entity to a strap
     /// </summary>
-    /// <param name="buckle"> Uid of the owner of BuckleComponent </param>
-    /// <param name="user">
-    /// Uid of a third party entity,
-    /// i.e, the uid of someone else you are dragging to a chair.
-    /// Can equal buckleUid sometimes
-    /// </param>
-    /// <param name="strap"> Uid of the owner of strap component </param>
     public bool TryBuckle(EntityUid buckle, EntityUid? user, EntityUid strap, BuckleComponent? buckleComp = null, bool popup = true)
     {
         if (!Resolve(buckle, ref buckleComp, false))
@@ -413,9 +395,6 @@ public abstract partial class SharedBuckleSystem
     /// <summary>
     /// Tries to unbuckle the Owner of this component from its current strap.
     /// </summary>
-    /// <param name="buckleUid">The entity to unbuckle.</param>
-    /// <param name="user">The entity doing the unbuckling.</param>
-    /// <param name="buckleComp">The buckle component of the entity to unbuckle.</param>
     /// <returns>
     ///     true if the owner was unbuckled, otherwise false even if the owner
     ///     was previously already unbuckled.
@@ -483,7 +462,7 @@ public abstract partial class SharedBuckleSystem
             // TODO: This is doing 4 moveevents this is why I left the warning in, if you're going to remove it make it only do 1 moveevent.
             if (strap.Comp.BuckleOffset != Vector2.Zero)
             {
-                buckleXform.Coordinates = oldBuckledXform.Coordinates.Offset(strap.Comp.BuckleOffset);
+                _transform.SetCoordinates(buckle, buckleXform, oldBuckledXform.Coordinates.Offset(strap.Comp.BuckleOffset));
             }
         }
 
@@ -546,10 +525,8 @@ public abstract partial class SharedBuckleSystem
     /// <summary>
     /// Once the do-after is complete, try to buckle target to chair/bed
     /// </summary>
-    /// <param name="args.Target"> The person being put in the chair/bed</param>
-    /// <param name="args.User"> The person putting a person in a chair/bed</param>
-    /// <param name="args.Used"> The chair/bed </param>
-
+    /// <param name="entity">The entity being buckled</param>
+    /// <param name="args">The do-after event</param>
     private void OnBuckleDoafter(Entity<BuckleComponent> entity, ref BuckleDoAfterEvent args)
     {
         if (args.Cancelled || args.Handled || args.Target == null || args.Used == null)
@@ -562,9 +539,9 @@ public abstract partial class SharedBuckleSystem
     /// If the target being buckled to a chair/bed goes crit or is cuffed
     /// Cancel the do-after time and try to buckle the target immediately
     /// </summary>
-    /// <param name="args.Target"> The person being put in the chair/bed</param>
-    /// <param name="args.User"> The person putting a person in a chair/bed</param>
-    /// <param name="args.Used"> The chair/bed </param>
+    /// <param name="entity">The entity being buckled</param>
+    /// <param name="args">The do-after event</param>
+    /// <param name="ev">The cancellable event</param>
     private void BuckleDoafterEarly(Entity<BuckleComponent> entity, BuckleDoAfterEvent args, CancellableEntityEventArgs ev)
     {
         if (args.Target == null || args.Used == null)

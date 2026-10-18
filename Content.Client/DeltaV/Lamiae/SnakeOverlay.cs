@@ -6,10 +6,8 @@ using Robust.Client.GameObjects;
 using Robust.Client.ResourceManagement;
 using Robust.Client.Graphics;
 using Robust.Shared.Prototypes;
-using Robust.Shared.IoC;
 using Robust.Shared.Enums;
 using System.Numerics;
-using System.Linq;
 
 
 namespace Content.Client.Lamiae;
@@ -163,7 +161,7 @@ public sealed class SnakeOverlay : Overlay
             //and counterclockwise
             var offsetVecCCW = new Vector2(0 - connectorVec.Y, connectorVec.X);
 
-            /// tri 1: line across first segment and corner of second
+            // tri 1: line across first segment and corner of second
             if (lastPtCW == null)
             {
                 verts.Add(new DrawVertexUV2D(origin + offsetVecCW * radius, Vector2.Zero));

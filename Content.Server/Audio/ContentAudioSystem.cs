@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.GameTicking;
 using Content.Server.GameTicking.Events;
 using Content.Shared.Audio;

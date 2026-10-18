@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Diagnostics;
 using Content.Server.Power.Pow3r;
 using Robust.Shared.Threading;

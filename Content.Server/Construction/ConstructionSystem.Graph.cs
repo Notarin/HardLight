@@ -1,14 +1,11 @@
 using Content.Server.Construction.Components;
-using Content.Server.Containers;
 using Content.Shared.Construction;
 using Content.Shared.Construction.Prototypes;
 using Content.Shared.Construction.Steps;
 using Content.Shared.Containers;
 using Content.Shared.Database;
-using Robust.Server.Containers;
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
-using System.Linq;
 
 namespace Content.Server.Construction
 {
@@ -366,7 +363,8 @@ namespace Content.Server.Construction
             var newTransform = Transform(newUid);
             TransformSystem.AttachToGridOrMap(newUid, newTransform); // in case in hands or a container
             newTransform.LocalRotation = transform.LocalRotation;
-            newTransform.Anchored = transform.Anchored;
+            if (!transform.Anchored)
+                TransformSystem.Unanchor(newUid, newTransform);
 
             // Preserve stack information when changing prototypes (e.g., roasting a stack of beans)
             if (TryComp<Shared.Stacks.StackComponent>(uid, out var oldStack) && TryComp<Shared.Stacks.StackComponent>(newUid, out var newStack))
@@ -426,6 +424,8 @@ namespace Content.Server.Construction
             }
 
             EntityManager.InitializeAndStartEntity(newUid);
+            if (transform.Anchored && !newTransform.Anchored)
+                TransformSystem.AnchorEntity(newUid, newTransform);
 
             QueueDel(uid);
 

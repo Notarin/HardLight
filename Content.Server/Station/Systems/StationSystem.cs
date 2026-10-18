@@ -1,9 +1,7 @@
-using System.Linq;
 using Content.Server.Chat.Systems;
 using Content.Server.GameTicking;
 using Content.Server.Station.Components;
 using Content.Server.Station.Events;
-using Content.Shared.CCVar;
 using Content.Shared.Station;
 using Content.Shared.Station.Components;
 using JetBrains.Annotations;
@@ -11,12 +9,10 @@ using Robust.Server.GameObjects;
 using Robust.Server.GameStates;
 using Robust.Server.Player;
 using Robust.Shared.Collections;
-using Robust.Shared.Configuration;
 using Robust.Shared.Enums;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Player;
-using Robust.Shared.Random;
 using Robust.Shared.Utility;
 
 namespace Content.Server.Station.Systems;
@@ -144,7 +140,7 @@ public sealed class StationSystem : EntitySystem
             // Also collect grid names from existing stations
             foreach (var gridUid in existingData.Grids)
             {
-                if (TryComp<MetaDataComponent>(gridUid, out var gridMeta))
+                if (TryComp(gridUid, out MetaDataComponent? gridMeta))
                 {
                     existingGridNames.Add(gridMeta.EntityName);
                 }
@@ -155,7 +151,7 @@ public sealed class StationSystem : EntitySystem
         var duplicateGridDetected = false;
         foreach (var grid in ev.Grids)
         {
-            if (TryComp<MetaDataComponent>(grid, out var gridMeta) &&
+            if (TryComp(grid, out MetaDataComponent? gridMeta) &&
                 existingGridNames.Contains(gridMeta.EntityName))
             {
                 _sawmill.Error($"CRITICAL: Detected duplicate grid '{gridMeta.EntityName}' during round start!");
@@ -195,7 +191,7 @@ public sealed class StationSystem : EntitySystem
                 }
 
                 // Abort the round and return to lobby
-                var gameTicker = EntitySystem.Get<GameTicker>();
+                var gameTicker = EntityManager.System<GameTicker>();
                 gameTicker.RestartRound();
                 return;
             }

@@ -193,7 +193,6 @@ public sealed class ContainmentFieldGeneratorSystem : EntitySystem
     /// <summary>
     /// Stores power in the generator. If it hits the threshold, it tries to establish a connection.
     /// </summary>
-    /// <param name="power">The power that this generator received from the collision in <see cref="HandleGeneratorCollide"/></param>
     public void ReceivePower(int power, Entity<ContainmentFieldGeneratorComponent> generator)
     {
         var component = generator.Comp;

@@ -3,7 +3,6 @@ using Content.Shared.Doors.Components;
 using Content.Shared.Movement.Pulling.Systems;
 using Content.Shared.Popups;
 using Content.Shared.Whitelist;
-using Robust.Shared.GameObjects;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Physics.Events;
 using Robust.Shared.Timing;

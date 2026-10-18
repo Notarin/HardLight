@@ -1,4 +1,4 @@
-using System.Threading;
+using Robust.Shared.Audio;
 using Content.Server.Screens.Components;
 using Content.Server.Shuttles.Components;
 using Content.Server.Shuttles.Events;
@@ -66,8 +66,7 @@ public sealed partial class EmergencyShuttleSystem
 
     private CancellationTokenSource? _roundEndCancelToken;
 
-    [ValidatePrototypeId<AccessLevelPrototype>]
-    private const string EmergencyRepealAllAccess = "EmergencyShuttleRepealAll";
+    private static readonly ProtoId<AccessLevelPrototype> EmergencyRepealAllAccess = "EmergencyShuttleRepealAll";
     private static readonly Color DangerColor = Color.Red;
 
     /// <summary>
@@ -166,23 +165,23 @@ public sealed partial class EmergencyShuttleSystem
             while (dataQuery.MoveNext(out var stationUid, out var comp))
             {
                 if (!TryComp<ShuttleComponent>(comp.EmergencyShuttle, out var shuttle) ||
-                    !TryComp<StationColcommComponent>(stationUid, out var Colcomm))
+                    !TryComp<StationColcommComponent>(stationUid, out var colcomm))
                 {
                     continue;
                 }
 
-                if (!Deleted(Colcomm.Entity))
+                if (!Deleted(colcomm.Entity))
                 {
                     QueueEmergencyFTLToDock(comp.EmergencyShuttle.Value, shuttle, // HardLight: _shuttle.FTLToDock<QueueEmergencyFTLToDock
-                        Colcomm.Entity.Value, _consoleAccumulator, TransitTime, DockTag); // HardLight: Added DockTag
+                        colcomm.Entity.Value, _consoleAccumulator, TransitTime, DockTag); // HardLight: Added DockTag
                     continue;
                 }
 
-                if (!Deleted(Colcomm.MapEntity))
+                if (!Deleted(colcomm.MapEntity))
                 {
                     // TODO: Need to get non-overlapping positions.
                     _shuttle.FTLToCoordinates(comp.EmergencyShuttle.Value, shuttle,
-                        new EntityCoordinates(Colcomm.MapEntity.Value,
+                        new EntityCoordinates(colcomm.MapEntity.Value,
                             _random.NextVector2(1000f)), _consoleAccumulator, TransitTime);
                 }
             }
@@ -202,8 +201,8 @@ public sealed partial class EmergencyShuttleSystem
         {
             var stationUid = _station.GetOwningStation(uid);
 
-            if (!TryComp<StationColcommComponent>(stationUid, out var Colcomm) ||
-                Deleted(Colcomm.Entity) ||
+            if (!TryComp<StationColcommComponent>(stationUid, out var colcomm) ||
+                Deleted(colcomm.Entity) ||
                 pod.LaunchTime == null ||
                 pod.LaunchTime > _timing.CurTime)
             {
@@ -211,7 +210,7 @@ public sealed partial class EmergencyShuttleSystem
             }
 
             // Don't dock them. If you do end up doing this then stagger launch.
-            QueueEmergencyFTLToDock(uid, shuttle, Colcomm.Entity.Value, hyperspaceTime: TransitTime, priorityTag: DockTag); // HardLight: _shuttle.FTLToDock<QueueEmergencyFTLToDock; Added priorityTag: DockTag
+            QueueEmergencyFTLToDock(uid, shuttle, colcomm.Entity.Value, hyperspaceTime: TransitTime, priorityTag: DockTag); // HardLight: _shuttle.FTLToDock<QueueEmergencyFTLToDock; Added priorityTag: DockTag
             RemCompDeferred<EscapePodComponent>(uid);
         }
 
@@ -230,14 +229,14 @@ public sealed partial class EmergencyShuttleSystem
             var query = AllEntityQuery<StationColcommComponent, TransformComponent>();
 
             // Guarantees that emergency shuttle arrives first before anyone else can FTL.
-            while (query.MoveNext(out var comp, out var ColcommXform))
+            while (query.MoveNext(out var comp, out var colcommXform))
             {
                 if (Deleted(comp.Entity))
                     continue;
 
-                if (_shuttle.TryAddFTLDestination(ColcommXform.MapID, true, out var ftlComp))
+                if (_shuttle.TryAddFTLDestination(colcommXform.MapID, true, out var ftlComp))
                 {
-                    _shuttle.SetFTLWhitelist((ColcommXform.MapUid!.Value, ftlComp), null);
+                    _shuttle.SetFTLWhitelist((colcommXform.MapUid!.Value, ftlComp), null);
                 }
             }
         }
@@ -306,7 +305,7 @@ public sealed partial class EmergencyShuttleSystem
                 playSound: false, colorOverride: DangerColor);
 
         if (!CheckForLaunch(component))
-            _audio.PlayGlobal("/Audio/Misc/notice1.ogg", Filter.Broadcast(), recordReplay: true);
+            _audio.PlayGlobal(new SoundPathSpecifier("/Audio/Misc/notice1.ogg"), Filter.Broadcast(), recordReplay: true);
 
         UpdateAllEmergencyConsoles();
     }
@@ -410,7 +409,7 @@ public sealed partial class EmergencyShuttleSystem
             playSound: false,
             colorOverride: DangerColor);
 
-        _audio.PlayGlobal("/Audio/Misc/notice1.ogg", Filter.Broadcast(), recordReplay: true);
+        _audio.PlayGlobal(new SoundPathSpecifier("/Audio/Misc/notice1.ogg"), Filter.Broadcast(), recordReplay: true);
     }
 
     public bool DelayEmergencyRoundEnd()

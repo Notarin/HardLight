@@ -44,7 +44,7 @@ public sealed partial class EventHorizonComponent : Component
     /// <summary>
     /// The ID of the fixture used to detect if the event horizon has collided with any physics objects.
     /// Can be set to null, in which case no such fixture is used.
-    /// If you want to set this go through <see cref="SharedEventHorizonSystem.SetHorizonFixtureId"/>.
+    /// If you want to set this go through SharedEventHorizonSystem.SetHorizonFixtureId.
     /// </summary>
     [DataField("consumerFixtureId")]
     [ViewVariables(VVAccess.ReadWrite)]
@@ -53,7 +53,7 @@ public sealed partial class EventHorizonComponent : Component
     /// <summary>
     /// The ID of the fixture used to detect if the event horizon has collided with any physics objects.
     /// Can be set to null, in which case no such fixture is used.
-    /// If you want to set this go through <see cref="SharedEventHorizonSystem.SetHorizonFixtureId"/>.
+    /// If you want to set this go through SharedEventHorizonSystem.SetHorizonFixtureId.
     /// </summary>
     [DataField("colliderFixtureId")]
     [ViewVariables(VVAccess.ReadWrite)]

@@ -20,12 +20,6 @@ using Content.Server.Power.Components;
 using Robust.Shared.Physics;
 using Content.Shared._Mono.SpaceArtillery;
 using Content.Shared.Projectiles;
-using Content.Shared.Weapons.Ranged.Components;
-using Content.Shared.Weapons.Ranged;
-using Robust.Shared.Prototypes;
-using Content.Shared.Weapons.Ranged.Events;
-using Robust.Shared.GameObjects;
-using SpaceArtilleryComponent = Content.Server._Mono.SpaceArtillery.Components.SpaceArtilleryComponent;
 
 
 namespace Content.Server._Crescent.ShipShields;

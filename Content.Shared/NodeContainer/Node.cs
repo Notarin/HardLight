@@ -12,7 +12,7 @@ public abstract partial class Node
 {
     /// <summary>
     ///     An ID used as a criteria for combining into groups. Determines which <see cref="INodeGroup"/>
-    ///     implementation is used as a group, detailed in <see cref="INodeGroupFactory"/>.
+    ///     implementation is used as a group, detailed in INodeGroupFactory.
     /// </summary>
     [DataField("nodeGroupID")]
     public NodeGroupID NodeGroupID { get; private set; } = NodeGroupID.Default;
@@ -74,7 +74,6 @@ public abstract partial class Node
     /// <summary>
     ///     Invoked when the owning <see cref="NodeContainerComponent"/> is initialized.
     /// </summary>
-    /// <param name="owner">The owning entity.</param>
     public virtual void Initialize(EntityUid owner, IEntityManager entMan)
     {
         Owner = owner;
@@ -89,12 +88,13 @@ public abstract partial class Node
     /// The set of nodes returned can be asymmetrical
     /// (meaning that it can return other nodes whose <see cref="GetReachableNodes"/> does not return this node).
     /// If this is used, creation of a new node may not correctly merge networks unless both sides
-    /// of this asymmetric relation are made to manually update with <see cref="NodeGroupSystem.QueueReflood"/>.
+    /// of this asymmetric relation are made to manually update with NodeGroupSystem.QueueReflood.
     /// </para>
     /// </remarks>
-    public abstract IEnumerable<Node> GetReachableNodes(TransformComponent xform,
+    public abstract IEnumerable<Node> GetReachableNodes(
+        Entity<TransformComponent> xform,
         EntityQuery<NodeContainerComponent> nodeQuery,
         EntityQuery<TransformComponent> xformQuery,
-        MapGridComponent? grid,
+        Entity<MapGridComponent>? grid,
         IEntityManager entMan);
 }

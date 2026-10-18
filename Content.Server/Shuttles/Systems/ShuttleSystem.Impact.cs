@@ -3,17 +3,13 @@ using Content.Server.Shuttles.Components;
 using Content.Shared.Audio;
 using Robust.Shared.Audio;
 using Robust.Shared.Map;
-using Robust.Shared.Physics.Dynamics;
 using Robust.Shared.Physics.Events;
-using Robust.Shared.Player;
 using Robust.Shared.Map.Components;
 using Content.Shared.Damage;
 using Content.Shared.Buckle.Components;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Slippery;
-using Content.Shared.Inventory;
 using Content.Shared.Clothing;
-using Content.Shared.Item.ItemToggle;
 using Content.Shared.Item.ItemToggle.Components;
 
 namespace Content.Server.Shuttles.Systems;
@@ -51,7 +47,7 @@ public sealed partial class ShuttleSystem
         var otherXform = Transform(args.OtherEntity);
 
         // Choose the first collision point for velocity calculations
-        var wp = args.PointCount > 0 ? args.WorldPoints[0] : ourXform.WorldPosition;
+        var wp = args.PointCount > 0 ? args.WorldPoints[0] : _transform.GetWorldPosition(ourXform);
         var ourPoint = Vector2.Transform(wp, _transform.GetInvWorldMatrix(ourXform));
         var otherPoint = Vector2.Transform(wp, _transform.GetInvWorldMatrix(otherXform));
 
@@ -199,7 +195,7 @@ public sealed partial class ShuttleSystem
                     _damageSys.TryChangeDamage(localUid, scaledDamage);
 
                     // Check if the entity has a transform component before proceeding
-                    if (!TryComp<TransformComponent>(localUid, out var form))
+                    if (!TryComp(localUid, out TransformComponent? form))
                         continue;
 
                     if (!form.Anchored)
@@ -217,7 +213,7 @@ public sealed partial class ShuttleSystem
                 // Spawn sparks with probability based on energy
                 if (tileEnergy > SparkEnergy && distanceFactor > 0.7f)
                 {
-                    var coords = grid.GridTileToLocal(tile);
+                    var coords = _mapSystem.GridTileToLocal(uid, grid, tile);
                     Spawn("EffectSparks", coords);
                 }
             }

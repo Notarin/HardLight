@@ -1,7 +1,6 @@
 using Content.Shared.Chemistry;
 using Content.Shared.Containers.ItemSlots;
 using JetBrains.Annotations;
-using Robust.Client.GameObjects;
 using Robust.Client.UserInterface;
 
 namespace Content.Client.Chemistry.UI
@@ -63,7 +62,7 @@ namespace Content.Client.Chemistry.UI
         /// Update the ui each time new state data is sent from the server.
         /// </summary>
         /// <param name="state">
-        /// Data of the <see cref="SharedReagentDispenserComponent"/> that this ui represents.
+        /// Data of the SharedReagentDispenserComponent that this ui represents.
         /// Sent from the server.
         /// </param>
         protected override void UpdateState(BoundUserInterfaceState state)

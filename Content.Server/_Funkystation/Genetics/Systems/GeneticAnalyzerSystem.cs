@@ -1,14 +1,11 @@
-using System.Linq;
 using System.Text;
 using Content.Server._Funkystation.Genetics.Components;
 using Content.Server.DoAfter;
 using Content.Server.Hands.Systems;
 using Content.Server.Popups;
 using Content.Server.PowerCell;
-using Content.Shared._Funkystation.Genetics;
 using Content.Shared._Funkystation.Genetics.Components;
 using Content.Shared._Funkystation.Genetics.Events;
-using Content.Shared._Funkystation.Genetics.Prototypes;
 using Content.Shared._Funkystation.Genetics.Systems;
 using Content.Shared.DoAfter;
 using Content.Shared.Interaction;
@@ -16,7 +13,6 @@ using Content.Shared.Paper;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
-using Robust.Shared.Prototypes;
 
 namespace Content.Server._Funkystation.Genetics.GeneticAnalyzer;
 
@@ -24,7 +20,6 @@ public sealed class GeneticAnalyzerSystem : SharedGeneticAnalyzerSystem
 {
     [Dependency] private readonly DoAfterSystem _doAfter = default!;
     [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly UserInterfaceSystem _ui = default!;
     [Dependency] private readonly SharedMutationDiscoverySystem _mutationDiscovery = default!;
     [Dependency] private readonly PowerCellSystem _cell = default!;
@@ -81,7 +76,7 @@ public sealed class GeneticAnalyzerSystem : SharedGeneticAnalyzerSystem
             _paperSystem.SetContent((printed, paper), sb.ToString().TrimEnd());
         }
 
-        _audioSystem.PlayPvs("/Audio/Machines/short_print_and_rip.ogg", uid,
+        _audioSystem.PlayPvs(new SoundPathSpecifier("/Audio/Machines/short_print_and_rip.ogg"), uid,
             AudioParams.Default.WithVariation(0.25f).WithVolume(3f).WithRolloffFactor(2.8f).WithMaxDistance(4.5f));
     }
 
@@ -150,7 +145,7 @@ public sealed class GeneticAnalyzerSystem : SharedGeneticAnalyzerSystem
 
         SetScanResults(uid, patientMeta.EntityName, genetics.GeneticInstability, mutationData);
 
-        _audio.PlayPvs(component.ScanningEndSound, uid);
+        _audioSystem.PlayPvs(component.ScanningEndSound, uid);
 
         _ui.SetUiState(uid, GeneticAnalyzerUiKey.Key, new GeneticAnalyzerUiState(
             patientName: patientMeta.EntityName,

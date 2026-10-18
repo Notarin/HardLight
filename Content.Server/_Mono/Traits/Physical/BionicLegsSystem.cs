@@ -3,7 +3,6 @@ using Content.Shared.Body.Part;
 using Content.Shared.Body.Systems;
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
-using System.Linq;
 using System.Numerics;
 using Content.Shared._Mono.Traits.Physical;
 using Robust.Shared.Map;

@@ -6,7 +6,7 @@ namespace Content.Shared._Mono.Grid;
 [MeansImplicitUse]
 public abstract partial class GridModifier
 {
-    protected string _id => GetType().Name;
+    protected string Id => GetType().Name;
 
     [DataField]
     public string Comp = "Transform";

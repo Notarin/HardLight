@@ -6,7 +6,6 @@ namespace Content.Server._Funkystation.Genetics.Mutations.Systems;
 
 public sealed class MutationPullStrengthModifierSystem : EntitySystem
 {
-    [Dependency] private readonly MovementSpeedModifierSystem _movement = default!;
 
     public override void Initialize()
     {

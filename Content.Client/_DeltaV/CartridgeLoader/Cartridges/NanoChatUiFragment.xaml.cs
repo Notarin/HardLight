@@ -8,7 +8,6 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
 
-using System.Linq;
 using System.Numerics;
 using Content.Shared._DeltaV.CartridgeLoader.Cartridges;
 using Content.Client._DV.CartridgeLoader.Cartridges;

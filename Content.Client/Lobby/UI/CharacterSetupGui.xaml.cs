@@ -10,7 +10,6 @@ using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.XAML;
 using Robust.Shared.Configuration;
-using Robust.Shared.Log;
 using Robust.Shared.Prototypes;
 
 namespace Content.Client.Lobby.UI
@@ -66,6 +65,11 @@ namespace Content.Client.Lobby.UI
 
             _cfg.OnValueChanged(CCVars.SeeOwnNotes, p => AdminRemarksButton.Visible = p, true);
 
+        }
+
+        protected override void EnteredTree()
+        {
+            base.EnteredTree();
             // HardLight: Self-heal if this GUI is constructed before prefs arrive.
             // Without this, ReloadCharacterPickers silently early-returns to an empty
             // list (see the ServerDataLoaded check below) and there is no other trigger
@@ -73,10 +77,14 @@ namespace Content.Client.Lobby.UI
             _preferencesManager.OnServerDataLoaded += OnPreferencesLoaded;
         }
 
+        protected override void ExitedTree()
+        {
+            base.ExitedTree();
+            _preferencesManager.OnServerDataLoaded -= OnPreferencesLoaded;
+        }
+
         private void OnPreferencesLoaded()
         {
-            if (Disposed)
-                return;
             // Only repaint if we're actually visible in the tree AND the picker
             // is currently empty -- avoids redundantly racing with
             // LobbyUIController.PreferencesDataLoaded, which also triggers a
@@ -88,20 +96,13 @@ namespace Content.Client.Lobby.UI
             ReloadCharacterPickers();
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-                _preferencesManager.OnServerDataLoaded -= OnPreferencesLoaded;
-            base.Dispose(disposing);
-        }
-
         /// <summary>
         /// Disposes and reloads all character picker buttons from the preferences data.
         /// </summary>
         public void ReloadCharacterPickers()
         {
             _createNewCharacterButton.Orphan();
-            Characters.DisposeAllChildren();
+            Characters.RemoveAllChildren();
 
             var numberOfFullSlots = 0;
             var characterButtonsGroup = new ButtonGroup();

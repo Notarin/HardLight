@@ -1,5 +1,3 @@
-using System;
-
 namespace Content.Tools
 {
     internal static class MappingMergeDriver

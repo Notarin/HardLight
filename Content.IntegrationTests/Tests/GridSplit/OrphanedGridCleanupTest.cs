@@ -1,7 +1,4 @@
-using System.Linq;
-using System.Numerics;
 using Content.Server.GridSplit;
-using NUnit.Framework;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
@@ -189,7 +186,7 @@ public sealed class OrphanedGridCleanupTest
         await server.WaitAssertion(() =>
         {
             // Create a test map with an empty grid (0 tiles)
-            var mapId = mapManager.CreateMap();
+            mapSystem.CreateMap(out var mapId);
             var gridEnt = mapManager.CreateGridEntity(mapId);
 
             // The grid has 0 tiles and no name set, it's a prime candidate for cleanup

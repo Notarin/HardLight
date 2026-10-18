@@ -1,6 +1,5 @@
 using Content.Client.Eye;
 using Content.Shared.SurveillanceCamera;
-using Robust.Client.GameObjects;
 using Robust.Client.UserInterface;
 
 namespace Content.Client.SurveillanceCamera.UI;
@@ -113,7 +112,6 @@ public sealed class SurveillanceCameraMonitorBoundUserInterface : BoundUserInter
         }
     }
 
-    [Obsolete]
     protected override void Dispose(bool disposing)
     {
         base.Dispose(disposing);
@@ -126,7 +124,7 @@ public sealed class SurveillanceCameraMonitorBoundUserInterface : BoundUserInter
 
         if (disposing)
         {
-            _window?.Dispose();
+            _window?.Close();
         }
     }
 }

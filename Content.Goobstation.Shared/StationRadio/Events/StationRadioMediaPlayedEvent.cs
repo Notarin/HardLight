@@ -7,8 +7,8 @@ namespace Content.Goobstation.Shared.StationRadio.Events;
 public sealed class StationRadioMediaPlayedEvent : EntityEventArgs
 {
     public SoundPathSpecifier MediaPlayed { get; }
-    public StationRadioMediaPlayedEvent(SoundPathSpecifier Media)
+    public StationRadioMediaPlayedEvent(SoundPathSpecifier media)
     {
-        MediaPlayed = Media;
+        MediaPlayed = media;
     }
 }

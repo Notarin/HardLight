@@ -3,13 +3,10 @@ using Content.Server.Administration.Commands;
 using Content.Server.Administration.Managers;
 using Content.Server.Database;
 using Content.Server.EUI;
-using Content.Server.Players.PlayTimeTracking;
 using Content.Shared._Goobstation.Administration;
 using Content.Shared.Administration;
 using Content.Shared.Eui;
-using Robust.Server.Player;
 using Robust.Shared.Network;
-using Robust.Shared.Prototypes;
 
 namespace Content.Server._Goobstation.Administration;
 
@@ -18,10 +15,7 @@ public sealed class TimeTransferPanelEui : BaseEui
     [Dependency] private readonly IAdminManager _adminMan = default!;
     [Dependency] private readonly ILogManager _log = default!;
     [Dependency] private readonly IPlayerLocator _playerLocator = default!;
-    [Dependency] private readonly IPlayerManager _playerMan = default!;
-    [Dependency] private readonly IPrototypeManager _protoMan = default!;
     [Dependency] private readonly IServerDbManager _databaseMan = default!;
-    [Dependency] private readonly PlayTimeTrackingManager _playTimeMan = default!;
 
     private readonly ISawmill _sawmill;
 

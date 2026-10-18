@@ -34,14 +34,12 @@ using Robust.Server.GameObjects;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
 using Robust.Shared.Player;
-using System.Linq;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 using Content.Shared.Stacks;
 using Content.Server.Construction.Components;
 using Content.Shared.Chat;
 using Content.Shared.Damage;
-using Robust.Shared.Utility;
 using Content.Shared._NF.Kitchen.Components; // Frontier
 
 namespace Content.Server.Kitchen.EntitySystems

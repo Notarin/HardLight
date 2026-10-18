@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Client.Lathe;
 using Content.Client.Research;
 using Content.Client.Research.UI;
@@ -9,7 +8,8 @@ using Robust.Client.GameObjects;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.XAML;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Utility; // Added for SpriteSpecifier
+
+// Added for SpriteSpecifier
 
 namespace Content.Client._Goobstation.Research.UI;
 

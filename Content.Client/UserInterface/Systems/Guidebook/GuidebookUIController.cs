@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Client.Gameplay;
 using Content.Client.Guidebook;
 using Content.Client.Guidebook.Controls;
@@ -85,7 +84,7 @@ public sealed class GuidebookUIController : UIController, IOnStateEntered<LobbyS
         _guideWindow.OnOpen -= OnWindowOpen;
 
         // shutdown
-        _guideWindow.Dispose();
+        _guideWindow.Close();
         _guideWindow = null;
         CommandBinds.Unregister<GuidebookUIController>();
     }
@@ -227,7 +226,7 @@ public sealed class GuidebookUIController : UIController, IOnStateEntered<LobbyS
         {
             if (!_prototypeManager.TryIndex(guideId, out var guide))
             {
-                Logger.Error($"Encountered unknown guide prototype: {guideId}");
+                Log.Error($"Encountered unknown guide prototype: {guideId}");
                 continue;
             }
             guides.Add(guideId, guide);
@@ -257,7 +256,7 @@ public sealed class GuidebookUIController : UIController, IOnStateEntered<LobbyS
 
             if (!_prototypeManager.TryIndex(childId, out var child))
             {
-                Logger.Error($"Encountered unknown guide prototype: {childId} as a child of {guide.Id}. If the child is not a prototype, it must be directly provided.");
+                Log.Error($"Encountered unknown guide prototype: {childId} as a child of {guide.Id}. If the child is not a prototype, it must be directly provided.");
                 continue;
             }
 

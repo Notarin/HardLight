@@ -7,7 +7,6 @@ using Content.Shared.NPC.Prototypes;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Containers;
 using System.Collections.Frozen;
-using System.Linq;
 
 namespace Content.Shared.NPC.Systems;
 

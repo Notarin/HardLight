@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Client.Actions;
 using Content.Shared.Input;
 using Robust.Client.Input;

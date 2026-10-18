@@ -1,15 +1,9 @@
 using Content.Server.Spreader;
 using Content.Shared.Atmos;
-using Content.Shared.CM14.Xenos;
 using Content.Shared.CM14.Xenos.Construction;
 using Content.Shared.Coordinates;
-using Content.Shared.Coordinates.Helpers;
 using JetBrains.Annotations;
 using Robust.Server.GameObjects;
-using Robust.Shared.Map;
-using Robust.Shared.Map.Components;
-using Robust.Shared.Network;
-using Robust.Shared.Player;
 using XenoWeedableComponent = Content.Shared.CM14.Xenos.Construction.Nest.XenoWeedableComponent;
 using XenoWeedsComponent = Content.Shared.CM14.Xenos.Construction.XenoWeedsComponent;
 
@@ -19,9 +13,6 @@ namespace Content.Server.CM14.Xenos.Construction;
 public sealed class XenoConstructionServerSystem : SharedXenoConstructionSystem
 {
     [Dependency] private readonly MapSystem _mapSystem = default!;
-    [Dependency] private readonly IMapManager _map = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly INetManager _net = default!;
 
     private readonly List<EntityUid> _anchored = new();
 

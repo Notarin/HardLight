@@ -1,8 +1,8 @@
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
-using System.Linq; //Hardlight
+
+//Hardlight
 
 namespace Content.Shared.Construction.Prototypes
 {
@@ -118,7 +118,6 @@ namespace Content.Shared.Construction.Prototypes
         /// <summary>
         ///     Uses breadth first search for pathfinding.
         /// </summary>
-        /// <param name="start"></param>
         private Dictionary<ConstructionGraphNode, ConstructionGraphNode?> PathsForStart(string start, List<ConstructionGraphEdge>? validEdges = null) //Hardlight
         {
             // TODO: Make this use A* or something, although it's not that important.

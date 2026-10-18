@@ -1,18 +1,13 @@
-using System.Linq;
 using Content.Server.Popups;
 using Content.Shared.Access;
 using Content.Shared.Access.Components;
 using Content.Shared.Access.Systems;
-using Content.Shared.Administration.Logs;
-using Content.Shared.Database;
 using Content.Shared.DoAfter;
 using Content.Shared.Interaction;
 using JetBrains.Annotations;
 using Robust.Server.GameObjects;
-using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
-using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using static Content.Shared.Access.Components.AccessOverriderComponent;
 
@@ -206,7 +201,7 @@ public sealed class AccessOverriderSystem : SharedAccessOverriderSystem
 
         if (newAccessList.Count > 0 && !newAccessList.TrueForAll(x => component.AccessLevels.Contains(x)))
         {
-            _sawmill.Warning($"User {ToPrettyString(uid)} tried to write unknown access tag.");
+            LogMill.Warning($"User {ToPrettyString(uid)} tried to write unknown access tag.");
             return;
         }
 
@@ -224,14 +219,14 @@ public sealed class AccessOverriderSystem : SharedAccessOverriderSystem
 
         if (!difference.IsSubsetOf(privilegedPerms))
         {
-            _sawmill.Warning($"User {ToPrettyString(uid)} tried to modify permissions they could not give/take!");
+            LogMill.Warning($"User {ToPrettyString(uid)} tried to modify permissions they could not give/take!");
 
             return;
         }
 
         if (!oldTags.ToHashSet().IsSubsetOf(privilegedPerms))
         {
-            _sawmill.Warning($"User {ToPrettyString(uid)} tried to modify permissions when they do not have sufficient access!");
+            LogMill.Warning($"User {ToPrettyString(uid)} tried to modify permissions when they do not have sufficient access!");
             _popupSystem.PopupEntity(Loc.GetString("access-overrider-cannot-modify-access"), player, player);
             _audioSystem.PlayPvs(component.DenialSound, uid);
 

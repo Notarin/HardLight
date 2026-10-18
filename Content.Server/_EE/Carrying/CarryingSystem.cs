@@ -1,5 +1,4 @@
 using System.Numerics;
-using System.Threading;
 using Content.Server.DoAfter;
 using Content.Server.Resist;
 using Content.Server.Popups;

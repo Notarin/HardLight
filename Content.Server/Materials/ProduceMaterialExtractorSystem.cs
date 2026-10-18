@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.Botany.Components;
 using Content.Server.Materials.Components;
 using Content.Server.Power.EntitySystems;
@@ -6,7 +5,6 @@ using Content.Server.Stack;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Interaction;
 using Content.Shared.Storage;
-using Content.Shared.Storage.Components;
 using Content.Shared.Stacks;
 using Robust.Server.Audio;
 
@@ -87,7 +85,7 @@ public sealed class ProduceMaterialExtractorSystem : EntitySystem
 
         bool success = false;
 
-        foreach (var (item, _location) in storage.StoredItems)
+        foreach (var (item, _) in storage.StoredItems)
             if (ExtractFromProduce(ent, item))
                 success = true;
 

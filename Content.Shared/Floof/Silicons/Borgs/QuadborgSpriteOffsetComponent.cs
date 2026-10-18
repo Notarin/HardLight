@@ -1,6 +1,3 @@
-using System.Numerics;
-using Content.Shared._HL.Traits.Physical;
-
 namespace Content.Shared.Floof.Silicons.Borgs;
 
 /// <summary>
@@ -16,19 +13,19 @@ public sealed partial class QuadborgSpriteOffsetComponent : Component
     public System.Numerics.Vector2 DefaultOffset = System.Numerics.Vector2.Zero;
 
     /// <summary>
-    /// Offset used when the entity has <see cref="BigWeaponHandlingComponent"/>.
+    /// Offset used when the entity has BigWeaponHandlingComponent.
     /// </summary>
     [DataField]
     public System.Numerics.Vector2 BigOffset = new(0f, 0.3f);
 
     /// <summary>
-    /// Offset used when the entity has <see cref="SmallWeaponHandlingComponent"/>.
+    /// Offset used when the entity has SmallWeaponHandlingComponent.
     /// </summary>
     [DataField]
     public System.Numerics.Vector2 SmallOffset = System.Numerics.Vector2.Zero;
 
     /// <summary>
-    /// Offset used when the entity has <see cref="TinyWeaponHandlingComponent"/>.
+    /// Offset used when the entity has TinyWeaponHandlingComponent.
     /// </summary>
     [DataField]
     public System.Numerics.Vector2 TinyOffset = System.Numerics.Vector2.Zero;

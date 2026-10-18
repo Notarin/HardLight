@@ -20,17 +20,17 @@ public record struct SplitMix64
     /// <param name="seed">Seed value.</param>
     public SplitMix64(long seed)
     {
-        x = (UInt64)seed;
+        _x = (UInt64)seed;
     }
 
-    private UInt64 x;
+    private UInt64 _x;
 
     /// <summary>
     /// Returns the next 64-bit pseudo-random number.
     /// </summary>
     public long Next()
     {
-        UInt64 z = unchecked(x += 0x9e3779b97f4a7c15);
+        UInt64 z = unchecked(_x += 0x9e3779b97f4a7c15);
         z = unchecked((z ^ (z >> 30)) * 0xbf58476d1ce4e5b9);
         z = unchecked((z ^ (z >> 27)) * 0x94d049bb133111eb);
         return unchecked((Int64)(z ^ (z >> 31)));

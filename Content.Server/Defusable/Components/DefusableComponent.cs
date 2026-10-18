@@ -1,11 +1,10 @@
 using Content.Server.Defusable.Systems;
-using Content.Server.Explosion.Components;
 using Robust.Shared.Audio;
 
 namespace Content.Server.Defusable.Components;
 
 /// <summary>
-/// This is used for bombs that should be defused. The explosion configuration should be handled by <see cref="ExplosiveComponent"/>.
+/// This is used for bombs that should be defused. The explosion configuration should be handled by ExplosiveComponent.
 /// </summary>
 [RegisterComponent, Access(typeof(DefusableSystem))]
 public sealed partial class DefusableComponent : Component

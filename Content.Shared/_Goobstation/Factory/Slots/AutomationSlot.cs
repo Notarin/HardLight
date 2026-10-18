@@ -1,9 +1,7 @@
-using Content.Shared._Goobstation.Factory.Filters;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.DeviceLinking;
 using Content.Shared.Whitelist;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Serialization.Manager.Attributes;
 using Content.Goobstation.Shared.Factory.Filters;
 
 namespace Content.Shared._Goobstation.Factory.Slots;
@@ -45,9 +43,9 @@ public abstract partial class AutomationSlot
     public EntityUid Owner;
 
     [Dependency] public readonly IEntityManager EntMan = default!;
-    protected AutomationFilterSystem _filter;
-    protected EntityWhitelistSystem _whitelist;
-    protected SharedDeviceLinkSystem _device;
+    public AutomationFilterSystem Filter;
+    public EntityWhitelistSystem WhitelistSystem;
+    public SharedDeviceLinkSystem Device;
 
     /// <summary>
     /// Initialize the slot after <see cref="Owner"/> is set.
@@ -57,9 +55,9 @@ public abstract partial class AutomationSlot
     {
         IoCManager.InjectDependencies(this);
 
-        _filter = EntMan.System<AutomationFilterSystem>();
-        _whitelist = EntMan.System<EntityWhitelistSystem>();
-        _device = EntMan.System<SharedDeviceLinkSystem>();
+        Filter = EntMan.System<AutomationFilterSystem>();
+        WhitelistSystem = EntMan.System<EntityWhitelistSystem>();
+        Device = EntMan.System<SharedDeviceLinkSystem>();
     }
 
     /// <summary>
@@ -77,7 +75,7 @@ public abstract partial class AutomationSlot
     /// </summary>
     public virtual bool CanInsert(EntityUid item)
     {
-        return _whitelist.CheckBoth(item, whitelist: Whitelist, blacklist: Blacklist);
+        return WhitelistSystem.CheckBoth(item, whitelist: Whitelist, blacklist: Blacklist);
     }
 
     /// <summary>
@@ -96,9 +94,9 @@ public abstract partial class AutomationSlot
     public virtual void AddPorts()
     {
         if (Input is { } input)
-            _device.EnsureSinkPorts(Owner, input);
+            Device.EnsureSinkPorts(Owner, input);
         if (Output is { } output)
-            _device.EnsureSourcePorts(Owner, output);
+            Device.EnsureSourcePorts(Owner, output);
     }
 
     /// <summary>
@@ -107,9 +105,9 @@ public abstract partial class AutomationSlot
     public virtual void RemovePorts()
     {
         if (Input is { } input)
-            _device.RemoveSinkPort(Owner, input);
+            Device.RemoveSinkPort(Owner, input);
         if (Output is { } output)
-            _device.RemoveSourcePort(Owner, output);
+            Device.RemoveSourcePort(Owner, output);
     }
 
     /// <summary>

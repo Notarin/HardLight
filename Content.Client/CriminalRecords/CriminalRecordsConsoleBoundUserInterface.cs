@@ -1,7 +1,6 @@
 using Content.Shared.Access.Systems;
 using Content.Shared.CriminalRecords;
 using Content.Shared.CriminalRecords.Components;
-using Content.Shared.Security;
 using Content.Shared.StationRecords;
 using Robust.Client.Player;
 using Robust.Shared.Prototypes;
@@ -73,7 +72,6 @@ public sealed class CriminalRecordsConsoleBoundUserInterface : BoundUserInterfac
         _window?.UpdateState(cast);
     }
 
-    [Obsolete]
     protected override void Dispose(bool disposing)
     {
         base.Dispose(disposing);

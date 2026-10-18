@@ -1,7 +1,6 @@
 using Content.Server.Atmos.EntitySystems;
 using Content.Server.Atmos.Piping.Components;
 using Content.Server.Atmos.Piping.Unary.Components;
-using Content.Server.NodeContainer;
 using Content.Server.NodeContainer.EntitySystems;
 using Content.Server.NodeContainer.Nodes;
 using Content.Server.Power.Components;
@@ -40,7 +39,7 @@ public sealed class GasCondenserSystem : EntitySystem
         if (solution.AvailableVolume == 0 || inlet.Air.TotalMoles == 0)
             return;
 
-        var molesToConvert = NumberOfMolesToConvert(receiver, inlet.Air, args.dt);
+        var molesToConvert = NumberOfMolesToConvert(receiver, inlet.Air, args.Dt);
         var removed = inlet.Air.Remove(molesToConvert);
         for (var i = 0; i < Atmospherics.TotalNumberOfGases; i++)
         {

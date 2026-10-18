@@ -1,9 +1,5 @@
-using System.Linq;
 using Content.Shared._Goobstation.MartialArts.Components;
 using Content.Shared._Goobstation.MartialArts.Events;
-using Content.Shared._Shitmed.Targeting;
-using Content.Shared.Damage;
-using Content.Shared.Damage.Components;
 using Content.Shared.Interaction.Events;
 using Content.Shared.Movement.Pulling.Components;
 using Content.Shared.Popups;

@@ -1,14 +1,11 @@
-using System.Linq;
 using Content.Client._NF.Salvage.UI; // Frontier
 using Content.Client.Stylesheets;
-using Content.Shared.CCVar;
 using Content.Shared.Procedural;
 using Content.Shared.Salvage.Expeditions;
 using Content.Shared.Salvage.Expeditions.Modifiers;
 using JetBrains.Annotations;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
-using Robust.Shared.Configuration;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 using Timer = Robust.Shared.Timing.Timer;
@@ -137,7 +134,7 @@ public sealed class SalvageExpeditionConsoleBoundUserInterface : BoundUserInterf
 
             string LogAndReturnDefaultFactionDescription(string faction)
             {
-                Logger.Error($"Description is null or white space for SalvageFactionPrototype: {faction}");
+                Logger.GetSawmill("salvage").Error($"Description is null or white space for SalvageFactionPrototype: {faction}");
                 return Loc.GetString(_protoManager.Index<SalvageFactionPrototype>(faction).ID);
             }
 
@@ -176,7 +173,7 @@ public sealed class SalvageExpeditionConsoleBoundUserInterface : BoundUserInterf
 
             string LogAndReturnDefaultBiomDescription(string biome)
             {
-                Logger.Error($"Description is null or white space for SalvageBiomeModPrototype: {biome}");
+                Logger.GetSawmill("salvage").Error($"Description is null or white space for SalvageBiomeModPrototype: {biome}");
                 return Loc.GetString(_protoManager.Index<SalvageBiomeModPrototype>(biome).ID);
             }
 

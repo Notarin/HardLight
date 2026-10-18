@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using Content.Shared.Procedural;
 using Content.Shared.Procedural.PostGeneration;
 using Content.Shared.Storage;
@@ -12,7 +11,7 @@ public sealed partial class DungeonJob
     /// <summary>
     /// <see cref="CorridorClutterDunGen"/>
     /// </summary>
-    private async Task PostGen(CorridorClutterDunGen gen, DungeonData data, Dungeon dungeon, HashSet<Vector2i> reservedTiles, Random random)
+    private async Task PostGen(CorridorClutterDunGen gen, DungeonData data, Dungeon dungeon, HashSet<Vector2i> reservedTiles, IRobustRandom random)
     {
         var physicsQuery = _entManager.GetEntityQuery<PhysicsComponent>();
         var count = (int)Math.Ceiling(dungeon.CorridorTiles.Count * gen.Chance);
@@ -44,7 +43,7 @@ public sealed partial class DungeonJob
 
             var protos = EntitySpawnCollection.GetSpawns(gen.Contents, random);
             var coords = _maps.ToCenterCoordinates(_gridUid, tile, _grid);
-            _entManager.SpawnEntities(coords, protos);
+            SpawnEntities(coords, protos);
             await SuspendIfOutOfTime();
 
             if (!ValidateResume())

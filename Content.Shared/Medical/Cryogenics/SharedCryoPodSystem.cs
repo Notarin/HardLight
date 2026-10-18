@@ -108,7 +108,7 @@ public abstract partial class SharedCryoPodSystem : EntitySystem
     /// Ejects the contained body
     /// </summary>
     /// <param name="uid">The cryopod entity</param>
-    /// <param name="cryoPodComponent">Cryopod component of <see cref="uid"/></param>
+    /// <param name="cryoPodComponent">Cryopod component of uid</param>
     /// <returns>Ejected entity</returns>
     public virtual EntityUid? EjectBody(EntityUid uid, CryoPodComponent? cryoPodComponent)
     {

@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Numerics;
 using Content.Client.Message;
 using Content.Shared.GameTicking;
@@ -7,8 +6,6 @@ using Robust.Client.UserInterface.CustomControls;
 using Robust.Shared.Utility;
 using static Robust.Client.UserInterface.Controls.BoxContainer;
 // Starlight Start
-using Content.Client.UserInterface.RichText;
-using Robust.Client.UserInterface.RichText;
 using Content.Client.RichText;
 // Starlight End
 
@@ -240,7 +237,7 @@ namespace Content.Client.RoundEnd
             playerManifestTab.AddChild(searchContainer);
             // End of search box
 
-            populatePlayManifestList(playerInfoContainer, playersInfo);
+            PopulatePlayManifestList(playerInfoContainer, playersInfo);
 
             playerInfoContainerScrollbox.AddChild(playerInfoContainer);
             playerManifestTab.AddChild(playerInfoContainerScrollbox);
@@ -248,7 +245,7 @@ namespace Content.Client.RoundEnd
             return playerManifestTab;
         }
 
-        private void populatePlayManifestList(BoxContainer playerInfoContainer, RoundEndMessageEvent.RoundEndPlayerInfo[] playersInfo)
+        private void PopulatePlayManifestList(BoxContainer playerInfoContainer, RoundEndMessageEvent.RoundEndPlayerInfo[] playersInfo)
         {
             //Put observers at the bottom of the list. Put antags on top.
             var sortedPlayersInfo = playersInfo.OrderBy(p => p.Observer).ThenBy(p => !p.Antag);
@@ -314,7 +311,7 @@ namespace Content.Client.RoundEnd
             if (string.IsNullOrWhiteSpace(newText))
             {
                 // If search is empty, show all text and all players
-                populatePlayManifestList(playerInfoContainer, playersInfo);
+                PopulatePlayManifestList(playerInfoContainer, playersInfo);
                 return;
             }
 
@@ -327,7 +324,7 @@ namespace Content.Client.RoundEnd
             ).ToArray();
 
             // Populate the player list with filtered results
-            populatePlayManifestList(playerInfoContainer, filteredPlayersInfo);
+            PopulatePlayManifestList(playerInfoContainer, filteredPlayersInfo);
         }
 
         // Starlight-end

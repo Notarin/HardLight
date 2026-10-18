@@ -3,7 +3,6 @@ using Content.Server._Starlight.Plumbing.Nodes;
 using Content.Server.NodeContainer.EntitySystems;
 using Content.Shared._Starlight.Plumbing.Components;
 using Content.Shared.Chemistry.EntitySystems;
-using Content.Shared.FixedPoint;
 using JetBrains.Annotations;
 
 namespace Content.Server._Starlight.Plumbing.EntitySystems;

@@ -1,4 +1,3 @@
-using Content.Shared.Emag.Systems;
 using Content.Shared.Physics;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
@@ -8,7 +7,7 @@ using System.Numerics;
 namespace Content.Shared.Maps;
 
 /// <summary>
-///     This system provides various useful helper methods for turfs & tiles. Replacement for <see cref="TurfHelpers"/>
+///     This system provides various useful helper methods for turfs &amp; tiles. Replacement for <see cref="TurfHelpers"/>
 /// </summary>
 public sealed class TurfSystem : EntitySystem
 {

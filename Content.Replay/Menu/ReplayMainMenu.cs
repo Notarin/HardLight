@@ -1,5 +1,4 @@
 using System.IO.Compression;
-using System.Linq;
 using Content.Client.Message;
 using Content.Client.Replay;
 using Content.Client.UserInterface.Systems.EscapeMenu;
@@ -263,7 +262,7 @@ public sealed class ReplayMainScreen : State
         }
         catch (Exception ex)
         {
-            Logger.Error($"Failed to load replay info. Exception: {ex}");
+            Logger.GetSawmill("replay").Error($"Failed to load replay info. Exception: {ex}");
             SelectReplay(null);
             return;
         }
@@ -272,8 +271,8 @@ public sealed class ReplayMainScreen : State
 
     protected override void Shutdown()
     {
-        _mainMenuControl.Dispose();
-        _selectWindow?.Dispose();
+        _mainMenuControl.Orphan();
+        _selectWindow?.Close();
     }
 
     private void OptionsButtonPressed(BaseButton.ButtonEventArgs args)

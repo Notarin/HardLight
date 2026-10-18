@@ -85,7 +85,7 @@ public abstract class SharedFlatpackSystem : EntitySystem
         // the flatpack itself or on item-mask debris. Mirrors upstream Wizden behaviour.
         var (layer, mask) = GetPrototypeHardCollision(comp.Entity);
 
-        if (!_anchorable.TileFree(gridComp, buildPos, layer, mask))
+        if (!_anchorable.TileFree((grid, gridComp), buildPos, layer, mask))
         {
             _popup.PopupPredicted(Loc.GetString("flatpack-unpack-no-room"), uid, args.User);
             return;
@@ -155,7 +155,6 @@ public abstract class SharedFlatpackSystem : EntitySystem
         Appearance.SetData(ent, FlatpackVisuals.Machine, MetaData(board).EntityPrototype?.ID ?? string.Empty);
     }
 
-    /// <param name="machineBoard">The machine board to pack. If null, this implies we are packing a computer board</param>
     public Dictionary<string, int> GetFlatpackCreationCost(Entity<FlatpackCreatorComponent> entity, Entity<MachineBoardComponent>? machineBoard)
     {
         Dictionary<string, int> cost = new();

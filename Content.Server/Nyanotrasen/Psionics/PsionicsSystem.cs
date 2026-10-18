@@ -10,10 +10,7 @@ using Content.Shared.CCVar;
 using Content.Server.Abilities.Psionics;
 using Content.Server.Chat.Systems;
 using Content.Server.Electrocution;
-using Content.Server.NPC.Components;
-using Content.Server.NPC.Systems;
 using Robust.Shared.Audio;
-using Robust.Shared.Player;
 using Robust.Shared.Configuration;
 using Robust.Shared.Random;
 using Robust.Shared.Audio.Systems;
@@ -74,7 +71,7 @@ namespace Content.Server.Psionics
             {
                 if (HasComp<PsionicComponent>(entity))
                 {
-                    _audioSystem.PlayPvs("/Audio/Effects/lightburn.ogg", entity);
+                    _audioSystem.PlayPvs(new SoundPathSpecifier("/Audio/Effects/lightburn.ogg"), entity);
                     args.ModifiersList.Add(component.Modifiers);
                     if (_random.Prob(component.DisableChance))
                         _statusEffects.TryAddStatusEffect(entity, "PsionicsDisabled", TimeSpan.FromSeconds(10), true, "PsionicsDisabled");

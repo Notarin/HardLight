@@ -4,7 +4,6 @@ using Content.Shared.Interaction;
 using Content.Shared.Interaction.Events;
 using Content.Shared.Inventory.Events;
 using Content.Shared.Item;
-using Content.Shared.Bed.Sleep;
 using Content.Shared.Damage.Components;
 using Content.Shared.Database;
 using Content.Shared.Hands;
@@ -16,12 +15,10 @@ using Content.Shared.Standing;
 using Content.Shared.StatusEffect;
 using Content.Shared.Throwing;
 using Content.Shared.Whitelist;
-using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Events;
 using Robust.Shared.Physics.Systems;
-using Robust.Shared.Timing;
 
 namespace Content.Shared.Stunnable;
 
@@ -31,7 +28,6 @@ public abstract partial class SharedStunSystem : EntitySystem
     [Dependency] private readonly SharedBroadphaseSystem _broadphase = default!;
     [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
     [Dependency] private readonly MovementSpeedModifierSystem _movementSpeedModifier = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] protected readonly SharedAppearanceSystem Appearance = default!;
     [Dependency] private readonly EntityWhitelistSystem _entityWhitelist = default!;
     [Dependency] private readonly StandingStateSystem _standingState = default!;
@@ -321,14 +317,11 @@ public abstract partial class SharedStunSystem : EntitySystem
     }
 
     /// <summary>
-    /// A convenience overload of <see cref="UpdateStunModifiers(EntityUid, float, float, StaminaComponent?)"/> that sets both
+    /// A convenience overload of <see cref="UpdateStunModifiers(Entity{StaminaComponent?}, float, float)"/> that sets both
     /// walk and run speed modifiers to the same value.
     /// </summary>
     /// <param name="ent">Entity whose movement speed should be updated.</param>
     /// <param name="speedModifier">New walk and run speed modifier. Default is 1f (normal speed).</param>
-    /// <param name="component">
-    /// Optional <see cref="StaminaComponent"/> of the entity.
-    /// </param>
     public void UpdateStunModifiers(Entity<StaminaComponent?> ent, float speedModifier = 1f)
     {
         UpdateStunModifiers(ent, speedModifier, speedModifier);
@@ -337,23 +330,6 @@ public abstract partial class SharedStunSystem : EntitySystem
     private void OnInteractHand(EntityUid uid, KnockedDownComponent knocked, InteractHandEvent args)
     {
         // This is currently disabled in favor of an interaction verb with the same effect, but more obvious usage.
-        return;
-
-        if (args.Handled || knocked.HelpTimer > 0f)
-            return;
-
-        // TODO: This should be an event.
-        if (HasComp<SleepingComponent>(uid))
-            return;
-
-        // Set it to half the help interval so helping is actually useful...
-        knocked.HelpTimer = knocked.HelpInterval / 2f;
-
-        _statusEffect.TryRemoveTime(uid, "KnockedDown", TimeSpan.FromSeconds(knocked.HelpInterval));
-        _audio.PlayPredicted(knocked.StunAttemptSound, uid, args.User);
-        Dirty(uid, knocked);
-
-        args.Handled = true;
     }
 
     private void OnKnockedTileFriction(EntityUid uid, KnockedDownComponent component, ref TileFrictionEvent args)

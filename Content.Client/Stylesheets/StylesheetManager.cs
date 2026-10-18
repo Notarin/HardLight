@@ -1,6 +1,5 @@
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using Content.Client.Stylesheets.Stylesheets;
 using Robust.Client.ResourceManagement;
 using Robust.Client.UserInterface;
@@ -49,8 +48,10 @@ namespace Content.Client.Stylesheets
             Stylesheets = new Dictionary<string, Stylesheet>();
             SheetNanotrasen = Init(new NanotrasenStylesheet(new BaseStylesheet.NoConfig(), this));
             SheetSystem = Init(new SystemStylesheet(new BaseStylesheet.NoConfig(), this));
+#pragma warning disable CS0618
             SheetNano = new StyleNano(_resCache).Stylesheet; // TODO: REMOVE (obsolete)
             SheetSpace = new StyleSpace(_resCache).Stylesheet; // TODO: REMOVE (obsolete)
+#pragma warning restore CS0618
 
             _userInterfaceManager.Stylesheet = SheetNanotrasen;
 

@@ -1,7 +1,4 @@
-using System.Linq;
-using Content.Server.DeviceNetwork;
 using Content.Server.DeviceNetwork.Systems;
-using Content.Server.Power.Components;
 using Content.Shared.DeviceNetwork;
 using Content.Shared.DeviceNetwork.Events;
 using Content.Shared.Power;
@@ -37,8 +34,8 @@ public sealed class SurveillanceCameraMonitorSystem : EntitySystem
         });
     }
 
-    private const float _maxHeartbeatTime = 300f;
-    private const float _heartbeatDelay = 30f;
+    private const float MaxHeartbeatTime = 300f;
+    private const float HeartbeatDelay = 30f;
 
     public override void Update(float frameTime)
     {
@@ -54,7 +51,7 @@ public sealed class SurveillanceCameraMonitorSystem : EntitySystem
             SendHeartbeat(uid, monitor);
             monitor.LastHeartbeat += frameTime;
 
-            if (monitor.LastHeartbeat > _maxHeartbeatTime)
+            if (monitor.LastHeartbeat > MaxHeartbeatTime)
             {
                 DisconnectCamera(uid, true, monitor);
                 RemComp<ActiveSurveillanceCameraMonitorComponent>(uid);
@@ -226,7 +223,7 @@ public sealed class SurveillanceCameraMonitorSystem : EntitySystem
     private void SendHeartbeat(EntityUid uid, SurveillanceCameraMonitorComponent? monitor = null)
     {
         if (!Resolve(uid, ref monitor)
-            || monitor.LastHeartbeatSent < _heartbeatDelay
+            || monitor.LastHeartbeatSent < HeartbeatDelay
             || string.IsNullOrEmpty(monitor.ActiveSubnet)
             || !monitor.KnownSubnets.TryGetValue(monitor.ActiveSubnet, out var subnetAddress))
         {

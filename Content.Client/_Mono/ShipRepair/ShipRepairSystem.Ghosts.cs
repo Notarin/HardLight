@@ -1,13 +1,11 @@
 using Content.Client.IconSmoothing;
 using Content.Shared._Mono.ShipRepair;
 using Content.Shared._Mono.ShipRepair.Components;
-using Content.Shared.DrawDepth;
 using Content.Shared.Maps;
 using Robust.Client.GameObjects;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Utility;
 using System.Numerics;
 
 namespace Content.Client._Mono.ShipRepair;
@@ -22,15 +20,15 @@ public sealed partial class ShipRepairSystem : SharedShipRepairSystem
     // Reused per-frame to avoid allocating a fresh List every Update for every player carrying a repair tool.
     private List<Entity<MapGridComponent>> _scratchGrids = new();
 
-    private Color ghostColor = new Color(255, 128, 0, 128);
+    private Color _ghostColor = new Color(255, 128, 0, 128);
 
-    private EntProtoId RepairGhostId = "RepairGhost";
+    private EntProtoId _repairGhostId = "RepairGhost";
 
-    private ITileDefinition? PlatingDef = default!;
+    private ITileDefinition? _platingDef = default!;
 
     private void InitGhosts()
     {
-        PlatingDef = _tileDefs["Plating"];
+        _platingDef = _tileDefs["Plating"];
     }
 
     public override void Update(float frameTime)
@@ -198,7 +196,7 @@ public sealed partial class ShipRepairSystem : SharedShipRepairSystem
             && proto.TryGetComponent<SpriteComponent>(out var specSprite, Factory))
         {
             // needed so it doesn't fall off if offgrid
-            var ghost = Spawn(RepairGhostId, new EntityCoordinates(key.Grid, Vector2.Zero));
+            var ghost = Spawn(_repairGhostId, new EntityCoordinates(key.Grid, Vector2.Zero));
             _parent.SetForceParent(ghost, new EntityCoordinates(key.Grid, spec.LocalPosition));
             _transform.SetLocalRotationNoLerp(ghost, spec.Rotation);
 
@@ -206,11 +204,7 @@ public sealed partial class ShipRepairSystem : SharedShipRepairSystem
             AddComp(ghost, sprite);
             var ent = (ghost, sprite);
 
-            // evil hacks to not trip debug asserts
-            var old = specSprite.Owner;
-            specSprite.Owner = ghost;
-            _sprite.CopySprite((ghost, specSprite), ent);
-            specSprite.Owner = old;
+            _sprite.CopySprite((EntityUid.Invalid, specSprite), ent);
 
             if (proto.TryGetComponent<IconSmoothComponent>(out var specSmooth, Factory))
             {
@@ -218,7 +212,7 @@ public sealed partial class ShipRepairSystem : SharedShipRepairSystem
                 AddComp(ghost, smooth);
             }
 
-            _sprite.SetColor(ent, ghostColor);
+            _sprite.SetColor(ent, _ghostColor);
             _sprite.SetVisible(ent, true);
             _sprite.SetDrawDepth(ent, (int)Content.Shared.DrawDepth.DrawDepth.Objects);
 
@@ -241,22 +235,22 @@ public sealed partial class ShipRepairSystem : SharedShipRepairSystem
             && def is ContentTileDefinition tileDef)
         {
             var localPos = _map.TileCenterToVector((key.Grid, key.Grid.Comp2), indices);
-            var ghost = Spawn(RepairGhostId, new EntityCoordinates(key.Grid, Vector2.Zero));
+            var ghost = Spawn(_repairGhostId, new EntityCoordinates(key.Grid, Vector2.Zero));
             _parent.SetForceParent(ghost, new EntityCoordinates(key.Grid, localPos));
 
             var sprite = EnsureComp<SpriteComponent>(ghost);
             var ent = (ghost, sprite);
 
             // render everything with plating sprite because tile sprites are evil and are a string of their variants
-            if (PlatingDef?.Sprite != null)
+            if (_platingDef?.Sprite != null)
             {
                 var layer = _sprite.AddBlankLayer(ent, 0);
-                _sprite.LayerSetTexture(ent, 0, PlatingDef.Sprite.Value);
+                _sprite.LayerSetTexture(ent, 0, _platingDef.Sprite.Value);
                 _sprite.LayerSetVisible(layer, true);
                 sprite.LayerSetShader(0, "unshaded");
             }
 
-            _sprite.SetColor(ghost, ghostColor);
+            _sprite.SetColor(ghost, _ghostColor);
             _sprite.SetDrawDepth(ghost, (int)Content.Shared.DrawDepth.DrawDepth.FloorObjects);
 
             _metaData.SetEntityName(ghost, Loc.GetString("repair-ghost-name", ("proto", Loc.GetString(tileDef.Name))));

@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.Clothing.Components;
 using Content.Shared.Clothing.EntitySystems;
 using Content.Shared.Interaction;
@@ -7,11 +6,8 @@ using Content.Shared.Item;
 using Content.Shared.Item.ItemToggle;
 using Content.Shared.Item.ItemToggle.Components;
 using Content.Shared.Popups;
-using Content.Shared.Temperature;
 using Content.Shared.Toggleable;
 using Content.Shared.Verbs;
-using Content.Shared.Wieldable;
-using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Network;
 
@@ -121,7 +117,7 @@ public abstract class SharedItemSwitchSystem : EntitySystem
     /// Used when an item is attempted to be toggled.
     /// Sets its state to the opposite of what it is.
     /// </summary>
-    /// <returns>Same as <see cref="TrySetActive"/></returns>
+    /// <returns>Same as TrySetActive</returns>
     public bool Switch(Entity<ItemSwitchComponent?> ent, string key, EntityUid? user = null, bool predicted = true)
     {
         if (!_query.Resolve(ent, ref ent.Comp, false) || !ent.Comp.States.TryGetValue(key, out var state))

@@ -7,27 +7,22 @@ using Content.Shared.Humanoid;
 using Content.Shared.Implants;
 using Content.Shared.Implants.Components;
 using Content.Shared.Mobs;
-using Content.Shared.Radio;
 using Content.Shared.Salvage.Fulton;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
-using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
-using System.Collections.Generic;
 using System.Numerics;
-using System.Threading;
-using YamlDotNet.Serialization;
 
 namespace Content.Server._NF.Implants;
 
 /// <summary>
 /// Handles delayed teleportation for entities implanted with <see cref="MedicalTeleportImplantComponent"/>.
-// HardLight start
+/// <!-- HardLight start -->
 /// When the implanted owner dies on a salvage expedition map, a fulton-like extraction is scheduled.
 /// If the owner is revived before the timer elapses, the extraction is canceled.
-// HardLight end
+/// <!-- HardLight end -->
 /// </summary>
 public sealed class MedicalTeleportImplantSystem : EntitySystem
 {

@@ -67,7 +67,7 @@ public sealed partial class FancyResearchConsoleMenu : FancyWindow
     /// <summary>
     /// Captures the initial position to use with recenter button
     /// </summary>
-    private Vector2 _initialViewPosition;
+    private Vector2 _initialViewPosition = DefaultPosition;
 
     /// <summary>
     /// Tracks if first initialization has happened

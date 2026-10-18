@@ -109,7 +109,8 @@ public abstract class SharedInteractorSystem : EntitySystem
         {
             SignalState.Momentary => !ent.Comp.AltInteract,
             SignalState.Low => false,
-            SignalState.High => true
+            SignalState.High => true,
+            _ => throw new ArgumentOutOfRangeException(),
         };
         SetAltInteract(ent, alt);
     }

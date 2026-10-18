@@ -54,8 +54,11 @@ public abstract partial class SharedDoAfterSystem : EntitySystem
             {
                 Update(uid, active, comp, time, xformQuery, handsQuery);
             }
-            // ReSharper disable once RedundantCatchClause
+#if EXCEPTION_TOLERANCE
             catch (Exception e)
+#else
+            catch (Exception)
+#endif
             {
 #if EXCEPTION_TOLERANCE
                 // Doafter in question failed to complete..

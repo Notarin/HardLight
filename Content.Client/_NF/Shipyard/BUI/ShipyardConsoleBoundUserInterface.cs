@@ -245,7 +245,6 @@ public sealed class ShipyardConsoleBoundUserInterface : BoundUserInterface
         _shipFileManagementSystem.ReloadSavedShips();
     }
 
-    [Obsolete]
     protected override void Dispose(bool disposing)
     {
         base.Dispose(disposing);

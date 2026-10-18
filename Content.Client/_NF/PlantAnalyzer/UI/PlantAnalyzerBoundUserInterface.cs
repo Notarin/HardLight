@@ -130,7 +130,6 @@ public sealed class PlantAnalyzerBoundUserInterface : BoundUserInterface
         }
     }
 
-    [Obsolete]
     protected override void Dispose(bool disposing)
     {
         base.Dispose(disposing);
@@ -141,6 +140,6 @@ public sealed class PlantAnalyzerBoundUserInterface : BoundUserInterface
             _window.OnClose -= Close;
 
         StopRefreshLoop();
-        _window?.Dispose();
+        _window?.Close();
     }
 }

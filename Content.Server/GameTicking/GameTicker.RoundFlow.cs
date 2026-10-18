@@ -625,7 +625,7 @@ namespace Content.Server.GameTicking
 
             // Aggressively delete the default map after a 30 second delay
             var defaultMapEntityUid = _map.GetMapOrInvalid(DefaultMap);
-            if (DefaultMap != null)
+            if (DefaultMap != MapId.Nullspace)
             {
                 Timer.Spawn(TimeSpan.FromSeconds(30), () =>
                 {

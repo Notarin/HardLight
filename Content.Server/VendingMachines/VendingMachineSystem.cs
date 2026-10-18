@@ -383,24 +383,6 @@ namespace Content.Server.VendingMachines
             if (!Resolve(uid, ref vendComponent))
                 return;
 
-            var finalState = VendingMachineVisualState.Normal;
-            if (vendComponent.Broken)
-            {
-                finalState = VendingMachineVisualState.Broken;
-            }
-            else if (vendComponent.Ejecting)
-            {
-                finalState = VendingMachineVisualState.Eject;
-            }
-            else if (vendComponent.Denying)
-            {
-                finalState = VendingMachineVisualState.Deny;
-            }
-            else if (!this.IsPowered(uid, EntityManager))
-            {
-                finalState = VendingMachineVisualState.Off;
-            }
-
             // Light and appearance handled by shared system; server override retains visual state via base system dependencies.
             base.TryUpdateVisualState((uid, vendComponent));
         }

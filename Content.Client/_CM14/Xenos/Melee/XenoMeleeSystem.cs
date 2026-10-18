@@ -23,8 +23,6 @@ public sealed class XenoMeleeSystem : SharedXenoMeleeSystem
     private const string TailAnimationKey = "cm-xeno-tail";
     private const string TailFadeAnimationKey = "cm-xeno-tail-fade";
 
-    private bool _showTailAttack;
-
     public override void Initialize()
     {
         base.Initialize();

@@ -116,7 +116,6 @@ namespace Content.Client.VendingMachines
             SendPredictedMessage(new VendingMachineEjectMessage(selectedItem.Type, selectedItem.ID));
         }
 
-        [Obsolete]
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
@@ -128,7 +127,7 @@ namespace Content.Client.VendingMachines
 
             _menu.OnItemSelected -= OnItemSelected;
             _menu.OnClose -= Close;
-            _menu.Dispose();
+            _menu.Close();
         }
 
         // Frontier: update cash slot balance

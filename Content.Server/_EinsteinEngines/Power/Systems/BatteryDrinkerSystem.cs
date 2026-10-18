@@ -107,9 +107,6 @@ public sealed class BatteryDrinkerSystem : EntitySystem
 
         DebugTools.AssertNotNull(drinkerBattery);
 
-        if (drinkerBattery == null)
-            return;
-
         var amountToDrink = drinkerComp.DrinkMultiplier * 1000;
 
         amountToDrink = MathF.Min(amountToDrink, sourceBattery.CurrentCharge);

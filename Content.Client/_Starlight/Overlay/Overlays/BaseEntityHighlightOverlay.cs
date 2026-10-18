@@ -25,7 +25,7 @@ public abstract class BaseEntityHighlightOverlay : BaseVisionOverlay
         var worldHandle = args.WorldHandle;
         var eyeRotation = args.Viewport.Eye?.Rotation ?? Angle.Zero;
 
-        worldHandle.UseShader(_shader);
+        worldHandle.UseShader(Shader);
         var query = _entityManager.EntityQueryEnumerator<BodyComponent, MetaDataComponent, SpriteComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out _, out var meta, out var sprite, out var xform))
         {

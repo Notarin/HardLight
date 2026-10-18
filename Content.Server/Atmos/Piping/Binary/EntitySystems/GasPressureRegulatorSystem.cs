@@ -140,14 +140,14 @@ public sealed class GasPressureRegulatorSystem : SharedGasPressureRegulatorSyste
 
         // And finally, limit the transfer volume to the max flow rate of the valve.
         var actualVolumeToTransfer = Math.Min(desiredVolumeToTransfer,
-            ent.Comp.MaxTransferRate * _atmosphere.PumpSpeedup() * args.dt);
+            ent.Comp.MaxTransferRate * _atmosphere.PumpSpeedup() * args.Dt);
 
         // We remove the gas from the inlet and merge it into the outlet.
         var removed = inletAir.RemoveVolume(actualVolumeToTransfer);
         _atmosphere.Merge(outletAir, removed);
 
         // Calculate the flow rate in L/s for the UI.
-        var sentFlowRate = MathF.Round(actualVolumeToTransfer / args.dt, 1);
+        var sentFlowRate = MathF.Round(actualVolumeToTransfer / args.Dt, 1);
 
         ChangeStatus(true, ent, inletPipeNode, outletPipeNode, sentFlowRate);
     }

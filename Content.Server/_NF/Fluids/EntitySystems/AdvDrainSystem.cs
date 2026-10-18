@@ -56,7 +56,7 @@ public sealed class AdvDrainSystem : SharedDrainSystem
 
     private void OnPowerChanged(EntityUid uid, AdvDrainComponent component, ref PowerChangedEvent args)
     {
-        component.gridPowered = args.Powered;
+        component.GridPowered = args.Powered;
     }
 
     private void AddEmptyVerb(Entity<AdvDrainComponent> entity, ref GetVerbsEvent<Verb> args)
@@ -146,7 +146,7 @@ public sealed class AdvDrainSystem : SharedDrainSystem
             }
 
             // not powered
-            if (!_powerCell.HasCharge(uid, drain.Wattage) && !drain.gridPowered)
+            if (!_powerCell.HasCharge(uid, drain.Wattage) && !drain.GridPowered)
             {
                 _ambientSoundSystem.SetAmbience(uid, false);
                 _appearanceSystem.SetData(uid, AdvDrainVisualState.IsRunning, false);
@@ -210,7 +210,7 @@ public sealed class AdvDrainSystem : SharedDrainSystem
             _ambientSoundSystem.SetAmbience(uid, true);
 
             // only use power if it's actively draining puddles and isn't powered from an APC
-            if (!drain.gridPowered)
+            if (!drain.GridPowered)
             {
                 _powerCell.TryUseCharge(uid, drain.Wattage * drain.DrainFrequency);
             }

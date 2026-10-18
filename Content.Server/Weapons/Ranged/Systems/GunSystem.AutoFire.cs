@@ -12,7 +12,7 @@ namespace Content.Server.Weapons.Ranged.Systems;
 
 public sealed partial class GunSystem
 {
-    [Dependency] public PopupSystem _popup = default!; // Frontier
+    [Dependency] private readonly PopupSystem _popup = default!; // Frontier
     public override void Update(float frameTime)
     {
         base.Update(frameTime);

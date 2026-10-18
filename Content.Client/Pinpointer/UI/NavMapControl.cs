@@ -734,14 +734,14 @@ public partial class NavMapControl : MapGridControl
 
     private void DrawSafeZoneRing(DrawingHandleScreen handle, Vector2 offset)
     {
-        const float SafeZoneRadius = 5000f;
+        const float safeZoneRadius = 5000f;
         var safeZoneColor = Color.LimeGreen.WithAlpha(0.8f);
 
         // Calculate the center position (inverted Y for screen coordinates)
         var centerPos = ScalePosition(new Vector2(-offset.X, offset.Y));
 
         // Scale the radius according to the minimap scale
-        var scaledRadius = SafeZoneRadius * MinimapScale;
+        var scaledRadius = safeZoneRadius * MinimapScale;
 
         // Draw the ring
         handle.DrawCircle(centerPos, scaledRadius, safeZoneColor, filled: false);

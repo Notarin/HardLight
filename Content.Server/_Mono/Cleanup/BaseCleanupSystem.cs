@@ -11,10 +11,10 @@ public abstract class BaseCleanupSystem<TComp> : EntitySystem
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
 
-    protected TimeSpan _cleanupInterval = TimeSpan.FromSeconds(300);
-    protected TimeSpan _debugCleanupInterval = TimeSpan.FromSeconds(15);
-    protected bool _doDebug;
-    protected bool _doLog;
+    protected TimeSpan CleanupInterval = TimeSpan.FromSeconds(300);
+    protected TimeSpan DebugCleanupInterval = TimeSpan.FromSeconds(15);
+    protected bool DoDebug;
+    protected bool DoLog;
 
     private Queue<EntityUid> _checkQueue = new();
 
@@ -28,8 +28,8 @@ public abstract class BaseCleanupSystem<TComp> : EntitySystem
     {
         base.Initialize();
 
-        Subs.CVar(_cfg, MonoCVars.CleanupDebug, val => _doDebug = val, true);
-        Subs.CVar(_cfg, MonoCVars.CleanupLog, val => _doLog = val, true);
+        Subs.CVar(_cfg, MonoCVars.CleanupDebug, val => DoDebug = val, true);
+        Subs.CVar(_cfg, MonoCVars.CleanupLog, val => DoLog = val, true);
     }
 
     public override void Update(float frameTime)
@@ -55,7 +55,7 @@ public abstract class BaseCleanupSystem<TComp> : EntitySystem
 
                 var coord = Transform(uid).Coordinates;
                 var world = _transform.ToMapCoordinates(coord);
-                if (_doLog)
+                if (DoLog)
                     Log.Info($"Cleanup deleting entity {ToPrettyString(uid)} at {coord} (world {world})");
 
                 _delCount += 1;
@@ -66,7 +66,7 @@ public abstract class BaseCleanupSystem<TComp> : EntitySystem
 
         if (_delCount != 0)
         {
-            if (_doLog)
+            if (DoLog)
                 Log.Info($"Deleted {_delCount} entities");
             _delCount = 0;
         }
@@ -75,7 +75,7 @@ public abstract class BaseCleanupSystem<TComp> : EntitySystem
         var curTime = _timing.CurTime;
         if (curTime < _nextCleanup)
             return;
-        var interval = !_doDebug ? _cleanupInterval : _debugCleanupInterval;
+        var interval = !DoDebug ? CleanupInterval : DebugCleanupInterval;
         _nextCleanup = curTime + interval;
 
         _checkQueue.Clear();

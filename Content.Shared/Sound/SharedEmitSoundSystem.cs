@@ -218,12 +218,12 @@ public abstract class SharedEmitSoundSystem : EntitySystem
             return;
         }
 
-        const float MaxVolumeVelocity = 10f;
-        const float MinVolume = -10f;
-        const float MaxVolume = 2f;
+        const float maxVolumeVelocity = 10f;
+        const float minVolume = -10f;
+        const float maxVolume = 2f;
 
-        var fraction = MathF.Min(1f, (physics.LinearVelocity.Length() - component.MinimumVelocity) / MaxVolumeVelocity);
-        var volume = MinVolume + (MaxVolume - MinVolume) * fraction;
+        var fraction = MathF.Min(1f, (physics.LinearVelocity.Length() - component.MinimumVelocity) / maxVolumeVelocity);
+        var volume = minVolume + (maxVolume - minVolume) * fraction;
         component.NextSound = Timing.CurTime + EmitSoundOnCollideComponent.CollideCooldown;
         var sound = component.Sound;
 

@@ -660,14 +660,14 @@ public sealed class FireControlNavControl : BaseShuttleControl
 
     private void DrawSafeZoneRing(DrawingHandleScreen handle)
     {
-        const float SafeZoneRadius = 5000f;
+        const float safeZoneRadius = 5000f;
         var safeZoneColor = Color.LimeGreen.WithAlpha(0.8f);
 
         // Calculate the center position
         var centerPos = ScalePosition(Vector2.Zero);
 
         // Scale the radius according to the minimap scale
-        var scaledRadius = SafeZoneRadius * MinimapScale;
+        var scaledRadius = safeZoneRadius * MinimapScale;
 
         // Draw the ring
         handle.DrawCircle(centerPos, scaledRadius, safeZoneColor, filled: false);

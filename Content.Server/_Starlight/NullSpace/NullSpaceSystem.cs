@@ -242,7 +242,7 @@ public sealed partial class NullSpaceSystem : SharedNullSpaceSystem
             _usedelay.TryResetDelay(uid, id: "nullphase-delay");
         }
 
-        SpawnAtPosition(_shadekinShadow, Transform(uid).Coordinates);
+        SpawnAtPosition(ShadekinShadow, Transform(uid).Coordinates);
         RemComp(uid, component);
     }
 

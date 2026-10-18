@@ -44,7 +44,7 @@ public abstract partial class AutomationSlot
 
     [Dependency] public readonly IEntityManager EntMan = default!;
     public AutomationFilterSystem Filter;
-    public EntityWhitelistSystem _whitelist;
+    public EntityWhitelistSystem WhitelistSystem;
     public SharedDeviceLinkSystem Device;
 
     /// <summary>
@@ -56,7 +56,7 @@ public abstract partial class AutomationSlot
         IoCManager.InjectDependencies(this);
 
         Filter = EntMan.System<AutomationFilterSystem>();
-        _whitelist = EntMan.System<EntityWhitelistSystem>();
+        WhitelistSystem = EntMan.System<EntityWhitelistSystem>();
         Device = EntMan.System<SharedDeviceLinkSystem>();
     }
 
@@ -75,7 +75,7 @@ public abstract partial class AutomationSlot
     /// </summary>
     public virtual bool CanInsert(EntityUid item)
     {
-        return _whitelist.CheckBoth(item, whitelist: Whitelist, blacklist: Blacklist);
+        return WhitelistSystem.CheckBoth(item, whitelist: Whitelist, blacklist: Blacklist);
     }
 
     /// <summary>

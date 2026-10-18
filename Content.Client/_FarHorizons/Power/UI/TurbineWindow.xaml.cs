@@ -24,7 +24,7 @@ public sealed partial class TurbineWindow : FancyWindow
 
     #region Variables
     //Colors for the RPM meter. (lit)
-    private static readonly Color[] _speedColors = [
+    private static readonly Color[] SpeedColors = [
         Color.FromHex("#BB3232"),
         Color.FromHex("#BB3232"),
         Color.FromHex("#BB3232"),
@@ -40,20 +40,20 @@ public sealed partial class TurbineWindow : FancyWindow
     ];
 
     //Colors for the RPM meter. (unlit)
-    private static readonly Color[] _speedColorsDim =
+    private static readonly Color[] SpeedColorsDim =
     [
-        DimGaugeColor(_speedColors[0]),
-        DimGaugeColor(_speedColors[1]),
-        DimGaugeColor(_speedColors[2]),
-        DimGaugeColor(_speedColors[3]),
-        DimGaugeColor(_speedColors[4]),
-        DimGaugeColor(_speedColors[5]),
-        DimGaugeColor(_speedColors[6]),
-        DimGaugeColor(_speedColors[7]),
-        DimGaugeColor(_speedColors[8]),
-        DimGaugeColor(_speedColors[9]),
-        DimGaugeColor(_speedColors[10]),
-        DimGaugeColor(_speedColors[11]),
+        DimGaugeColor(SpeedColors[0]),
+        DimGaugeColor(SpeedColors[1]),
+        DimGaugeColor(SpeedColors[2]),
+        DimGaugeColor(SpeedColors[3]),
+        DimGaugeColor(SpeedColors[4]),
+        DimGaugeColor(SpeedColors[5]),
+        DimGaugeColor(SpeedColors[6]),
+        DimGaugeColor(SpeedColors[7]),
+        DimGaugeColor(SpeedColors[8]),
+        DimGaugeColor(SpeedColors[9]),
+        DimGaugeColor(SpeedColors[10]),
+        DimGaugeColor(SpeedColors[11]),
     ];
 
     // Style boxes for the RPM meter.
@@ -168,9 +168,9 @@ public sealed partial class TurbineWindow : FancyWindow
     [MemberNotNull(nameof(_speedMeter))]
     public void InitRPMMeter()
     {
-        _speedMeter = new StyleBoxFlat[_speedColors.Length];
+        _speedMeter = new StyleBoxFlat[SpeedColors.Length];
 
-        for (var i = _speedColors.Length - 1; i >= 0; i--)
+        for (var i = SpeedColors.Length - 1; i >= 0; i--)
         {
             var styleBox = new StyleBoxFlat();
             _speedMeter[i] = styleBox;
@@ -245,12 +245,12 @@ public sealed partial class TurbineWindow : FancyWindow
 
     private void UpdateIndicators(TurbineBuiState msg)
     {
-        var FilePath = "/Textures/_FarHorizons/Structures/Power/Generation/FissionGenerator/indicator_lamps/";
+        var filePath = "/Textures/_FarHorizons/Structures/Power/Generation/FissionGenerator/indicator_lamps/";
         // These are just if/else statements in black magic form
-        TurbineOverspeed.TexturePath = msg.Overspeed ? FilePath + "redlit.png" : FilePath + "reddim.png";
-        TurbineOvertemp.TexturePath = msg.Overtemp ? FilePath + "redlit.png" : FilePath + "reddim.png";
-        TurbineStalling.TexturePath = msg.Stalling ? FilePath + "amberlit.png" : FilePath + "amberdim.png";
-        TurbineUndertemp.TexturePath = msg.Undertemp ? FilePath + "bluelit.png" : FilePath + "bluedim.png";
+        TurbineOverspeed.TexturePath = msg.Overspeed ? filePath + "redlit.png" : filePath + "reddim.png";
+        TurbineOvertemp.TexturePath = msg.Overtemp ? filePath + "redlit.png" : filePath + "reddim.png";
+        TurbineStalling.TexturePath = msg.Stalling ? filePath + "amberlit.png" : filePath + "amberdim.png";
+        TurbineUndertemp.TexturePath = msg.Undertemp ? filePath + "bluelit.png" : filePath + "bluedim.png";
     }
 
     protected override void FrameUpdate(FrameEventArgs args)
@@ -260,7 +260,7 @@ public sealed partial class TurbineWindow : FancyWindow
         for (var i = 0; i < _speedMeter.Length; i++)
         {
             var box = _speedMeter[i];
-            box.BackgroundColor = _speedLevel > i ? _speedColors[i] : _speedColorsDim[i];
+            box.BackgroundColor = _speedLevel > i ? SpeedColors[i] : SpeedColorsDim[i];
         }
 
         foreach (var kvp in _repeatQueue)

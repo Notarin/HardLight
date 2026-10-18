@@ -17,7 +17,7 @@ public sealed partial class ConsentToggleControl : Control
     public Action<string>? OnStateChange;
     public string State { get; private set; } // state is string in case we ever want to have a group with 3 or more buttons
 
-    private ButtonGroup Group = default!;
+    private ButtonGroup _group = default!;
 
     public ConsentToggleControl(ConsentTogglePrototype consentToggle)
     {
@@ -37,9 +37,9 @@ public sealed partial class ConsentToggleControl : Control
         ConsentToggleDescriptionLabel.Text = consentToggleDesc ?? consentToggle.Description;
 
         State = ""; // This is loaded later in ConsentManager.OnServerDataLoaded
-        Group = new ButtonGroup();
-        ConsentToggleOnButton.Group = Group;
-        ConsentToggleOffButton.Group = Group;
+        _group = new ButtonGroup();
+        ConsentToggleOnButton.Group = _group;
+        ConsentToggleOffButton.Group = _group;
 
         ConsentToggleOnButton.OnToggled += OnButtonToggled;
         ConsentToggleOffButton.OnToggled += OnButtonToggled;
@@ -68,10 +68,10 @@ public sealed partial class ConsentToggleControl : Control
 
     private void OnButtonToggled(BaseButton.ButtonToggledEventArgs args)
     {
-        if (Group.Pressed is null)
+        if (_group.Pressed is null)
             return;
 
-        State = Group.Pressed.Name == "ConsentToggleOnButton" ? "on" : "off";
+        State = _group.Pressed.Name == "ConsentToggleOnButton" ? "on" : "off";
         OnStateChange?.Invoke(State);
     }
 }

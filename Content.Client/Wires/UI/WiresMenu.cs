@@ -461,7 +461,7 @@ namespace Content.Client.Wires.UI
 
         private sealed class StatusLight : Control
         {
-            private static readonly Animation _blinkingFast = new()
+            private static readonly Animation BlinkingFast = new()
             {
                 Length = TimeSpan.FromSeconds(0.2),
                 AnimationTracks =
@@ -480,7 +480,7 @@ namespace Content.Client.Wires.UI
                 }
             };
 
-            private static readonly Animation _blinkingSlow = new()
+            private static readonly Animation BlinkingSlow = new()
             {
                 Length = TimeSpan.FromSeconds(0.8),
                 AnimationTracks =
@@ -542,10 +542,10 @@ namespace Content.Client.Wires.UI
                     case StatusLightState.On:
                         break;
                     case StatusLightState.BlinkingFast:
-                        animation = _blinkingFast;
+                        animation = BlinkingFast;
                         break;
                     case StatusLightState.BlinkingSlow:
-                        animation = _blinkingSlow;
+                        animation = BlinkingSlow;
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();

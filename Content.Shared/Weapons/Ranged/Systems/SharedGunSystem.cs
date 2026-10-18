@@ -78,10 +78,10 @@ public abstract partial class SharedGunSystem : EntitySystem
     [Dependency] protected readonly ThrowingSystem ThrowingSystem = default!;
     [Dependency] private readonly UseDelaySystem _useDelay = default!;
     [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
-    [Dependency] protected readonly SharedGunPredictionSystem? _gunPrediction = default!;
+    [Dependency] private readonly SharedGunPredictionSystem? _gunPrediction = default!;
 
-    protected EntityQuery<PhysicsComponent> _physQuery; // Mono
-    protected EntityQuery<ProjectileComponent> _projQuery; // Mono
+    private EntityQuery<PhysicsComponent> _physQuery; // Mono
+    private EntityQuery<ProjectileComponent> _projQuery; // Mono
 
     private const float InteractNextFire = 0.3f;
     private const double SafetyNextFire = 0.5;
@@ -786,7 +786,7 @@ public abstract partial class SharedGunSystem : EntitySystem
         Physics.ApplyLinearImpulse(toEnt, -dirVec * totalImpulse, pos);
     }
 
-    public void RefreshModifiers(Entity<GunComponent?> gun, EntityUid? User = null) // GoobStation: User for NoWieldNeeded
+    public void RefreshModifiers(Entity<GunComponent?> gun, EntityUid? user = null) // GoobStation: User for NoWieldNeeded
     {
         if (!Resolve(gun, ref gun.Comp))
             return;
@@ -803,14 +803,14 @@ public abstract partial class SharedGunSystem : EntitySystem
             comp.ShotsPerBurst,
             comp.FireRate,
             comp.ProjectileSpeed,
-            User // Goobstation: User for NoWieldNeeded
+            user // Goobstation: User for NoWieldNeeded
         );
 
         // Begin DeltaV additions
         // Raise an event at the user of the gun so they have a chance to modify the gun's details.
-        if (User != null)
+        if (user != null)
         {
-            RaiseLocalEvent(User.Value, ref ev);
+            RaiseLocalEvent(user.Value, ref ev);
         }
         // End DeltaV additions
 

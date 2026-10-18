@@ -17,7 +17,7 @@ namespace Content.Shared.Starlight.Knockback;
 public abstract partial class SharedKnockbackSystem : EntitySystem
 {
     [Dependency] private readonly TagSystem _tagSystem = default!;
-    [Dependency] protected readonly SharedTransformSystem _transformSystem = default!;
+    [Dependency] protected readonly SharedTransformSystem TransformSystem = default!;
     [Dependency] private readonly ThrowingSystem _throwing = default!;
     [Dependency] private readonly InventorySystem _inventory = default!;
     [Dependency] private readonly SharedStaminaSystem _stamina = default!; // HardLight: StaminSystem<SharedStaminaSystem

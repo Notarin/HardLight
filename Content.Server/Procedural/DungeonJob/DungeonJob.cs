@@ -47,7 +47,7 @@ public sealed partial class DungeonJob : Job<List<Dungeon>>
 
     private readonly EntityUid _gridUid;
     private readonly MapGridComponent _grid;
-    private Entity<MapGridComponent> _gridEntity => (_gridUid, _grid);
+    private Entity<MapGridComponent> GridEntity => (_gridUid, _grid);
 
     private readonly EntityCoordinates? _targetCoordinates;
 

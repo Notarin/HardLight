@@ -97,7 +97,7 @@ namespace Content.Server.Atmos.Piping.Trinary.EntitySystems
             var outletAir = outletNode.Air;
 
             // We multiply the transfer rate in L/s by the seconds passed since the last process to get the liters.
-            var transferVol = filter.TransferRate * _atmosphereSystem.PumpSpeedup() * args.dt;
+            var transferVol = filter.TransferRate * _atmosphereSystem.PumpSpeedup() * args.Dt;
 
             if (transferVol <= 0)
             {

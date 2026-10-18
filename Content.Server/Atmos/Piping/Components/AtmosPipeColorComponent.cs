@@ -8,7 +8,4 @@ public sealed partial class AtmosPipeColorComponent : Component
 }
 
 [ByRefEvent]
-public record struct AtmosPipeColorChangedEvent(Color color)
-{
-    public Color Color = color;
-}
+public record struct AtmosPipeColorChangedEvent(Color Color);

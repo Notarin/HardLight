@@ -23,7 +23,7 @@ public sealed class GasPowerReceiverSystem : EntitySystem
 
     private void OnDeviceUpdated(EntityUid uid, GasPowerReceiverComponent component, ref AtmosDeviceUpdateEvent args)
     {
-        var timeDelta = args.dt;
+        var timeDelta = args.Dt;
 
         if (!_nodeContainer.TryGetNode(uid, "pipe", out PipeNode? pipe))
             return;

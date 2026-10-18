@@ -167,7 +167,7 @@ public sealed partial class ShuttleRecordsSystem
         if (component.TargetIdSlot.ContainerSlot?.ContainedEntity is not { Valid: true } targetId)
         {
             _popup.PopupEntity(Loc.GetString("shuttle-records-no-idcard"), actor);
-            _audioSystem.PlayPredicted(component.ErrorSound, uid, null, AudioParams.Default.WithMaxDistance(5f));
+            AudioSystem.PlayPredicted(component.ErrorSound, uid, null, AudioParams.Default.WithMaxDistance(5f));
             return;
         }
 
@@ -175,14 +175,14 @@ public sealed partial class ShuttleRecordsSystem
         if (_entityManager.TryGetComponent<ShuttleDeedComponent>(targetId, out _))
         {
             _popup.PopupEntity(Loc.GetString("shipyard-console-already-deeded"), actor);
-            _audioSystem.PlayPredicted(component.ErrorSound, uid, null, AudioParams.Default.WithMaxDistance(5f));
+            AudioSystem.PlayPredicted(component.ErrorSound, uid, null, AudioParams.Default.WithMaxDistance(5f));
             return;
         }
 
         if (!TryGetEntity(args.TargetGrid, out var gridUid))
         {
             _popup.PopupEntity(Loc.GetString("shuttle-records-no-record-found"), actor);
-            _audioSystem.PlayPredicted(component.ErrorSound, uid, null, AudioParams.Default.WithMaxDistance(5f));
+            AudioSystem.PlayPredicted(component.ErrorSound, uid, null, AudioParams.Default.WithMaxDistance(5f));
             return;
         }
 
@@ -195,7 +195,7 @@ public sealed partial class ShuttleRecordsSystem
         if (!IsDockedWith(consoleXform.GridUid.Value, gridXform.GridUid.Value))
         {
             _popup.PopupEntity(Loc.GetString("shipyard-console-sale-not-docked"), actor);
-            _audioSystem.PlayPredicted(component.ErrorSound, uid, null, AudioParams.Default.WithMaxDistance(5f));
+            AudioSystem.PlayPredicted(component.ErrorSound, uid, null, AudioParams.Default.WithMaxDistance(5f));
             return;
         }
 
@@ -219,7 +219,7 @@ public sealed partial class ShuttleRecordsSystem
         Dirty(gridXform.GridUid.Value, gridDeed);
 
         _popup.PopupEntity(Loc.GetString("shuttle-records-deed-created"), actor);
-        _audioSystem.PlayPredicted(component.ConfirmSound, uid, null, AudioParams.Default.WithMaxDistance(5f));
+        AudioSystem.PlayPredicted(component.ConfirmSound, uid, null, AudioParams.Default.WithMaxDistance(5f));
 
         // Refresh UI
         RefreshState(uid, component, true);
@@ -255,7 +255,7 @@ public sealed partial class ShuttleRecordsSystem
         if (component.TargetIdSlot.ContainerSlot?.ContainedEntity is not { Valid: true } targetId)
         {
             _popup.PopupEntity(Loc.GetString("shuttle-records-no-idcard"), args.Actor);
-            _audioSystem.PlayPredicted(component.ErrorSound, uid, null, AudioParams.Default.WithMaxDistance(5f));
+            AudioSystem.PlayPredicted(component.ErrorSound, uid, null, AudioParams.Default.WithMaxDistance(5f));
             return;
         }
 
@@ -263,7 +263,7 @@ public sealed partial class ShuttleRecordsSystem
         if (!_access.IsAllowed(args.Actor, uid))
         {
             _popup.PopupEntity(Loc.GetString("shuttle-records-no-access"), args.Actor);
-            _audioSystem.PlayPredicted(component.ErrorSound, uid, null, AudioParams.Default.WithMaxDistance(5f));
+            AudioSystem.PlayPredicted(component.ErrorSound, uid, null, AudioParams.Default.WithMaxDistance(5f));
             return;
         }
 
@@ -272,7 +272,7 @@ public sealed partial class ShuttleRecordsSystem
         if (record == null)
         {
             _popup.PopupEntity(Loc.GetString("shuttle-records-no-record-found"), args.Actor);
-            _audioSystem.PlayPredicted(component.ErrorSound, uid, null, AudioParams.Default.WithMaxDistance(5f));
+            AudioSystem.PlayPredicted(component.ErrorSound, uid, null, AudioParams.Default.WithMaxDistance(5f));
             return;
         }
 
@@ -281,7 +281,7 @@ public sealed partial class ShuttleRecordsSystem
         if (!_bank.TrySectorWithdraw(component.Account, (int)transactionPrice, LedgerEntryType.ShuttleRecordFees))
         {
             _popup.PopupEntity(Loc.GetString("shuttle-records-insufficient-funds"), args.Actor);
-            _audioSystem.PlayPredicted(component.ErrorSound, uid, null, AudioParams.Default.WithMaxDistance(5f));
+            AudioSystem.PlayPredicted(component.ErrorSound, uid, null, AudioParams.Default.WithMaxDistance(5f));
             return;
         }
 
@@ -297,7 +297,7 @@ public sealed partial class ShuttleRecordsSystem
             LogType.ShuttleRecordsUsage,
             LogImpact.Low,
             $"{ToPrettyString(args.Actor):actor} used {transactionPrice} from station bank account to copy shuttle deed {shuttleName}."); */
-        _audioSystem.PlayPredicted(component.ConfirmSound, uid, null, AudioParams.Default.WithMaxDistance(5f));
+        AudioSystem.PlayPredicted(component.ConfirmSound, uid, null, AudioParams.Default.WithMaxDistance(5f));
     }
 
     private void OnIDSlotUpdated(EntityUid uid, ShuttleRecordsConsoleComponent component, EntityEventArgs args)

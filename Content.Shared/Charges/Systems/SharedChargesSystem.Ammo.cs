@@ -33,7 +33,7 @@ public abstract partial class SharedChargesSystem : EntitySystem
 
     private void OnAmmoAfterInteract(Entity<LimitedChargesAmmoComponent> ent, ref AfterInteractEvent args)
     {
-        if (args.Handled || !args.CanReach || !_timing.IsFirstTimePredicted)
+        if (args.Handled || !args.CanReach || !Timing.IsFirstTimePredicted)
             return;
 
         if (args.Target is not { Valid: true } target
@@ -64,11 +64,11 @@ public abstract partial class SharedChargesSystem : EntitySystem
         return ent.Comp.Charges;
     }
 
-    public int TakeCharges(Entity<LimitedChargesAmmoComponent> ent, int UpTo)
+    public int TakeCharges(Entity<LimitedChargesAmmoComponent> ent, int upTo)
     {
         if (!TryComp<StackComponent>(ent, out var stack))
         {
-            var took = Math.Min(ent.Comp.Charges, UpTo);
+            var took = Math.Min(ent.Comp.Charges, upTo);
             ent.Comp.Charges -= took;
             Dirty(ent);
             if (ent.Comp.Charges == 0 && _net.IsServer)
@@ -76,7 +76,7 @@ public abstract partial class SharedChargesSystem : EntitySystem
             return took;
         }
 
-        var takeAmount = Math.Min(stack.Count, UpTo / ent.Comp.Charges);
+        var takeAmount = Math.Min(stack.Count, upTo / ent.Comp.Charges);
         _stack.SetCount(ent, stack.Count - takeAmount, stack);
         return takeAmount * ent.Comp.Charges;
     }

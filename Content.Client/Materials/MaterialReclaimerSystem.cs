@@ -14,7 +14,7 @@ public sealed class MaterialReclaimerSystem : SharedMaterialReclaimerSystem
 
         // Stop the stream if it exists.
         if (component.CutOffSound && component.Stream != null)
-            _audio.Stop(component.Stream);
+            Audio.Stop(component.Stream);
 
         return base.TryFinishProcessItem(uid, component, active);
     }

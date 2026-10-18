@@ -65,12 +65,12 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
             }
 
             // Multiply power in by coefficient of performance, add that heat to gas
-            float dQ = thermoMachine.HeatCapacity * thermoMachine.Cp * args.dt;
+            float dQ = thermoMachine.HeatCapacity * thermoMachine.Cp * args.Dt;
 
             // Clamps the heat transferred to not overshoot
-            float Cin = _atmosphereSystem.GetHeatCapacity(heatExchangeGasMixture, true);
+            float cIn = _atmosphereSystem.GetHeatCapacity(heatExchangeGasMixture, true);
             float dT = targetTemp - temp;
-            float dQLim = dT * Cin;
+            float dQLim = dT * cIn;
             float scale = 1f;
             if (Math.Abs(dQ) > Math.Abs(dQLim))
             {

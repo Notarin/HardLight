@@ -214,7 +214,7 @@ namespace Content.Server.Explosion.EntitySystems
         {
             var xform = Transform(ent);
 
-            if (ent.Comp.mapCoords)
+            if (ent.Comp.MapCoords)
             {
                 var mapCoords = _transformSystem.GetMapCoordinates(ent, xform);
                 Spawn(ent.Comp.Proto, mapCoords);

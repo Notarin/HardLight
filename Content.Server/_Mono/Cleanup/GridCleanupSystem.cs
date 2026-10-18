@@ -79,7 +79,7 @@ public sealed class GridCleanupSystem : BaseCleanupSystem<MapGridComponent>
         // see if we should update timer or just be deleted
         else if (state.CleanupAccumulator < _duration)
         {
-            state.CleanupAccumulator += _cleanupInterval * state.CleanupAcceleration / scale;
+            state.CleanupAccumulator += CleanupInterval * state.CleanupAcceleration / scale;
             return false;
         }
 

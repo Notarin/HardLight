@@ -58,7 +58,7 @@ public sealed partial class GasTurbineMonitorSystem : EntitySystem
             if (!HasComp<TurbineComponent>(source))
                 continue;
 
-            comp.turbine = GetNetEntity(source);
+            comp.Turbine = GetNetEntity(source);
             Dirty(uid, comp);
             return; // The return is to make it behave such that the first connetion that's a turbine is the one chosen
         }
@@ -69,7 +69,7 @@ public sealed partial class GasTurbineMonitorSystem : EntitySystem
         if (!HasComp<TurbineComponent>(args.Source))
             return;
 
-        comp.turbine = GetNetEntity(args.Source);
+        comp.Turbine = GetNetEntity(args.Source);
         Dirty(uid, comp);
     }
 
@@ -78,14 +78,14 @@ public sealed partial class GasTurbineMonitorSystem : EntitySystem
         if (args.Port != comp.LinkingPort)
             return;
 
-        comp.turbine = null;
+        comp.Turbine = null;
         Dirty(uid, comp);
     }
 
     public bool TryGetTurbineComp(GasTurbineMonitorComponent turbineMonitor, [NotNullWhen(true)] out TurbineComponent? turbineComponent)
     {
         turbineComponent = null;
-        if (!_entityManager.TryGetEntity(turbineMonitor.turbine, out var turbineUid) || turbineUid == null)
+        if (!_entityManager.TryGetEntity(turbineMonitor.Turbine, out var turbineUid) || turbineUid == null)
             return false;
 
         if (!_entityManager.TryGetComponent<TurbineComponent>(turbineUid, out var turbine))
@@ -156,7 +156,7 @@ public sealed partial class GasTurbineMonitorSystem : EntitySystem
                 _logQueue.Add(key, new LogData
                 {
                     CreationTime = _gameTiming.RealTime,
-                    Turbine = comp.turbine!.Value,
+                    Turbine = comp.Turbine!.Value,
                     SetFlowRate = turbine.FlowRate
                 });
             else
@@ -192,7 +192,7 @@ public sealed partial class GasTurbineMonitorSystem : EntitySystem
                 _logQueue.Add(key, new LogData
                 {
                     CreationTime = _gameTiming.RealTime,
-                    Turbine = comp.turbine!.Value,
+                    Turbine = comp.Turbine!.Value,
                     SetStatorLoad = turbine.StatorLoad
                 });
             else
@@ -229,7 +229,7 @@ public sealed partial class GasTurbineMonitorSystem : EntitySystem
         if (!_entityManager.TryGetComponent<DeviceLinkSinkComponent>(uid, out var sink) || sink.LinkedSources.Count < 1)
             return;
 
-        if (!_entityManager.TryGetEntity(comp.turbine, out var uidTurbine))
+        if (!_entityManager.TryGetEntity(comp.Turbine, out var uidTurbine))
             return;
 
         if (!_entityManager.TryGetComponent<DeviceLinkSourceComponent>(uidTurbine, out var source))
@@ -244,7 +244,7 @@ public sealed partial class GasTurbineMonitorSystem : EntitySystem
             return;
 
         _uiSystem.CloseUi(uid, TurbineUiKey.Key);
-        comp.turbine = null;
+        comp.Turbine = null;
         _signal.RemoveSinkFromSource(uidTurbine.Value, uid, source, sink);
         Dirty(uid, comp);
     }

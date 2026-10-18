@@ -17,7 +17,7 @@ namespace Content.Server.Atmos.EntitySystems
     {
         #region Dependencies
 
-        [Dependency] public readonly SharedMapSystem _mapSystem = default!;
+        [Dependency] private readonly SharedMapSystem _mapSystem = default!;
         [Dependency] private IConfigurationManager _configurationManager = default!;
         private readonly HashSet<EntityUid> _dockConnectionsChecked = new();
 

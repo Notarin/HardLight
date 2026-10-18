@@ -46,5 +46,5 @@ public readonly struct PlumbingDeviceUpdateEvent(float dt)
     /// <summary>
     ///     Time since last update in seconds. Used for time-based calculations (just the reactor heating for now)
     /// </summary>
-    public readonly float dt = dt;
+    public readonly float Dt = dt;
 }

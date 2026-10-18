@@ -129,12 +129,12 @@ public sealed partial class ChannelFilterPopup : Popup
         UpdateAllChannelCheckboxState(); // HardLight: Added "Toggle All" button to channel filter popup
     }
 
-    private void HighlightsEntered(ButtonEventArgs _args)
+    private void HighlightsEntered(ButtonEventArgs args)
     {
         OnNewHighlights?.Invoke(Rope.Collapse(HighlightEdit.TextRope));
     }
 
-    private void OnRadioFilterButtonPressed(ButtonEventArgs _args)
+    private void OnRadioFilterButtonPressed(ButtonEventArgs args)
     {
         if (_radioFilterWindow == null)
         {

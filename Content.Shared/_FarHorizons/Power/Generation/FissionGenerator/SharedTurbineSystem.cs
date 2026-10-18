@@ -25,7 +25,7 @@ namespace Content.Shared._FarHorizons.Power.Generation.FissionGenerator;
 public abstract class SharedTurbineSystem : EntitySystem
 {
     [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-    [Dependency] protected readonly SharedAudioSystem _audio = default!;
+    [Dependency] protected readonly SharedAudioSystem Audio = default!;
     [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
     [Dependency] private readonly SharedToolSystem _toolSystem = default!;
     [Dependency] private readonly EntityManager _entityManager = default!;
@@ -122,8 +122,8 @@ public abstract class SharedTurbineSystem : EntitySystem
 
         var loop = audioParams.Value.WithLoop(true);
         var stream = false
-            ? _audio.PlayPredicted(sound, uid, uid, loop)
-            : _audio.PlayPvs(sound, uid, loop);
+            ? Audio.PlayPredicted(sound, uid, uid, loop)
+            : Audio.PlayPvs(sound, uid, loop);
         audioStream = stream?.Entity is { } entity ? entity : null;
     }
 
@@ -200,7 +200,7 @@ public abstract class SharedTurbineSystem : EntitySystem
         if (comp.BladeHealth <= 0.75 * comp.BladeHealthMax && !comp.IsSparking)
         {
             comp.IsSparking = true;
-            _audio.PlayPvs(new SoundPathSpecifier("/Audio/Effects/PowerSink/electric.ogg"), uid, AudioParams.Default.WithPitchScale(0.75f));
+            Audio.PlayPvs(new SoundPathSpecifier("/Audio/Effects/PowerSink/electric.ogg"), uid, AudioParams.Default.WithPitchScale(0.75f));
             _popupSystem.PopupEntity(Loc.GetString("turbine-spark", ("owner", uid)), uid, PopupType.MediumCaution);
         }
         else if (comp.BladeHealth > 0.75 * comp.BladeHealthMax && comp.IsSparking)

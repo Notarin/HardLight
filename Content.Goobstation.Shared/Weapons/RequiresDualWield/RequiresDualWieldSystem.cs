@@ -37,15 +37,15 @@ public sealed class RequiresDualWieldSystem : EntitySystem
         if (handsComp.Count != 2)
             return;
 
-        var EnumeratedItems = _handsSystem.EnumerateHeld(args.User, handsComp);
+        var enumeratedItems = _handsSystem.EnumerateHeld(args.User, handsComp);
 
-        if (EnumeratedItems.ToList().Count <= 1)
+        if (enumeratedItems.ToList().Count <= 1)
         {
             args.Cancel();
             DualWieldPopup(component, ref args);
         }
 
-        foreach (var held in EnumeratedItems)
+        foreach (var held in enumeratedItems)
         {
             if (held == uid)
                 continue;

@@ -22,8 +22,8 @@ namespace Content.Server.Electrocution
             if (CableEntity == null || NodeName == null)
                 yield break;
 
-            var _nodeContainer = entMan.System<NodeContainerSystem>();
-            if (_nodeContainer.TryGetNode(CableEntity.Value, NodeName, out Node? node))
+            var nodeContainer = entMan.System<NodeContainerSystem>();
+            if (nodeContainer.TryGetNode(CableEntity.Value, NodeName, out Node? node))
                 yield return node;
         }
     }

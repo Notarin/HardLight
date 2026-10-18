@@ -31,6 +31,6 @@ public sealed partial class HeatExchangerComponent : Component
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite)]
     [DataField("radiationCoefficient")]
-    public float alpha { get; set; } = 140f;
+    public float Alpha { get; set; } = 140f;
 }
 

@@ -11,10 +11,10 @@ namespace Content.Server.AutoVote;
 public sealed class AutoVoteSystem : EntitySystem
 {
     [Dependency] private readonly IConfigurationManager _cfg = default!;
-    [Dependency] public readonly IVoteManager _voteManager = default!;
-    [Dependency] public readonly IPlayerManager _playerManager = default!;
+    [Dependency] private readonly IVoteManager _voteManager = default!;
+    [Dependency] private readonly IPlayerManager _playerManager = default!;
 
-    public bool _shouldVoteNextJoin = false;
+    private bool _shouldVoteNextJoin = false;
 
     public override void Initialize()
     {

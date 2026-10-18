@@ -10,5 +10,5 @@ public sealed partial class SkeletonAccentComponent : Component
     ///     Chance that the message will be appended with "ACK ACK!"
     /// </summary>
     [DataField("ackChance")]
-    public float ackChance = 0.3f; // Funnier if it doesn't happen every single time
+    public float AckChance = 0.3f; // Funnier if it doesn't happen every single time
 }

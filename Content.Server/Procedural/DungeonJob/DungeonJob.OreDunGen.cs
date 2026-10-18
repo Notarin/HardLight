@@ -77,7 +77,7 @@ public sealed partial class DungeonJob
             else
             {
                 // If entity mask null - we ignore the tiles that have anything on them.
-                if (!_anchorable.TileFree(_gridEntity, tile, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask))
+                if (!_anchorable.TileFree(GridEntity, tile, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask))
                     continue;
 
                 var anchored = _maps.GetAnchoredEntitiesEnumerator(_gridUid, _grid, tile); // HardLight

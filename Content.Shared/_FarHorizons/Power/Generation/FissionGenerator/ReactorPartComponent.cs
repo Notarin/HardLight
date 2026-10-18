@@ -194,6 +194,6 @@ public sealed partial class ReactorPartComponent : Component
 [NetworkedComponent]
 public sealed class ReactorNeutron
 {
-    public Direction dir = Direction.North;
-    public float velocity = 1;
+    public Direction Dir = Direction.North;
+    public float Velocity = 1;
 }

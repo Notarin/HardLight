@@ -53,7 +53,7 @@ public readonly struct AtmosDeviceUpdateEvent(float dt, Entity<GridAtmosphereCom
     /// Time elapsed since last update, in seconds. Multiply values used in the update handler
     /// by this number to make them tickrate-invariant. Use this number instead of AtmosphereSystem.AtmosTime.
     /// </summary>
-    public readonly float dt = dt;
+    public readonly float Dt = dt;
 
     /// <summary>
     /// The grid that this device is currently on.

@@ -800,7 +800,7 @@ public sealed class MarkingsEnumerator : IEnumerator<Marking>
     private List<Marking> _markings;
     private bool _reverse;
 
-    int position;
+    private int _position;
 
     public MarkingsEnumerator(List<Marking> markings, bool reverse)
     {
@@ -809,11 +809,11 @@ public sealed class MarkingsEnumerator : IEnumerator<Marking>
 
         if (_reverse)
         {
-            position = _markings.Count;
+            _position = _markings.Count;
         }
         else
         {
-            position = -1;
+            _position = -1;
         }
     }
 
@@ -821,13 +821,13 @@ public sealed class MarkingsEnumerator : IEnumerator<Marking>
     {
         if (_reverse)
         {
-            position--;
-            return (position >= 0);
+            _position--;
+            return (_position >= 0);
         }
         else
         {
-            position++;
-            return (position < _markings.Count);
+            _position++;
+            return (_position < _markings.Count);
         }
     }
 
@@ -835,11 +835,11 @@ public sealed class MarkingsEnumerator : IEnumerator<Marking>
     {
         if (_reverse)
         {
-            position = _markings.Count;
+            _position = _markings.Count;
         }
         else
         {
-            position = -1;
+            _position = -1;
         }
     }
 
@@ -848,11 +848,11 @@ public sealed class MarkingsEnumerator : IEnumerator<Marking>
 
     object IEnumerator.Current
     {
-        get => _markings[position];
+        get => _markings[_position];
     }
 
     public Marking Current
     {
-        get => _markings[position];
+        get => _markings[_position];
     }
 }

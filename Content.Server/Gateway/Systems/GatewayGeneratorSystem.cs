@@ -96,7 +96,7 @@ public sealed class GatewayGeneratorSystem : EntitySystem
             return;
 
         var tileDef = _tileDefManager["FloorSteel"];
-        const int MaxOffset = 256;
+        const int maxOffset = 256;
         var tiles = new List<(Vector2i Index, Tile Tile)>();
         var seed = _random.Next();
         var random = new RobustRandom();
@@ -106,7 +106,7 @@ public sealed class GatewayGeneratorSystem : EntitySystem
         var gatewayName = _salvage.GetFTLName(_protoManager.Index(PlanetNamesId), seed);
         _metadata.SetEntityName(mapUid, gatewayName);
 
-        var origin = new Vector2i(random.Next(-MaxOffset, MaxOffset), random.Next(-MaxOffset, MaxOffset));
+        var origin = new Vector2i(random.Next(-maxOffset, maxOffset), random.Next(-maxOffset, maxOffset));
 
         _biome.EnsurePlanet(mapUid, _protoManager.Index(ContinentalId), seed);
 

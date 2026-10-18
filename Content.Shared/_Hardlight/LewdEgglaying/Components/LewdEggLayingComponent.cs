@@ -82,39 +82,39 @@ public sealed partial class LewdEggLayingComponent : Component
     /// The number of eggs in your belly
     /// </summary>
     [DataField, AutoNetworkedField]
-    public float eggs = 0;
+    public float Eggs = 0;
 
     /// <summary>
     /// The number of eggs produced since last flavor text
     /// </summary>
-    public float eggsFlavorAccum = 0;
+    public float EggsFlavorAccum = 0;
 
     /// <summary>
     /// The number of eggs produced since last flavor text
     /// </summary>
     public bool Temporary = false;
-    public bool hasEggs()
+    public bool HasEggs()
     {
-        return eggs >= 1.0f;
+        return Eggs >= 1.0f;
     }
-    public bool isHeavyOfEggs()
+    public bool IsHeavyOfEggs()
     {
-        return eggs >= EggSlowThreshold;
+        return Eggs >= EggSlowThreshold;
     }
-    public bool isFullOfEggs()
+    public bool IsFullOfEggs()
     {
-        return eggs >= MaxEggs;
+        return Eggs >= MaxEggs;
     }
-    public bool doFlavor()
+    public bool DoFlavor()
     {
-        if (eggsFlavorAccum >= FlavorFreq)
+        if (EggsFlavorAccum >= FlavorFreq)
         {
-            eggsFlavorAccum -= FlavorFreq;
+            EggsFlavorAccum -= FlavorFreq;
             return true;
         }
         return false;
     }
-    public void makeTempFrom(LewdEggLayingComponent other)
+    public void MakeTempFrom(LewdEggLayingComponent other)
     {
         FlavorMessages = other.FlavorMessages;
         EggSpawn = other.EggSpawn;

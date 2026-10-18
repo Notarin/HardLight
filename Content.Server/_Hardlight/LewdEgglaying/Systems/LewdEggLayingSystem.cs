@@ -59,7 +59,7 @@ public sealed class LewdEggLayingSystem : SharedLewdEggLayingSystem // HL: We've
 
     private void OnRefreshMovespeed(EntityUid user, LewdEggLayingComponent eggLaying, RefreshMovementSpeedModifiersEvent args)
     {
-        if (eggLaying.isHeavyOfEggs())
+        if (eggLaying.IsHeavyOfEggs())
         {
             args.ModifySpeed(eggLaying.EggSlowMult, eggLaying.EggSlowMult);
         }
@@ -67,7 +67,7 @@ public sealed class LewdEggLayingSystem : SharedLewdEggLayingSystem // HL: We've
 
     private void OnEggLayingAction(EntityUid user, LewdEggLayingComponent eggLaying, LewdEggLayingActionEvent args)
     {
-        if (!eggLaying.hasEggs())
+        if (!eggLaying.HasEggs())
         {
             _popup.PopupEntity(Loc.GetString("action-popup-lay-egg-no-eggs"), user, user);
             return;
@@ -93,27 +93,27 @@ public sealed class LewdEggLayingSystem : SharedLewdEggLayingSystem // HL: We've
 
         amount *= eggLaying.ProductionMult;
 
-        bool hasEggsBefore = eggLaying.hasEggs();
-        bool isHeavyBefore = eggLaying.isHeavyOfEggs();
-        bool isFullBefore = eggLaying.isFullOfEggs();
+        bool hasEggsBefore = eggLaying.HasEggs();
+        bool isHeavyBefore = eggLaying.IsHeavyOfEggs();
+        bool isFullBefore = eggLaying.IsFullOfEggs();
 
         AddEggs(user, eggLaying, amount); // HL: Moved the AddEggs to a helper function so we can share the eggs count in the component to the client
 
-        if (eggLaying.hasEggs() && !hasEggsBefore)
+        if (eggLaying.HasEggs() && !hasEggsBefore)
         {
             _popup.PopupEntity(Loc.GetString("action-popup-lay-egg-firstegg"), user, user);
             _actions.AddAction(user, ref eggLaying.Action, eggLaying.ActionPrototype);
         }
-        else if (eggLaying.isHeavyOfEggs() && !isHeavyBefore)
+        else if (eggLaying.IsHeavyOfEggs() && !isHeavyBefore)
         {
             _movementSpeedModifier.RefreshMovementSpeedModifiers(user);
             _popup.PopupEntity(Loc.GetString("action-popup-lay-egg-heavyeggs"), user, user);
         }
-        else if (eggLaying.isFullOfEggs() && !isFullBefore)
+        else if (eggLaying.IsFullOfEggs() && !isFullBefore)
         {
             _popup.PopupEntity(Loc.GetString("action-popup-lay-egg-fulleggs"), user, user);
         }
-        else if (eggLaying.doFlavor())
+        else if (eggLaying.DoFlavor())
         {
             _popup.PopupEntity(Loc.GetString(_random.Pick(eggLaying.FlavorMessages)), user, user);
         }
@@ -126,7 +126,7 @@ public sealed class LewdEggLayingSystem : SharedLewdEggLayingSystem // HL: We've
 
         args.Handled = true;
 
-        if (myEggs.Deleted || !myEggs.hasEggs())
+        if (myEggs.Deleted || !myEggs.HasEggs())
         {
             _popup.PopupEntity(Loc.GetString("action-popup-lay-egg-noeggs"), user, user);
             return;
@@ -139,7 +139,7 @@ public sealed class LewdEggLayingSystem : SharedLewdEggLayingSystem // HL: We've
         {
             theirEggs = (LewdEggLayingComponent)Factory.GetComponent(Factory.GetComponentName<LewdEggLayingComponent>());
             AddComp(target, theirEggs);
-            theirEggs.makeTempFrom(myEggs);
+            theirEggs.MakeTempFrom(myEggs);
             _actions.AddAction(target, ref theirEggs.Action, theirEggs.ActionPrototype);
         }
 
@@ -150,7 +150,7 @@ public sealed class LewdEggLayingSystem : SharedLewdEggLayingSystem // HL: We've
         _movementSpeedModifier.RefreshMovementSpeedModifiers(user);
         _movementSpeedModifier.RefreshMovementSpeedModifiers(target);
 
-        if (myEggs.hasEggs())
+        if (myEggs.HasEggs())
         {
             _popup.PopupEntity(Loc.GetString("action-popup-lay-egg-inside-give-more", ("entity", Identity.Entity(target, EntityManager))), user, user);
             _popup.PopupEntity(Loc.GetString("action-popup-lay-egg-inside-receive-more", ("entity", Identity.Entity(user, EntityManager))), target, target);
@@ -175,7 +175,7 @@ public sealed class LewdEggLayingSystem : SharedLewdEggLayingSystem // HL: We've
 
         args.Handled = true;
 
-        if (eggLaying.Deleted || !eggLaying.hasEggs())
+        if (eggLaying.Deleted || !eggLaying.HasEggs())
         {
             _popup.PopupEntity(Loc.GetString("action-popup-lay-egg-noeggs"), user, user);
             return;
@@ -191,7 +191,7 @@ public sealed class LewdEggLayingSystem : SharedLewdEggLayingSystem // HL: We've
         AddEggs(user, eggLaying, -1.0f); // HL: Moved the AddEggs to a helper function so we can share the eggs count in the component to the client
         _movementSpeedModifier.RefreshMovementSpeedModifiers(user);
 
-        if (eggLaying.hasEggs())
+        if (eggLaying.HasEggs())
         {
             _popup.PopupEntity(Loc.GetString("action-popup-lay-egg-user-more"), user, user);
             args.Repeat = true;

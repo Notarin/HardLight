@@ -144,24 +144,24 @@ public sealed class TegSystem : EntitySystem
 
             // Calculate thermal and electrical energy transfer between the two sides.
             // Assume temperature equalizes, i.e. Ta*cA + Tb*cB = Tf*(cA+cB)
-            var Tf = (airA.Temperature * cA + airB.Temperature * cB) / (cA + cB);
+            var tf = (airA.Temperature * cA + airB.Temperature * cB) / (cA + cB);
             // The maximum energy we can extract is (Ta - Tf)*cA, which is equal to (Tf - Tb)*cB
-            var Wmax = MathF.Abs(airA.Temperature - Tf) * cA;
+            var wMax = MathF.Abs(airA.Temperature - tf) * cA;
 
-            var N = component.ThermalEfficiency;
+            var n = component.ThermalEfficiency;
 
             // Calculate Carnot efficiency
-            var Thot = hotA ? airA.Temperature : airB.Temperature;
-            var Tcold = hotA ? airB.Temperature : airA.Temperature;
-            var Nmax = 1 - Tcold / Thot;
-            N = MathF.Min(N, Nmax); // clamp by Carnot efficiency
+            var tHot = hotA ? airA.Temperature : airB.Temperature;
+            var tCold = hotA ? airB.Temperature : airA.Temperature;
+            var nMax = 1 - tCold / tHot;
+            n = MathF.Min(n, nMax); // clamp by Carnot efficiency
 
             // Reduce efficiency at low temperature differences to encourage burn chambers (instead
             // of just feeding the TEG room temperature gas from an infinite gas miner).
-            var dT = Thot - Tcold;
-            N *= MathF.Tanh(dT / 700); // https://www.wolframalpha.com/input?i=tanh(x/700)+from+0+to+1000
+            var dT = tHot - tCold;
+            n *= MathF.Tanh(dT / 700); // https://www.wolframalpha.com/input?i=tanh(x/700)+from+0+to+1000
 
-            var transfer = Wmax * N;
+            var transfer = wMax * n;
             electricalEnergy = transfer * component.PowerFactor;
             var outTransfer = transfer * (1 - component.ThermalEfficiency);
 
@@ -183,7 +183,7 @@ public sealed class TegSystem : EntitySystem
         component.LastGeneration = electricalEnergy;
 
         // Turn energy (at atmos tick rate) into wattage.
-        var power = electricalEnergy / args.dt;
+        var power = electricalEnergy / args.Dt;
         // Add ramp factor. This magics slight power into existence, but allows us to ramp up.
         supplier.MaxSupply = power * component.RampFactor;
 
@@ -330,18 +330,18 @@ public sealed class TegSystem : EntitySystem
         var n2 = airOutlet.TotalMoles;
         var p1 = airInlet.Pressure;
         var p2 = airOutlet.Pressure;
-        var V1 = airInlet.Volume;
-        var V2 = airOutlet.Volume;
-        var T1 = airInlet.Temperature;
-        var T2 = airOutlet.Temperature;
+        var v1 = airInlet.Volume;
+        var v2 = airOutlet.Volume;
+        var t1 = airInlet.Temperature;
+        var t2 = airOutlet.Temperature;
 
         var δp = p1 - p2;
 
-        var denom = T1 * V2 + T2 * V1;
+        var denom = t1 * v2 + t2 * v1;
 
         if (δp > 0 && p1 > 0 && denom > 0)
         {
-            var transferMoles = n1 - (n1 + n2) * T2 * V1 / denom;
+            var transferMoles = n1 - (n1 + n2) * t2 * v1 / denom;
             RemoveInto(airInlet, transferMoles, transferBuffer);
             return δp;
         }

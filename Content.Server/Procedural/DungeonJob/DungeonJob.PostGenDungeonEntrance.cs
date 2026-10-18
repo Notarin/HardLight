@@ -61,13 +61,13 @@ public sealed partial class DungeonJob
                     }
 
                     // Check if exterior spot free.
-                    if (!_anchorable.TileFree(_gridEntity, tile, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask))
+                    if (!_anchorable.TileFree(GridEntity, tile, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask))
                     {
                         continue;
                     }
 
                     // Check if interior spot free (no guarantees on exterior but ClearDoor should handle it)
-                    if (!_anchorable.TileFree(_gridEntity, dirVec, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask))
+                    if (!_anchorable.TileFree(GridEntity, dirVec, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask))
                     {
                         continue;
                     }

@@ -25,31 +25,31 @@ internal sealed class FreeProberRule : StationEventSystem<FreeProberRuleComponen
     {
         base.Started(uid, component, gameRule, args);
 
-        List<EntityUid> PossibleSpawns = new();
+        List<EntityUid> possibleSpawns = new();
 
         var query = EntityQueryEnumerator<GlimmerSourceComponent>();
         while (query.MoveNext(out var glimmerSource, out var glimmerSourceComponent))
         {
             if (glimmerSourceComponent.AddToGlimmer && glimmerSourceComponent.Active)
             {
-                PossibleSpawns.Add(glimmerSource);
+                possibleSpawns.Add(glimmerSource);
             }
         }
 
-        if (PossibleSpawns.Count == 0 || _glimmerSystem.Glimmer >= 500 || _robustRandom.Prob(0.25f))
+        if (possibleSpawns.Count == 0 || _glimmerSystem.Glimmer >= 500 || _robustRandom.Prob(0.25f))
         {
             var queryBattery = EntityQueryEnumerator<PowerNetworkBatteryComponent>();
             while (query.MoveNext(out var battery, out var _))
             {
-                PossibleSpawns.Add(battery);
+                possibleSpawns.Add(battery);
             }
         }
 
-        if (PossibleSpawns.Count > 0)
+        if (possibleSpawns.Count > 0)
         {
-            _robustRandom.Shuffle(PossibleSpawns);
+            _robustRandom.Shuffle(possibleSpawns);
 
-            foreach (var source in PossibleSpawns)
+            foreach (var source in possibleSpawns)
             {
                 var xform = Transform(source);
 

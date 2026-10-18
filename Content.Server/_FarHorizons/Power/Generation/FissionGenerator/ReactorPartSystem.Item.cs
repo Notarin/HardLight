@@ -19,15 +19,15 @@ public sealed partial class ReactorPartSystem
         if (gasMix.TotalMoles < Atmospherics.GasMinMoles)
             gasMix = GasMixture.SpaceGas;
 
-        var DeltaT = (component.Temperature - gasMix.Temperature) * 0.01f;
+        var deltaT = (component.Temperature - gasMix.Temperature) * 0.01f;
 
-        if (Math.Abs(DeltaT) < 0.1)
+        if (Math.Abs(deltaT) < 0.1)
             return;
 
-        component.Temperature -= DeltaT;
+        component.Temperature -= deltaT;
         if (!gasMix.Immutable) // This prevents it from heating up space itself
             // This viloates COE, but if energy is conserved, then pulling out a hot rod will instantly turn the room into an oven
-            gasMix.Temperature += 0.1f * DeltaT * component.ThermalMass / _atmosphereSystem.GetHeatCapacity(gasMix, false);
+            gasMix.Temperature += 0.1f * deltaT * component.ThermalMass / _atmosphereSystem.GetHeatCapacity(gasMix, false);
 
         var burncomp = CompOrNull<DamageOnInteractComponent>(uid);
         if (burncomp is null)
@@ -36,11 +36,11 @@ public sealed partial class ReactorPartSystem
             burncomp.Damage = new DamageSpecifier();
         }
 
-        burncomp.IsDamageActive = component.Temperature > Atmospherics.T0C + _hotTemp;
+        burncomp.IsDamageActive = component.Temperature > Atmospherics.T0C + HotTemp;
 
         if (burncomp.IsDamageActive)
         {
-            var damage = Math.Max((component.Temperature - Atmospherics.T0C - _hotTemp) / _burnDiv, 0);
+            var damage = Math.Max((component.Temperature - Atmospherics.T0C - HotTemp) / BurnDiv, 0);
 
             // Giant string of if/else that makes sure it will interfere only as much as it needs to
             if (burncomp.Damage == null)

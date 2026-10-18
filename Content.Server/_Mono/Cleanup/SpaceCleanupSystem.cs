@@ -40,7 +40,7 @@ public sealed class SpaceCleanupSystem : BaseCleanupSystem<PhysicsComponent>
         base.Initialize();
 
         // this queries over literally everything with PhysicsComponent so has to have big interval
-        _cleanupInterval = TimeSpan.FromSeconds(600);
+        CleanupInterval = TimeSpan.FromSeconds(600);
 
         _immuneQuery = GetEntityQuery<CleanupImmuneComponent>();
         _fixQuery = GetEntityQuery<FixturesComponent>();

@@ -41,7 +41,7 @@ public sealed class AirFilterSystem : EntitySystem
             return;
 
         // absolute maximum pressure change
-        var pressureDelta = args.dt * intake.TargetPressureChange;
+        var pressureDelta = args.Dt * intake.TargetPressureChange;
         pressureDelta = MathF.Min(pressureDelta, intake.Pressure - air.Pressure);
         if (pressureDelta <= 0)
             return;
@@ -57,7 +57,7 @@ public sealed class AirFilterSystem : EntitySystem
         if (!GetAir(uid, out var air))
             return;
 
-        var ratio = MathF.Min(1f, args.dt * filter.TransferRate * _atmosphere.PumpSpeedup());
+        var ratio = MathF.Min(1f, args.Dt * filter.TransferRate * _atmosphere.PumpSpeedup());
         var removed = air.RemoveRatio(ratio);
         // nothing left to remove from the volume
         if (MathHelper.CloseToPercent(removed.TotalMoles, 0f))

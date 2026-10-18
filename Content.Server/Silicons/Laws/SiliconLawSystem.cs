@@ -156,7 +156,7 @@ public sealed class SiliconLawSystem : SharedSiliconLawSystem
 
         var obeysTo = Loc.GetString(lawset.ObeysTo);
         var secrecyLaw = Loc.GetString("law-emag-secrecy", ("faction", obeysTo));
-        var emaggerName = Name(args.user);
+        var emaggerName = Name(args.User);
         var customLaw = Loc.GetString("law-emag-custom", ("name", emaggerName), ("title", obeysTo));
         // HardLight end
 

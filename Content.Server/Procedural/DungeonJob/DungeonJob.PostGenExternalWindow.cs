@@ -53,7 +53,7 @@ public sealed partial class DungeonJob
                 break;
 
             // Room tile / already used.
-            if (!_anchorable.TileFree(_gridEntity, tile, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask) ||
+            if (!_anchorable.TileFree(GridEntity, tile, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask) ||
                 takenTiles.Contains(tile))
             {
                 continue;
@@ -73,7 +73,7 @@ public sealed partial class DungeonJob
 
                     if (!allExterior.Contains(neighbor) ||
                         takenTiles.Contains(neighbor) ||
-                        !_anchorable.TileFree(_gridEntity, neighbor, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask))
+                        !_anchorable.TileFree(GridEntity, neighbor, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask))
                     {
                         isValid = false;
                         break;
@@ -88,7 +88,7 @@ public sealed partial class DungeonJob
 
                         if (allExterior.Contains(perpTile) ||
                             takenTiles.Contains(neighbor) ||
-                            !_anchorable.TileFree(_gridEntity, perpTile, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask))
+                            !_anchorable.TileFree(GridEntity, perpTile, DungeonSystem.CollisionLayer, DungeonSystem.CollisionMask))
                         {
                             isValid = false;
                             break;

@@ -179,7 +179,7 @@ public sealed partial class HumanoidCharacterAppearance : ICharacterAppearance, 
         );
     }
 
-    private static IReadOnlyList<Color> RealisticEyeColors = new List<Color>
+    private static readonly IReadOnlyList<Color> RealisticEyeColors = new List<Color>
     {
         Color.Brown,
         Color.Gray,

@@ -10,7 +10,7 @@ namespace Content.Shared.Charges.Systems;
 
 public abstract partial class SharedChargesSystem : EntitySystem
 {
-    [Dependency] protected readonly IGameTiming _timing = default!;
+    [Dependency] protected readonly IGameTiming Timing = default!;
     [Dependency] protected readonly SharedAppearanceSystem Appearance = default!; // Frontier
 
     /*
@@ -89,7 +89,7 @@ public abstract partial class SharedChargesSystem : EntitySystem
             ent.Comp.LastCharges = 0;
         }
 
-        ent.Comp.LastUpdate = _timing.CurTime;
+        ent.Comp.LastUpdate = Timing.CurTime;
         Dirty(ent);
     }
 
@@ -126,14 +126,14 @@ public abstract partial class SharedChargesSystem : EntitySystem
         // If we were at max then need to reset the timer.
         if (charges == action.Comp1.MaxCharges || lastCharges == action.Comp1.MaxCharges)
         {
-            action.Comp1.LastUpdate = _timing.CurTime;
+            action.Comp1.LastUpdate = Timing.CurTime;
             action.Comp1.LastCharges = action.Comp1.MaxCharges;
         }
         // If it has auto-recharge then make up the difference.
         else if (Resolve(action.Owner, ref action.Comp2, false))
         {
             var duration = action.Comp2.RechargeDuration;
-            var diff = (_timing.CurTime - action.Comp1.LastUpdate);
+            var diff = (Timing.CurTime - action.Comp1.LastUpdate);
             var remainder = (int)(diff / duration);
 
             action.Comp1.LastCharges += remainder;
@@ -206,7 +206,7 @@ public abstract partial class SharedChargesSystem : EntitySystem
             return;
 
         action.Comp.LastCharges = action.Comp.MaxCharges;
-        action.Comp.LastUpdate = _timing.CurTime;
+        action.Comp.LastUpdate = Timing.CurTime;
         Dirty(action);
     }
 
@@ -234,7 +234,7 @@ public abstract partial class SharedChargesSystem : EntitySystem
         }
 
         action.Comp.LastCharges = adjusted;
-        action.Comp.LastUpdate = _timing.CurTime;
+        action.Comp.LastUpdate = Timing.CurTime;
         Dirty(action);
     }
 
@@ -277,7 +277,7 @@ public abstract partial class SharedChargesSystem : EntitySystem
 
         // Okay so essentially we need to get recharge time to full, then modulus that by the recharge timer which should be the next tick.
         var fullTime = ((entity.Comp1.MaxCharges - entity.Comp1.LastCharges) * entity.Comp2.RechargeDuration) + entity.Comp1.LastUpdate;
-        var timeRemaining = fullTime - _timing.CurTime;
+        var timeRemaining = fullTime - Timing.CurTime;
 
         if (timeRemaining < TimeSpan.Zero)
         {
@@ -305,7 +305,7 @@ public abstract partial class SharedChargesSystem : EntitySystem
 
         if (Resolve(entity.Owner, ref entity.Comp2, false) && entity.Comp2.RechargeDuration.TotalSeconds != 0.0)
         {
-            calculated = (int)((_timing.CurTime - entity.Comp1.LastUpdate).TotalSeconds / entity.Comp2.RechargeDuration.TotalSeconds);
+            calculated = (int)((Timing.CurTime - entity.Comp1.LastUpdate).TotalSeconds / entity.Comp2.RechargeDuration.TotalSeconds);
         }
 
         return Math.Clamp(entity.Comp1.LastCharges + calculated,

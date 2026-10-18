@@ -45,7 +45,7 @@ public sealed partial class ShadekinSystem : EntitySystem
         public float InnerWidth { get; set; }
         public float OuterWidth { get; set; }
     }
-    private readonly Dictionary<string, List<LightCone>> lightMasks = new()
+    private readonly Dictionary<string, List<LightCone>> _lightMasks = new()
     {
         ["/Textures/Effects/LightMasks/cone.png"] = new List<LightCone>
     {
@@ -162,7 +162,7 @@ public sealed partial class ShadekinSystem : EntitySystem
             var attenuation = 1 - (denom * denom);
             var calculatedLight = 0f;
 
-            if (light.Comp.MaskPath is not null && lightMasks.TryGetValue(light.Comp.MaskPath, out var cones))
+            if (light.Comp.MaskPath is not null && _lightMasks.TryGetValue(light.Comp.MaskPath, out var cones))
             {
                 var angleToTarget = GetAngle(light, light.Comp, uid);
                 foreach (var cone in cones)

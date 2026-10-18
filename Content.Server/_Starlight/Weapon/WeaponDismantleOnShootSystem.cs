@@ -16,7 +16,7 @@ namespace Content.Server._Starlight.Weapon.Systems;
 public sealed partial class WeaponDismantleOnShootSystem : SharedWeaponDismantleOnShootSystem
 {
     [Dependency] private readonly ThrowingSystem _throwing = default!;
-    [Dependency] private readonly DamageableSystem Damageable = default!;
+    [Dependency] private readonly DamageableSystem _damageable = default!;
     [Dependency] private readonly IEntityManager _entityManager = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
     public override void Initialize()
@@ -31,7 +31,7 @@ public sealed partial class WeaponDismantleOnShootSystem : SharedWeaponDismantle
 
         //apply the damage to the shooter
         //get the shooters damageable component
-        Damageable.TryChangeDamage(args.Shooter, ent.Comp.SelfDamage, origin: args.Shooter);
+        _damageable.TryChangeDamage(args.Shooter, ent.Comp.SelfDamage, origin: args.Shooter);
 
         //we need the user past this point
         if (!args.Shooter.HasValue)
@@ -52,7 +52,7 @@ public sealed partial class WeaponDismantleOnShootSystem : SharedWeaponDismantle
 
         //loop through all of the items
         var random = IoCManager.Resolve<IRobustRandom>();
-        foreach (var item in ent.Comp.items)
+        foreach (var item in ent.Comp.Items)
         {
             for (var i = 0; i < item.Amount; i++)
             {

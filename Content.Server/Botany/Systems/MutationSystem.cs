@@ -29,7 +29,7 @@ public sealed class MutationSystem : EntitySystem
         {
             var restartMutationPass = false;
 
-            foreach (var mutation in _randomMutations.mutations)
+            foreach (var mutation in _randomMutations.Mutations)
             {
                 if (!Random(Math.Min(mutation.BaseOdds * severity, 1.0f)))
                     continue;

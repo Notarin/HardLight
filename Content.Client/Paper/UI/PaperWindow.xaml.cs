@@ -22,7 +22,7 @@ namespace Content.Client.Paper.UI
         [Dependency] private readonly IResourceCache _resCache = default!;
 
         [ViewVariables]
-        private static Color DefaultTextColor = new(25, 25, 25);
+        private static Color _defaultTextColor = new(25, 25, 25);
 
         // <summary>
         // Size of resize handles around the paper
@@ -51,16 +51,16 @@ namespace Content.Client.Paper.UI
         /// <seealso cref="PaperBoundUserInterface"/>
         public event Action<string, int, Dictionary<string, Object?>?>? SendTag; // Hardlight
 
-        private int _MaxInputLength = -1;
+        private int _maxInputLength = -1;
         public int MaxInputLength
         {
             get
             {
-                return _MaxInputLength;
+                return _maxInputLength;
             }
             set
             {
-                _MaxInputLength = value;
+                _maxInputLength = value;
                 UpdateFillState();
             }
         }
@@ -73,7 +73,7 @@ namespace Content.Client.Paper.UI
             FillableTag.OnTagClicked += OnTagClicked; //Hardlight
 
             // We can't configure the RichTextLabel contents from xaml, so do it here:
-            BlankPaperIndicator.SetMessage(Loc.GetString("paper-ui-blank-page-message"), null, DefaultTextColor);
+            BlankPaperIndicator.SetMessage(Loc.GetString("paper-ui-blank-page-message"), null, _defaultTextColor);
 
             // Hook up the close button:
             CloseButton.OnPressed += _ => Close();
@@ -288,7 +288,7 @@ namespace Content.Client.Paper.UI
             }
             // End Frontier
 
-            WrittenTextLabel.SetMessage(msg, UserFormattableTags.BaseAllowedTags, DefaultTextColor);
+            WrittenTextLabel.SetMessage(msg, UserFormattableTags.BaseAllowedTags, _defaultTextColor);
 
             WrittenTextLabel.Visible = !isEditing && state.Text.Length > 0;
             BlankPaperIndicator.Visible = !isEditing && state.Text.Length == 0;

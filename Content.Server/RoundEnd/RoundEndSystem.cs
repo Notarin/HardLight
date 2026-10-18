@@ -112,9 +112,9 @@ namespace Content.Server.RoundEnd
         /// </summary>
         public EntityUid? GetColcomm()
         {
-            AllEntityQuery<StationColcommComponent>().MoveNext(out var Colcomm);
+            AllEntityQuery<StationColcommComponent>().MoveNext(out var colcomm);
 
-            return Colcomm == null ? null : Colcomm.MapEntity;
+            return colcomm == null ? null : colcomm.MapEntity;
         }
 
         public bool CanCallOrRecall()

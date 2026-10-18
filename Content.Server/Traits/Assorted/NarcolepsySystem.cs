@@ -10,10 +10,10 @@ namespace Content.Server.Traits.Assorted;
 /// </summary>
 public sealed class NarcolepsySystem : EntitySystem
 {
-    private static readonly ProtoId<StatusEffectPrototype> StatusEffectKey = new("ForcedSleep"); // Same one used by N2O and other sleep chems.
-
     [Dependency] private readonly StatusEffectsSystem _statusEffects = default!;
     [Dependency] private readonly IRobustRandom _random = default!;
+
+    private static readonly ProtoId<StatusEffectPrototype> StatusEffectKey = new("ForcedSleep"); // Same one used by N2O and other sleep chems.
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -27,12 +27,12 @@ public sealed class NarcolepsySystem : EntitySystem
             _random.NextFloat(component.TimeBetweenIncidents.X, component.TimeBetweenIncidents.Y);
     }
 
-    public void AdjustNarcolepsyTimer(EntityUid uid, int TimerReset, NarcolepsyComponent? narcolepsy = null)
+    public void AdjustNarcolepsyTimer(EntityUid uid, int timerReset, NarcolepsyComponent? narcolepsy = null)
     {
         if (!Resolve(uid, ref narcolepsy, false))
             return;
 
-        narcolepsy.NextIncidentTime = TimerReset;
+        narcolepsy.NextIncidentTime = timerReset;
     }
 
     public override void Update(float frameTime)

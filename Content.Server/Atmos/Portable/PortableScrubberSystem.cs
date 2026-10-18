@@ -50,7 +50,7 @@ namespace Content.Server.Atmos.Portable
 
         private void OnDeviceUpdated(EntityUid uid, PortableScrubberComponent component, ref AtmosDeviceUpdateEvent args)
         {
-            var timeDelta = args.dt;
+            var timeDelta = args.Dt;
 
             if (!component.Enabled)
                 return;

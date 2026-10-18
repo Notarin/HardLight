@@ -121,7 +121,7 @@ public sealed class PlumbingReactorSystem : EntitySystem
             // Start heating only once reagents are ready
             if (_power.IsPowered(ent.Owner))
             {
-                ApplyTemperatureControl(ent, bufferEnt.Value, buffer, args.dt);
+                ApplyTemperatureControl(ent, bufferEnt.Value, buffer, args.Dt);
             }
 
             // Dont do the reaction until we reach the the target temperature or close enough, but update the ui.

@@ -186,7 +186,7 @@ public sealed class IdCardConsoleSystem : SharedIdCardConsoleSystem
 
         if (!newAccessList.TrueForAll(x => component.AccessLevels.Contains(x)))
         {
-            _sawmill.Warning($"User {ToPrettyString(uid)} tried to write unknown access tag.");
+            LogMill.Warning($"User {ToPrettyString(uid)} tried to write unknown access tag.");
             return;
         }
 
@@ -205,7 +205,7 @@ public sealed class IdCardConsoleSystem : SharedIdCardConsoleSystem
         var privilegedPerms = _accessReader.FindAccessTags(privilegedId!.Value).ToHashSet();
         if (!difference.IsSubsetOf(privilegedPerms))
         {
-            _sawmill.Warning($"User {ToPrettyString(uid)} tried to modify permissions they could not give/take!");
+            LogMill.Warning($"User {ToPrettyString(uid)} tried to modify permissions they could not give/take!");
             return;
         }
 

@@ -24,7 +24,7 @@ public abstract class SharedLewdEggLayingSystem : EntitySystem
     {
         // Todo figure out how to only make verb appear for player mobs
         var target = args.Target;
-        if (!args.CanInteract || user.Owner == target || !user.Comp.hasEggs() || !TryComp(target, out ActorComponent? actor))
+        if (!args.CanInteract || user.Owner == target || !user.Comp.HasEggs() || !TryComp(target, out ActorComponent? actor))
             return;
 
         InnateVerb verbLayEgg = new()
@@ -38,12 +38,12 @@ public abstract class SharedLewdEggLayingSystem : EntitySystem
 
     protected void AddEggs(EntityUid uid, LewdEggLayingComponent comp, float amt)
     {
-        comp.eggs = Math.Clamp(comp.eggs + amt, 0, comp.MaxEggs);
+        comp.Eggs = Math.Clamp(comp.Eggs + amt, 0, comp.MaxEggs);
         if (amt > 0)
         {
-            comp.eggsFlavorAccum += amt;
+            comp.EggsFlavorAccum += amt;
         }
-        DirtyField(uid, comp, nameof(LewdEggLayingComponent.eggs));
+        DirtyField(uid, comp, nameof(LewdEggLayingComponent.Eggs));
     }
 
     protected virtual void AttemptLayInside(Entity<LewdEggLayingComponent> user, EntityUid target) { }

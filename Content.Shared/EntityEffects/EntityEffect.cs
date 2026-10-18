@@ -18,7 +18,7 @@ namespace Content.Shared.EntityEffects;
 [MeansImplicitUse]
 public abstract partial class EntityEffect
 {
-    private protected string _id => this.GetType().Name;
+    private protected string Id => this.GetType().Name;
     /// <summary>
     ///     The list of conditions required for the effect to activate. Not required.
     /// </summary>

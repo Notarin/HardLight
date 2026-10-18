@@ -37,7 +37,7 @@ public sealed class ScuttleDeviceSystem : EntitySystem
     [Dependency] private readonly SharedShuttleSystem _shuttles = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
 
-    private TimeSpan NukeSongBuffer = TimeSpan.FromSeconds(1.5);
+    private TimeSpan _nukeSongBuffer = TimeSpan.FromSeconds(1.5);
 
     public override void Initialize()
     {
@@ -165,7 +165,7 @@ public sealed class ScuttleDeviceSystem : EntitySystem
             return;
         }
 
-        if (ent.Comp.DoMusic && ent.Comp.RemainingTime <= ent.Comp.NukeSongLength + ent.Comp.AlertSoundTime + NukeSongBuffer && !ent.Comp.PlayedNukeSong && !ResolvedSoundSpecifier.IsNullOrEmpty(ent.Comp.SelectedNukeSong))
+        if (ent.Comp.DoMusic && ent.Comp.RemainingTime <= ent.Comp.NukeSongLength + ent.Comp.AlertSoundTime + _nukeSongBuffer && !ent.Comp.PlayedNukeSong && !ResolvedSoundSpecifier.IsNullOrEmpty(ent.Comp.SelectedNukeSong))
         {
             _sound.DispatchStationEventMusic(ent, ent.Comp.SelectedNukeSong!, StationEventMusicType.Nuke);
             ent.Comp.PlayedNukeSong = true;

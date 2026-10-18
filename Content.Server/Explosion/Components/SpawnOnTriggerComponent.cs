@@ -19,6 +19,6 @@ public sealed partial class SpawnOnTriggerComponent : Component
     ///     Use MapCoordinates for spawning?
     ///     Set to true if you don't want the new entity parented to the spawner.
     /// </summary>
-    [DataField]
-    public bool mapCoords;
+    [DataField("mapCoords")]
+    public bool MapCoords;
 }

@@ -8,7 +8,7 @@ namespace Content.Shared.Gravity;
 /// </summary>
 public abstract class SharedFloatingVisualizerSystem : EntitySystem
 {
-    [Dependency] private readonly SharedGravitySystem GravitySystem = default!;
+    [Dependency] private readonly SharedGravitySystem _gravitySystem = default!;
 
     public override void Initialize()
     {
@@ -32,7 +32,7 @@ public abstract class SharedFloatingVisualizerSystem : EntitySystem
         if (transform.MapID == MapId.Nullspace)
             return false;
 
-        component.CanFloat = GravitySystem.IsWeightless(uid, xform: transform);
+        component.CanFloat = _gravitySystem.IsWeightless(uid, xform: transform);
         Dirty(uid, component);
         return component.CanFloat;
     }

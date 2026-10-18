@@ -67,7 +67,7 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
             if (environment.Pressure > injector.MaxPressure)
                 return;
 
-            var timeDelta = args.dt;
+            var timeDelta = args.Dt;
 
             // TODO adjust ratio so that environment does not go above MaxPressure?
             var ratio = MathF.Min(1f, timeDelta * injector.TransferRate * _atmosphereSystem.PumpSpeedup() / inlet.Air.Volume);

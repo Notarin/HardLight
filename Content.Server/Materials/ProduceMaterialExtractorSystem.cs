@@ -85,7 +85,7 @@ public sealed class ProduceMaterialExtractorSystem : EntitySystem
 
         bool success = false;
 
-        foreach (var (item, _location) in storage.StoredItems)
+        foreach (var (item, _) in storage.StoredItems)
             if (ExtractFromProduce(ent, item))
                 success = true;
 

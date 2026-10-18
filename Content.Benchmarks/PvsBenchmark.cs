@@ -35,7 +35,7 @@ public class PvsBenchmark
     private IEntityManager _entMan = default!;
     private ICommonSession[] _players = default!;
     private EntityCoordinates[] _spawns = default!;
-    public int _cycleOffset = 0;
+    public int CycleOffset = 0;
     private SharedTransformSystem _sys = default!;
     private EntityCoordinates[] _locations = default!;
 
@@ -161,12 +161,12 @@ public class PvsBenchmark
     [Benchmark]
     public void CycleTick()
     {
-        _cycleOffset = (_cycleOffset + 1) % _players.Length;
+        CycleOffset = (CycleOffset + 1) % _players.Length;
         _pair.Server.WaitPost(() =>
         {
             for (var i = 0; i < PlayerCount; i++)
             {
-                _sys.SetCoordinates(_players[i].AttachedEntity!.Value, _locations[(i + _cycleOffset) % _players.Length]);
+                _sys.SetCoordinates(_players[i].AttachedEntity!.Value, _locations[(i + CycleOffset) % _players.Length]);
             }
         }).Wait();
         _pair.Server.PvsTick(_players);

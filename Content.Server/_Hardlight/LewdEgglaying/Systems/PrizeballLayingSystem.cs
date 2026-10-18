@@ -58,7 +58,7 @@ public sealed class PrizeballLayingSystem : SharedPrizeballLayingSystem //  We'v
 
     private void OnRefreshMovespeed(EntityUid user, PrizeballLayingComponent pballLaying, RefreshMovementSpeedModifiersEvent args)
     {
-        if (pballLaying.isHeavyOfPballs())
+        if (pballLaying.IsHeavyOfPballs())
         {
             args.ModifySpeed(pballLaying.PballSlowMult, pballLaying.PballSlowMult);
         }
@@ -66,7 +66,7 @@ public sealed class PrizeballLayingSystem : SharedPrizeballLayingSystem //  We'v
 
     private void OnPballLayingAction(EntityUid user, PrizeballLayingComponent pballLaying, PrizeballLayingActionEvent args)
     {
-        if (!pballLaying.hasPballs())
+        if (!pballLaying.HasPballs())
         {
             _popup.PopupEntity(Loc.GetString("action-popup-lay-pball-no-pballs"), user, user);
             return;
@@ -91,27 +91,27 @@ public sealed class PrizeballLayingSystem : SharedPrizeballLayingSystem //  We'v
 
         amount *= pballLaying.ProductionMult;
 
-        bool hasPballsBefore = pballLaying.hasPballs();
-        bool isHeavyBefore = pballLaying.isHeavyOfPballs();
-        bool isFullBefore = pballLaying.isFullOfPballs();
+        bool hasPballsBefore = pballLaying.HasPballs();
+        bool isHeavyBefore = pballLaying.IsHeavyOfPballs();
+        bool isFullBefore = pballLaying.IsFullOfPballs();
 
         AddPballs(user, pballLaying, amount);
 
-        if (pballLaying.hasPballs() && !hasPballsBefore)
+        if (pballLaying.HasPballs() && !hasPballsBefore)
         {
             _popup.PopupEntity(Loc.GetString("action-popup-lay-pball-firstpball"), user, user);
             _actions.AddAction(user, ref pballLaying.Action, pballLaying.ActionPrototype);
         }
-        else if (pballLaying.isHeavyOfPballs() && !isHeavyBefore)
+        else if (pballLaying.IsHeavyOfPballs() && !isHeavyBefore)
         {
             _movementSpeedModifier.RefreshMovementSpeedModifiers(user);
             _popup.PopupEntity(Loc.GetString("action-popup-lay-pball-heavypballs"), user, user);
         }
-        else if (pballLaying.isFullOfPballs() && !isFullBefore)
+        else if (pballLaying.IsFullOfPballs() && !isFullBefore)
         {
             _popup.PopupEntity(Loc.GetString("action-popup-lay-pball-fullpballs"), user, user);
         }
-        else if (pballLaying.doFlavor())
+        else if (pballLaying.DoFlavor())
         {
             _popup.PopupEntity(Loc.GetString(_random.Pick(pballLaying.FlavorMessages)), user, user);
         }
@@ -124,7 +124,7 @@ public sealed class PrizeballLayingSystem : SharedPrizeballLayingSystem //  We'v
 
         args.Handled = true;
 
-        if (myPballs.Deleted || !myPballs.hasPballs())
+        if (myPballs.Deleted || !myPballs.HasPballs())
         {
             _popup.PopupEntity(Loc.GetString("action-popup-lay-pball-nopballs"), user, user);
             return;
@@ -137,7 +137,7 @@ public sealed class PrizeballLayingSystem : SharedPrizeballLayingSystem //  We'v
         {
             theirPballs = (PrizeballLayingComponent)Factory.GetComponent(Factory.GetComponentName<PrizeballLayingComponent>());
             AddComp(target, theirPballs);
-            theirPballs.makeTempFrom(myPballs);
+            theirPballs.MakeTempFrom(myPballs);
             _actions.AddAction(target, ref theirPballs.Action, theirPballs.ActionPrototype);
         }
 
@@ -148,7 +148,7 @@ public sealed class PrizeballLayingSystem : SharedPrizeballLayingSystem //  We'v
         _movementSpeedModifier.RefreshMovementSpeedModifiers(user);
         _movementSpeedModifier.RefreshMovementSpeedModifiers(target);
 
-        if (myPballs.hasPballs())
+        if (myPballs.HasPballs())
         {
             _popup.PopupEntity(Loc.GetString("action-popup-lay-pball-inside-give-more", ("entity", Identity.Entity(target, EntityManager))), user, user);
             _popup.PopupEntity(Loc.GetString("action-popup-lay-pball-inside-receive-more", ("entity", Identity.Entity(user, EntityManager))), target, target);
@@ -173,7 +173,7 @@ public sealed class PrizeballLayingSystem : SharedPrizeballLayingSystem //  We'v
 
         args.Handled = true;
 
-        if (pballLaying.Deleted || !pballLaying.hasPballs())
+        if (pballLaying.Deleted || !pballLaying.HasPballs())
         {
             _popup.PopupEntity(Loc.GetString("action-popup-lay-pball-nopballs"), user, user);
             return;
@@ -189,7 +189,7 @@ public sealed class PrizeballLayingSystem : SharedPrizeballLayingSystem //  We'v
         AddPballs(user, pballLaying, -1.0f);
         _movementSpeedModifier.RefreshMovementSpeedModifiers(user);
 
-        if (pballLaying.hasPballs())
+        if (pballLaying.HasPballs())
         {
             _popup.PopupEntity(Loc.GetString("action-popup-lay-pball-user-more"), user, user);
             args.Repeat = true;

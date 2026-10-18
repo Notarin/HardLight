@@ -36,7 +36,7 @@ public sealed class TurbineBoundUserInterface : BoundUserInterface
     {
         EntityUid? turbineUid = null;
         if (_entityManager.TryGetComponent<GasTurbineMonitorComponent>(Owner, out var turbineMonitorComponent))
-            if (!_entityManager.TryGetEntity(turbineMonitorComponent.turbine, out turbineUid) || turbineUid == null
+            if (!_entityManager.TryGetEntity(turbineMonitorComponent.Turbine, out turbineUid) || turbineUid == null
                 || !_entityManager.HasComponent<TurbineComponent>(turbineUid))
                 return;
 
@@ -93,7 +93,7 @@ public sealed class TurbineBoundUserInterface : BoundUserInterface
         if (!_entityManager.TryGetComponent<GasTurbineMonitorComponent>(uid, out var turbineMonitor))
             return false;
 
-        if (!_entityManager.TryGetEntity(turbineMonitor.turbine, out var turbineUid) || turbineUid == null)
+        if (!_entityManager.TryGetEntity(turbineMonitor.Turbine, out var turbineUid) || turbineUid == null)
             return false;
 
         if (!_entityManager.TryGetComponent<TurbineComponent>(turbineUid, out var turbine))

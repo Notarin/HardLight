@@ -55,7 +55,7 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
             if (_weldable.IsWelded(uid))
                 return;
 
-            var timeDelta = args.dt;
+            var timeDelta = args.Dt;
 
             if (!_powerReceiverSystem.IsPowered(uid))
                 return;

@@ -26,7 +26,7 @@ public sealed partial class WeaponDismantleOnShootComponent : Component
     public DamageSpecifier SelfDamage = new();
 
     [DataField, AutoNetworkedField]
-    public List<DismantleOnShootItem> items = [];
+    public List<DismantleOnShootItem> Items = [];
 }
 
 [DataDefinition]

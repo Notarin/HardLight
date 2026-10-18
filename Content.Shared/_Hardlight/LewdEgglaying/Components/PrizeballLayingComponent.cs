@@ -82,39 +82,39 @@ public sealed partial class PrizeballLayingComponent : Component
     /// The number of prizeballs in your belly
     /// </summary>
     [DataField, AutoNetworkedField]
-    public float pballs = 0;
+    public float Pballs = 0;
 
     /// <summary>
     /// The number of prizeballs produced since last flavor text
     /// </summary>
-    public float pballsFlavorAccum = 0;
+    public float PballsFlavorAccum = 0;
 
     /// <summary>
     /// The number of prizeballs produced since last flavor text
     /// </summary>
     public bool Temporary = false;
-    public bool hasPballs()
+    public bool HasPballs()
     {
-        return pballs >= 1.0f;
+        return Pballs >= 1.0f;
     }
-    public bool isHeavyOfPballs()
+    public bool IsHeavyOfPballs()
     {
-        return pballs >= PballSlowThreshold;
+        return Pballs >= PballSlowThreshold;
     }
-    public bool isFullOfPballs()
+    public bool IsFullOfPballs()
     {
-        return pballs >= MaxPballs;
+        return Pballs >= MaxPballs;
     }
-    public bool doFlavor()
+    public bool DoFlavor()
     {
-        if (pballsFlavorAccum >= FlavorFreq)
+        if (PballsFlavorAccum >= FlavorFreq)
         {
-            pballsFlavorAccum -= FlavorFreq;
+            PballsFlavorAccum -= FlavorFreq;
             return true;
         }
         return false;
     }
-    public void makeTempFrom(PrizeballLayingComponent other)
+    public void MakeTempFrom(PrizeballLayingComponent other)
     {
         FlavorMessages = other.FlavorMessages;
         EggSpawn = other.EggSpawn;

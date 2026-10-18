@@ -8,30 +8,30 @@ public static class MarkingExtensions
 {
     //refactored all this shit code to properly use json to pass things around instead of what it was doing before
     //should be much more stable for future wizden changes and whatever else we want to do
-    public static string ToDBString(this Marking Marking)
+    public static string ToDBString(this Marking marking)
     {
         // reserved character
-        string sanitizedName = Marking.MarkingId.Replace('@', '_');
+        string sanitizedName = marking.MarkingId.Replace('@', '_');
         List<string> colorStringList = new();
-        foreach (Color color in Marking.MarkingColors)
+        foreach (Color color in marking.MarkingColors)
             colorStringList.Add(color.ToHex());
 
         var json = JsonSerializer.Serialize(new MarkingDbString
         {
             MarkingId = sanitizedName,
             Colors = colorStringList,
-            IsGlowing = Marking.IsGlowing,
+            IsGlowing = marking.IsGlowing,
 
             // Coyote marking improvements
-            ToggleDataInitialized = Marking.ToggleDataInitialized,
-            CustomName = Marking.CustomName,
-            ShowAtStart = Marking.ShowAtStart,
-            CanToggleVisible = Marking.CanToggleVisible,
-            OtherCanToggleVisible = Marking.OtherCanToggleVisible,
-            PutOnVerb = Marking.PutOnVerb,
-            PutOnVerb2p = Marking.PutOnVerb2p,
-            TakeOffVerb = Marking.TakeOffVerb,
-            TakeOffVerb2p = Marking.TakeOffVerb2p
+            ToggleDataInitialized = marking.ToggleDataInitialized,
+            CustomName = marking.CustomName,
+            ShowAtStart = marking.ShowAtStart,
+            CanToggleVisible = marking.CanToggleVisible,
+            OtherCanToggleVisible = marking.OtherCanToggleVisible,
+            PutOnVerb = marking.PutOnVerb,
+            PutOnVerb2p = marking.PutOnVerb2p,
+            TakeOffVerb = marking.TakeOffVerb,
+            TakeOffVerb2p = marking.TakeOffVerb2p
         });
 
         return json;

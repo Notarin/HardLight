@@ -35,7 +35,7 @@ public partial class BaseShuttleControl : MapGridControl
 {
     [Dependency] private readonly IParallelManager _parallel = default!;
     [Dependency] private readonly ITileDefinitionManager _tileDef = default!; // Mono
-    protected readonly EntityLookupSystem _lookup; // Mono
+    private readonly EntityLookupSystem _lookup; // Mono
     protected readonly SharedMapSystem Maps;
 
     protected readonly Font Font;
@@ -52,7 +52,7 @@ public partial class BaseShuttleControl : MapGridControl
     private readonly List<(Vector2 Start, Vector2 End)> _edges = new();
     private readonly HashSet<Entity<GridEdgeMarkerComponent>> _edgeMarkers = new();
 
-    private Vector2 CenterVec = new Vector2(0.5f, 0.5f); // Mono
+    private Vector2 _centerVec = new Vector2(0.5f, 0.5f); // Mono
 
     private EntityQuery<TransformComponent> _xformQuery; // Mono
 
@@ -104,15 +104,15 @@ public partial class BaseShuttleControl : MapGridControl
         var gridLines = Color.LightGray.WithAlpha(0.01f);
 
         // Each circle is this x distance of the last one.
-        const float EquatorialMultiplier = 2f;
+        const float equatorialMultiplier = 2f;
 
-        var minDistance = MathF.Pow(EquatorialMultiplier, EquatorialMultiplier * 1.5f);
-        var maxDistance = MathF.Pow(2f, EquatorialMultiplier * 6f);
+        var minDistance = MathF.Pow(equatorialMultiplier, equatorialMultiplier * 1.5f);
+        var maxDistance = MathF.Pow(2f, equatorialMultiplier * 6f);
         var cornerDistance = MathF.Sqrt(WorldRange * WorldRange + WorldRange * WorldRange);
 
         var origin = MidPointVector; // Mono
 
-        for (var radius = minDistance; radius <= maxDistance; radius *= EquatorialMultiplier)
+        for (var radius = minDistance; radius <= maxDistance; radius *= equatorialMultiplier)
         {
             if (radius > cornerDistance)
                 continue;
@@ -547,8 +547,8 @@ public partial class BaseShuttleControl : MapGridControl
 
                 var coord = xform.Coordinates.Position;
                 var rotation = xform.LocalRotation;
-                var begin = rotation.RotateVec(edge.Comp.Begin - CenterVec) + CenterVec;
-                var end = rotation.RotateVec(edge.Comp.End - CenterVec) + CenterVec;
+                var begin = rotation.RotateVec(edge.Comp.Begin - _centerVec) + _centerVec;
+                var end = rotation.RotateVec(edge.Comp.End - _centerVec) + _centerVec;
                 _edges.Add((coord + begin * tileSize, coord + end * tileSize));
             }
 
@@ -616,12 +616,12 @@ public partial class BaseShuttleControl : MapGridControl
 
         _parallel.ProcessNow(_drawJob, totalData);
 
-        const float BatchSize = 3f * 4096;
+        const float batchSize = 3f * 4096;
 
-        for (var i = 0; i < Math.Ceiling(triCount / BatchSize); i++)
+        for (var i = 0; i < Math.Ceiling(triCount / batchSize); i++)
         {
-            var start = (int)(i * BatchSize);
-            var end = (int)Math.Min(triCount, start + BatchSize);
+            var start = (int)(i * batchSize);
+            var end = (int)Math.Min(triCount, start + batchSize);
             var count = end - start;
             handle.DrawPrimitives(DrawPrimitiveTopology.TriangleList, new Span<Vector2>(_allVertices, start, count), color.WithAlpha(alpha));
         }

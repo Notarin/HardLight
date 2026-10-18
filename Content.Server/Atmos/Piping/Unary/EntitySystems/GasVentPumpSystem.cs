@@ -104,7 +104,7 @@ namespace Content.Server.Atmos.Piping.Unary.EntitySystems
                 vent.IsPressureLockoutManuallyDisabled = false;
             }
 
-            var timeDelta = args.dt;
+            var timeDelta = args.Dt;
             var pressureDelta = timeDelta * vent.TargetPressureChange;
 
             var lockout = (environment.Pressure < vent.UnderPressureLockoutThreshold) && !vent.IsPressureLockoutManuallyDisabled;

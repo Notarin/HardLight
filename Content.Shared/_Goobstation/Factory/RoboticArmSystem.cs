@@ -38,7 +38,7 @@ public sealed class RoboticArmSystem : EntitySystem
     private EntityQuery<ItemComponent> _itemQuery;
     private EntityQuery<ThrownItemComponent> _thrownQuery;
     private TimeSpan _nextUpdate = TimeSpan.Zero;
-    private static readonly TimeSpan _updateDelay = TimeSpan.FromSeconds(5);
+    private static readonly TimeSpan UpdateDelay = TimeSpan.FromSeconds(5);
 
     public override void Initialize()
     {
@@ -65,7 +65,7 @@ public sealed class RoboticArmSystem : EntitySystem
         if (_nextUpdate < now)
             return;
 
-        _nextUpdate += _updateDelay;
+        _nextUpdate += UpdateDelay;
 
         var query = EntityQueryEnumerator<RoboticArmComponent>();
         while (query.MoveNext(out var uid, out var comp))

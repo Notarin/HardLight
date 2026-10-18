@@ -404,7 +404,7 @@ public sealed partial class MarkingPicker : Control
             var text = Loc.GetString(marking.Forced ? "marking-used-forced" : "marking-used", ("marking-name", $"{GetMarkingName(newMarking)}"),
                 ("marking-category", Loc.GetString($"markings-category-{newMarking.MarkingCategory}")));
 
-            var _item = new ItemList.Item(CMarkingsUsed)
+            var item = new ItemList.Item(CMarkingsUsed)
             {
                 Text = text,
                 Icon = _sprite.Frame0(newMarking.Sprites[0]),
@@ -413,7 +413,7 @@ public sealed partial class MarkingPicker : Control
                 IconModulate = marking.MarkingColors[0]
             };
 
-            CMarkingsUsed.Add(_item);
+            CMarkingsUsed.Add(item);
         }
 
         // since all the points have been processed, update the points visually

@@ -2381,15 +2381,15 @@ namespace Content.Server.Administration.Systems
             // Try random offsets around the ship — admin override ignores FTL range
             // restrictions so this works even on unpowered ships. We do our own
             // grid-clearance check (same logic as FTLFree) without the range gate.
-            const int Attempts = 80;
-            const float AdminMaxDist = 1000f;  // search up to 1 km
+            const int attempts = 80;
+            const float adminMaxDist = 1000f;  // search up to 1 km
             var ftlBuffer = _shuttle.GetFTLBufferRange(shipUid);
             var minDist = ftlBuffer + 20f;     // just past the ship's own footprint
             Vector2? chosen = null;
-            for (var i = 0; i < Attempts; i++)
+            for (var i = 0; i < attempts; i++)
             {
                 var angle = _random.NextFloat(0f, MathF.Tau);
-                var dist = minDist + (AdminMaxDist - minDist) * (i / (float)Attempts);
+                var dist = minDist + (adminMaxDist - minDist) * (i / (float)attempts);
                 var candidate = origin + new Vector2(MathF.Cos(angle), MathF.Sin(angle)) * dist;
                 if (IsAdminFTLPositionClear(shipUid, xform.MapID, candidate, ftlBuffer))
                 {

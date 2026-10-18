@@ -39,7 +39,7 @@ public sealed class GasCondenserSystem : EntitySystem
         if (solution.AvailableVolume == 0 || inlet.Air.TotalMoles == 0)
             return;
 
-        var molesToConvert = NumberOfMolesToConvert(receiver, inlet.Air, args.dt);
+        var molesToConvert = NumberOfMolesToConvert(receiver, inlet.Air, args.Dt);
         var removed = inlet.Air.Remove(molesToConvert);
         for (var i = 0; i < Atmospherics.TotalNumberOfGases; i++)
         {

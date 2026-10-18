@@ -46,7 +46,7 @@ public sealed class StationAiVisionSystem : EntitySystem
     /// <summary>
     /// Do we skip line of sight checks and just check vision ranges.
     /// </summary>
-    private bool FastPath;
+    private bool _fastPath;
 
     public override void Initialize()
     {
@@ -92,7 +92,7 @@ public sealed class StationAiVisionSystem : EntitySystem
         _seedJob.ExpandedBounds = expandedBounds;
         _parallel.ProcessNow(_seedJob);
         _job.Data.Clear();
-        FastPath = fastPath;
+        _fastPath = fastPath;
 
         foreach (var seed in _seeds)
         {
@@ -180,7 +180,7 @@ public sealed class StationAiVisionSystem : EntitySystem
         _seedJob.ExpandedBounds = enlargedLocalAabb;
         _parallel.ProcessNow(_seedJob);
         _job.Data.Clear();
-        FastPath = false;
+        _fastPath = false;
 
         foreach (var seed in _seeds)
         {
@@ -339,7 +339,7 @@ public sealed class StationAiVisionSystem : EntitySystem
 
             // Fastpath just get tiles in range.
             // Either xray-vision or system is doing a quick-and-dirty check.
-            if (!seed.Comp.Occluded || System.FastPath)
+            if (!seed.Comp.Occluded || System._fastPath)
             {
                 var squircles = Maps.GetLocalTilesIntersecting(Grid.Owner,
                     Grid.Comp,

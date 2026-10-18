@@ -30,7 +30,7 @@ public sealed class NuclearReactorBoundUserInterface : BoundUserInterface
         EntityUid? reactorUid = null;
         if (_entityManager.TryGetComponent<NuclearReactorMonitorComponent>(Owner, out var reactorMonitorComponent))
         {
-            if (!_entityManager.TryGetEntity(reactorMonitorComponent.reactor, out reactorUid) || reactorUid == null
+            if (!_entityManager.TryGetEntity(reactorMonitorComponent.Reactor, out reactorUid) || reactorUid == null
                 || !_entityManager.TryGetComponent<NuclearReactorComponent>(reactorUid, out var monitoredReactorComponent) || monitoredReactorComponent.Melted)
                 return;
         }

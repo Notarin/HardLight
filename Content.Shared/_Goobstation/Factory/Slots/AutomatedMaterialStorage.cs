@@ -47,6 +47,6 @@ public sealed partial class AutomatedMaterialStorage : AutomationSlot
             return false;
 
         // not checking volume etc since all lathes currently have unlimited capacity
-        return _whitelist.IsWhitelistPassOrNull(storage.Whitelist, item);
+        return WhitelistSystem.IsWhitelistPassOrNull(storage.Whitelist, item);
     }
 }

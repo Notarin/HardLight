@@ -36,9 +36,13 @@
       <BuildType Solution="Tools|*" Project="Release" />
     </Project>
     <Project Path="RobustToolbox/Robust.Packaging/Robust.Packaging.csproj" />
+    <Project Path="RobustToolbox/Robust.Server.Testing/Robust.Server.Testing.csproj" />
     <Project Path="RobustToolbox/Robust.Server/Robust.Server.csproj" />
+    <Project Path="RobustToolbox/Robust.Shared.Maths.Testing/Robust.Shared.Maths.Testing.csproj" />
+    <Project Path="RobustToolbox/Robust.Shared.Maths.Tests/Robust.Shared.Maths.Tests.csproj" />
     <Project Path="RobustToolbox/Robust.Shared.Maths/Robust.Shared.Maths.csproj" />
     <Project Path="RobustToolbox/Robust.Shared.Scripting/Robust.Shared.Scripting.csproj" />
+    <Project Path="RobustToolbox/Robust.Shared.Testing/Robust.Shared.Testing.csproj" />
     <Project Path="RobustToolbox/Robust.Shared/Robust.Shared.csproj" />
     <Project Path="RobustToolbox/Robust.UnitTesting/Robust.UnitTesting.csproj" />
     <Project Path="RobustToolbox/Robust.Xaml/Robust.Xaml.csproj">

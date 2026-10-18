@@ -8,34 +8,34 @@ namespace Content.Shared._Goobstation.Factory.Slots;
 /// </summary>
 public sealed partial class AutomatedStorage : AutomationSlot
 {
-    private SharedStorageSystem _storage;
-    private StorageComponent _comp;
+    public SharedStorageSystem Storage;
+    public StorageComponent Comp;
 
     public override void Initialize()
     {
         base.Initialize();
 
-        _storage = EntMan.System<SharedStorageSystem>();
-        _comp = EntMan.GetComponent<StorageComponent>(Owner);
+        Storage = EntMan.System<SharedStorageSystem>();
+        Comp = EntMan.GetComponent<StorageComponent>(Owner);
     }
 
     public override bool Insert(EntityUid item)
     {
         return base.Insert(item) &&
-            _storage.Insert(Owner, item, out _, storageComp: _comp);
+            Storage.Insert(Owner, item, out _, storageComp: Comp);
     }
 
     public override bool CanInsert(EntityUid item)
     {
         return base.CanInsert(item) &&
-            _storage.CanInsert(Owner, item, out _, storageComp: _comp);
+            Storage.CanInsert(Owner, item, out _, storageComp: Comp);
     }
 
     public override EntityUid? GetItem(EntityUid? filter)
     {
-        foreach (var item in _comp.Container.ContainedEntities)
+        foreach (var item in Comp.Container.ContainedEntities)
         {
-            if (_filter.IsAllowed(filter, item))
+            if (Filter.IsAllowed(filter, item))
                 return item;
         }
 

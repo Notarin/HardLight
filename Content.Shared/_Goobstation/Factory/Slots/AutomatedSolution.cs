@@ -17,13 +17,13 @@ public sealed partial class AutomatedSolution : AutomationSlot
 
     private Entity<SolutionComponent>? _solution;
 
-    private SharedSolutionContainerSystem _solutionSys;
+    public SharedSolutionContainerSystem SolutionSys;
 
     public override void Initialize()
     {
         base.Initialize();
 
-        _solutionSys = EntMan.System<SharedSolutionContainerSystem>();
+        SolutionSys = EntMan.System<SharedSolutionContainerSystem>();
     }
 
     public override Entity<SolutionComponent>? GetSolution()
@@ -31,7 +31,7 @@ public sealed partial class AutomatedSolution : AutomationSlot
         if (_solution != null)
             return _solution;
 
-        if (_solutionSys.TryGetSolution(Owner, SolutionName, out _solution, true))
+        if (SolutionSys.TryGetSolution(Owner, SolutionName, out _solution, true))
             return _solution;
 
         throw new InvalidOperationException($"Entity {EntMan.ToPrettyString(Owner)} had no solution {SolutionName} for automation!");

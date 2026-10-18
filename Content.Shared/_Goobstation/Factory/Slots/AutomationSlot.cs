@@ -43,9 +43,9 @@ public abstract partial class AutomationSlot
     public EntityUid Owner;
 
     [Dependency] public readonly IEntityManager EntMan = default!;
-    protected AutomationFilterSystem _filter;
-    protected EntityWhitelistSystem _whitelist;
-    protected SharedDeviceLinkSystem _device;
+    public AutomationFilterSystem Filter;
+    public EntityWhitelistSystem _whitelist;
+    public SharedDeviceLinkSystem Device;
 
     /// <summary>
     /// Initialize the slot after <see cref="Owner"/> is set.
@@ -55,9 +55,9 @@ public abstract partial class AutomationSlot
     {
         IoCManager.InjectDependencies(this);
 
-        _filter = EntMan.System<AutomationFilterSystem>();
+        Filter = EntMan.System<AutomationFilterSystem>();
         _whitelist = EntMan.System<EntityWhitelistSystem>();
-        _device = EntMan.System<SharedDeviceLinkSystem>();
+        Device = EntMan.System<SharedDeviceLinkSystem>();
     }
 
     /// <summary>
@@ -94,9 +94,9 @@ public abstract partial class AutomationSlot
     public virtual void AddPorts()
     {
         if (Input is { } input)
-            _device.EnsureSinkPorts(Owner, input);
+            Device.EnsureSinkPorts(Owner, input);
         if (Output is { } output)
-            _device.EnsureSourcePorts(Owner, output);
+            Device.EnsureSourcePorts(Owner, output);
     }
 
     /// <summary>
@@ -105,9 +105,9 @@ public abstract partial class AutomationSlot
     public virtual void RemovePorts()
     {
         if (Input is { } input)
-            _device.RemoveSinkPort(Owner, input);
+            Device.RemoveSinkPort(Owner, input);
         if (Output is { } output)
-            _device.RemoveSourcePort(Owner, output);
+            Device.RemoveSourcePort(Owner, output);
     }
 
     /// <summary>

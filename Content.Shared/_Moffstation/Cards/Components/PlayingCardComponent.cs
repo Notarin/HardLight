@@ -12,11 +12,11 @@ public sealed partial class PlayingCardComponent : Component
 {
     /// The sprite layers of the face, or front, of the card.
     [DataField(required: true), AutoNetworkedField]
-    public PrototypeLayerData[] ObverseLayers;
+    public PrototypeLayerData[] ObverseLayers = [];
 
     /// The sprite layers of the back of the card.
     [DataField(required: true), AutoNetworkedField]
-    public PrototypeLayerData[] ReverseLayers;
+    public PrototypeLayerData[] ReverseLayers = [];
 
     /// The current sprite layers (based on <see cref="FaceDown"/>), or the sprite layers for the given
     /// <paramref name="faceDownOverride"/>.
@@ -36,15 +36,15 @@ public sealed partial class PlayingCardComponent : Component
 
     /// The name of this card, visible when not face down.
     [DataField("name", required: true), AutoNetworkedField]
-    public string ObverseName;
+    public string ObverseName = string.Empty;
 
     /// The description of this card, visible when not face down.
     [DataField(required: true), AutoNetworkedField]
-    public string Description;
+    public string Description = string.Empty;
 
     /// The name which will be applied to this entity when it is flipped face down.
     [DataField(required: true), AutoNetworkedField]
-    public string ReverseName;
+    public string ReverseName = string.Empty;
 
     /// The description which will be applied to this entity when it is flipped face down.
     [DataField, AutoNetworkedField]

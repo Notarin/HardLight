@@ -1,12 +1,9 @@
 using Content.Server.Body.Components;
-using Content.Server.Damage.Systems;
 using Content.Server.Floofstation.Traits.Components;
 using Content.Server.Vampiric;
 using Content.Shared.Body.Components;
 using Content.Shared.Body.Systems;
 using Content.Shared.Damage;
-using Content.Shared.Damage.Components;
-using Content.Shared.Damage.Systems;
 using Content.Shared.FixedPoint;
 using Content.Shared.Movement.Systems;
 using Content.Shared.Nutrition.Components;

@@ -2,7 +2,6 @@ using System.Numerics;
 using Robust.Server.Player;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
-using Robust.Shared.Maths;
 
 namespace Content.Server._Mono.Cleanup;
 

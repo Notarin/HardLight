@@ -1,12 +1,4 @@
 using Content.Shared.Shuttles.Save;
-using Robust.Shared.GameObjects;
-using Robust.Shared.IoC;
-using Robust.Shared.Network;
-using System;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Linq;
-using Robust.Shared.Log;
 using Robust.Shared.ContentPack;
 // Alias not needed; type is available via using Content.Shared.Shuttles.Save
 

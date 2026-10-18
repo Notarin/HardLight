@@ -16,8 +16,7 @@ using Content.Shared.Wires;
 using JetBrains.Annotations;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Utility;
-using Content.Shared.Emag.Components;
-using Robust.Shared.Audio; // Frontier - DEMAG
+// Frontier - DEMAG
 using Content.Shared._Floof.Lock; // HardLight
 
 namespace Content.Shared.Lock;

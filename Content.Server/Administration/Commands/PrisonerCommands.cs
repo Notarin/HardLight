@@ -20,7 +20,6 @@ using Robust.Shared.Configuration;
 using Robust.Server.Player;
 using Robust.Shared.Console;
 using Robust.Shared.Prototypes;
-using System.Linq;
 using Content.Server.Players.JobWhitelist;
 
 namespace Content.Server.Administration.Commands;

@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.Administration.Commands;
 using Content.Server.GameTicking.Rules.Components;
 using Content.Server.KillTracking;

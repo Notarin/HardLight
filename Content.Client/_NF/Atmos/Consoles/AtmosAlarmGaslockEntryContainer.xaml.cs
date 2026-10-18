@@ -1,5 +1,4 @@
 using System.Globalization;
-using System.Linq;
 using Content.Client.Stylesheets;
 using Content.Client.Stylesheets.Palette;
 using Content.Shared.Atmos;

@@ -1,6 +1,4 @@
-using System.Linq;
 using System.Numerics;
-using System.Threading;
 using Content.Client.Verbs;
 using Content.Shared.Examine;
 using Content.Shared.IdentityManagement;

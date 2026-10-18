@@ -2,7 +2,6 @@ using Content.Server.Chat.Systems;
 using Content.Shared.ActionBlocker;
 using Content.Shared.Chat;
 using Content.Shared.InteractionVerbs;
-using Robust.Shared.Serialization;
 
 namespace Content.Server.InteractionVerbs.Actions;
 

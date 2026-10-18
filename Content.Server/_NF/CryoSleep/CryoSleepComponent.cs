@@ -1,7 +1,6 @@
 using Content.Shared.DoAfter;
 using Robust.Shared.Audio;
 using Robust.Shared.Containers;
-using Robust.Shared.GameStates;
 
 namespace Content.Server._NF.CryoSleep;
 

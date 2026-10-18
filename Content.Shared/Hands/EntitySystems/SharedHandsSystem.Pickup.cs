@@ -1,11 +1,9 @@
 using Content.Shared._NF.LoggingExtensions; // Frontier
 using Content.Shared._NF.Item; // Frontier
-using Content.Shared.Clothing.Components;
 using Content.Shared.Database;
 using Content.Shared.Hands.Components;
 using Content.Shared.Item;
 using Robust.Shared.Containers;
-using Robust.Shared.Map;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
 

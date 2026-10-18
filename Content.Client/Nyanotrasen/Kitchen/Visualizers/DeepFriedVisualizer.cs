@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Client.Nyanotrasen.Kitchen.Components;
 using Content.Shared.Clothing;
 using Content.Shared.Hands;

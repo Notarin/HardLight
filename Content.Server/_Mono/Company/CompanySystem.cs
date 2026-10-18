@@ -1,7 +1,6 @@
 using Content.Shared._Mono.Company;
 using Content.Shared.Examine;
 using Content.Shared.GameTicking;
-using Content.Shared.Roles.Jobs;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 

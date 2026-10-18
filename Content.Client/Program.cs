@@ -1,4 +1,3 @@
-using System;
 using Robust.Client;
 
 namespace Content.Client

@@ -1,6 +1,5 @@
 using Content.Shared.Construction;
 using Content.Shared.Examine;
-using Content.Shared.Maps;
 using JetBrains.Annotations;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;

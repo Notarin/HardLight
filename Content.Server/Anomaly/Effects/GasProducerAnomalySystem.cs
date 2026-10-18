@@ -3,7 +3,6 @@ using Content.Server.Anomaly.Components;
 using Content.Shared.Anomaly.Components;
 using Content.Shared.Atmos;
 using Robust.Shared.Random;
-using System.Linq;
 using System.Numerics;
 using Robust.Shared.Map.Components;
 

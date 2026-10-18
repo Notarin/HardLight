@@ -1,5 +1,4 @@
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using Content.Shared.Actions.Events;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;

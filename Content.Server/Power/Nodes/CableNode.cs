@@ -2,7 +2,6 @@ using Content.Server.NodeContainer.Nodes;
 using Content.Shared.NodeContainer;
 using Robust.Shared.Map.Components;
 // Starlight Start: DockCableSystem
-using System.Collections.Generic;
 using Robust.Shared.Utility;
 // Starlight End
 

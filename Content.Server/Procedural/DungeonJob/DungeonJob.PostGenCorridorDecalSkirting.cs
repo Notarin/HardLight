@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using Content.Shared.Doors.Components;
 using Content.Shared.Procedural;
 using Content.Shared.Procedural.PostGeneration;

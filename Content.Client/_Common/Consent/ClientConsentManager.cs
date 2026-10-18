@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: MIT
 
 using Content.Shared._Common.Consent;
-using Robust.Client.Player;
 using Robust.Shared.Network;
 
 namespace Content.Client._Common.Consent;

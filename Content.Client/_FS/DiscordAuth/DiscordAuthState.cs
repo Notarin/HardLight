@@ -1,4 +1,3 @@
-using System.Threading;
 using Content.Shared._FS.DiscordAuth;
 using Robust.Client.State;
 using Robust.Client.UserInterface;

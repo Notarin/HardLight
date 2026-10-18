@@ -7,10 +7,6 @@ using static Robust.Client.UserInterface.Controls.BaseButton;
 using Robust.Client.UserInterface;
 using Content.Client.Shuttles.Save;
 using Robust.Client.UserInterface.Controls;
-using Robust.Client.UserInterface.XAML;
-using Robust.Shared.IoC;
-using Robust.Shared.Log;
-using System.Linq;
 
 // Suppress naming style rule for the _NF namespace prefix (project convention)
 #pragma warning disable IDE1006

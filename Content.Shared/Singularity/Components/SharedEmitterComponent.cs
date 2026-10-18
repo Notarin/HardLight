@@ -1,4 +1,3 @@
-using System.Threading;
 using Content.Shared.Construction.Prototypes;
 using Content.Shared.DeviceLinking;
 using Robust.Shared.GameStates;

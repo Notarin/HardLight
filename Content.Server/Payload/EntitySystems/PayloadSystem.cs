@@ -9,7 +9,6 @@ using Content.Shared.Chemistry.EntitySystems;
 using Robust.Shared.Containers;
 using Robust.Shared.Serialization.Manager;
 using Robust.Shared.Utility;
-using System.Linq;
 using Robust.Server.GameObjects;
 using Robust.Shared.Prototypes;
 

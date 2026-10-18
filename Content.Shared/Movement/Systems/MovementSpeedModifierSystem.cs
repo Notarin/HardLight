@@ -1,8 +1,6 @@
-using System.Text.Json.Serialization.Metadata;
 using Content.Shared.CCVar;
 using Content.Shared.Inventory;
 using Content.Shared.Movement.Components;
-using Content.Shared.Movement.Events;
 using Robust.Shared.Configuration;
 using Robust.Shared.Timing;
 

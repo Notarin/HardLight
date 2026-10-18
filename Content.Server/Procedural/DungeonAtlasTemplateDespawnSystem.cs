@@ -1,4 +1,3 @@
-using Robust.Shared.GameObjects;
 using TimedDespawnComponent = Robust.Shared.Spawners.TimedDespawnComponent;
 
 namespace Content.Server.Procedural;

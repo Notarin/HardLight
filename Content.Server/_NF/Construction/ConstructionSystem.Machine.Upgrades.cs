@@ -1,12 +1,12 @@
-using System.Linq; // Frontier
+// Frontier
 using Content.Server.Construction.Components;
 using Content.Shared.Construction.Components;
 using Content.Shared.Construction.Prototypes; // Frontier
 using Content.Shared.Examine;
-using Content.Shared.Interaction.Events; // Frontier
+// Frontier
 using Content.Shared.Stacks;
 using Content.Shared.Verbs; // Frontier
-using Robust.Shared.Prototypes; // Frontier
+// Frontier
 using Robust.Shared.Utility;
 
 namespace Content.Server.Construction; //Uses base namespace to extend ConstructionSystem behaviour

@@ -6,11 +6,9 @@ using Content.Shared.Popups;
 using Content.Shared.Whitelist;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
-using Robust.Shared.GameObjects;
 using Robust.Shared.Map.Events;
 using Robust.Shared.Timing;
 using Content.Shared.Atmos.Rotting;
-using System.Linq;
 
 namespace Content.Shared._DV.SmartFridge;
 

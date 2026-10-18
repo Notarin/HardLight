@@ -1,5 +1,4 @@
 using Content.Shared.InteractionVerbs;
-using Robust.Shared.Serialization;
 
 namespace Content.Server.InteractionVerbs.Actions;
 

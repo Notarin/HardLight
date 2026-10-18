@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Client.Light.Components;
 using Robust.Client.GameObjects;
 using Robust.Client.Animations;

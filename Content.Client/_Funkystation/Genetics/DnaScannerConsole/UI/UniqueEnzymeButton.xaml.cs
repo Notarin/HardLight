@@ -1,7 +1,5 @@
-using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.XAML;
-using Robust.Shared.Input;
 using System.Numerics;
 
 namespace Content.Client._Funkystation.Genetics.DnaScannerConsole.UI;

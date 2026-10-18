@@ -20,7 +20,6 @@ using Content.Shared.Examine;
 using Content.Server.DoAfter;
 using Content.Server.Popups;
 using Content.Shared.Audio;
-using Content.Shared.Actions.Events;
 
 namespace Content.Server.Supermatter.Systems;
 

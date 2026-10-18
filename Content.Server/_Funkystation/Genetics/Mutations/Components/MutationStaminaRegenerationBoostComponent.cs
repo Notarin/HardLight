@@ -1,5 +1,3 @@
-using Robust.Shared.GameStates;
-
 namespace Content.Server._Funkystation.Genetics.Mutations.Components;
 
 [RegisterComponent]

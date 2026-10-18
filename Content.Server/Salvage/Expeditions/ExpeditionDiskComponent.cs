@@ -1,5 +1,4 @@
 using Content.Shared.Salvage;
-using Content.Shared.Salvage.Expeditions;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
 namespace Content.Server.Salvage.Expeditions;

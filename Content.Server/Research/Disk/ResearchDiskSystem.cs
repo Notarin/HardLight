@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.Interaction;
 using Content.Server.Popups;
 using Content.Shared.Research.Prototypes;

@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Client.Gameplay;
 using Content.Client.Guidebook;
 using Content.Client.Guidebook.Controls;

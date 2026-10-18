@@ -7,7 +7,6 @@ using Content.Shared.Body.Part;
 using Robust.Shared.Containers;
 using Content.Shared.Damage; //Shitmed
 using Content.Shared._Shitmed.BodyEffects;
-using Content.Shared._Shitmed.Body.Events;
 using Content.Shared._Shitmed.Body.Organ;
 
 namespace Content.Shared.Body.Systems;

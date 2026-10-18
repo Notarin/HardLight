@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.Inventory;
 using Content.Shared.NameModifier.Components;
 

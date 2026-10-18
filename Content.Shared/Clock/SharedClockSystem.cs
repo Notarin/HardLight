@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.Examine;
 using Content.Shared.GameTicking;
 

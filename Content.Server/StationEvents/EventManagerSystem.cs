@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.GameTicking;
 using Content.Server.RoundEnd;
 using Content.Server.StationEvents.Components;
@@ -9,7 +8,7 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Content.Shared.EntityTable.EntitySelectors;
 using Content.Shared.EntityTable;
-using Content.Server.Mind; // Frontier
+// Frontier
 using Content.Server._NF.Roles.Systems; // Frontier
 
 using Content.Server.Psionics.Glimmer;

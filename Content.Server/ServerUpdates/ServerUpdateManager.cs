@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.Chat.Managers;
 using Content.Shared.CCVar;
 using Robust.Server;

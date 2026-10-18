@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server._Funkystation.Genetics.Systems;
 using Content.Shared._Funkystation.Genetics.Components;
 using Content.Shared._Funkystation.Genetics.Prototypes;

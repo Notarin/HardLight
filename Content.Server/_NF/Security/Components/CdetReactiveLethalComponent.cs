@@ -1,4 +1,3 @@
-using System;
 using Robust.Shared.Audio;
 
 namespace Content.Server._NF.Security.Components;

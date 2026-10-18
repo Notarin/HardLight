@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Numerics;
 using Content.Shared.Administration;
 using Content.Shared.Explosion.Components;

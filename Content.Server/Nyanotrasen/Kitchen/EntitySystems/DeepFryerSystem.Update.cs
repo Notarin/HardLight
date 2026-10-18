@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.Nyanotrasen.Kitchen.Components;
 using Content.Shared.Chemistry.Reagent;
 using Content.Shared.EntityEffects;

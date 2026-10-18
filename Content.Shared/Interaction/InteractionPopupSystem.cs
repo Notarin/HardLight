@@ -1,4 +1,3 @@
-using Content.Shared._HL.Interaction;
 using Content.Shared.Bed.Sleep;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Interaction.Components;

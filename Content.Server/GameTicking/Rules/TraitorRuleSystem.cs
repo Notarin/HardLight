@@ -18,7 +18,6 @@ using Content.Shared.Roles.Jobs;
 using Content.Shared.Roles.RoleCodeword;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
-using System.Linq;
 using System.Text;
 
 namespace Content.Server.GameTicking.Rules;

@@ -1,4 +1,4 @@
-using System.Linq; // DeltaV
+// DeltaV
 using Content.Client._DeltaV.CartridgeLoader.Cartridges; // DeltaV
 using Content.Shared.CartridgeLoader.Cartridges;
 using Content.Shared._DeltaV.CartridgeLoader.Cartridges; // DeltaV

@@ -1,5 +1,4 @@
 using Content.Shared.Administration.Logs;
-using Content.Shared.Chemistry;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Database;
 using Content.Shared.FixedPoint;
@@ -7,7 +6,6 @@ using Content.Shared.Interaction;
 using Content.Shared.Popups;
 using Content.Shared.Verbs;
 using Robust.Shared.Network;
-using Robust.Shared.Player;
 using Content.Shared.Nutrition.Components; // HardLight
 
 namespace Content.Shared.Chemistry.EntitySystems;

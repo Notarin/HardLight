@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.CCVar;
 using Content.Shared.Chemistry;
 using Content.Shared.Damage.Prototypes;
@@ -19,7 +18,6 @@ using Robust.Shared.Utility;
 using Content.Shared.Body.Systems;
 using Content.Shared._FarHorizons.Damage; // HardLight
 using Content.Shared._Shitmed.Targeting;
-using Robust.Shared.Random;
 
 namespace Content.Shared.Damage
 {

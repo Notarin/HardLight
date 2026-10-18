@@ -1,4 +1,3 @@
-using System.Threading;
 using Content.Shared._NF.Cargo;
 using Robust.Shared.GameStates;
 

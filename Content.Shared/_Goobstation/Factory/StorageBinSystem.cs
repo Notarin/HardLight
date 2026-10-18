@@ -1,4 +1,3 @@
-using Content.Shared._Goobstation.Factory.Filters;
 using Content.Shared.DeviceLinking;
 using Robust.Shared.Containers;
 using Content.Goobstation.Shared.Factory.Filters;

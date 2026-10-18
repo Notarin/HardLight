@@ -13,7 +13,6 @@ using Content.Shared.Psionics.Glimmer;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
 using Robust.Shared.Random;
-using System.Linq;
 using System.Text;
 
 namespace Content.Server.Nyanotrasen.Chat

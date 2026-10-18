@@ -10,9 +10,6 @@ using Robust.Shared.Configuration;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Content.Server._Common.Consent;
 

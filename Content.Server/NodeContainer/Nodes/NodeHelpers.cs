@@ -1,8 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using Content.Shared.NodeContainer;
-using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
-using Robust.Shared.GameObjects;
 
 namespace Content.Server.NodeContainer.Nodes
 {

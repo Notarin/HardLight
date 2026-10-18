@@ -1,10 +1,6 @@
-using System.Numerics;
-using Content.Client.Strip;
 using Content.Shared._Floof.Examine;
-using Content.Shared.Interaction;
 using Content.Shared.Verbs;
 using Robust.Client.Player;
-using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
 

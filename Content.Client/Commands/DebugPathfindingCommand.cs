@@ -2,7 +2,6 @@ using Content.Client.NPC;
 using Content.Shared.NPC;
 using JetBrains.Annotations;
 using Robust.Shared.Console;
-using System.Linq;
 
 namespace Content.Client.Commands;
 

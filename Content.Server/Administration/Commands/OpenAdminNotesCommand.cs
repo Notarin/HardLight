@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.Administration.Notes;
 using Content.Shared.Administration;
 using Robust.Server.Player;

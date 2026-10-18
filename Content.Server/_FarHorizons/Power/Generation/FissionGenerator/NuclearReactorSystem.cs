@@ -27,7 +27,6 @@ using Robust.Shared.Audio;
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
-using System.Linq;
 using Content.Shared._FarHorizons.Materials.Systems;
 using Content.Server.NodeContainer.Nodes;
 using Content.Shared.DeviceLinking.Events;
@@ -41,7 +40,6 @@ using Content.Shared.Random;
 using Content.Shared.Random.Helpers;
 using Content.Shared.Rejuvenate;
 using Content.Shared.Throwing;
-using Content.Shared.Damage.Systems;
 using System.Diagnostics.CodeAnalysis;
 using Robust.Shared.Timing;
 

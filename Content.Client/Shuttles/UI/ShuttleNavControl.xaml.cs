@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Numerics;
 using Content.Client._Mono.Radar;
 using Content.Client.Station; // Frontier

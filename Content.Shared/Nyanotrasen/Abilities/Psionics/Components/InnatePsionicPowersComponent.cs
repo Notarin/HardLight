@@ -1,5 +1,3 @@
-using Robust.Shared.Prototypes;
-
 namespace Content.Shared.Nyanotrasen.Abilities.Psionics.Components
 {
     /// <summary>

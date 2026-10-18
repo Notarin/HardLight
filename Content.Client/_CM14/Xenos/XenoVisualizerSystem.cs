@@ -1,7 +1,6 @@
 using Content.Shared.CM14.Xenos;
 using Content.Shared.CM14.Xenos.Rest;
 using Content.Shared.Mobs;
-using Content.Shared.Damage;
 using Content.Client.DamageState;
 using Content.Shared.Mobs.Components;
 using Robust.Client.GameObjects;

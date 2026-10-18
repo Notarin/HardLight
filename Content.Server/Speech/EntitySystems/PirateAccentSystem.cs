@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.Speech.Components;
 using Robust.Shared.Random;
 using System.Text.RegularExpressions;

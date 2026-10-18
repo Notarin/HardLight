@@ -15,7 +15,6 @@ using Content.Shared.SprayPainter;
 using Content.Shared.SprayPainter.Components;
 using Robust.Server.Audio;
 using Robust.Server.GameObjects;
-using Robust.Shared.Prototypes;
 
 namespace Content.Server.SprayPainter;
 

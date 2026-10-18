@@ -1,8 +1,3 @@
-using Content.Server._Funkystation.Genetics.Mutations.Components;
-using Content.Shared.Humanoid;
-using Content.Shared.Humanoid.Markings;
-using Robust.Shared.Prototypes;
-
 namespace Content.Server._Funkystation.Genetics.Mutations.Systems;
 
 public sealed class MutationTailSwapSystem : EntitySystem

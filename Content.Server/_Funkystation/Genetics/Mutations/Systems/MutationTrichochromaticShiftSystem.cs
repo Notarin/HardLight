@@ -1,13 +1,3 @@
-using System.Linq;
-using System.Numerics;
-using Content.Server._Funkystation.Genetics.Mutations.Components;
-using Content.Server.Humanoid;
-using Content.Shared._Funkystation.Genetics.Events;
-using Content.Shared.Actions;
-using Content.Shared.Humanoid;
-using Content.Shared.Humanoid.Markings;
-using Robust.Shared.Random;
-
 namespace Content.Server._Funkystation.Genetics.Mutations.Systems;
 
 public sealed class MutationTrichochromaticShiftSystem : EntitySystem

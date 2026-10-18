@@ -19,7 +19,6 @@ using Robust.Shared.Audio;
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 
 namespace Content.Server.Chemistry.EntitySystems
 {

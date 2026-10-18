@@ -6,7 +6,7 @@ using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 using Content.Shared.Kitchen; // Frontier
-using Robust.Shared.Serialization; // Frontier
+// Frontier
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 using Content.Shared.Kitchen.Components; // Frontier
 

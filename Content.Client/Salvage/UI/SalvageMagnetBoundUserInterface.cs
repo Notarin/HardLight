@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Client.Message;
 using Content.Shared.Salvage;
 using Content.Shared.Salvage.Magnet;

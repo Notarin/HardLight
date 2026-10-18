@@ -1,7 +1,3 @@
-using System.Collections.Generic;
-using System;
-using System.IO;
-using System.Linq;
 using Content.Client.Administration.Systems;
 using Content.Client.Stylesheets;
 using Content.Shared.Administration;
@@ -12,7 +8,6 @@ using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.XAML;
 using Robust.Shared.ContentPack;
-using Robust.Shared.GameObjects;
 using Robust.Shared.Utility;
 
 namespace Content.Client.Administration.UI.Tabs.AdminTab

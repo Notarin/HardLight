@@ -6,7 +6,6 @@ using Content.Shared.Mind;
 using Content.Shared.Mind.Components;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
-using System.Linq;
 
 namespace Content.Server._Common.Consent;
 

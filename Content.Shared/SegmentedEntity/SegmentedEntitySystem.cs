@@ -6,7 +6,6 @@ using Content.Shared.Clothing.Components;
 using Content.Shared.Inventory.Events;
 using Content.Shared.Tag;
 using Content.Shared.Storage.Components;
-using Content.Shared.Weapons.Ranged.Events;
 using Content.Shared.Teleportation.Components;
 using Robust.Shared.Map;
 using Robust.Shared.Physics.Systems;

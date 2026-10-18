@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using Content.Server.Parallax;
 using Content.Shared.Parallax.Biomes;
 using Content.Shared.Parallax.Biomes.Markers;

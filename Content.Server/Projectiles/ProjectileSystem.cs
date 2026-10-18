@@ -1,15 +1,7 @@
-using Content.Server.Administration.Logs;
 using Content.Server.Destructible;
-using Content.Server.Effects;
-using Content.Server.Weapons.Ranged.Systems;
-using Content.Shared.Camera;
 using Content.Shared.Damage;
-using Content.Shared.Damage.Components;
-using Content.Shared.Damage.Systems;
-using Content.Shared.Database;
 using Content.Shared.FixedPoint;
 using Content.Shared.Projectiles;
-using Content.Shared.Physics;
 using Content.Shared.Whitelist; // HardLight
 using Robust.Shared.Map;
 using Robust.Shared.Physics;
@@ -17,9 +9,6 @@ using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Dynamics; // Mono
 using Robust.Shared.Physics.Events; // HardLight - PreventCollideEvent in anti-tunnel raycast
 using Robust.Shared.Physics.Systems;
-using Robust.Shared.Timing;
-using System.Linq;
-using System.Numerics;
 
 namespace Content.Server.Projectiles;
 

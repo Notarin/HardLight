@@ -1,5 +1,4 @@
 using System.IO.Compression;
-using System.Linq;
 using Content.Client.Message;
 using Content.Client.Replay;
 using Content.Client.UserInterface.Systems.EscapeMenu;

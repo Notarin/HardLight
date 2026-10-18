@@ -1,5 +1,4 @@
 using Content.Shared._DV.SmartFridge;
-using Robust.Shared.Analyzers;
 
 namespace Content.Client._DV.SmartFridge;
 

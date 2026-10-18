@@ -1,4 +1,3 @@
-using System;
 using Content.Server._NF.Security.Components;
 using Content.Server.NPC.Components;
 using Content.Server.NPC.Systems;

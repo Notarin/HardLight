@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Client.Administration.Managers;
 using Content.Client.Gameplay;
 using Content.Client.Lobby;
@@ -9,7 +8,6 @@ using JetBrains.Annotations;
 using Robust.Client.Graphics;
 using Robust.Client.State;
 using Robust.Client.UserInterface;
-using Robust.Shared.Prototypes;
 using Robust.Shared.Audio;
 
 namespace Content.Client.GameTicking.Managers

@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.CCVar;
 using Content.Shared.Dataset;
 using Content.Shared.Procedural;
@@ -11,7 +10,6 @@ using Robust.Shared.Configuration;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Serialization;
-using Robust.Shared.Utility;
 
 namespace Content.Shared.Salvage;
 

@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.Chat.Systems;
 using Content.Shared.Chat; // For InGameICChatType
 using Content.Server.Speech.Components;

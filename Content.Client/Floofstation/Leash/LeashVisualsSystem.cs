@@ -1,4 +1,3 @@
-using Content.Client.Physics;
 using Robust.Client.Graphics;
 
 namespace Content.Client.Floofstation.Leash;

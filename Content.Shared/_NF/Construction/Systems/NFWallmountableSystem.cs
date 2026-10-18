@@ -7,7 +7,6 @@ using Content.Shared.Tag;
 using Content.Shared.Verbs;
 using Content.Shared.Wall;
 using Robust.Shared.Network;
-using Robust.Shared.Prototypes;
 
 namespace Content.Shared._NF.Construction.Systems;
 

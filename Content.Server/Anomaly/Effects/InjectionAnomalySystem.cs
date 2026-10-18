@@ -2,7 +2,6 @@ using Content.Server.Anomaly.Components;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Anomaly.Components;
 using Content.Shared.Chemistry.Components.SolutionManager;
-using System.Linq;
 using Robust.Server.GameObjects;
 
 namespace Content.Server.Anomaly.Effects;

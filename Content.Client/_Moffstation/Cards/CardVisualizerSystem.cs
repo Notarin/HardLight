@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Client._Moffstation.GameObjects;
 using Content.Shared._Moffstation.Cards.Components;
 using Content.Shared._Moffstation.Strip.Components;

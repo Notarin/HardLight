@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Numerics;
 using Content.Client.Stylesheets;
 using Content.Client.UserInterface.Controls;
@@ -15,7 +14,6 @@ using Content.Shared.Chemistry.Reagent;
 using FancyWindow = Content.Client.UserInterface.Controls.FancyWindow;
 using Robust.Client.UserInterface;
 using Content.Shared.IdentityManagement;
-using Robust.Client.Graphics;
 
 namespace Content.Client.VendingMachines.UI
 {

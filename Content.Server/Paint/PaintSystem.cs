@@ -9,7 +9,6 @@ using Content.Shared.Humanoid;
 using Robust.Shared.Utility;
 using Content.Shared.Verbs;
 using Content.Shared.SubFloor;
-using Content.Shared.Nutrition.Components;
 using Content.Shared.Inventory;
 using Content.Shared.Nutrition.EntitySystems;
 using Content.Shared.Whitelist;

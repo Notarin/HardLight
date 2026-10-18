@@ -1,4 +1,3 @@
-using Content.Shared._Goobstation.Factory.Slots;
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.DeviceLinking;
 using Robust.Shared.Audio;

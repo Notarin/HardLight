@@ -1,7 +1,6 @@
 using Content.Shared.Nyanotrasen.Abilities.Psionics.Components;
 using Content.Shared.Abilities.Psionics;
 using Content.Server.Abilities.Psionics;
-using Robust.Shared.GameObjects;
 using Robust.Shared.Prototypes;
 
 namespace Content.Server.Nyanotrasen.Psionics

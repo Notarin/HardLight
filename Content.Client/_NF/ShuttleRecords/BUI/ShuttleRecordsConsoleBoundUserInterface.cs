@@ -5,8 +5,6 @@ using Content.Shared._NF.ShuttleRecords.Events;
 using Content.Shared.Containers.ItemSlots;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
-using Robust.Client.UserInterface.XAML;
-using static Robust.Client.UserInterface.Controls.BaseButton;
 
 // Suppress naming style rule for the _NF namespace prefix (project convention)
 #pragma warning disable IDE1006

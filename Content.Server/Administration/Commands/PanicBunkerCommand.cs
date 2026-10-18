@@ -2,7 +2,6 @@ using Content.Shared.Administration;
 using Content.Shared.CCVar;
 using Robust.Shared.Configuration;
 using Robust.Shared.Console;
-using Robust.Shared.Localization;
 
 namespace Content.Server.Administration.Commands;
 

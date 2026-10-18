@@ -7,7 +7,6 @@ using Robust.Shared.Physics;
 using Robust.Shared.Physics.Collision.Shapes;
 using System.Numerics;
 using Content.Client.Resources;
-using Robust.Client.Physics;
 using Robust.Shared.Prototypes;
 using System.Runtime.InteropServices;
 

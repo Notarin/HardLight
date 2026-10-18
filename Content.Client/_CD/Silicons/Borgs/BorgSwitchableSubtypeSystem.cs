@@ -1,17 +1,10 @@
-using System.Linq;
 using Content.Client.Silicons.Borgs;
-using Content.Shared._CD.Silicons;
 using Content.Shared._CD.Silicons.Borgs;
 using Content.Shared.CCVar; // HardLight
 using Content.Shared.Movement.Components;
 using Content.Shared.Silicons.Borgs.Components;
 using Robust.Client.GameObjects;
-using Robust.Client.Graphics;
-using Robust.Client.ResourceManagement;
 using Robust.Shared.Configuration; // HardLight
-using Robust.Shared.Physics.Systems;
-using Robust.Shared.Serialization.TypeSerializers.Implementations;
-using Robust.Shared.Utility;
 
 namespace Content.Client._CD.Silicons.Borgs;
 

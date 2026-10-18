@@ -1,10 +1,6 @@
-using Content.Server.Popups;
 using Content.Shared.Hands.Components;
 using Content.Shared.Alert;
-using Content.Shared.Hands.EntitySystems;
 using Content.Shared.OfferItem;
-using Content.Shared.IdentityManagement;
-using Robust.Shared.Player;
 
 namespace Content.Server.OfferItem;
 

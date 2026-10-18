@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Text;
 using Content.Server.Popups;
 using Content.Shared.UserInterface;
@@ -13,7 +12,6 @@ using Robust.Shared.Audio.Systems;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio;
 using Robust.Shared.Timing;
-using Content.Server.Chemistry.Containers.EntitySystems;
 using Robust.Shared.Prototypes;
 using Content.Server._NF.SectorServices; // Frontier
 using Content.Server._NF.Smuggling; // Frontier

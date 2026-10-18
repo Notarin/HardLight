@@ -7,7 +7,6 @@ using Content.Shared.GameTicking.Components;
 using Content.Shared.Station.Components;
 using JetBrains.Annotations;
 using Robust.Shared.Random;
-using System.Linq;
 using Content.Shared.Chemistry.Reaction;
 
 namespace Content.Server.StationEvents.Events;

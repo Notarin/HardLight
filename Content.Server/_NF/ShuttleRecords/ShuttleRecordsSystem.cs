@@ -1,8 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using Content.Server._NF.SectorServices;
 using Content.Server._NF.ShuttleRecords.Components;
-using Content.Server.Administration.Logs;
 using Content.Server.GameTicking;
 using Content.Server.Popups;
 using Content.Shared._NF.ShuttleRecords;

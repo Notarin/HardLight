@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.Interaction;
 using Content.Shared.Interaction.Components;
 using Content.Shared.Stacks;

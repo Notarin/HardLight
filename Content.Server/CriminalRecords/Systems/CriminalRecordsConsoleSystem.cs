@@ -1,7 +1,5 @@
 using Content.Server.Popups;
 using Content.Server.Radio.EntitySystems;
-using Content.Server.Station.Systems;
-using Content.Server.StationRecords;
 using Content.Server.StationRecords.Systems;
 using Content.Shared.Access.Systems;
 using Content.Shared.CriminalRecords;
@@ -13,8 +11,6 @@ using Robust.Server.GameObjects;
 using System.Diagnostics.CodeAnalysis;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Security.Components;
-using System.Linq;
-using Content.Shared.Roles.Jobs;
 using Content.Server._NF.SectorServices;
 
 namespace Content.Server.CriminalRecords.Systems;

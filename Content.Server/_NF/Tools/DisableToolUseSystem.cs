@@ -2,7 +2,6 @@ using Content.Server._NF.Tools.Components;
 using Content.Shared.Tools;
 using Content.Shared.Tools.Components;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Toolshed.TypeParsers;
 
 namespace Content.Server._NF.Tools;
 

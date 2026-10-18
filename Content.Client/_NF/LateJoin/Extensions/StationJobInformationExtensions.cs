@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.GameTicking;
 
 namespace Content.Client._NF.LateJoin;

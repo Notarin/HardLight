@@ -1,4 +1,3 @@
-using Content.Shared.Movement.Pulling.Components;
 using Content.Shared.Movement.Pulling.Systems;
 using Robust.Shared.Timing;
 

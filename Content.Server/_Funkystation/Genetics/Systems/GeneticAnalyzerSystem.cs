@@ -1,14 +1,11 @@
-using System.Linq;
 using System.Text;
 using Content.Server._Funkystation.Genetics.Components;
 using Content.Server.DoAfter;
 using Content.Server.Hands.Systems;
 using Content.Server.Popups;
 using Content.Server.PowerCell;
-using Content.Shared._Funkystation.Genetics;
 using Content.Shared._Funkystation.Genetics.Components;
 using Content.Shared._Funkystation.Genetics.Events;
-using Content.Shared._Funkystation.Genetics.Prototypes;
 using Content.Shared._Funkystation.Genetics.Systems;
 using Content.Shared.DoAfter;
 using Content.Shared.Interaction;
@@ -16,7 +13,6 @@ using Content.Shared.Paper;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
-using Robust.Shared.Prototypes;
 
 namespace Content.Server._Funkystation.Genetics.GeneticAnalyzer;
 

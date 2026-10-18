@@ -1,5 +1,3 @@
-using System.Diagnostics;
-using System.Linq;
 using Content.Client.Guidebook.RichText;
 using Content.Client.UserInterface.ControlExtensions;
 using Content.Client.UserInterface.Controls;

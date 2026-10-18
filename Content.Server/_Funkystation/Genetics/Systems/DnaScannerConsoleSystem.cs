@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server._Funkystation.Genetics.Components;
 using Content.Server.Medical.Components;
 using Content.Server.Popups;
@@ -11,7 +10,6 @@ using Content.Shared._Funkystation.Genetics.Systems;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Prototypes;
 using Content.Shared.DeviceLinking;
-using Content.Shared.FixedPoint;
 using Content.Shared.Interaction;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;

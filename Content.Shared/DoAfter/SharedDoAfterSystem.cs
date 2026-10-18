@@ -1,5 +1,4 @@
 using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
 using Content.Shared._Goobstation.DoAfter; // Goobstation
 using Content.Shared._Funkystation.Genetics.Mutations.Components;
 using Content.Shared.ActionBlocker;

@@ -4,7 +4,6 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
 
-using Content.Client._Impstation.Thaven;
 using Content.Shared._Impstation.Thaven;
 using Content.Shared._Impstation.Thaven.Components;
 using JetBrains.Annotations;

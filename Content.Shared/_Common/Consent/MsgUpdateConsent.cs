@@ -5,7 +5,6 @@ using Lidgren.Network;
 using Robust.Shared.Network;
 using Robust.Shared.Serialization;
 using Robust.Shared.Utility;
-using System.IO;
 
 namespace Content.Shared._Common.Consent;
 

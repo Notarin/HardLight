@@ -3,10 +3,6 @@ using Content.Shared._FarHorizons.Power.Generation.FissionGenerator;
 using Content.Shared.Atmos;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Components;
-using Content.Shared.EntityEffects;
-using Content.Shared.Examine;
-using Content.Shared.Nutrition;
-using Content.Shared.Radiation.Components;
 
 namespace Content.Server._FarHorizons.Power.Generation.FissionGenerator;
 

@@ -1,6 +1,5 @@
 using Content.Shared.Humanoid;
 using Content.Shared.Alert;
-using System.Linq;
 using Robust.Server.GameObjects;
 using Content.Shared.Examine;
 using Robust.Server.Containers;
@@ -16,12 +15,7 @@ using Robust.Shared.Timing;
 using Content.Shared._Starlight.NullSpace;
 using Content.Shared.Actions;
 using Content.Shared.Popups;
-using Content.Shared.Inventory;
-using Robust.Shared.Random;
-using Content.Server._Starlight.NullSpace;
 using Content.Server.Stunnable;
-using Content.Server.DoAfter;
-using Content.Shared.Ensnaring;
 using Robust.Shared.Audio.Systems;
 
 namespace Content.Server._Starlight.Shadekin;

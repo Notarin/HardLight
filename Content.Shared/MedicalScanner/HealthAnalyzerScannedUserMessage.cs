@@ -1,4 +1,4 @@
-using Content.Shared._DV.Traits.Assorted; // DeltaV
+// DeltaV
 using Content.Shared._Shitmed.Targeting;  // Shitmed Change
 using Content.Shared.FixedPoint; // Starlight
 using Robust.Shared.Serialization;

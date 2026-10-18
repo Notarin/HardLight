@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using Content.Client.Administration.UI.CustomControls;

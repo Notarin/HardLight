@@ -1,8 +1,4 @@
-using System.Diagnostics.CodeAnalysis;
-using Content.Shared.CCVar;
 using Content.Shared.Players.PlayTimeTracking;
-using Content.Shared.Roles;
-using Robust.Shared.Utility;
 
 namespace Content.Client.Players.PlayTimeTracking;
 

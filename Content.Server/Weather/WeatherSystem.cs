@@ -4,7 +4,6 @@ using Content.Shared.Weather;
 using Robust.Shared.Console;
 using Robust.Shared.GameStates;
 using Robust.Shared.Map;
-using System.Linq;
 
 namespace Content.Server.Weather;
 

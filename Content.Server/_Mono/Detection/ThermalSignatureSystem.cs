@@ -12,8 +12,6 @@ using Content.Shared.Shuttles.Systems;
 using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Systems;
 using Robust.Shared.Map.Components;
-using System;
-using System.Collections.Generic;
 
 namespace Content.Server._Mono.Detection;
 

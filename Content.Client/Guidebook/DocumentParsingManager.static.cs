@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Client.Guidebook.Controls;
 using Pidgin;
 using Robust.Client.UserInterface;

@@ -1,4 +1,3 @@
-using System.Threading;
 using Content.Server.Spawners.Components;
 using Robust.Shared.Random;
 

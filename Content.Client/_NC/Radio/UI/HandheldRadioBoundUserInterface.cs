@@ -1,6 +1,5 @@
 using Content.Shared._NC.Radio;
 using JetBrains.Annotations;
-using Robust.Client.GameObjects;
 
 namespace Content.Client._NC.Radio.UI;
 

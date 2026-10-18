@@ -2,7 +2,6 @@ using Content.Server._Mono.FireControl;
 using Content.Shared._Mono.Radar;
 using Content.Shared.Weapons.Hitscan.Components;
 using Content.Shared.Weapons.Ranged.Events;
-using Robust.Server.GameObjects;
 using Robust.Shared.Map;
 using Robust.Shared.Timing;
 using Content.Shared.Weapons.Ranged;

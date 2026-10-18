@@ -1,4 +1,3 @@
-using Robust.Shared.Player;
 using Robust.Shared.Prototypes; // Coyote
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.List; // Coyote
 

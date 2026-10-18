@@ -5,7 +5,6 @@ using Content.Server._NF.Bank;
 using Content.Shared._NF.Bank.Components;
 using Content.Shared.Mind;
 using Content.Shared.NukeOps;
-using Content.Shared.Popups;
 using Content.Shared.Database;
 
 namespace Content.Server.NukeOps;

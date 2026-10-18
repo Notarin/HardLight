@@ -1,16 +1,9 @@
 using Content.Shared.Teleportation.Systems;
 using Content.Shared._Starlight.Shadekin;
-using Content.Shared.Anomaly.Components;
-using Content.Server.Light.EntitySystems;
 using Content.Shared.Verbs;
-using Content.Shared.Anomaly;
-using Content.Shared.Alert;
 using Content.Shared.Actions;
-using Robust.Shared.Random;
 using Content.Shared.Movement.Pulling.Components;
 using Content.Shared.Examine;
-using Content.Server.Anomaly;
-using Content.Shared.Light.Components;
 using Content.Shared.Throwing;
 using Content.Shared.Teleportation.Components;
 

@@ -2,7 +2,6 @@ using Content.Shared.Chemistry.Components;
 using Content.Shared.Timing;
 using Content.Shared.Verbs;
 using Content.Shared.Popups;
-using Robust.Shared.Player;
 using Content.Shared.Administration.Logs;
 
 namespace Content.Shared.Chemistry.EntitySystems;

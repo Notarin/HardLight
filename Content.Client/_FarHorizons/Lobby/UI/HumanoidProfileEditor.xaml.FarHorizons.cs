@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Client.Lobby.UI.Loadouts;
 using Content.Shared.Humanoid.Prototypes;
 using Content.Shared.Preferences.Loadouts;

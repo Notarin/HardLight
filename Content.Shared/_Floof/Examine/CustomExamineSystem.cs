@@ -3,7 +3,6 @@ using Content.Shared.ActionBlocker;
 using Content.Shared.Administration.Managers;
 using Content.Shared._Common.Consent;
 using Content.Shared.Examine;
-using Content.Shared.Interaction;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;

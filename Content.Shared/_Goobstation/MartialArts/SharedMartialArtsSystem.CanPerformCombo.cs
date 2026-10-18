@@ -1,8 +1,6 @@
-using System.Linq;
 using Content.Shared._Goobstation.MartialArts.Components;
 using Content.Shared._Goobstation.MartialArts.Events;
 using Content.Shared.Mobs.Components;
-using Robust.Shared.Prototypes;
 
 namespace Content.Shared._Goobstation.MartialArts;
 

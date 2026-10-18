@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server._Funkystation.Genetics.Components;
 using Content.Server.Popups;
 using Content.Shared._Funkystation.Genetics;

@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Numerics;
 using Content.Shared.Administration.Notes;
 using Content.Shared.CCVar;

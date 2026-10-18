@@ -1,6 +1,4 @@
 using Content.Shared.Popups;
-using Content.Shared.Procedural;
-using Content.Shared.Salvage;
 using Content.Shared.Salvage.Expeditions;
 using Content.Shared._NF.Bank;
 using Content.Shared._NF.Bank.Components;

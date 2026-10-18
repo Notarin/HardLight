@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.Storage.Components;
 using Content.Shared.Whitelist;
 using JetBrains.Annotations;

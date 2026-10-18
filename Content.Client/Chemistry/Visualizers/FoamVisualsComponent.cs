@@ -1,5 +1,4 @@
 using Robust.Client.Animations;
-using Robust.Client.Graphics;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
 namespace Content.Client.Chemistry.Visualizers;

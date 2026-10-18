@@ -7,7 +7,6 @@ using Content.Shared.Popups;
 using Content.Shared.Power;
 using Content.Shared.Shuttles.BUIStates;
 using Content.Shared.UserInterface;
-using Robust.Shared.Network;
 using Robust.Server.GameObjects;
 
 namespace Content.Server._Mono.FireControl;

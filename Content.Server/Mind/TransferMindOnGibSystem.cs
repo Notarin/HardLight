@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.Body.Components;
 using Content.Shared.Mind;
 using Content.Shared.Mind.Components;

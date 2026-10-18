@@ -2,7 +2,6 @@ using Robust.Shared.Timing;
 using Content.Server.Administration.Systems;
 using Content.Shared.Alert;
 using Content.Shared.CombatMode.Pacification;
-using Content.Shared.Humanoid;
 using Content.Shared.Mind;
 using Content.Shared.Roles.Jobs;
 using Robust.Shared.Prototypes;

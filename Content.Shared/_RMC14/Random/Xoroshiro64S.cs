@@ -1,5 +1,3 @@
-using System.Runtime.CompilerServices;
-
 namespace Content.Shared._RMC14.Random;
 
 // https://github.com/medo64/Medo.ScrambledLinear/blob/main/src/Xoroshiro/Xoroshiro64S.cs

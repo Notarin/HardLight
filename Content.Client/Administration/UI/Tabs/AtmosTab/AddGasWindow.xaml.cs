@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Client.Atmos.EntitySystems;
 using Content.Shared.Atmos.Prototypes;
 using JetBrains.Annotations;

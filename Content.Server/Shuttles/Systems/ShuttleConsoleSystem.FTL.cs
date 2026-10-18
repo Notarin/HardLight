@@ -2,16 +2,12 @@ using Content.Server.Shuttles.Components;
 using Content.Server.Shuttles.Events;
 using Content.Server._VRS.Planet;
 using Content.Shared.Popups;
-using Content.Shared.Shuttles.BUIStates;
-using Content.Shared.Shuttles.Components;
 using Content.Shared.Shuttles.Events;
 using Content.Shared.Shuttles.UI.MapObjects;
 using Content.Shared._VRS.Planet;
 using Robust.Shared.Map;
-using Robust.Shared.Map.Components;
 using Robust.Shared.Physics.Components;
 using Content.Server.Station.Components;
-using System.Linq;
 using System.Numerics;
 
 namespace Content.Server.Shuttles.Systems;

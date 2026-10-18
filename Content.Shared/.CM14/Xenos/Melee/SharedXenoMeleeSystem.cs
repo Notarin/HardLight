@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Numerics;
 using Content.Shared.ActionBlocker;
 using Content.Shared.Damage;
@@ -15,7 +14,7 @@ using Robust.Shared.Physics.Systems;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
-using Content.Shared.CM14.Xenos; // XenoComponent
+// XenoComponent
 using Robust.Shared.Audio.Systems; // SharedAudioSystem
 
 namespace Content.Shared.CM14.Xenos.Melee;

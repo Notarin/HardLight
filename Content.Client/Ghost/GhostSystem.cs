@@ -3,12 +3,10 @@ using Content.Client.UserInterface.Systems.Ghost.Widgets;
 using Content.Shared.Actions;
 using Content.Shared.Ghost;
 using Content.Shared.Mind;
-using Content.Shared.Popups;
 using Robust.Client.Console;
 using Robust.Client.GameObjects;
 using Robust.Client.Player;
 using Robust.Client.UserInterface;
-using Robust.Shared.GameStates;
 using Robust.Shared.Timing;
 using Robust.Shared.Player;
 using Content.Client._Corvax.Respawn; // Frontier

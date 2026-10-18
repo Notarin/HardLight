@@ -1,32 +1,32 @@
 using Content.Shared.Shuttles.Components;
 using Content.Shared.Procedural;
 using Content.Shared.Salvage.Expeditions;
-using Content.Shared.Dataset;
 using Robust.Shared.Prototypes;
 using Content.Shared.Popups; // Frontier
-using Content.Shared._NF.CCVar; // Frontier
-using Content.Server.Station.Components; // Frontier
+// Frontier
+// Frontier
 using Robust.Shared.Map.Components; // Frontier
-using Robust.Shared.Physics.Components; // Frontier
-using Content.Shared.NPC; // Frontier
-using Content.Server._NF.Salvage; // Frontier
-using Content.Shared.NPC.Components; // Frontier
+// Frontier
+// Frontier
+// Frontier
+// Frontier
 using Content.Server.Salvage.Expeditions; // Frontier
-using Content.Shared.Mind.Components; // Frontier
-using Content.Shared.Mobs.Components; // Frontier
-using Robust.Shared.Physics; // Frontier
+// Frontier
+// Frontier
+// Frontier
 using Content.Server.Chat.Systems; // HardLight: For ChatSystem (server-side)
-using Content.Shared.Salvage; // HardLight: For SalvageMissionType
-using System.Threading; // HardLight: For CancellationTokenSource
+// HardLight: For SalvageMissionType
+// HardLight: For CancellationTokenSource
 using RobustTimer = Robust.Shared.Timing.Timer; // Replace obsolete SpawnTimer usage with Timer.Spawn
-using System.Numerics; // HardLight: For Vector2
+// HardLight: For Vector2
 using Robust.Shared.Map; // HardLight: For EntityCoordinates
 using Content.Server.Shuttles.Components; // HardLight: For ShuttleComponent
-using System.Linq; // HardLight: For ToList() and Take()
-using Content.Shared.Shuttles.Systems; // HardLight: For FTLState
+// HardLight: For ToList() and Take()
+// HardLight: For FTLState
 using Robust.Shared.Player; // HardLight: For Filter
-using Content.Shared.Timing; // HardLight: For StartEndTime
-using Robust.Shared.GameObjects; // HardLight: For SpawnTimer extension method
+// HardLight: For StartEndTime
+
+// HardLight: For SpawnTimer extension method
 
 namespace Content.Server.Salvage;
 

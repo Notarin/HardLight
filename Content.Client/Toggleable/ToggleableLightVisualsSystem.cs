@@ -7,7 +7,6 @@ using Content.Shared.Item;
 using Content.Shared.Toggleable;
 using Robust.Client.GameObjects;
 using Robust.Shared.Utility;
-using System.Linq;
 
 namespace Content.Client.Toggleable;
 

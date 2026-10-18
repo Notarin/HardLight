@@ -18,8 +18,6 @@ using Content.Shared.Atmos;
 using Content.Shared.Database;
 using Content.Shared.Popups;
 using Content.Shared.Rejuvenate;
-using Content.Shared.Repairable;
-using Robust.Server.Audio;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio;
 using Robust.Shared.Random;
@@ -33,11 +31,9 @@ using Content.Shared.Damage;
 using Content.Shared.Containers.ItemSlots;
 using Robust.Shared.Containers;
 using System.Diagnostics.CodeAnalysis;
-using Content.Shared.Damage.Systems;
 using Content.Server.Audio;
 using Content.Shared.Audio;
 using Robust.Shared.Timing;
-using System.Linq;
 
 namespace Content.Server._FarHorizons.Power.Generation.FissionGenerator;
 

@@ -1,4 +1,3 @@
-using Content.Shared._CD.Silicons;
 using Content.Shared._CD.Silicons.Borgs;
 using Content.Shared.Silicons.Borgs.Components;
 using JetBrains.Annotations;

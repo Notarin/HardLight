@@ -6,7 +6,6 @@ using Content.Shared.Overlays;
 using Content.Shared.StatusIcon;
 using Content.Shared.StatusIcon.Components;
 using Robust.Shared.Prototypes;
-using System.Linq;
 
 namespace Content.Client.Overlays;
 

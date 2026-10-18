@@ -10,7 +10,6 @@ using Content.Shared.Weapons.Ranged.Systems;
 using Robust.Shared.Map;
 
 //linq
-using System.Linq;
 using Content.Shared.Examine;
 
 namespace Content.Shared.Starlight.Knockback;

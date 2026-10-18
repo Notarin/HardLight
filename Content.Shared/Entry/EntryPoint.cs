@@ -1,6 +1,4 @@
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
-using System.Linq;
 using Content.Shared.Humanoid.Markings;
 using Content.Shared.IoC;
 using Content.Shared.Maps;

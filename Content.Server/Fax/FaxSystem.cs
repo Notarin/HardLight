@@ -31,11 +31,10 @@ using Content.Shared.Power;
 using Content.Shared.DeviceNetwork.Components;
 using Content.Shared.Tag; // Frontier
 using Robust.Shared.Prototypes;
-using Robust.Shared.Timing;
 using Robust.Shared.Configuration; // Hardlight
 using Content.Shared.CCVar; // Hardlight
 using Content.Server.Discord; // Hardlight
-using System.Collections.Generic; // Hardlight
+// Hardlight
 using System.Text; // Hardlight
 
 namespace Content.Server.Fax;

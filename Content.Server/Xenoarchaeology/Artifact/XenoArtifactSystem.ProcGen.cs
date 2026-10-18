@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.Random.Helpers;
 using Content.Shared.Whitelist;
 using Content.Shared.Xenoarchaeology.Artifact.Components;

@@ -1,7 +1,3 @@
-using Content.Shared.Tools;
-using Robust.Shared.Prototypes;
-using Robust.Shared.Utility;
-
 namespace Content.Server._NF.Tools.Components
 {
     [RegisterComponent]

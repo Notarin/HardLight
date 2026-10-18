@@ -1,6 +1,5 @@
 using Content.Server.Afk;
 using Content.Server.Afk.Events;
-using Content.Server.Mind;
 using Content.Shared.Ghost;
 using Content.Shared.Mind;
 using Robust.Server.Player;

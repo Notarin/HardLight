@@ -1,5 +1,4 @@
 using System.Numerics;
-using System.Threading;
 using Content.Client.CombatMode;
 using Content.Client.Gameplay;
 using Content.Client.Mapping;

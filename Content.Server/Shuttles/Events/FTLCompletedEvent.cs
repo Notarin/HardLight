@@ -1,5 +1,3 @@
-using Content.Server.Shuttles.Systems;
-
 namespace Content.Server.Shuttles.Events;
 
 /// <summary>

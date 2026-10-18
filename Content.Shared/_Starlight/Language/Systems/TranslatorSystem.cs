@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared._Starlight.Language.Components;
 using Content.Shared.Examine;
 using Content.Shared.Toggleable;
@@ -10,7 +9,6 @@ using Content.Shared.PowerCell;
 using Content.Shared.PowerCell.Components; // HardLight
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Timing;
 using HandheldTranslatorComponent = Content.Shared._Starlight.Language.Components.HandheldTranslatorComponent;
 
 namespace Content.Shared._Starlight.Language.Systems;

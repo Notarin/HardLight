@@ -1,9 +1,7 @@
-using Content.Shared.Lathe;
 using Content.Shared.Research.Components;
 using Content.Shared.Research.Prototypes;
 using Content.Shared.Research.Systems;
 using Robust.Shared.Prototypes;
-using System.Linq;
 
 namespace Content.Shared._Goobstation.Research;
 

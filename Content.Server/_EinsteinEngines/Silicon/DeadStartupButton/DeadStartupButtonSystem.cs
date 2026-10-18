@@ -1,4 +1,3 @@
-using Content.Server.Chat.Systems;
 using Content.Server.Lightning;
 using Content.Server.Popups;
 using Content.Server.PowerCell;

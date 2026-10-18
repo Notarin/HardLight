@@ -2,7 +2,6 @@ using Content.Client._NF.Charges.Components;
 using Content.Shared.Charges.Systems;
 using Content.Shared.Rounding;
 using Robust.Client.GameObjects;
-using Robust.Shared.Graphics.RSI;
 using Robust.Client.Graphics;
 
 namespace Content.Client._NF.Charges.Systems;

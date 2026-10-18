@@ -18,7 +18,6 @@ using Content.Shared.Mind.Components;
 using Content.Shared.PDA;
 using Content.Shared.Preferences;
 using Content.Shared.Roles;
-using Content.Shared.Roles.Jobs;
 using Content.Shared.Verbs;
 using Robust.Server.Player;
 using Robust.Shared.Enums;

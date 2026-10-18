@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.Actions;
 using Content.Server.Humanoid;
 using Content.Shared._CS.Humanoid;
@@ -8,7 +7,6 @@ using Content.Shared.Humanoid.Markings;
 using Content.Shared.Mobs;
 using Content.Shared.Toggleable;
 using Content.Shared.Wagging;
-using Robust.Shared.Prototypes;
 
 namespace Content.Server.Wagging;
 

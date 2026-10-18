@@ -1,6 +1,4 @@
 #nullable enable
-using System;
-using System.Collections.Generic;
 using Content.Shared.Administration;
 
 namespace Content.Client.Administration.UI.Bwoink;

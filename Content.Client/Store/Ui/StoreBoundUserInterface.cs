@@ -1,6 +1,5 @@
 using Content.Shared.Store;
 using JetBrains.Annotations;
-using System.Linq;
 using Content.Shared.Store.Components;
 using Robust.Client.UserInterface;
 using Robust.Shared.Prototypes;

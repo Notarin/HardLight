@@ -1,9 +1,6 @@
 using Robust.Client.UserInterface;
-using Robust.Shared.GameObjects;
-using Content.Shared._Funkystation.Genetics;
 using Content.Shared._Funkystation.Genetics.Components;
 using Content.Shared._Funkystation.Genetics.Events;
-using Robust.Shared.Serialization;
 
 namespace Content.Client._Funkystation.Genetics.DnaScannerConsole.UI;
 

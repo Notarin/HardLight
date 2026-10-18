@@ -1,9 +1,7 @@
 using Content.Shared.Shuttles.Components;
 using Content.Server.Salvage.Expeditions;
 using Content.Server.Shuttles.Systems;
-using Robust.Shared.GameObjects;
 using Robust.Shared.Map;
-using Robust.Shared.Map.Components;
 
 namespace Content.Server.Objectives.Systems;
 

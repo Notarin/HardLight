@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Text.RegularExpressions;
 using Robust.Client.Audio;
 using Robust.Client.UserInterface;
@@ -8,7 +7,6 @@ using Robust.Shared.Player;
 using Content.Shared.CCVar;
 using Content.Client.CharacterInfo;
 using Content.Client.Gameplay;
-using Robust.Shared.Utility;
 using static Content.Client.CharacterInfo.CharacterInfoSystem;
 
 namespace Content.Client.UserInterface.Systems.Chat;

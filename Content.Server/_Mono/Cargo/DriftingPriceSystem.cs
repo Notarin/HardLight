@@ -1,6 +1,5 @@
 using Content.Server.Cargo.Systems;
 using Robust.Shared.Random;
-using Robust.Shared.Timing;
 
 namespace Content.Server._Mono.Cargo;
 

@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.Hands.EntitySystems;
 
 namespace Content.Shared.Hands.Components;

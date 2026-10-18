@@ -5,7 +5,6 @@ using Content.Shared.Voting;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.CustomControls;
-using Robust.Shared.IoC;
 
 namespace Content.Client.Administration.UI.Voting;
 

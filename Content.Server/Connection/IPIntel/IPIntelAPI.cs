@@ -1,6 +1,4 @@
 using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
 using Content.Shared.CCVar;
 using Robust.Shared.Configuration;
 using Robust.Shared.Network;

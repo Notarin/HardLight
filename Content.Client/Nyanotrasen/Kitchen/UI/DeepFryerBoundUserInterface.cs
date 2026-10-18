@@ -1,5 +1,4 @@
 using Content.Shared.Nyanotrasen.Kitchen.UI;
-using Robust.Client.GameObjects;
 
 namespace Content.Client.Nyanotrasen.Kitchen.UI
 {

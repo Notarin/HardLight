@@ -1,6 +1,4 @@
-using System;
 using System.Globalization;
-using System.Linq;
 using System.Text;
 using Content.Server.Botany.Components;
 using Content.Shared.Chemistry.Components;
@@ -8,7 +6,6 @@ using Content.Shared.Chemistry.Components.SolutionManager;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.FixedPoint;
 using Content.Shared.Stacks;
-using Robust.Shared.Utility;
 
 namespace Content.Server.Botany.Systems;
 

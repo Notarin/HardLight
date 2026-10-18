@@ -1,4 +1,3 @@
-using Content.Shared.DoAfter;
 using Robust.Shared.Network;
 
 namespace Content.Server._NF.CryoSleep;

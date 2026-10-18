@@ -6,7 +6,8 @@ using Robust.Shared.Player; // Frontier - Dont edit AI factions
 using Content.Shared.Inventory; // Frontier
 using Content.Shared.NPC.Prototypes; // Frontier
 using Robust.Shared.Prototypes; // Frontier
-using Content.Shared.Mind.Components; // Frontier
+
+// Frontier
 
 namespace Content.Shared.Clothing.EntitySystems;
 

@@ -1,5 +1,4 @@
 using Content.Shared.Whitelist;
-using Robust.Shared.Containers;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 

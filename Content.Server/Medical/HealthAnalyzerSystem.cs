@@ -1,4 +1,4 @@
-using Content.Server._NF.Traits.Assorted; // Frontier
+// Frontier
 using Content.Server.Body.Components;
 using Content.Server.Medical.Components;
 using Content.Server.PowerCell;
@@ -8,7 +8,7 @@ using Content.Shared._Shitmed.Targeting;
 using Content.Shared.Body.Part;
 using Content.Shared.Body.Systems;
 using Content.Shared.Chemistry.EntitySystems;
-using Content.Shared.Chat; // Starlight
+// Starlight
 using Content.Shared.Damage;
 using Content.Shared.DoAfter;
 using Content.Shared.IdentityManagement;
@@ -20,15 +20,12 @@ using Content.Shared.Medical;
 using Content.Shared.MedicalScanner;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Popups;
-using Content.Shared.Traits.Assorted;
 using Content.Shared._DV.Traits.Assorted; // DeltaV
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
 using Robust.Shared.Timing;
-using System.Linq;
 using Content.Shared.FixedPoint; // Starlight
-using static Content.Server.Traits.Assorted.UnrevivableSystem;
 
 namespace Content.Server.Medical;
 

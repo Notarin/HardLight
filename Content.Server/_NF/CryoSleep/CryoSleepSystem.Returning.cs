@@ -1,7 +1,4 @@
-using Content.Server.Administration.Logs;
-using Content.Server.GameTicking;
 using Content.Shared.Bed.Sleep;
-using Content.Shared.Database;
 using Content.Shared.Ghost;
 using Content.Shared.Mind;
 using Content.Shared._NF.CCVar;
@@ -11,7 +8,6 @@ using Robust.Shared.Configuration;
 using Robust.Shared.Network;
 using Content.Shared._NF.CryoSleep.Events;
 using System.Diagnostics.CodeAnalysis;
-using Content.Server.Ghost;
 
 namespace Content.Server._NF.CryoSleep;
 

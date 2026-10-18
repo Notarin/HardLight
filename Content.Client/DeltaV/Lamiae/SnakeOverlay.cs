@@ -6,10 +6,8 @@ using Robust.Client.GameObjects;
 using Robust.Client.ResourceManagement;
 using Robust.Client.Graphics;
 using Robust.Shared.Prototypes;
-using Robust.Shared.IoC;
 using Robust.Shared.Enums;
 using System.Numerics;
-using System.Linq;
 
 
 namespace Content.Client.Lamiae;

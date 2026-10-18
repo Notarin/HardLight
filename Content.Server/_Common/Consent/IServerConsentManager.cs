@@ -4,8 +4,6 @@
 using Content.Shared._Common.Consent;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Content.Server._Common.Consent;
 

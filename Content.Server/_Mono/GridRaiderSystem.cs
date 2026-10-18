@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared._Mono;
 using Content.Shared._Mono.NoHack;
 using Content.Shared._Mono.NoDeconstruct;

@@ -1,17 +1,13 @@
 using Content.Server.Carrying;
 using Content.Server.Body.Components;
-using Content.Server.Medical.SuitSensors;
 using Content.Server._Starlight.NullSpace;
 using Content.Shared._Common.Consent;
 using Content.Shared._Starlight.NullSpace;
 using Content.Shared.Body.Components;
-using Content.Shared.Body.Events;
 using Content.Shared.Carrying;
-using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Destructible;
 using Content.Shared.DoAfter;
 using Content.Shared.FloofStation;
-using Content.Shared.Medical.SuitSensor;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Movement.Pulling.Components;
 using Content.Shared.Polymorph;

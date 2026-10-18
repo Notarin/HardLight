@@ -2,8 +2,6 @@ using Content.Server.Database;
 using Content.Shared.CCVar;
 using Robust.Server.Upload;
 using Robust.Shared.Configuration;
-using Robust.Shared.Player;
-using Robust.Shared.Upload;
 
 namespace Content.Server.Administration;
 

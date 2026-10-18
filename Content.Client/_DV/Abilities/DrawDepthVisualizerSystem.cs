@@ -1,4 +1,3 @@
-using Content.Shared.DrawDepth;
 using Robust.Client.GameObjects;
 
 namespace Content.Client._DV.Abilities;

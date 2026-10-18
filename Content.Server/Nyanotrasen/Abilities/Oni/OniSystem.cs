@@ -1,10 +1,8 @@
-using Content.Server.Tools;
 using Content.Shared.Damage.Events;
 using Content.Shared.Weapons.Melee.Events;
 using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Systems;
 using Content.Shared.Wieldable.Components;
-using System.Linq;
 using Robust.Shared.Containers;
 
 namespace Content.Server.Abilities.Oni

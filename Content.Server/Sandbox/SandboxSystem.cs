@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.GameTicking;
 using Content.Shared.Access;
 using Content.Shared.Access.Components;

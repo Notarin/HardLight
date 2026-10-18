@@ -1,5 +1,4 @@
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
-using Content.Shared.NPC.Systems;
 using Content.Shared.NPC.Prototypes;
 
 namespace Content.Server.NPC.Components

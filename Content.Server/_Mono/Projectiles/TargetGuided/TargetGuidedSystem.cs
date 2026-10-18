@@ -1,7 +1,6 @@
 using System.Numerics;
 using Content.Shared.Interaction;
 using Content.Shared.Projectiles;
-using Content.Server._Mono.FireControl;
 using Content.Shared._Mono.FireControl;
 using Robust.Server.GameObjects;
 using Robust.Shared.Physics.Components;

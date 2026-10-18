@@ -3,7 +3,6 @@ using Content.Shared._Funkystation.Genetics.Events;
 using Content.Shared.Actions;
 using Content.Shared.Weapons.Ranged;
 using Content.Shared.Weapons.Ranged.Components;
-using Content.Shared.Weapons.Ranged.Events;
 using Content.Shared.Weapons.Ranged.Systems;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Prototypes;

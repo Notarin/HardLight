@@ -1,7 +1,6 @@
 // SPDX-FileCopyrightText: Copyright (c) 2024-2025 Space Wizards Federation
 // SPDX-License-Identifier: MIT
 
-using System.Linq;
 using Content.Shared._Common.CCVar;
 using Robust.Shared.Configuration;
 using Robust.Shared.Prototypes;

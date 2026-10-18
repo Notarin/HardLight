@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Client.UserInterface.Controls;
 using Content.Shared._Moffstation.Cards.Components;
 using Content.Shared._Moffstation.Cards.Events;

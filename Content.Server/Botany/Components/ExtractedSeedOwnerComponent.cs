@@ -1,5 +1,4 @@
 using Content.Server.Botany.Systems;
-using Robust.Shared.GameObjects;
 using Robust.Shared.Network;
 
 namespace Content.Server.Botany.Components;

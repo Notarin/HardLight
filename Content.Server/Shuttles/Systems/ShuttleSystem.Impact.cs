@@ -3,17 +3,13 @@ using Content.Server.Shuttles.Components;
 using Content.Shared.Audio;
 using Robust.Shared.Audio;
 using Robust.Shared.Map;
-using Robust.Shared.Physics.Dynamics;
 using Robust.Shared.Physics.Events;
-using Robust.Shared.Player;
 using Robust.Shared.Map.Components;
 using Content.Shared.Damage;
 using Content.Shared.Buckle.Components;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Slippery;
-using Content.Shared.Inventory;
 using Content.Shared.Clothing;
-using Content.Shared.Item.ItemToggle;
 using Content.Shared.Item.ItemToggle.Components;
 
 namespace Content.Server.Shuttles.Systems;

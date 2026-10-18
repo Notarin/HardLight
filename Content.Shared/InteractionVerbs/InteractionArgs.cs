@@ -1,7 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
-using Content.Shared.Hands.Components;
 using Content.Shared.Verbs;
-using Robust.Shared.Serialization;
 
 namespace Content.Shared.InteractionVerbs;
 

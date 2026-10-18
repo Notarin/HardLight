@@ -1,7 +1,6 @@
 using Content.Shared.DeviceLinking.Events;
 using Content.Server.Power.EntitySystems;
 using Content.Shared.DeviceLinking;
-using Content.Shared.Disposal.Unit;
 using Robust.Shared.Prototypes;
 using Content.Shared.Disposal.Components;
 using Content.Server.Disposal.Unit;

@@ -3,7 +3,6 @@ using Content.Shared.IdentityManagement;
 using Content.Shared.Hands.Components;
 using Robust.Shared.Player;
 using Content.Shared.Hands.EntitySystems;
-using Robust.Shared.GameStates;
 
 namespace Content.Shared.OfferItem;
 

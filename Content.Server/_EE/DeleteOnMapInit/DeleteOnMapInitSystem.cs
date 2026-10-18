@@ -1,5 +1,3 @@
-using Content.Shared._Shitmed.Body.Events;
-
 namespace Content.Server._EE.DeleteOnMapInit
 {
     public sealed partial class DeleteOnMapInitSystem : EntitySystem

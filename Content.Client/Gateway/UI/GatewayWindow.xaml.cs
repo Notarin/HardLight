@@ -9,7 +9,6 @@ using Robust.Client.Graphics;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.XAML;
-using Robust.Shared.Log;
 using Robust.Shared.Timing;
 
 namespace Content.Client.Gateway.UI;

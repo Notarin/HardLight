@@ -1,11 +1,6 @@
 using Content.Shared._NF.Shipyard.Events;
-using Content.Shared._NF.Shipyard.Components;
 using Content.Shared._NF.Shipyard;
-using Content.Server._NF.Shipyard.Components;
 using Content.Shared._NF.Shipyard.BUI;
-using Robust.Shared.GameObjects;
-using Robust.Shared.IoC;
-using Robust.Shared.Log;
 using Robust.Server.GameObjects;
 
 namespace Content.Server._NF.Shipyard.Systems;

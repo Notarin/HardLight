@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Client.Items;
 using Content.Client.Message;
 using Content.Client.Stylesheets;

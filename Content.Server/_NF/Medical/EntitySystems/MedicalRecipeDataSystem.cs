@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Client.Chemistry.EntitySystems;
 using Content.Server.Medical.Components;
 using Content.Shared.Chemistry.Components.SolutionManager;

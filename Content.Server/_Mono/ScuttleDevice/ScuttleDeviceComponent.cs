@@ -1,8 +1,5 @@
 using Robust.Shared.Audio;
-using Robust.Shared.Localization;
 using Robust.Shared.Map;
-using Robust.Shared.Prototypes;
-using System;
 
 namespace Content.Server._Mono.ScuttleDevice;
 

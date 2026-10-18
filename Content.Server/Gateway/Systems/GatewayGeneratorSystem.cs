@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.Gateway.Components;
 using Content.Shared.Gateway.Components;
 using Content.Server.Parallax;

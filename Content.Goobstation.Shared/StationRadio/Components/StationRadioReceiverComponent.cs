@@ -1,4 +1,3 @@
-using System;
 using Robust.Shared.GameStates;
 
 namespace Content.Goobstation.Shared.StationRadio.Components;

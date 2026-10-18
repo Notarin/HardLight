@@ -43,7 +43,7 @@ csharp_using_directive_placement = outside_namespace:silent
 # Temporarily downgraded to suggestions to un-fuck the warnings list.
 # Remove these lines (or change to 'warning') as they are fixed.
 
-dotnet_diagnostic.IDE0005.severity = suggestion # Unnecessary using directive.
+dotnet_diagnostic.IDE0005.severity = warning # Unnecessary using directive.
 
 # C# Compiler Warnings (CS)
 dotnet_diagnostic.CS0067.severity = warning # An event was declared but never used in the class in which it was declared.
@@ -260,7 +260,6 @@ ij_yaml_indent_sequence_value = false
 
 # Enforce stricter rules for code in _HL folders
 [**/_HL/**/*.cs]
-dotnet_diagnostic.IDE0005.severity = warning # Unnecessary using directive.
 dotnet_diagnostic.RA0003.severity = error # Class must be explicitly marked as [Virtual], abstract, static or sealed.
 dotnet_diagnostic.RA0022.severity = error # AutoGenerateComponentPause has no fields.
 dotnet_diagnostic.RA0026.severity = error # Use of uncached static Regex function.

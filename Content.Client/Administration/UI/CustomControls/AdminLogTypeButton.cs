@@ -1,4 +1,3 @@
-using Content.Shared.Administration.Logs;
 using Content.Shared.Database;
 using Robust.Client.UserInterface.Controls;
 

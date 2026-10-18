@@ -1,7 +1,6 @@
 using Content.Shared.Abilities.Psionics;
 using Content.Shared.Actions.Events;
 using Robust.Shared.Map.Components;
-using System.Linq;
 using System.Numerics;
 
 namespace Content.Server.Abilities.Psionics;

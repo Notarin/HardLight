@@ -1,7 +1,6 @@
 using System.Numerics;
 using Content.Shared._NF.Shuttles.Events;
 using Content.Shared.Shuttles.Components;
-using Robust.Shared.GameStates;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
 namespace Content.Server.Shuttles.Components

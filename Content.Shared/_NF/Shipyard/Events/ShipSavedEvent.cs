@@ -1,5 +1,4 @@
 using Robust.Shared.Player;
-using Robust.Shared.GameObjects;
 
 namespace Content.Shared._NF.Shipyard.Events;
 

@@ -1,7 +1,6 @@
 using Robust.Shared.Serialization;
 using Content.Shared.Damage;
 using Content.Shared.DoAfter;
-using Content.Shared.Abilities.Psionics;
 
 namespace Content.Shared.Psionics.Events;
 

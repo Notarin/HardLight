@@ -1,7 +1,6 @@
 using Content.Shared.Atmos;
 using Content.Shared.Random;
 using Robust.Shared.Utility;
-using System.Linq;
 
 namespace Content.Server.Botany;
 

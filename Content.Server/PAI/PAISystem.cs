@@ -7,11 +7,9 @@ using Content.Shared.Interaction.Events;
 using Content.Shared.Mind.Components;
 using Content.Shared.PAI;
 using Content.Shared.Popups;
-using Content.Shared.Store;
 using Content.Shared.Store.Components;
 using Content.Shared.Instruments;
 using Robust.Shared.Random;
-using Robust.Shared.Prototypes;
 using System.Text;
 
 namespace Content.Server.PAI;

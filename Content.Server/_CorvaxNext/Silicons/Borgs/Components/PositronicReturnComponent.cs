@@ -1,5 +1,3 @@
-using Robust.Shared.GameStates;
-
 namespace Content.Server._CorvaxNext.Silicons.Borgs.Components;
 
 [RegisterComponent]

@@ -1,6 +1,4 @@
-using System.Linq;
 using System.Numerics;
-using Content.Client.Stylesheets;
 using Content.Client.Stylesheets.Palette;
 using Content.Client.UserInterface.Systems.MenuBar.Widgets;
 using Content.Shared.Construction.Prototypes;

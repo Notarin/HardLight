@@ -1,12 +1,10 @@
 using Robust.Shared.Map;
 using Robust.Client.GameObjects;
-using Content.Shared.Repairable;
 using Content.Shared._FarHorizons.Power.Generation.FissionGenerator;
 using Content.Client.Popups;
 using Content.Client.Examine;
 using Robust.Client.Animations;
 using Content.Shared.Containers.ItemSlots;
-using Content.Shared.Popups;
 
 namespace Content.Client._FarHorizons.Power.Generation.FissionGenerator;
 

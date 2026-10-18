@@ -1,5 +1,4 @@
 using System.Collections.Frozen;
-using System.Linq;
 using Content.Shared.FixedPoint;
 using System.Text.Json.Serialization;
 using Content.Shared.Administration.Logs;
@@ -10,7 +9,6 @@ using Content.Shared.Contraband;
 using Content.Shared.EntityEffects;
 using Content.Shared.Database;
 using Content.Shared.Nutrition;
-using Content.Shared.Prototypes;
 using Content.Shared.Roles;
 using Content.Shared.Slippery;
 using Robust.Shared.Audio;

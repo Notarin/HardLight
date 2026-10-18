@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Content.Server.Administration;
 using Content.Server.Administration.Logs;
 using Content.Server.Chat.Managers;
@@ -10,10 +7,8 @@ using Content.Shared.Administration;
 using Content.Shared.CCVar;
 using Content.Shared.Database;
 using Content.Shared.Voting;
-using Robust.Server;
 using Robust.Shared.Configuration;
 using Robust.Shared.Console;
-using Robust.Shared.Utility;
 
 namespace Content.Server.Voting
 {

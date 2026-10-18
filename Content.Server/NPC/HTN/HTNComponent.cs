@@ -1,4 +1,3 @@
-using System.Threading;
 using Content.Server.NPC.Components;
 
 namespace Content.Server.NPC.HTN;

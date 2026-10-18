@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server._NF.Cargo.Systems;
 using Content.Server._NF.Market.Components;
 using Content.Server._NF.Market.Extensions;
@@ -13,7 +12,6 @@ using Content.Shared.Stacks;
 using Content.Shared.Storage;
 using Content.Shared.Materials;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Utility;
 
 
 namespace Content.Server._NF.Market.Systems;

@@ -1,4 +1,3 @@
-using System;
 using Robust.Client.UserInterface.Controls;
 
 namespace Content.Client.Administration.UI.CustomControls;

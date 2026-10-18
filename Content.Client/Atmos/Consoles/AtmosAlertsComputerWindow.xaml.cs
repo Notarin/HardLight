@@ -1,6 +1,5 @@
 using Content.Client.Message;
 using Content.Client.Pinpointer.UI;
-using Content.Client.Stylesheets;
 using Content.Client.Stylesheets.Palette;
 using Content.Client.UserInterface.Controls;
 using Content.Shared.Atmos.Components;
@@ -15,7 +14,6 @@ using Robust.Shared.Map;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using Content.Client._NF.Atmos.Consoles; // Frontier
 
 namespace Content.Client.Atmos.Consoles;

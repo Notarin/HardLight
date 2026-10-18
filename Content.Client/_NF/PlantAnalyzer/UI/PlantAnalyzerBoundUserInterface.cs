@@ -1,7 +1,5 @@
 using Content.Shared._NF.PlantAnalyzer;
 using JetBrains.Annotations;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Content.Client._NF.PlantAnalyzer.UI;
 

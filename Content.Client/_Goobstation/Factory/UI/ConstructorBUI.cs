@@ -13,9 +13,7 @@ using Content.Shared.Whitelist;
 using Robust.Client.GameObjects;
 using Robust.Client.Graphics;
 using Robust.Client.UserInterface;
-using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Prototypes;
-using System.Linq;
 
 namespace Content.Client._Goobstation.Factory.UI;
 

@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Numerics;
 using Content.Client.Gameplay;
 using Content.Client.Hands.Systems;

@@ -6,18 +6,14 @@ using Content.Shared.Abilities.Psionics;
 using Content.Shared.Nyanotrasen.Abilities.Psionics.Components;
 using Content.Shared.Popups;
 using Content.Shared.Chat;
-using Content.Shared.Psionics;
 using Content.Shared.Random.Helpers;
 using Content.Shared.StatusEffect;
-using Robust.Shared.Configuration;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Serialization.Manager;
 using Robust.Shared.Player;
-using Content.Shared.CCVar;
 using Content.Shared.NPC.Systems;
 using Content.Shared.Actions;
-using Robust.Shared.Localization;
 
 namespace Content.Server.Abilities.Psionics;
 

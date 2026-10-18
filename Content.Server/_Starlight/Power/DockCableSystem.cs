@@ -1,7 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
-using Content.Server.NodeContainer;
-using Content.Server.NodeContainer.Nodes;
 using Content.Server.Power.Components;
 using Content.Server.Power.Nodes;
 using Content.Server.Shuttles.Components;
@@ -9,8 +5,6 @@ using Content.Server.Shuttles.Events;
 using Content.Shared.NodeContainer;
 using Content.Shared.Power;
 using Robust.Shared.Map.Components;
-using Robust.Shared.Utility;
-using Robust.Shared.Log;
 using Content.Server.NodeContainer.EntitySystems;
 using Content.Shared.Starlight.CCVar;
 using Robust.Shared.Configuration;

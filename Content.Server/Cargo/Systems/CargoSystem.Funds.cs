@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.Cargo.Components;
 using Content.Shared.CCVar;
 using Content.Shared.Database;

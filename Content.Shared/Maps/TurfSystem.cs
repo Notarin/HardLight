@@ -1,4 +1,3 @@
-using Content.Shared.Emag.Systems;
 using Content.Shared.Physics;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;

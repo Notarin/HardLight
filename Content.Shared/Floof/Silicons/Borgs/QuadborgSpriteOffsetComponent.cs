@@ -1,6 +1,3 @@
-using System.Numerics;
-using Content.Shared._HL.Traits.Physical;
-
 namespace Content.Shared.Floof.Silicons.Borgs;
 
 /// <summary>

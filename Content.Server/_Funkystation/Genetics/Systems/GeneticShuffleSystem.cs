@@ -1,6 +1,5 @@
 using Content.Server.GameTicking.Events;
 using Robust.Shared.Random;
-using System.Linq;
 
 namespace Content.Server._Funkystation.Genetics.Systems;
 

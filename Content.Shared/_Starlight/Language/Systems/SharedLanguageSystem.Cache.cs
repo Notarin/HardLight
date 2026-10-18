@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared._Starlight.Language.Components;
 
 namespace Content.Shared._Starlight.Language.Systems;

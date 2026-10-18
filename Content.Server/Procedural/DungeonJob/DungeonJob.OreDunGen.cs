@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using Content.Shared.Maps; // Upstream#33105
 using Content.Shared.Procedural;
 using Content.Shared.Procedural.Components;

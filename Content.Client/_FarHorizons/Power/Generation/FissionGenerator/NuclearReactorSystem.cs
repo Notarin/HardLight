@@ -4,7 +4,6 @@
 //
 // SPDX-License-Identifier: CC-BY-NC-SA-3.0
 
-using Content.Client.NodeContainer;
 using Content.Shared._FarHorizons.Power.Generation.FissionGenerator;
 using Robust.Shared.Map;
 using Content.Client.Examine;

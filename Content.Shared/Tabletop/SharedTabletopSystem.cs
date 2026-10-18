@@ -5,7 +5,6 @@ using Content.Shared.Hands.Components;
 using Content.Shared.Interaction;
 using Content.Shared.Tabletop.Components;
 using Content.Shared.Tabletop.Events;
-using Robust.Shared.Map;
 using Robust.Shared.Network;
 using Robust.Shared.Serialization;
 

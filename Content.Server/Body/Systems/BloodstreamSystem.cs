@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.Body.Components;
 using Content.Server.Body.Events; // EE
 using Content.Server.EntityEffects.Effects;

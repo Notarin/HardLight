@@ -1,6 +1,5 @@
 using Content.Shared.Access.Components;
 using Content.Shared.Administration.Logs;
-using Content.Shared.Audio;
 using Content.Shared.CartridgeLoader;
 using Content.Shared.CartridgeLoader.Cartridges;
 using Content.Shared.Database;
@@ -13,7 +12,6 @@ using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Timing;
 using System.Text;
-using Robust.Shared.Random;
 
 namespace Content.Server.CartridgeLoader.Cartridges;
 

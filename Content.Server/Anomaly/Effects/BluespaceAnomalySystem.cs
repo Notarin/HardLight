@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Numerics;
 using Content.Server.Anomaly.Components;
 using Content.Shared.Administration.Logs;

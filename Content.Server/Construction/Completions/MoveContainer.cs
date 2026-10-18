@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.Construction;
 using JetBrains.Annotations;
 using Robust.Server.Containers;

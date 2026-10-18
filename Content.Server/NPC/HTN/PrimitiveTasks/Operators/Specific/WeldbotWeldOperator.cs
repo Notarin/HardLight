@@ -1,5 +1,3 @@
-using Content.Server.Chat.Systems;
-using Content.Shared.Chat;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Prototypes;
 using Content.Shared.Emag.Components;

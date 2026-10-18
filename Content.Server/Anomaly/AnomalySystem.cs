@@ -5,7 +5,6 @@ using Content.Server.Explosion.EntitySystems;
 using Content.Server.Materials;
 using Content.Server.Radiation.Systems;
 using Content.Server.Radio.EntitySystems;
-using Content.Server.Station.Systems;
 using Content.Shared.Anomaly;
 using Content.Shared.Anomaly.Components;
 using Content.Shared.Anomaly.Prototypes;

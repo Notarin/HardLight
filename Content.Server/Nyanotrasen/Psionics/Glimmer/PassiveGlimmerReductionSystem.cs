@@ -4,7 +4,6 @@ using Robust.Shared.Configuration;
 using Content.Shared.CCVar;
 using Content.Shared.Psionics.Glimmer;
 using Content.Shared.GameTicking;
-using Content.Server.CartridgeLoader.Cartridges;
 
 namespace Content.Server.Psionics.Glimmer
 {

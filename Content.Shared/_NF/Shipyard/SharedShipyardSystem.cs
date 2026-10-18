@@ -1,6 +1,4 @@
 using Content.Shared.Containers.ItemSlots;
-using Content.Shared._NF.Shipyard;
-using JetBrains.Annotations;
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization;
 using Content.Shared._NF.Shipyard.Components;

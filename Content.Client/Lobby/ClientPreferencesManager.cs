@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared._Mono.Company;
 using Content.Shared.Preferences;
 using Robust.Client;

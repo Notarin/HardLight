@@ -2,7 +2,6 @@ using Content.Server._Mono.Projectiles.TargetSeeking;
 using Content.Server.Physics.Controllers;
 using Content.Server.Shuttles.Components;
 using Content.Server.Shuttles.Systems;
-using Content.Shared._Mono;
 using Content.Shared._Mono.SpaceArtillery;
 using Content.Shared._NF.Shuttles.Events;
 using Content.Shared.Emp;

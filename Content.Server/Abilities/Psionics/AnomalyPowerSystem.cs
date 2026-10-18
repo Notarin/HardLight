@@ -8,7 +8,6 @@ using Robust.Shared.Audio.Systems;
 using Content.Shared.Actions;
 using Content.Shared.Damage;
 using Content.Server.Popups;
-using Content.Shared.Administration.Logs;
 using Content.Server.Lightning;
 using Content.Server.Emp;
 using Content.Server.Explosion.EntitySystems;

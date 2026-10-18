@@ -1,6 +1,4 @@
 using Content.Server.Cargo.Components;
-using Content.Shared.Mind;
-using Content.Shared.Species.Components;
 using static Content.Shared.Species.ReformSystem;
 
 namespace Content.Server._NF.Species.Systems;

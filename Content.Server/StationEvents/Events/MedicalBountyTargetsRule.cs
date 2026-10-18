@@ -5,7 +5,6 @@ using Content.Shared.GameTicking.Components;
 using Content.Shared.Mind;
 using Content.Shared.Mind.Components;
 using Content.Shared.Roles;
-using Content.Shared.Roles.Jobs;
 using Content.Shared.Station.Components;
 using Robust.Server.Player;
 using Robust.Shared.Enums;

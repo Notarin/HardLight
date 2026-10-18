@@ -1,4 +1,3 @@
-using System.Threading;
 using Robust.Shared.GameStates;
 
 namespace Content.Shared.Carrying // HL: Moved this to Shared so the client can use it for verb drawing.

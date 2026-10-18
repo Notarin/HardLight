@@ -1,5 +1,6 @@
 using System.Numerics;
-using Robust.Shared.Maths; // HardLight
+
+// HardLight
 
 // Mono - whole file
 

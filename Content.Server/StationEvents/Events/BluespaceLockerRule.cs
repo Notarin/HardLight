@@ -5,7 +5,6 @@ using Content.Server.Storage.EntitySystems;
 using Content.Shared.Access.Components;
 using Content.Shared.Station.Components;
 using Content.Shared.GameTicking.Components;
-using Content.Shared.Coordinates;
 
 namespace Content.Server.StationEvents.Events;
 

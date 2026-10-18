@@ -1,5 +1,4 @@
 using Content.Shared.Humanoid.Prototypes;
-using Content.Shared.Dataset;
 using Content.Shared.Random.Helpers;
 using Robust.Shared.Random;
 using Robust.Shared.Prototypes;

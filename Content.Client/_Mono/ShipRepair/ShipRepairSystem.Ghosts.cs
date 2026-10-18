@@ -1,13 +1,11 @@
 using Content.Client.IconSmoothing;
 using Content.Shared._Mono.ShipRepair;
 using Content.Shared._Mono.ShipRepair.Components;
-using Content.Shared.DrawDepth;
 using Content.Shared.Maps;
 using Robust.Client.GameObjects;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Utility;
 using System.Numerics;
 
 namespace Content.Client._Mono.ShipRepair;

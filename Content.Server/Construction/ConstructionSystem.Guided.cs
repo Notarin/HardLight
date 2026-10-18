@@ -7,9 +7,9 @@ using Content.Shared.Examine;
 using Content.Shared.Popups;
 using Content.Shared.Tag; //Hardlight
 using Content.Shared.Verbs;
-using Robust.Shared.Player;
 using Robust.Shared.Utility;
-using System.Linq; //Hardlight
+
+//Hardlight
 
 namespace Content.Server.Construction
 {

@@ -9,9 +9,7 @@ using Content.Shared.Weapons.Melee.Events;
 using Content.Shared.Chat; // For InGameICChatType
 using Robust.Shared.Map;
 using Robust.Shared.Player;
-using System.Linq;
 using System.Numerics;
-using Content.Shared._Goobstation.MartialArts.Events;
 
 namespace Content.Server.Weapons.Melee;
 

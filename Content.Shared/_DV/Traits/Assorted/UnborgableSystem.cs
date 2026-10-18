@@ -1,9 +1,7 @@
 using Content.Shared.Body.Components;
-using Content.Shared.Body.Organ;
 using Content.Shared.Body.Systems;
 using Content.Shared.Examine;
 using Content.Shared.Movement.Components; // TODO: use BrainComponent instead of InputMover when shitmed is merged
-using Robust.Shared.Utility;
 
 namespace Content.Shared._DV.Traits.Assorted;
 

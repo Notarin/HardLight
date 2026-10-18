@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared._Floof.Lock.Events;
 using Content.Shared.Access; // HardLight
 using Content.Shared.Access.Components;

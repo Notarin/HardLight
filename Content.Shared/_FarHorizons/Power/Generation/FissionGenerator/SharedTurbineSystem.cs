@@ -5,18 +5,15 @@
 // SPDX-License-Identifier: CC-BY-NC-SA-3.0
 
 
-using Content.Shared.Administration.Logs;
 using Content.Shared.Damage;
 using Content.Shared.DoAfter;
 using Content.Shared.Electrocution;
 using Content.Shared.Examine;
 using Content.Shared.Interaction;
 using Content.Shared.Popups;
-using Content.Shared.Repairable;
 using Content.Shared.Tools.Systems;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
-using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
 namespace Content.Shared._FarHorizons.Power.Generation.FissionGenerator;

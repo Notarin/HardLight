@@ -3,7 +3,6 @@ using Content.Server.PDA;
 using Content.Shared.Inventory;
 using Content.Shared.Mind.Components;
 using Content.Shared.PDA;
-using Content.Shared.Roles;
 
 namespace Content.Server.Access.Systems;
 

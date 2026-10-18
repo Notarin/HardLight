@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Client.Guidebook;
 using Content.Client.Humanoid;
 using Content.Client.Inventory;

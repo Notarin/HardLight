@@ -1,6 +1,3 @@
-using Content.Server.Atmos.Piping.EntitySystems;
-using JetBrains.Annotations;
-
 namespace Content.Server.Atmos.Piping.Components;
 
 [RegisterComponent]

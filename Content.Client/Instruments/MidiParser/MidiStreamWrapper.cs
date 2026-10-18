@@ -1,4 +1,3 @@
-using System.IO;
 using System.Text;
 
 namespace Content.Client.Instruments.MidiParser;

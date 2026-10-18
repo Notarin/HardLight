@@ -1,9 +1,6 @@
 using Content.Shared.Lizards.Components;
-using System.Linq;
 using Robust.Client.GameObjects;
 using Robust.Shared.Map;
-using Robust.Shared.Physics.Components;
-using Robust.Shared.Timing;
 
 namespace Content.Client.Lizards.Systems;
 

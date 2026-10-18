@@ -1,6 +1,4 @@
-using System.Linq;
 using Content.Server.Power.Components;
-using Content.Shared.Containers.ItemSlots;
 using Content.Shared.DoAfter;
 using Content.Shared.PowerCell.Components;
 using Content.Shared._EinsteinEngines.Silicon;
@@ -9,12 +7,10 @@ using Robust.Shared.Utility;
 using Content.Server._EinsteinEngines.Silicon.Charge;
 using Content.Server.Power.EntitySystems;
 using Content.Server.Popups;
-using Content.Server.PowerCell;
 using Content.Shared.Popups;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
 using Content.Server._EinsteinEngines.Power.Components;
-using Content.Server._EinsteinEngines.Silicon;
 
 namespace Content.Server._EinsteinEngines.Power;
 

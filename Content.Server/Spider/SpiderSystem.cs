@@ -1,8 +1,6 @@
-using System.Linq;
 using Content.Server.Popups;
 using Content.Shared.Maps;
 using Content.Shared.Spider;
-using Robust.Server.GameObjects;
 using Robust.Shared.Map;
 
 namespace Content.Server.Spider;

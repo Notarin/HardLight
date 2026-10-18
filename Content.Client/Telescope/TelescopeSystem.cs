@@ -1,6 +1,5 @@
 using System.Numerics;
 using Content.Client.Viewport;
-using Content.Shared.CCVar;
 using Content.Shared.Floofstation;
 using Content.Shared.Telescope;
 using Content.Shared.Input;

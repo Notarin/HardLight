@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server._Funkystation.Genetics.Mutations.Components;
 using Content.Shared.Damage;
 using Content.Shared.FixedPoint;

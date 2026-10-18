@@ -1,5 +1,4 @@
 using Content.Shared.FixedPoint; // Frontier
-using Robust.Shared.GameStates;
 
 namespace Content.Shared.Beeper.Components;
 

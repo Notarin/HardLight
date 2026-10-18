@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.Administration;
 using Content.Server.Body.Systems;
 using Content.Shared.Administration;

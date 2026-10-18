@@ -1,5 +1,4 @@
 using System.Globalization;
-using System.Linq;
 using System.Numerics;
 using Content.Client.Atmos.EntitySystems;
 using Content.Client.Resources;

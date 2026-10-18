@@ -1,5 +1,3 @@
-using Robust.Shared.Prototypes;
-
 namespace Content.Server._Funkystation.Genetics.Mutations.Components;
 
 [RegisterComponent]

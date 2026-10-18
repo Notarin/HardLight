@@ -1,7 +1,6 @@
 // Cherry-picked from space-station-14#32938 courtesy of Ilya246
 using JetBrains.Annotations;
 using Content.Shared.Stacks;
-using Robust.Client.GameObjects;
 using Robust.Client.UserInterface;
 
 namespace Content.Client.Stack

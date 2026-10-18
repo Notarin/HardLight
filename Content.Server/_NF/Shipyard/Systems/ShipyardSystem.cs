@@ -16,8 +16,7 @@ using Content.Shared._NF.CCVar;
 using Content.Shared.HL.CCVar; // HardLight
 using Robust.Shared.Configuration;
 using System.Diagnostics.CodeAnalysis;
-using System.IO; // HardLight
-using System.Linq;
+// HardLight
 using System.Numerics;
 using System.Reflection;
 using System.Text; // HardLight
@@ -34,10 +33,8 @@ using Robust.Shared.Containers;
 using Content.Server._NF.Station.Components;
 using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.Utility;
-using Robust.Shared.ContentPack;
 using Content.Shared.Shuttles.Components; // For IFFComponent
 using Content.Shared.Timing;
-using Content.Server.Gravity;
 using Robust.Shared.Physics;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics.Components; // For GravitySystem

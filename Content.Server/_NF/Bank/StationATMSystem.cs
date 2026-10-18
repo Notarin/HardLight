@@ -12,7 +12,6 @@ using Content.Shared._NF.Bank.BUI;
 using Content.Shared.Access.Systems;
 using Content.Shared.Database;
 using Robust.Shared.Containers;
-using System.Linq;
 
 namespace Content.Server._NF.Bank;
 

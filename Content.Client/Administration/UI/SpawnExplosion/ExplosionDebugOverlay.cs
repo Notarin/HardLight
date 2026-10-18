@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Numerics;
 using JetBrains.Annotations;
 using Robust.Client.GameObjects;

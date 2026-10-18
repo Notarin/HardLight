@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.EntityEffects;
 using Content.Shared.Localizations;
 using Content.Shared.Mind;

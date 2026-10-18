@@ -2,7 +2,8 @@ using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.Components.SolutionManager;
 using Content.Shared.Chemistry.Reaction;
 using Content.Shared.FixedPoint;
-using Robust.Shared.Containers; // Starlight-edit: relay from item slot container to parent dispenser
+
+// Starlight-edit: relay from item slot container to parent dispenser
 
 namespace Content.Shared.Chemistry.EntitySystems;
 

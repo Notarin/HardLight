@@ -1,6 +1,5 @@
 using Content.Shared.Actions;
 using Content.Shared.Alert;
-using Content.Shared.DoAfter;
 using Content.Shared.FixedPoint;
 using Robust.Shared.Audio;
 using Robust.Shared.GameStates;

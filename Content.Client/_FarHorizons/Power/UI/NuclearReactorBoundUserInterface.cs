@@ -4,14 +4,8 @@
 //
 // SPDX-License-Identifier: CC-BY-NC-SA-3.0
 
-using System.Numerics;
-using Content.Client.UserInterface;
 using Content.Shared._FarHorizons.Power.Generation.FissionGenerator;
-using Content.Shared.Atmos.Piping.Binary.Components;
-using Content.Shared.Atmos.Piping.Unary.Components;
-using Content.Shared.IdentityManagement;
 using JetBrains.Annotations;
-using Robust.Client.Timing;
 using Robust.Client.UserInterface;
 
 namespace Content.Client._FarHorizons.Power.UI;

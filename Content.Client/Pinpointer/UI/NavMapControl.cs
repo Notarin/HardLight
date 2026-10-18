@@ -17,7 +17,6 @@ using Robust.Shared.Timing;
 using System.Numerics;
 using JetBrains.Annotations;
 using Content.Shared.Atmos;
-using System.Linq;
 using Robust.Shared.Utility;
 
 namespace Content.Client.Pinpointer.UI;

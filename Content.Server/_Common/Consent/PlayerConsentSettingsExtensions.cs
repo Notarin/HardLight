@@ -4,7 +4,6 @@
 using Content.Shared._Common.Consent;
 using Content.Server.Database;
 using Robust.Shared.Prototypes;
-using System.Linq;
 
 public static class PlayerConsentSettinsExtensions
 {

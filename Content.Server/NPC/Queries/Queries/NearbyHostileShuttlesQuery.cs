@@ -1,4 +1,3 @@
-using Content.Server.NPC.Systems;
 using Content.Shared.Whitelist;
 
 // Mono - whole file

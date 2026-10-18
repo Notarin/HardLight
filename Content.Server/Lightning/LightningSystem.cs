@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.Beam;
 using Content.Server.Beam.Components;
 using Content.Server.Lightning.Components;

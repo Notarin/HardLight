@@ -1,4 +1,3 @@
-using Content.Shared.Eye.Blinding.Systems;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 

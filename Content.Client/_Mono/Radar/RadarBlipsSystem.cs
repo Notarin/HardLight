@@ -3,7 +3,6 @@ using Content.Shared._Mono.Radar;
 using Content.Shared.Shuttles.Components;
 using Robust.Shared.Map;
 using Robust.Shared.Timing;
-using System.Linq;
 
 namespace Content.Client._Mono.Radar;
 

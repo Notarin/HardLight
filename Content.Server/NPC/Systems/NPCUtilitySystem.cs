@@ -1,5 +1,5 @@
 using Content.Server.Atmos.Components;
-using Content.Server.Destructible; // VRS (Triad #3732)
+// VRS (Triad #3732)
 using Content.Server.Fluids.EntitySystems;
 using Content.Server._Mono.NPC.HTN; // Mono
 using Content.Server.NPC.Queries;
@@ -9,7 +9,7 @@ using Content.Server.NPC.Queries.Queries;
 using Content.Server.Nutrition.Components;
 using Content.Server.Nutrition.EntitySystems;
 using Content.Server.Power.EntitySystems; // Mono
-using Content.Server.Shuttles.Components; // Mono
+// Mono
 using Content.Server.Storage.Components;
 using Content.Shared._NF.Shipyard.Components;
 using Content.Shared.Chemistry.EntitySystems;
@@ -20,14 +20,13 @@ using Content.Shared.Fluids.Components;
 using Content.Shared.Hands.Components;
 using Content.Shared.Inventory;
 using Content.Shared.Mobs;
-using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.NPC.Components; // VRS (Triad #3732)
 using Content.Shared.NPC.Systems;
 using Content.Shared.Nutrition.Components;
 using Content.Shared.Nutrition.EntitySystems;
 using Content.Shared.Stunnable;
-using Content.Shared.Physics; // VRS (Triad #3732)
+// VRS (Triad #3732)
 using Content.Shared.Tools.Systems;
 using Content.Shared.Turrets;
 using Content.Shared.Weapons.Melee;
@@ -41,8 +40,8 @@ using Robust.Shared.Physics.Components; // VRS (Triad #3732)
 using Robust.Shared.Map.Components;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
-using System.Linq;
-using Content.Shared.StatusEffect; // Frontier
+
+// Frontier
 
 namespace Content.Server.NPC.Systems;
 

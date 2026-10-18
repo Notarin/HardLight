@@ -1,4 +1,3 @@
-using Content.Shared.Body.Components;
 using Content.Shared.Body.Part;
 using JetBrains.Annotations;
 

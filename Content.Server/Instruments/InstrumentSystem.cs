@@ -1,7 +1,5 @@
-using System.Linq;
 using Content.Server.Administration;
 using Content.Server.Administration.Logs;
-using Content.Server.Interaction;
 using Content.Server.Popups;
 using Content.Server.Stunnable;
 using Content.Shared.Administration;
@@ -10,7 +8,6 @@ using Content.Shared.Database;
 using Content.Shared.Examine;
 using Content.Shared.Instruments;
 using Content.Shared.Instruments.UI;
-using Content.Shared.Physics;
 using Content.Shared.Popups;
 using Content.Shared.UserInterface;
 using JetBrains.Annotations;
@@ -22,7 +19,6 @@ using Robust.Shared.Console;
 using Robust.Shared.GameStates;
 using Robust.Shared.Player;
 using Robust.Shared.Timing;
-using Robust.Shared.Utility;
 
 namespace Content.Server.Instruments;
 

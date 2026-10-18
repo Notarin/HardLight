@@ -1,4 +1,3 @@
-using Content.Client.IconSmoothing;
 using Content.Shared._Mono.ForceParent;
 using Content.Shared._Mono.ShipRepair;
 using Content.Shared._Mono.ShipRepair.Components;

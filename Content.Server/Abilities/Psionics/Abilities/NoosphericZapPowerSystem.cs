@@ -1,4 +1,3 @@
-using Content.Shared.Abilities.Psionics;
 using Content.Shared.Nyanotrasen.Abilities.Psionics;
 using Content.Server.Electrocution;
 using Content.Server.Weapons.Ranged.Systems;

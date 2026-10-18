@@ -1,12 +1,8 @@
 using Content.Server.Cargo.Systems;
 using Content.Server.NPC.HTN;
-using Content.Server.Shuttles.Components;
-using Content.Shared.Shuttles.Components;
 using Content.Shared._Mono.CCVar;
 using Content.Shared.Mind.Components;
-using Content.Shared.Physics;
 using Robust.Shared.Configuration;
-using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;

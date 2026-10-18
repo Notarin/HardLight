@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Client.Administration.UI.Notes;
 using Content.Client.UserInterface.Controls;
 using Content.Shared.Administration.Notes;

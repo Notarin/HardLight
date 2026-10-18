@@ -1,9 +1,7 @@
-using System.Collections.Generic;
 using Content.Shared.Examine;
 using Content.Shared.Popups;
 using Content.Shared.Salvage;
 using Content.Shared.Salvage.Expeditions;
-using Content.Shared.Procedural;
 using Content.Shared.Salvage.Expeditions.Modifiers;
 using Content.Shared.Shuttles.Components; // HardLight
 using Robust.Shared.Prototypes;

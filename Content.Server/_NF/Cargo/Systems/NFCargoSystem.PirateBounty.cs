@@ -1,5 +1,4 @@
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using Content.Server._NF.Contraband.Components;
 using Content.Server._NF.Pirate.Components;
 using Content.Server.NameIdentifier;
@@ -9,7 +8,6 @@ using Content.Shared._NF.Pirate.Components;
 using Content.Shared._NF.Pirate.Prototypes;
 using Content.Shared._NF.Pirate.Events;
 using Content.Shared.Access.Components;
-using Content.Shared.Database;
 using Content.Shared.Labels.EntitySystems;
 using Content.Shared.NameIdentifier;
 using Content.Shared.Paper;

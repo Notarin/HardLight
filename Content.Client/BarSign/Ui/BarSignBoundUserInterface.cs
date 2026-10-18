@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.BarSign;
 using JetBrains.Annotations;
 using Robust.Shared.Prototypes;

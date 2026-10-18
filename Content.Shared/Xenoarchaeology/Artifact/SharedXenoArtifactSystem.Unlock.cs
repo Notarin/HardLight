@@ -1,5 +1,4 @@
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using Content.Shared.Xenoarchaeology.Artifact.Components;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;

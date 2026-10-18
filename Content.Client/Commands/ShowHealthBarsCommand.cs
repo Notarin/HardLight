@@ -3,7 +3,6 @@ using Content.Shared.Overlays;
 using Robust.Client.Player;
 using Robust.Shared.Console;
 using Robust.Shared.Prototypes;
-using System.Linq;
 
 namespace Content.Client.Commands;
 

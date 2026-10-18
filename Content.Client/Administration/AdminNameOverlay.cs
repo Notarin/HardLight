@@ -1,5 +1,4 @@
 using System.Collections.Frozen;
-using System.Linq;
 using System.Numerics;
 using Content.Client.Administration.Systems;
 using Content.Client.Stylesheets;

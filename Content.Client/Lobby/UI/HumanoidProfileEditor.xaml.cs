@@ -1,5 +1,3 @@
-using System.IO;
-using System.Linq;
 using System.Numerics;
 using Content.Client.Humanoid;
 using Content.Client.Lobby.UI.Loadouts;

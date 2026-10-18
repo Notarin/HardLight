@@ -1,6 +1,4 @@
 using Content.Shared.Actions;
-using Content.Shared.Sprite;
-using Robust.Shared.GameObjects;
 
 namespace Content.Shared.Sprite.EntitySystems;
 

@@ -24,7 +24,6 @@ using Robust.Shared.Map;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
 using Robust.Shared.Prototypes;
-using System.Linq;
 using Content.Shared.Store.Components;
 
 namespace Content.Server.GameTicking.Rules;

@@ -1,5 +1,4 @@
 using System.Numerics;
-using System.Threading.Tasks;
 using Content.Server.NPC.Pathfinding;
 using Content.Shared.Procedural;
 using Content.Shared.Procedural.PostGeneration;

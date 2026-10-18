@@ -1,11 +1,7 @@
 using Content.Shared.Coordinates.Helpers;
 using Content.Shared.Popups;
 using Content.Shared.Actions;
-using Content.Shared.Actions.Events;
-using Content.Shared.CM14.Xenos.Construction;
 using Content.Shared.CM14.Xenos.Construction.Events;
-using Content.Shared.CM14.Xenos;
-using Content.Shared.UserInterface;
 using Content.Shared.DoAfter;
 using Content.Shared.Maps;
 using Content.Shared.Physics;
@@ -13,8 +9,6 @@ using Robust.Shared.Player;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Network;
-using JetBrains.Annotations;
-using Robust.Shared.GameObjects;
 
 namespace Content.Shared.CM14.Xenos.Construction;
 

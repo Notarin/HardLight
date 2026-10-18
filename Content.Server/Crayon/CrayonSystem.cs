@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Numerics;
 using Content.Server.Administration.Logs;
 using Content.Server.Decals;

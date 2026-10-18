@@ -2,7 +2,6 @@ using Content.Shared.Body.Part;
 using Content.Shared.Body.Systems;
 using Content.Shared._Shitmed.Body.Events;
 using Robust.Shared.Map;
-using Robust.Shared.Timing;
 using Robust.Shared.Network;
 using System.Numerics;
 

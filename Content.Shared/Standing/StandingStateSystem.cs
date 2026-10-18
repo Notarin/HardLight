@@ -1,5 +1,3 @@
-using Content.Shared.Buckle;
-using Content.Shared.Buckle.Components;
 using Content.Shared.Climbing.Systems;
 using Content.Shared.Climbing.Components;
 using Content.Shared.Hands.Components;
@@ -9,7 +7,6 @@ using Content.Shared.Rotation;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Systems;
-using System.Linq;
 
 namespace Content.Shared.Standing;
 

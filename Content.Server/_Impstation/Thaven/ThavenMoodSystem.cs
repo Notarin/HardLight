@@ -5,16 +5,11 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
 
-using System.Data;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using Content.Server.Actions;
 using Content.Server.Chat.Managers;
-using Content.Server.GameTicking;
 using Content.Server.Roles.Jobs;
 using Content.Server.Traits;
-using Content.Shared.CCVar;
 using Content.Shared.Chat;
 using Content.Shared.Dataset;
 using Content.Shared.Emag.Systems;
@@ -32,7 +27,6 @@ using Content.Shared._Impstation.CCVar;
 using Content.Shared.Mind;
 using Content.Shared.Mindshield.Components;
 using Robust.Shared.Audio.Systems;
-using Robust.Shared.Utility;
 
 namespace Content.Server._Impstation.Thaven;
 

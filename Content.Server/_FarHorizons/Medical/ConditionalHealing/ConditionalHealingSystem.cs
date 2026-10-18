@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.Medical;
 using Content.Server.Medical.Components;
 using Content.Shared._FarHorizons.Medical.ConditionalHealing;

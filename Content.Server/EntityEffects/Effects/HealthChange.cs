@@ -5,7 +5,6 @@ using Content.Shared.FixedPoint;
 using Content.Shared.Localizations;
 using JetBrains.Annotations;
 using Robust.Shared.Prototypes;
-using System.Linq;
 using System.Text.Json.Serialization;
 
 namespace Content.Server.EntityEffects.Effects

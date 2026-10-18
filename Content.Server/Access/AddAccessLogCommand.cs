@@ -2,7 +2,6 @@ using Content.Server.Administration;
 using Content.Shared.Access.Components;
 using Content.Shared.Administration;
 using Robust.Shared.Toolshed;
-using Robust.Shared.Toolshed.Syntax;
 
 namespace Content.Server.Access;
 

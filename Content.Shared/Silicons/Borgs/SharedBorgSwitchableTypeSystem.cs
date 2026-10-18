@@ -1,5 +1,5 @@
 using Content.Shared._CD.Silicons.Borgs;
-using Content.Shared.Starlight; // Starlight-edit
+// Starlight-edit
 using Content.Shared.Actions;
 using Content.Shared.Interaction;
 using Content.Shared.Interaction.Components;

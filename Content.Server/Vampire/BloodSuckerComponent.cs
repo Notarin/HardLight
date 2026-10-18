@@ -1,6 +1,4 @@
-using Content.Shared.Chemistry.Reagent;
 using Robust.Shared.Audio;
-using Robust.Shared.Prototypes;
 
 
 namespace Content.Server.Vampiric

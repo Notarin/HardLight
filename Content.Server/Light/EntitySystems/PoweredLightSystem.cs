@@ -3,7 +3,7 @@ using Content.Server.Ghost;
 using Content.Shared.Light.Components;
 using Content.Shared.Light.EntitySystems;
 using Robust.Shared.Random; // Frontier
-using System; // HardLight
+// HardLight
 using Content.Shared.Containers; // HardLight
 
 namespace Content.Server.Light.EntitySystems;

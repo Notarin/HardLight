@@ -1,5 +1,4 @@
 using Content.Server.Administration;
-using Content.Server.Administration.Logs;
 using Content.Server.Popups;
 using Content.Shared.Database;
 using Content.Shared.Popups;

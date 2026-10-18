@@ -13,7 +13,6 @@ using Robust.Client.UserInterface.XAML;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
-using System.Linq;
 using System.Numerics;
 using Content.Shared.StatusIcon;
 using Robust.Client.GameObjects;

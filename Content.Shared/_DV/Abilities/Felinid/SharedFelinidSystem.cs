@@ -1,5 +1,3 @@
-using Content.Shared._DV.Abilities;
-using Content.Shared._DV.Abilities.Felinid;
 using Content.Shared.Nutrition;
 using Content.Shared.Nutrition.Components;
 using Content.Shared.Nutrition.EntitySystems;

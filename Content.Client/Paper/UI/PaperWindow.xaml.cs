@@ -12,7 +12,6 @@ using Robust.Shared.Utility;
 using Content.Client.UserInterface.RichText;
 using Robust.Shared.Input;
 using Robust.Client.UserInterface;
-using System.Linq;
 
 namespace Content.Client.Paper.UI
 {

@@ -9,7 +9,6 @@ namespace Content.Server._NF.GameRule;
 ///     Describes information for a single point of interest to be spawned in the world
 /// </summary>
 [Prototype]
-[Serializable]
 public sealed partial class PointOfInterestPrototype : IPrototype, IInheritingPrototype
 {
     [IdDataField]

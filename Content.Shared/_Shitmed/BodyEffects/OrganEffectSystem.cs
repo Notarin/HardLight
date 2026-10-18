@@ -10,7 +10,7 @@ using Robust.Shared.Network;
 
 namespace Content.Shared._Shitmed.BodyEffects;
 
-public partial class OrganEffectSystem : EntitySystem
+public sealed partial class OrganEffectSystem : EntitySystem
 {
     [Dependency] private readonly ISerializationManager _serManager = default!;
     [Dependency] private readonly IGameTiming _gameTiming = default!;

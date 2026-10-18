@@ -195,7 +195,7 @@ public sealed partial class ShuttleSystem
                     _damageSys.TryChangeDamage(localUid, scaledDamage);
 
                     // Check if the entity has a transform component before proceeding
-                    if (!TryComp<TransformComponent>(localUid, out var form))
+                    if (!TryComp(localUid, out TransformComponent? form))
                         continue;
 
                     if (!form.Anchored)

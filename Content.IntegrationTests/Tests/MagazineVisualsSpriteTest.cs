@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Content.Client.Weapons.Ranged.Components;
 using Robust.Client.GameObjects;
 using Robust.Shared.GameObjects;

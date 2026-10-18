@@ -559,7 +559,7 @@ public sealed class GhostRoleSystem : EntitySystem
 
         foreach (var (id, (uid, _)) in _ghostRoles)
         {
-            if (!TryComp<MetaDataComponent>(uid, out var meta) || meta.EntityLifeStage >= EntityLifeStage.Terminating)
+            if (!TryComp(uid, out MetaDataComponent? meta) || meta.EntityLifeStage >= EntityLifeStage.Terminating)
             {
                 staleRoles.Add(id);
                 continue;
@@ -586,7 +586,7 @@ public sealed class GhostRoleSystem : EntitySystem
 
         foreach (var (id, (uid, role)) in _ghostRoles)
         {
-            if (!TryComp<MetaDataComponent>(uid, out var meta) || meta.EntityLifeStage >= EntityLifeStage.Terminating)
+            if (!TryComp(uid, out MetaDataComponent? meta) || meta.EntityLifeStage >= EntityLifeStage.Terminating)
             {
                 staleRoles.Add(id);
                 continue;

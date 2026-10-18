@@ -110,7 +110,7 @@ public sealed class IdentitySystem : SharedIdentitySystem
 
         if (TerminatingOrDeleted(uid)
             || TerminatingOrDeleted(ident)
-            || !TryComp<MetaDataComponent>(ident, out _))
+            || !TryComp(ident, out MetaDataComponent? _))
         {
             return;
         }

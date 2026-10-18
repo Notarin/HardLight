@@ -304,7 +304,7 @@ namespace Content.Server.PDA
         private void UpdateStationName(EntityUid uid, PdaComponent pda)
         {
             var station = _station.GetOwningStation(uid);
-            if (station is null || !station.Value.IsValid() || !TryComp<MetaDataComponent>(station.Value, out var meta))
+            if (station is null || !station.Value.IsValid() || !TryComp(station.Value, out MetaDataComponent? meta))
             {
                 pda.StationName = null;
                 return;

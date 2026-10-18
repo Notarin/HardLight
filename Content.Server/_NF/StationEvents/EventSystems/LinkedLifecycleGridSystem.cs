@@ -58,7 +58,7 @@ public sealed class LinkedLifecycleGridSystem : EntitySystem
 
     private void OnMasterRemoved(EntityUid uid, LinkedLifecycleGridParentComponent component, ref ComponentRemove args)
     {
-        if (!TryComp<MetaDataComponent>(uid, out var meta))
+        if (!TryComp(uid, out MetaDataComponent? meta))
             return;
 
         // Somebody destroyed our component, but the entity lives on, do not destroy the grids.
@@ -75,7 +75,7 @@ public sealed class LinkedLifecycleGridSystem : EntitySystem
     {
         if (TryComp<VehicleComponent>(xform.ParentUid, out var vehicle) && vehicle.Driver == uid)
         {
-            if (!TryComp<TransformComponent>(xform.ParentUid, out var vehicleXform))
+            if (!TryComp(xform.ParentUid, out TransformComponent? vehicleXform))
                 return (uid, xform);
 
             if (vehicleXform.MapUid != null)
@@ -85,7 +85,7 @@ public sealed class LinkedLifecycleGridSystem : EntitySystem
         }
         if (TryComp<MechPilotComponent>(uid, out var mechPilot))
         {
-            if (!TryComp<TransformComponent>(mechPilot.Mech, out var mechXform))
+            if (!TryComp(mechPilot.Mech, out TransformComponent? mechXform))
                 return (uid, xform);
 
             if (mechXform.MapUid != null)
@@ -174,7 +174,7 @@ public sealed class LinkedLifecycleGridSystem : EntitySystem
         if (entity.Comp.Pulling is not EntityUid pulled)
             return;
 
-        if (!TryComp<TransformComponent>(pulled, out var pulledXform))
+        if (!TryComp(pulled, out TransformComponent? pulledXform))
             return;
 
         if (pulledXform.MapUid is not EntityUid pulledMapUid)
@@ -201,7 +201,7 @@ public sealed class LinkedLifecycleGridSystem : EntitySystem
     // Deletes a grid, reparenting every humanoid and player character that's on it.
     public void UnparentPlayersFromGrid(EntityUid grid, bool deleteGrid, bool ignoreLifeStage = false)
     {
-        if (!TryComp<MetaDataComponent>(grid, out var gridMeta))
+        if (!TryComp(grid, out MetaDataComponent? gridMeta))
             return;
 
         if (!ignoreLifeStage && gridMeta.EntityLifeStage >= EntityLifeStage.Terminating)
@@ -211,10 +211,10 @@ public sealed class LinkedLifecycleGridSystem : EntitySystem
 
         foreach (var target in reparentEntities)
         {
-            if (!TryComp<MetaDataComponent>(target.EntityUid, out var meta) || meta.EntityLifeStage >= EntityLifeStage.Terminating)
+            if (!TryComp(target.EntityUid, out MetaDataComponent? meta) || meta.EntityLifeStage >= EntityLifeStage.Terminating)
                 continue;
 
-            if (!TryComp<TransformComponent>(target.EntityUid, out var xform))
+            if (!TryComp(target.EntityUid, out TransformComponent? xform))
                 continue;
 
             // If the item has already been moved to nullspace, skip it.
@@ -231,10 +231,10 @@ public sealed class LinkedLifecycleGridSystem : EntitySystem
 
         foreach (var target in reparentEntities)
         {
-            if (!TryComp<MetaDataComponent>(target.EntityUid, out var meta) || meta.EntityLifeStage >= EntityLifeStage.Terminating)
+            if (!TryComp(target.EntityUid, out MetaDataComponent? meta) || meta.EntityLifeStage >= EntityLifeStage.Terminating)
                 continue;
 
-            if (!TryComp<TransformComponent>(target.EntityUid, out var xform))
+            if (!TryComp(target.EntityUid, out TransformComponent? xform))
                 continue;
 
             // If the item has already been moved out of nullspace, skip it.

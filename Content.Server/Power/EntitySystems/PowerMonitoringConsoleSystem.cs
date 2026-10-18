@@ -859,7 +859,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
 
     private void UpdateCollectionChildMetaData(EntityUid child, EntityUid master)
     {
-        if (!TryComp<TransformComponent>(child, out var xform))
+        if (!TryComp(child, out TransformComponent? xform))
             return;
 
         var netEntity = GetNetEntity(child);
@@ -882,7 +882,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
 
     private void UpdateCollectionMasterMetaData(EntityUid master, int childCount)
     {
-        if (!TryComp<TransformComponent>(master, out var xform))
+        if (!TryComp(master, out TransformComponent? xform))
             return;
 
         var netEntity = GetNetEntity(master);
@@ -898,7 +898,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
 
             if (childCount > 0)
             {
-                var name = TryComp<MetaDataComponent>(master, out var meta)
+                var name = TryComp(master, out MetaDataComponent? meta)
                     ? (meta.EntityPrototype?.Name ?? meta.EntityName)
                     : ToPrettyString(master);
                 metaData.EntityName = Loc.GetString("power-monitoring-window-object-array", ("name", name), ("count", childCount + 1));
@@ -906,7 +906,7 @@ internal sealed partial class PowerMonitoringConsoleSystem : SharedPowerMonitori
 
             else
             {
-                metaData.EntityName = TryComp<MetaDataComponent>(master, out var meta)
+                metaData.EntityName = TryComp(master, out MetaDataComponent? meta)
                     ? meta.EntityName
                     : ToPrettyString(master);
             }

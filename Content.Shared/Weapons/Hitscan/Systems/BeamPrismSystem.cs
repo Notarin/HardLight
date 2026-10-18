@@ -27,7 +27,7 @@ public sealed class BeamPrismSystem : EntitySystem
         if (args.Reflected)
             return;
 
-        if (!TryComp<TransformComponent>(uid, out var xform))
+        if (!TryComp(uid, out TransformComponent? xform))
             return;
 
         args.Direction = _transform.GetWorldRotation(xform).ToWorldVec();

@@ -1,4 +1,3 @@
-using System;
 using Content.Shared.Administration;
 using NUnit.Framework;
 

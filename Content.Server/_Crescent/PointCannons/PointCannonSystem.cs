@@ -23,7 +23,7 @@ using Content.Shared.Physics;
 
 namespace Content.Server.PointCannons;
 
-public class PointCannonSystem : EntitySystem
+public sealed partial class PointCannonSystem : EntitySystem
 {
     [Dependency] private readonly ISharedPlayerManager _playerMan = default!;
     [Dependency] private readonly SharedUserInterfaceSystem _uiSys = default!;

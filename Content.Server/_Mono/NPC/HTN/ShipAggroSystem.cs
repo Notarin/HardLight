@@ -234,7 +234,7 @@ public sealed class ShipAggroSystem : EntitySystem
         {
             foreach (var grid in station.Grids)
             {
-                if (!TryComp<TransformComponent>(grid, out var gridXform))
+                if (!TryComp(grid, out TransformComponent? gridXform))
                     continue;
 
                 var stationMapId = gridXform.MapID;

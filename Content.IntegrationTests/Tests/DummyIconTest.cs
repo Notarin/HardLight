@@ -1,10 +1,6 @@
 #nullable enable
-using System.Linq;
-using Castle.Components.DictionaryAdapter.Xml;
-using Content.Shared.Item;
 using Robust.Client.GameObjects;
 using Robust.Client.ResourceManagement;
-using Robust.Shared.GameObjects;
 using Robust.Shared.Prototypes;
 
 namespace Content.IntegrationTests.Tests

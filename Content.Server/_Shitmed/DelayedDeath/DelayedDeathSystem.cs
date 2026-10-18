@@ -4,7 +4,7 @@ using Content.Shared.Mobs.Systems;
 using Robust.Shared.Prototypes;
 namespace Content.Server._Shitmed.DelayedDeath;
 
-public partial class DelayedDeathSystem : EntitySystem
+public sealed partial class DelayedDeathSystem : EntitySystem
 {
     [Dependency] private readonly DamageableSystem _damageable = default!;
     [Dependency] private readonly MobStateSystem _mobState = default!;

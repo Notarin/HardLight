@@ -96,7 +96,7 @@ public sealed partial class HitscanRadarSystem : EntitySystem
         if (HasComp<FireControllableComponent>(args.Gun.Value))
             return;
 
-        if (!TryComp<TransformComponent>(args.Gun.Value, out var gunXform) || !gunXform.MapUid.HasValue)
+        if (!TryComp(args.Gun.Value, out TransformComponent? gunXform) || !gunXform.MapUid.HasValue)
             return;
 
         var startPos = _transform.GetMapCoordinates(args.Gun.Value).Position;

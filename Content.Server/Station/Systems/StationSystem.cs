@@ -140,7 +140,7 @@ public sealed class StationSystem : EntitySystem
             // Also collect grid names from existing stations
             foreach (var gridUid in existingData.Grids)
             {
-                if (TryComp<MetaDataComponent>(gridUid, out var gridMeta))
+                if (TryComp(gridUid, out MetaDataComponent? gridMeta))
                 {
                     existingGridNames.Add(gridMeta.EntityName);
                 }
@@ -151,7 +151,7 @@ public sealed class StationSystem : EntitySystem
         var duplicateGridDetected = false;
         foreach (var grid in ev.Grids)
         {
-            if (TryComp<MetaDataComponent>(grid, out var gridMeta) &&
+            if (TryComp(grid, out MetaDataComponent? gridMeta) &&
                 existingGridNames.Contains(gridMeta.EntityName))
             {
                 _sawmill.Error($"CRITICAL: Detected duplicate grid '{gridMeta.EntityName}' during round start!");

@@ -9,6 +9,8 @@ namespace Content.Server.Administration.Commands;
 
 public sealed class PlayTimeCommandUtilities
 {
+    private static readonly Regex TimeUnitRegex = new(@"(\d+)([A-Za-z]+)");
+
     private readonly static Dictionary<string, int> Units = new() {
         { "y", 525960 },
         { "mo", 43800 },
@@ -57,7 +59,7 @@ public sealed class PlayTimeCommandUtilities
             return result;
         }
 
-        MatchCollection timeRegex = Regex.Matches(timeString, "(\\d+)([A-Za-z]+)");
+        MatchCollection timeRegex = TimeUnitRegex.Matches(timeString);
 
         foreach (Match match in timeRegex)
         {

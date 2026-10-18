@@ -114,7 +114,7 @@ public sealed class PlanetSpawnerSystem : EntitySystem
         if (!TryComp<PlanetSpawnerComponent>(args.MapUid, out var spawner))
             return;
 
-        if (!TryComp<TransformComponent>(args.Entity, out var shuttleXform))
+        if (!TryComp(args.Entity, out TransformComponent? shuttleXform))
             return;
 
         var mapId = shuttleXform.MapID;
@@ -401,7 +401,7 @@ public sealed class PlanetSpawnerSystem : EntitySystem
     {
         if (!TryComp<BiomeComponent>(ent.Owner, out var biome) ||
             !TryComp<MapGridComponent>(ent.Owner, out var grid) ||
-            !TryComp<TransformComponent>(ent.Owner, out var xform))
+            !TryComp(ent.Owner, out TransformComponent? xform))
         {
             return;
         }
@@ -616,7 +616,7 @@ public sealed class PlanetSpawnerSystem : EntitySystem
             return;
         if (!TryComp<MapGridComponent>(ent.Owner, out var grid))
             return; // planet must be a biome-on-grid (matches salvage pattern)
-        if (!TryComp<TransformComponent>(ent.Owner, out var xform))
+        if (!TryComp(ent.Owner, out TransformComponent? xform))
             return;
 
         var loadedChunks = biome.LoadedChunks;
@@ -723,7 +723,7 @@ public sealed class PlanetSpawnerSystem : EntitySystem
     {
         if (ent.Comp.SpawnedDungeons.Count == 0)
             return;
-        if (!TryComp<TransformComponent>(ent.Owner, out var xform))
+        if (!TryComp(ent.Owner, out TransformComponent? xform))
             return;
 
         var mapId = xform.MapID;
@@ -860,7 +860,7 @@ public sealed class PlanetSpawnerSystem : EntitySystem
             return;
         if (ent.Comp.RampingMobs.Count == 0)
             return;
-        if (!TryComp<TransformComponent>(ent.Owner, out var planetXform))
+        if (!TryComp(ent.Owner, out TransformComponent? planetXform))
             return;
 
         // Find players currently on this planet map.
@@ -871,7 +871,7 @@ public sealed class PlanetSpawnerSystem : EntitySystem
         {
             if (session.AttachedEntity is not { } playerEnt)
                 continue;
-            if (!TryComp<TransformComponent>(playerEnt, out var pxform) || pxform.MapID != planetMapId)
+            if (!TryComp(playerEnt, out TransformComponent? pxform) || pxform.MapID != planetMapId)
                 continue;
 
             anchorCount++;

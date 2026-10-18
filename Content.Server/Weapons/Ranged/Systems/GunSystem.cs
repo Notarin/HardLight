@@ -626,7 +626,7 @@ public sealed partial class GunSystem : SharedGunSystem
             return entity;
 
         // Try to find a parent that might be the shooter
-        if (TryComp<TransformComponent>(entity, out var transform) && transform.ParentUid != EntityUid.Invalid)
+        if (TryComp(entity, out TransformComponent? transform) && transform.ParentUid != EntityUid.Invalid)
         {
             if (HasComp<GunComponent>(transform.ParentUid))
                 return transform.ParentUid;

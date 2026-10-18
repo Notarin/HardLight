@@ -6,7 +6,7 @@ using Robust.Shared.Timing;
 
 namespace Content.Shared._Shitmed.BodyEffects;
 
-public partial class BodyPartEffectSystem : EntitySystem
+public sealed partial class BodyPartEffectSystem : EntitySystem
 {
     [Dependency] private readonly ISerializationManager _serManager = default!;
     [Dependency] private readonly IGameTiming _gameTiming = default!;

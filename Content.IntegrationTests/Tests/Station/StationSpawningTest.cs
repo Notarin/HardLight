@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.Maps;
 using Content.Server.Spawners.Components;
 using Content.Server.Station.Systems;
@@ -6,7 +5,6 @@ using Content.Shared.Preferences;
 using Content.Shared.Station.Components;
 using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.GameObjects;
-using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
@@ -48,6 +46,8 @@ public sealed class StationSpawningTest
         + "          availableJobs:\n"
         + "            Mercenary: [0, 1]\n";
 
+    private static readonly ProtoId<GameMapPrototype> TestNoSpawnShipStation = "TestNoSpawnShipStation";
+
     [Test]
     public async Task ShipInterviewLateJoinFallbackStaysOnSelectedGridTest()
     {
@@ -67,7 +67,7 @@ public sealed class StationSpawningTest
 
         await server.WaitPost(() =>
         {
-            var shipProto = prototypeManager.Index<GameMapPrototype>("TestNoSpawnShipStation");
+            var shipProto = prototypeManager.Index(TestNoSpawnShipStation);
 
             Assert.That(mapLoader.TryLoadMap(new ResPath("/Maps/Test/empty.yml"), out _, out var grids), Is.True);
             Assert.That(grids, Is.Not.Null);

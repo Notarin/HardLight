@@ -35,6 +35,8 @@ public sealed class DnaScannerConsoleSystem : EntitySystem
     [Dependency] private readonly SharedUserInterfaceSystem _ui = default!;
     [Dependency] private readonly MutationUnlockTriggerSystem _unlockTrigger = default!;
 
+    private static readonly ProtoId<DamageTypePrototype> RadiationDamageType = "Radiation";
+
     private const float SequencerButtonRadiationDamage = 0.2f;
     private const float ScrambleRadiationDamage = 15f;
     private const float ScrambleCooldownSeconds = 30f;
@@ -260,7 +262,7 @@ public sealed class DnaScannerConsoleSystem : EntitySystem
             _genetics.TryDeactivateMutation(subject, genetics, msg.MutationId);
 
         // Apply radiation damage
-        var damage = new DamageSpecifier(_proto.Index<DamageTypePrototype>("Radiation"), SequencerButtonRadiationDamage);
+        var damage = new DamageSpecifier(_proto.Index(RadiationDamageType), SequencerButtonRadiationDamage);
         if (TryComp<DamageableComponent>(subject, out var damageable))
             _damageable.TryChangeDamage(subject, damage, ignoreResistances: true, damageable: damageable);
 
@@ -296,7 +298,7 @@ public sealed class DnaScannerConsoleSystem : EntitySystem
             return;
         }
 
-        if (!TryComp<TransformComponent>(uid, out var xform))
+        if (!TryComp(uid, out TransformComponent? xform))
             return;
 
         var protoId = activator ? "DNAInjectorGenericActivator" : "DNAInjectorGenericMutator";
@@ -321,7 +323,7 @@ public sealed class DnaScannerConsoleSystem : EntitySystem
         // Massive cellular damage - or is it supposed to be radiation? TODO: Find out
         if (TryComp<DamageableComponent>(subject, out var damageable))
         {
-            var damage = new DamageSpecifier(_proto.Index<DamageTypePrototype>("Radiation"), ScrambleRadiationDamage);
+            var damage = new DamageSpecifier(_proto.Index(RadiationDamageType), ScrambleRadiationDamage);
             _damageable.TryChangeDamage(subject, damage, ignoreResistances: true, damageable: damageable);
         }
 
@@ -341,7 +343,7 @@ public sealed class DnaScannerConsoleSystem : EntitySystem
 
     private void EnsureDiscoveryTracker(EntityUid uid)
     {
-        if (!TryComp<TransformComponent>(uid, out var xform) || xform.GridUid is not { } grid)
+        if (!TryComp(uid, out TransformComponent? xform) || xform.GridUid is not { } grid)
             return;
 
         if (!HasComp<DnaScannerDiscoveryTrackerComponent>(grid))

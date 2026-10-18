@@ -4,7 +4,6 @@ using NUnit.Framework;
 using Robust.Shared.IoC;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.Manager;
-using System.Collections.Generic;
 using Content.Shared.FixedPoint;
 
 namespace Content.Tests.Shared
@@ -144,11 +143,13 @@ namespace Content.Tests.Shared
             DamageSpecifier damageSpec = 10 * new DamageSpecifier(_damageSpec);
 
             // Create a modifier set
+#pragma warning disable RA0039
             DamageModifierSetPrototype modifierSet = new()
             {
                 Coefficients = _resistanceCoefficientDict,
                 FlatReduction = _resistanceReductionDict
             };
+#pragma warning restore RA0039
 
             //damage is initially   20 / 20 / 10 / 30
             //Each time we subtract -5 /  0 /  8 /  0.5

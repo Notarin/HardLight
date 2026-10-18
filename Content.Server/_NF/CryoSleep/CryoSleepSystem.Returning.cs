@@ -115,7 +115,7 @@ public sealed partial class CryoSleepSystem
 
         if (body != null
             && pausedMap != null // HardLight
-            && TryComp<TransformComponent>(body.Value.Body, out var bodyXform)
+            && TryComp(body.Value.Body, out TransformComponent? bodyXform)
             && bodyXform.MapUid == pausedMap) // HardLight
         {
             QueueDel(body.Value.Body);

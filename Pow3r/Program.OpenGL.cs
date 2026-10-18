@@ -1,7 +1,5 @@
-using System;
 using System.Numerics;
 using System.Text;
-using System.Linq;
 using ImGuiNET;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Windowing.GraphicsLibraryFramework;

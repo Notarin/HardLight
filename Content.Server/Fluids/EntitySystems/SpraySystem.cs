@@ -143,7 +143,7 @@ public sealed class SpraySystem : EntitySystem
             // Spawn the vapor cloud onto the grid/map the user is present on. Offset the start position based on how far the target destination is.
             var vaporPos = userMapPos.Offset(distance < 1 ? quarter : threeQuarters);
             var vapor = Spawn(entity.Comp.SprayedPrototype, vaporPos);
-            if (!TryComp<TransformComponent>(vapor, out var vaporXform)
+            if (!TryComp(vapor, out TransformComponent? vaporXform)
                 || !TryComp<VaporComponent>(vapor, out var vaporComponent))
             {
                 QueueDel(vapor);

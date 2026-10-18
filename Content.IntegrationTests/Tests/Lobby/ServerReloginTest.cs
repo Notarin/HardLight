@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.CCVar;
 using Robust.Server.Player;
 using Robust.Shared.Configuration;

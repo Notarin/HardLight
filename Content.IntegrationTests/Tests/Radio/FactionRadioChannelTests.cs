@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Numerics;
 using Content.Server.Radio;
 using Content.Server.Radio.Components;
@@ -7,7 +6,6 @@ using Content.Shared._Mono.Company;
 using Robust.Shared.EntitySerialization.Systems;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Map;
-using Robust.Shared.Utility;
 
 namespace Content.IntegrationTests.Tests.Radio;
 

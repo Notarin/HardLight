@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.Administration.UI;
 using Content.Server.EUI;
 using Robust.Server.Player;

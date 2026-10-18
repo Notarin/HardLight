@@ -1,8 +1,6 @@
 #nullable enable
-using System.Linq;
 using System.Reflection;
 using Content.IntegrationTests.Pair;
-using Content.Shared.CCVar;
 using Robust.UnitTesting;
 
 namespace Content.IntegrationTests;

@@ -20,7 +20,6 @@ public sealed class GeneticAnalyzerSystem : SharedGeneticAnalyzerSystem
 {
     [Dependency] private readonly DoAfterSystem _doAfter = default!;
     [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly UserInterfaceSystem _ui = default!;
     [Dependency] private readonly SharedMutationDiscoverySystem _mutationDiscovery = default!;
     [Dependency] private readonly PowerCellSystem _cell = default!;
@@ -146,7 +145,7 @@ public sealed class GeneticAnalyzerSystem : SharedGeneticAnalyzerSystem
 
         SetScanResults(uid, patientMeta.EntityName, genetics.GeneticInstability, mutationData);
 
-        _audio.PlayPvs(component.ScanningEndSound, uid);
+        _audioSystem.PlayPvs(component.ScanningEndSound, uid);
 
         _ui.SetUiState(uid, GeneticAnalyzerUiKey.Key, new GeneticAnalyzerUiState(
             patientName: patientMeta.EntityName,

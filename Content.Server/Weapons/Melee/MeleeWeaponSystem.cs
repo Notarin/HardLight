@@ -95,7 +95,7 @@ public sealed class MeleeWeaponSystem : SharedMeleeWeaponSystem
         var coordinates = targetXform.Coordinates;
         if (!coordinates.IsValid(EntityManager))
         {
-            if (user != null && TryComp<TransformComponent>(user.Value, out var userXform))
+            if (user != null && TryComp(user.Value, out TransformComponent? userXform))
                 coordinates = userXform.Coordinates;
             else
                 return; // No valid coordinates available

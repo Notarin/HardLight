@@ -207,7 +207,7 @@ public sealed class BluespaceErrorRule : StationEventSystem<BluespaceErrorRuleCo
 
         foreach (var componentGridUid in component.GridsUid)
         {
-            if (!TryComp<TransformComponent>(componentGridUid, out var gridTransform))
+            if (!TryComp(componentGridUid, out TransformComponent? gridTransform))
             {
                 Log.Error("bluespace error objective was missing transform component");
                 return;
@@ -245,10 +245,10 @@ public sealed class BluespaceErrorRule : StationEventSystem<BluespaceErrorRuleCo
                 var playerMobs = _linkedLifecycleGrid.GetEntitiesToReparent(gridUid);
                 foreach (var mob in playerMobs)
                 {
-                    if (!TryComp<MetaDataComponent>(mob.EntityUid, out var meta) || meta.EntityLifeStage >= EntityLifeStage.Terminating)
+                    if (!TryComp(mob.EntityUid, out MetaDataComponent? meta) || meta.EntityLifeStage >= EntityLifeStage.Terminating)
                         continue;
 
-                    if (!TryComp<TransformComponent>(mob.EntityUid, out var xform) || xform.MapID == MapId.Nullspace)
+                    if (!TryComp(mob.EntityUid, out TransformComponent? xform) || xform.MapID == MapId.Nullspace)
                         continue;
 
                     _transform.DetachEntity(mob.EntityUid, xform);
@@ -261,10 +261,10 @@ public sealed class BluespaceErrorRule : StationEventSystem<BluespaceErrorRuleCo
 
                 foreach (var mob in playerMobs)
                 {
-                    if (!TryComp<MetaDataComponent>(mob.EntityUid, out var meta) || meta.EntityLifeStage >= EntityLifeStage.Terminating)
+                    if (!TryComp(mob.EntityUid, out MetaDataComponent? meta) || meta.EntityLifeStage >= EntityLifeStage.Terminating)
                         continue;
 
-                    if (!TryComp<TransformComponent>(mob.EntityUid, out var xform) || xform.MapID != MapId.Nullspace)
+                    if (!TryComp(mob.EntityUid, out TransformComponent? xform) || xform.MapID != MapId.Nullspace)
                         continue;
 
                     _transform.SetCoordinates(mob.EntityUid, xform, new EntityCoordinates(mob.MapUid, mob.MapPosition));

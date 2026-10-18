@@ -12,7 +12,7 @@ public sealed class SharedMutationDiscoverySystem : EntitySystem
 
     public HashSet<string> GetGridDiscovered(EntityUid consoleUid)
     {
-        if (!TryComp<TransformComponent>(consoleUid, out var xform) || xform.GridUid is not { } gridUid)
+        if (!TryComp(consoleUid, out TransformComponent? xform) || xform.GridUid is not { } gridUid)
             return new();
 
         return TryComp<DnaScannerDiscoveryTrackerComponent>(gridUid, out var tracker)
@@ -22,7 +22,7 @@ public sealed class SharedMutationDiscoverySystem : EntitySystem
 
     private DnaScannerDiscoveryTrackerComponent? GetGridTracker(EntityUid consoleUid)
     {
-        if (!TryComp<TransformComponent>(consoleUid, out var xform) || xform.GridUid is not { } gridUid)
+        if (!TryComp(consoleUid, out TransformComponent? xform) || xform.GridUid is not { } gridUid)
             return null;
 
         return CompOrNull<DnaScannerDiscoveryTrackerComponent>(gridUid);
@@ -39,7 +39,7 @@ public sealed class SharedMutationDiscoverySystem : EntitySystem
         var tracker = GetGridTracker(consoleUid);
         if (tracker == null)
         {
-            if (!TryComp<TransformComponent>(consoleUid, out var xform) || xform.GridUid is not { } gridUid)
+            if (!TryComp(consoleUid, out TransformComponent? xform) || xform.GridUid is not { } gridUid)
                 return new Dictionary<string, int>();
 
             tracker = EnsureComp<DnaScannerDiscoveryTrackerComponent>(gridUid);
@@ -53,7 +53,7 @@ public sealed class SharedMutationDiscoverySystem : EntitySystem
         var tracker = GetGridTracker(consoleUid);
         if (tracker == null)
         {
-            if (!TryComp<TransformComponent>(consoleUid, out var xform) || xform.GridUid is not EntityUid gridUid)
+            if (!TryComp(consoleUid, out TransformComponent? xform) || xform.GridUid is not EntityUid gridUid)
                 return;
 
             tracker = EnsureComp<DnaScannerDiscoveryTrackerComponent>(gridUid);

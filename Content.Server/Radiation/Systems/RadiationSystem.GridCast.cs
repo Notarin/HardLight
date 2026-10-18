@@ -75,7 +75,7 @@ public partial class RadiationSystem
             {
                 // Validate source entity still exists and has the required components
                 if (TerminatingOrDeleted(source.Entity.Owner) ||
-                    !TryComp<TransformComponent>(source.Entity.Owner, out var sourceXform))
+                    !TryComp(source.Entity.Owner, out TransformComponent? sourceXform))
                     continue;
 
                 // send ray towards destination entity

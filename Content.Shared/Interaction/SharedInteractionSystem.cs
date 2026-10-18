@@ -584,7 +584,7 @@ namespace Content.Shared.Interaction
 
         protected bool ValidateInteractAndFace(EntityUid user, EntityCoordinates coordinates)
         {
-            if (!TryComp<TransformComponent>(user, out var userXform))
+            if (!TryComp(user, out TransformComponent? userXform))
                 return false;
 
             // Verify user is on the same map as the entity they clicked on

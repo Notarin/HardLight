@@ -1841,11 +1841,11 @@ namespace Content.Server.Administration.Systems
 
             var worldPos = Vector2.Zero;
             var mapName = "Unknown";
-            if (attached is { } a && TryComp<TransformComponent>(a, out var xform))
+            if (attached is { } a && TryComp(a, out TransformComponent? xform))
             {
                 var ts = EntityManager.System<SharedTransformSystem>();
                 worldPos = ts.GetWorldPosition(xform);
-                if (xform.MapUid is { } mapUid && TryComp<MetaDataComponent>(mapUid, out var mapMeta))
+                if (xform.MapUid is { } mapUid && TryComp(mapUid, out MetaDataComponent? mapMeta))
                     mapName = mapMeta.EntityName;
             }
 
@@ -1864,7 +1864,7 @@ namespace Content.Server.Administration.Systems
 
         private string TryGetEntityName(EntityUid? uid)
         {
-            if (uid is not { } u || !TryComp<MetaDataComponent>(u, out var meta))
+            if (uid is not { } u || !TryComp(u, out MetaDataComponent? meta))
                 return string.Empty;
             return meta.EntityName;
         }
@@ -1916,7 +1916,7 @@ namespace Content.Server.Administration.Systems
             }
 
             var attached = targetSession.AttachedEntity.Value;
-            if (!TryComp<TransformComponent>(attached, out var xform))
+            if (!TryComp(attached, out TransformComponent? xform))
             {
                 RaiseNetworkEvent(new SpawnAhelpItemResponseMessage(ownerKey, prototypeId, false, "no-transform", proto.Name), session.Channel);
                 return;
@@ -2368,7 +2368,7 @@ namespace Content.Server.Administration.Systems
                 return;
             }
 
-            if (!TryComp<TransformComponent>(shipUid, out var xform) || xform.MapUid is not { } mapUid)
+            if (!TryComp(shipUid, out TransformComponent? xform) || xform.MapUid is not { } mapUid)
             {
                 RaiseNetworkEvent(new UnstickPlayerShipResponseMessage(ownerKey, false, "no-position"), session.Channel);
                 return;
@@ -2612,7 +2612,7 @@ namespace Content.Server.Administration.Systems
                     if (playerSession.AttachedEntity is not { } attached)
                         continue;
 
-                    if (!TryComp<TransformComponent>(attached, out var attachedXform))
+                    if (!TryComp(attached, out TransformComponent? attachedXform))
                         continue;
 
                     if (attachedXform.GridUid != shipUid)

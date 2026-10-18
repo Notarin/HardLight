@@ -137,7 +137,6 @@ public sealed partial class DungeonSystem : SharedDungeonSystem
     /// <summary>
     /// Generates a dungeon in the background with the specified config.
     /// </summary>
-    /// <param name="coordinates">Coordinates to move the dungeon to afterwards. Will delete the original map</param>
     public void GenerateDungeon(DungeonConfig gen,
         string genID, // Frontier
         EntityUid gridUid,

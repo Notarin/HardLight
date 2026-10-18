@@ -373,9 +373,6 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
     ///     Sets the color of this humanoid mob's base layer. See <see cref="SetBaseLayerId"/> for a
     ///     description of how base layers work.
     /// </summary>
-    /// <param name="uid">The humanoid mob's UID.</param>
-    /// <param name="layer">The layer to target on this humanoid mob.</param>
-    /// <param name="color">The color to set this base layer to.</param>
     public void SetBaseLayerColor(EntityUid uid, HumanoidVisualLayers layer, Color? color, bool sync = true, HumanoidAppearanceComponent? humanoid = null)
     {
         if (!Resolve(uid, ref humanoid))
@@ -521,12 +518,6 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
     /// <summary>
     ///     Adds a marking to this humanoid.
     /// </summary>
-    /// <param name="uid">Humanoid mob's UID</param>
-    /// <param name="marking">Marking ID to use</param>
-    /// <param name="color">Color to apply to all marking layers of this marking</param>
-    /// <param name="sync">Whether to immediately sync this marking or not</param>
-    /// <param name="forced">If this marking was forced (ignores marking points)</param>
-    /// <param name="humanoid">Humanoid component of the entity</param>
     public void AddMarking(EntityUid uid, string marking, bool isGlowing, Color? color = null, bool sync = true, bool forced = false, HumanoidAppearanceComponent? humanoid = null) //starlight
     {
         if (!Resolve(uid, ref humanoid)

@@ -303,8 +303,6 @@ public sealed class TextScreenSystem : VisualizerSystem<TextScreenVisualsCompone
     /// <summary>
     ///     Returns the <paramref name="timeSpan"/> converted to a string in either HH:MM, MM:SS or potentially SS:mm format.
     /// </summary>
-    /// <param name="timeSpan">TimeSpan to convert into string.</param>
-    /// <param name="getMilliseconds">Should the string be ss:ms if minutes are less than 1?</param>
     /// <remarks>
     ///     hours, minutes, seconds, and centiseconds are each set to 2 decimal places by default.
     /// </remarks>

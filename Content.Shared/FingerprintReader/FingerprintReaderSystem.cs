@@ -15,8 +15,6 @@ public sealed class FingerprintReaderSystem : EntitySystem
     /// <summary>
     /// Checks if the given user has fingerprint access to the target entity.
     /// </summary>
-    /// <param name="target">The target entity.</param>
-    /// <param name="user">User trying to gain access.</param>
     /// <returns>True if access was granted, otherwise false.</returns>
     [PublicAPI]
     public bool IsAllowed(Entity<FingerprintReaderComponent?> target, EntityUid user, bool showPopup = true)

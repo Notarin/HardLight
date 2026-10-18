@@ -140,7 +140,6 @@ public sealed partial class EntitySpawnPowerConsumerSystem : SharedEntitySpawnPo
     /// Gets the actual effective power in watts for some amount of input power.
     /// No range check on power.
     /// </summary>
-    /// <param name="power">Input power level, in watts.</param>
     /// <returns>Effective power, in watts.</returns>
     private float GetEffectivePower(Entity<EntitySpawnPowerConsumerComponent> ent, float power)
     {
@@ -155,7 +154,6 @@ public sealed partial class EntitySpawnPowerConsumerSystem : SharedEntitySpawnPo
     /// <summary>
     /// Gets the expected generation time for an object in seconds.
     /// </summary>
-    /// <param name="power">Input power level, in watts</param>
     /// <returns>Expected item generation time in seconds</returns>
     public TimeSpan GetGenerationTime(Entity<EntitySpawnPowerConsumerComponent> ent, float power)
     {

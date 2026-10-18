@@ -42,8 +42,6 @@ namespace Content.Shared.Audio
         /// <summary>
         /// Returns a pitch multiplier that shifts by the given number of semitones.
         /// </summary>
-        /// <param name="shift">Number of semitones to shift, positive or negative. Clamped between -12 and 12
-        /// which correspond to a pitch multiplier of 0.5 and 2.0 respectively.</param>
         public static AudioParams ShiftSemitone(AudioParams @params, int shift)
         {
             shift = MathHelper.Clamp(shift, -12, 12);
@@ -54,7 +52,6 @@ namespace Content.Shared.Audio
         /// <summary>
         /// Returns a pitch multiplier shifted by a random number of semitones within variation.
         /// </summary>
-        /// <param name="variation">Max number of semitones to shift in either direction. Values above 12 have no effect.</param>
         public static AudioParams WithSemitoneVariation(AudioParams @params, int variation, IRobustRandom rand)
         {
             IoCManager.Resolve(ref rand);

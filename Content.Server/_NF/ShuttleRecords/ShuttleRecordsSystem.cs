@@ -109,7 +109,6 @@ public sealed partial class ShuttleRecordsSystem : SharedShuttleRecordsSystem
 
     /**
      * Edits an existing record if one exists for the given entity
-     * <param name="record">The record to add.</param>
      */
     public bool TryGetRecord(NetEntity uid, [NotNullWhen(true)] out ShuttleRecord? record)
     {

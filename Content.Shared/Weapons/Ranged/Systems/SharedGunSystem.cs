@@ -895,17 +895,12 @@ public abstract partial class SharedGunSystem : EntitySystem
 /// <remarks>
 ///     Handling this in server exclusively will lead to mispredicts.
 /// </remarks>
-/// <param name="User">The user that attempted to fire this gun.</param>
-/// <param name="Cancelled">Set this to true if the shot should be cancelled.</param>
-/// <param name="ThrowItems">Set this to true if the ammo shouldn't actually be fired, just thrown.</param>
 [ByRefEvent]
 public record struct AttemptShootEvent(EntityUid User, string? Message, bool Cancelled = false, bool ThrowItems = false);
 
 /// <summary>
 ///     Raised directed on the gun after firing.
 /// </summary>
-/// <param name="User">The user that fired this gun.</param>
-/// <param name="Gun">The gun that fired.</param>
 [ByRefEvent]
 public record struct GunShotEvent(EntityUid User, EntityUid Gun, List<(EntityUid? Uid, IShootable Shootable)> Ammo, EntityCoordinates FromCoordinates, EntityCoordinates ToCoordinates); // Mono - pass coordinates
 

@@ -240,7 +240,6 @@ public sealed class PricingSystem : EntitySystem
     /// <summary>
     /// Appraises an entity, returning it's price.
     /// </summary>
-    /// <param name="uid">The entity to appraise.</param>
     /// <returns>The price of the entity.</returns>
     /// <remarks>
     /// This fires off an event to calculate the price.

@@ -185,11 +185,6 @@ namespace Content.Shared.Damage
         ///     Returns a <see cref="DamageSpecifier"/> with information about the actual damage changes. This will be
         ///     null if the user had no applicable components that can take damage.
         /// </returns>
-        /// <param name="ignoreResistances">If true, this will ignore the entity's damage modifier (<see cref="DamageableComponent.DamageModifierSetId"/> and skip raising a <see cref="DamageModifyEvent"/>.</param>
-        /// <param name="interruptsDoAfters">Whether the damage should cancel any damage sensitive do-afters</param>
-        /// <param name="origin">The entity that is causing this damage</param>
-        /// <param name="ignoreGlobalModifiers">If true, this will skip over applying the universal damage modifiers (see <see cref="ApplyUniversalAllModifiers"/>).</param>
-        /// <returns></returns>
         public DamageSpecifier? TryChangeDamage(
             EntityUid? uid,
             DamageSpecifier damage,

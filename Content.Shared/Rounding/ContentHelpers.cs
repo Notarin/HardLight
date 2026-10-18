@@ -12,7 +12,6 @@ namespace Content.Shared.Rounding
         ///     Say you have a progress bar going from 0 -> 100 inclusive and you want to map this to 6 sprite states (0, 4 intermediates and full).
         ///     This method allows you to easily map this progress bar to the sprite states.
         /// </example>
-        /// <param name="levels">The amount of levels to subdivide into.</param>
         /// <returns>An integer from 0 to <paramref name="levels" />-1.</returns>
         /// <exception cref="ArgumentException">
         ///     Thrown if levels is less than 1.

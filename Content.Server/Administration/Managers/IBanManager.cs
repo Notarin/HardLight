@@ -23,13 +23,6 @@ public interface IBanManager
     /// <summary>
     /// Bans the specified target, address range and / or HWID. One of them must be non-null
     /// </summary>
-    /// <param name="target">Target user, username or GUID, null for none</param>
-    /// <param name="banningAdmin">The person who banned our target</param>
-    /// <param name="addressRange">Address range, null for none</param>
-    /// <param name="hwid">H</param>
-    /// <param name="minutes">Number of minutes to ban for. 0 and null mean permanent</param>
-    /// <param name="severity">Severity of the resulting ban note</param>
-    /// <param name="reason">Reason for the ban</param>
     [Obsolete("Use CreateServerBan(CreateBanInfo) instead")]
     public void CreateServerBan(NetUserId? target,
         string? targetUsername,

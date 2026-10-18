@@ -216,7 +216,6 @@ public sealed partial class ShuttleMapControl : BaseShuttleControl
     /// <summary>
     /// Gets the map objects that intersect the viewport.
     /// </summary>
-    /// <param name="mapObjects"></param>
     /// <returns></returns>
     private List<IMapObject> GetViewportMapObjects(Matrix3x2 matty, List<IMapObject> mapObjects)
     {

@@ -325,7 +325,6 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
     /// <summary>
     /// Loads a shuttle into the shipyard staging map from a grid file.
     /// </summary>
-    /// <param name="shuttlePath">The path to the grid file to load. Must be a grid file!</param>
     /// <returns>Returns the EntityUid of the shuttle</returns>
     private bool TryAddShuttle(ResPath shuttlePath, [NotNullWhen(true)] out EntityUid? shuttleGrid)
     {

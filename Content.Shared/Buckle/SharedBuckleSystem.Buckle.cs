@@ -230,15 +230,6 @@ public abstract partial class SharedBuckleSystem
     /// <summary>
     /// Checks whether or not buckling is possible
     /// </summary>
-    /// <param name="buckleUid"> Uid of the owner of BuckleComponent </param>
-    /// <param name="user">
-    ///     Uid of a third party entity,
-    ///     i.e, the uid of someone else you are dragging to a chair.
-    ///     Can equal buckleUid sometimes
-    /// </param>
-    /// <param name="strapUid"> Uid of the owner of strap component </param>
-    /// <param name="strapComp"></param>
-    /// <param name="buckleComp"></param>
     private bool CanBuckle(EntityUid buckleUid,
         EntityUid? user,
         EntityUid strapUid,
@@ -349,13 +340,6 @@ public abstract partial class SharedBuckleSystem
     /// <summary>
     /// Attempts to buckle an entity to a strap
     /// </summary>
-    /// <param name="buckle"> Uid of the owner of BuckleComponent </param>
-    /// <param name="user">
-    /// Uid of a third party entity,
-    /// i.e, the uid of someone else you are dragging to a chair.
-    /// Can equal buckleUid sometimes
-    /// </param>
-    /// <param name="strap"> Uid of the owner of strap component </param>
     public bool TryBuckle(EntityUid buckle, EntityUid? user, EntityUid strap, BuckleComponent? buckleComp = null, bool popup = true)
     {
         if (!Resolve(buckle, ref buckleComp, false))
@@ -413,9 +397,6 @@ public abstract partial class SharedBuckleSystem
     /// <summary>
     /// Tries to unbuckle the Owner of this component from its current strap.
     /// </summary>
-    /// <param name="buckleUid">The entity to unbuckle.</param>
-    /// <param name="user">The entity doing the unbuckling.</param>
-    /// <param name="buckleComp">The buckle component of the entity to unbuckle.</param>
     /// <returns>
     ///     true if the owner was unbuckled, otherwise false even if the owner
     ///     was previously already unbuckled.

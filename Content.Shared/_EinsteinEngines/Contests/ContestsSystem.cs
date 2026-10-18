@@ -18,7 +18,6 @@ namespace Content.Shared._EinsteinEngines.Contests // Goob Edit
         /// <summary>
         ///     Outputs the ratio of mass between a performer and the average human mass
         /// </summary>
-        /// <param name="performerUid">Uid of Performer</param>
         public float MassContest(EntityUid performerUid, float otherMass = AverageMass)
         {
             if (_cfg.GetCVar(CCVars.DoMassContests) // Goob edit
@@ -48,7 +47,6 @@ namespace Content.Shared._EinsteinEngines.Contests // Goob Edit
         ///     Outputs the ratio of mass between a performer and the average human mass
         ///     If a function already has the performer's physics component, this is faster
         /// </summary>
-        /// <param name="performerPhysics"></param>
         public float MassContest(PhysicsComponent performerPhysics, float otherMass = AverageMass)
         {
             if (_cfg.GetCVar(CCVars.DoMassContests) // Goob edit

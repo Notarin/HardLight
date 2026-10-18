@@ -99,7 +99,6 @@ public sealed class NPCUtilitySystem : EntitySystem
     /// <summary>
     /// Runs the UtilityQueryPrototype and returns the best-matching entities.
     /// </summary>
-    /// <param name="bestOnly">Should we only return the entity with the best score.</param>
     public UtilityResult GetEntities(
         NPCBlackboard blackboard,
         string proto,

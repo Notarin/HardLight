@@ -171,12 +171,6 @@ public sealed class AlertLevelSystem : EntitySystem
     /// <summary>
     /// Set the alert level based on the station's entity ID.
     /// </summary>
-    /// <param name="station">Station entity UID.</param>
-    /// <param name="level">Level to change the station's alert level to.</param>
-    /// <param name="playSound">Play the alert level's sound.</param>
-    /// <param name="announce">Say the alert level's announcement.</param>
-    /// <param name="force">Force the alert change. This applies if the alert level is not selectable or not.</param>
-    /// <param name="locked">Will it be possible to change level by crew.</param>
     public void SetLevel(EntityUid station, string level, bool playSound, bool announce, bool force = false,
         bool locked = false, MetaDataComponent? dataComponent = null, AlertLevelComponent? component = null)
     {

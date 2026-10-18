@@ -500,10 +500,6 @@ namespace Content.Server.Database
         ///     This will NOT return a pardoned ban.
         ///     One of address or userId need to not be null.
         /// </summary>
-        /// <param name="address">The ip address of the user.</param>
-        /// <param name="userId">The id of the user.</param>
-        /// <param name="hwId">The legacy HWId of the user.</param>
-        /// <param name="modernHWIds">The modern HWIDs of the user.</param>
         /// <returns>The user's latest received un-pardoned ban, or null if none exist.</returns>
         public abstract Task<BanDef?> GetBanAsync(
             IPAddress? address,
@@ -517,11 +513,6 @@ namespace Content.Server.Database
         ///     This will return pardoned bans as well.
         ///     One of address or userId need to not be null.
         /// </summary>
-        /// <param name="address">The ip address of the user.</param>
-        /// <param name="userId">The id of the user.</param>
-        /// <param name="hwId">The legacy HWId of the user.</param>
-        /// <param name="modernHWIds">The modern HWIDs of the user.</param>
-        /// <param name="includeUnbanned">Include pardoned and expired bans.</param>
         /// <returns>The user's ban history.</returns>
         public abstract Task<List<BanDef>> GetBansAsync(
             IPAddress? address,

@@ -122,7 +122,6 @@ public sealed class SignalTimerSystem : EntitySystem
     /// <summary>
     ///     Checks if a UI <paramref name="message"/> is allowed to be sent by the user.
     /// </summary>
-    /// <param name="uid">The entity that is interacted with.</param>
     private bool IsMessageValid(EntityUid uid, BoundUserInterfaceMessage message)
     {
         if (!_accessReader.IsAllowed(message.Actor, uid))

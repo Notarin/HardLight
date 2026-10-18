@@ -971,8 +971,6 @@ public sealed partial class ShuttleSystem
     /// Tries to get the target position to FTL near the target coordinates.
     /// If the target coordinates have a mapgrid then will try to offset the AABB.
     /// </summary>
-    /// <param name="minOffset">Min offset for the final FTL.</param>
-    /// <param name="maxOffset">Max offset for the final FTL from the box we spawn.</param>
     private bool TryGetFTLProximity(
         EntityUid shuttleUid,
         EntityCoordinates targetCoordinates,

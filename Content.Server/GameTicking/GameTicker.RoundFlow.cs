@@ -185,10 +185,6 @@ namespace Content.Server.GameTicking
         /// some <see cref="MapLoadOptions"/> using information in a prototype, and raise some events to allow content
         /// to modify the options and react to the map creation.
         /// </remarks>
-        /// <param name="proto">Game map prototype to load in.</param>
-        /// <param name="mapId">The id of the map that was loaded.</param>
-        /// <param name="options">Entity loading options, including whether the maps should be initialized.</param>
-        /// <param name="stationName">Name to assign to the loaded station.</param>
         /// <returns>All loaded entities and grids.</returns>
         public IReadOnlyList<EntityUid> LoadGameMap(
             GameMapPrototype proto,

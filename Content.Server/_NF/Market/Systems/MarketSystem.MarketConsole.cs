@@ -154,8 +154,6 @@ public sealed partial class MarketSystem
     /// <summary>
     /// Inserts market data for all materials contained within a MaterialStorageComponent.
     /// </summary>
-    /// <param name="marketDataComponent"></param>
-    /// <param name="materialStorageComponent"></param>
     private void UpsertMaterialStorage(CargoMarketDataComponent marketDataComponent, MaterialStorageComponent materialStorageComponent, EntityUid sold)
     {
         foreach (var (materialProto, amount) in materialStorageComponent.Storage)

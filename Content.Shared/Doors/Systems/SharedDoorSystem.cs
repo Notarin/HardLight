@@ -486,9 +486,6 @@ public abstract partial class SharedDoorSystem : EntitySystem
     /// <summary>
     /// Immediately start closing a door
     /// </summary>
-    /// <param name="uid"> The uid of the door</param>
-    /// <param name="door"> The doorcomponent of the door</param>
-    /// <param name="user"> The user (if any) opening the door</param>
     public bool CanClose(EntityUid uid, DoorComponent? door = null, EntityUid? user = null, bool partial = false)
     {
         if (!Resolve(uid, ref door))

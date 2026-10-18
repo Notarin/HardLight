@@ -199,7 +199,6 @@ public abstract partial class SharedHandsSystem : EntitySystem
     /// <summary>
     ///     Puts an item into any hand, preferring the active hand, or puts it on the floor.
     /// </summary>
-    /// <param name="dropNear">If true, the item will be dropped near the owner of the hand if possible.</param>
     public void PickupOrDrop(
         EntityUid? uid,
         EntityUid entity,

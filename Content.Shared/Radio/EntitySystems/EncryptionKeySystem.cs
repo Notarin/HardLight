@@ -223,9 +223,6 @@ public sealed partial class EncryptionKeySystem : EntitySystem
     /// <summary>
     ///     A method for formating list of radio channels for examine events.
     /// </summary>
-    /// <param name="channels">HashSet of channels in headset, encryptionkey or etc.</param>
-    /// <param name="protoManager">IPrototypeManager for getting prototypes of channels with their variables.</param>
-    /// <param name="channelFTLPattern">String that provide id of pattern in .ftl files to format channel with variables of it.</param>
     public void AddChannelsExamine(HashSet<string> channels, string? defaultChannel, ExaminedEvent examineEvent, IPrototypeManager protoManager, string channelFTLPattern)
     {
         RadioChannelPrototype? proto;

@@ -875,9 +875,6 @@ public abstract class SharedActionsSystem : EntitySystem
     /// <summary>
     ///     Grant pre-existing actions. If the entity has no action component, this will give them one.
     /// </summary>
-    /// <param name="performer">Entity to receive the actions</param>
-    /// <param name="actions">The actions to add</param>
-    /// <param name="container">The entity that enables these actions (e.g., flashlight). May be null (innate actions).</param>
     public void GrantActions(EntityUid performer, IEnumerable<EntityUid> actions, EntityUid container, ActionsComponent? comp = null, ActionsContainerComponent? containerComp = null)
     {
         if (!Resolve(container, ref containerComp))

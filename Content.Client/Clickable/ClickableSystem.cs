@@ -32,10 +32,6 @@ public sealed class ClickableSystem : EntitySystem
     /// Used to check whether a click worked. Will first check if the click falls inside of some explicit bounding
     /// boxes (see Bounds). If that fails, attempts to use automatically generated click maps.
     /// </summary>
-    /// <param name="worldPos">The world position that was clicked.</param>
-    /// <param name="drawDepth">
-    /// The draw depth for the sprite that captured the click.
-    /// </param>
     /// <returns>True if the click worked, false otherwise.</returns>
     public bool CheckClick(Entity<ClickableComponent?, SpriteComponent, TransformComponent?, FadingSpriteComponent?> entity, Vector2 worldPos, IEye eye, bool excludeFaded, out int drawDepth, out uint renderOrder, out float bottom)
     {

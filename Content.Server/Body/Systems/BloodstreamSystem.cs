@@ -567,10 +567,6 @@ public sealed class BloodstreamSystem : EntitySystem
     /// <summary>
     ///     Change what someone's blood is made of, on the fly.
     /// </summary>
-    /// <param name="storeOriginalBloodReagent">
-    ///     Temporary effects should keep the previous blood reagent so it can be restored later.
-    ///     Permanent swaps should pass false so bloodstream regeneration uses the new reagent as its baseline.
-    /// </param>
     public void ChangeBloodReagent(EntityUid uid, string reagent, BloodstreamComponent? component = null, bool storeOriginalBloodReagent = true)
     {
         if (!Resolve(uid, ref component, logMissing: false)

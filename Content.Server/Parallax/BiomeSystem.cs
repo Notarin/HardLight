@@ -578,7 +578,6 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
     /// <summary>
     /// Gets the marker nodes for the specified area.
     /// </summary>
-    /// <param name="emptyTiles">Should we include empty tiles when determine markers (e.g. if they are yet to be loaded)</param>
     public void GetMarkerNodes(
         EntityUid gridUid,
         BiomeComponent biome,

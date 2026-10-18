@@ -74,7 +74,6 @@ public abstract partial class Node
     /// <summary>
     ///     Invoked when the owning <see cref="NodeContainerComponent"/> is initialized.
     /// </summary>
-    /// <param name="owner">The owning entity.</param>
     public virtual void Initialize(EntityUid owner, IEntityManager entMan)
     {
         Owner = owner;

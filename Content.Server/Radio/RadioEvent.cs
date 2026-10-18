@@ -5,8 +5,6 @@ using Content.Shared._Starlight.Language; // Starlight
 namespace Content.Server.Radio;
 
 /// <summary>
-/// <param name="OriginalChatMsg">The message to display when the speaker can understand "language"</param>
-/// <param name="LanguageObfuscatedChatMsg">The message to display when the Speaker cannot understand "language"</param>
 /// </summary>
 [ByRefEvent]
 public readonly record struct RadioReceiveEvent(

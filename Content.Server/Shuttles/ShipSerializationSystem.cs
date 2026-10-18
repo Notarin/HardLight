@@ -1863,12 +1863,6 @@ namespace Content.Server.Shuttles.Save
             }
         }
 
-        /// <param name="roomMode">
-        /// When true, skips the generic <see cref="SerializeComponent"/> path (which calls
-        /// <c>_serializationManager.WriteValue</c> on every component via expensive reflection,
-        /// then discards the output). Room saves use Properties-based paths only; the generic
-        /// DataNode round-trip is broken for rooms and produces only bloat.
-        /// </param>
         private List<ComponentData> SerializeEntityComponents(EntityUid entityUid, bool roomMode = false)
         {
             var componentDataList = new List<ComponentData>();

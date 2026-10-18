@@ -31,4 +31,9 @@
   <PropertyGroup>
     <NoWarn>$(NoWarn);NU1902;NU1903</NoWarn>
   </PropertyGroup>
+
+  <!-- Sets TargetRefPath fallback for projects that don't produce reference assemblies. -->
+  <PropertyGroup>
+    <TargetRefPath Condition="'$(TargetRefPath)' == ''">$(TargetPath)</TargetRefPath>
+  </PropertyGroup>
 </Project>

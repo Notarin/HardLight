@@ -9,8 +9,8 @@ namespace Content.Shared._Goobstation.Factory.Slots;
 /// </summary>
 public sealed partial class AutomatedMaterialStorage : AutomationSlot
 {
-    private SharedMaterialStorageSystem _material;
-    private SharedPowerReceiverSystem _power;
+    public SharedMaterialStorageSystem Material;
+    public SharedPowerReceiverSystem Power;
 
     private EntityQuery<MaterialComponent> _materialQuery;
     private EntityQuery<MaterialStorageComponent> _storageQuery;
@@ -20,8 +20,8 @@ public sealed partial class AutomatedMaterialStorage : AutomationSlot
     {
         base.Initialize();
 
-        _material = EntMan.System<SharedMaterialStorageSystem>();
-        _power = EntMan.System<SharedPowerReceiverSystem>();
+        Material = EntMan.System<SharedMaterialStorageSystem>();
+        Power = EntMan.System<SharedPowerReceiverSystem>();
 
         _materialQuery = EntMan.GetEntityQuery<MaterialComponent>();
         _storageQuery = EntMan.GetEntityQuery<MaterialStorageComponent>();
@@ -30,7 +30,7 @@ public sealed partial class AutomatedMaterialStorage : AutomationSlot
 
     public override bool Insert(EntityUid item)
     {
-        return base.Insert(item) && _material.TryInsertMaterialEntity(user: Owner, item, Owner);
+        return base.Insert(item) && Material.TryInsertMaterialEntity(user: Owner, item, Owner);
     }
 
     public override bool CanInsert(EntityUid item)
@@ -39,7 +39,7 @@ public sealed partial class AutomatedMaterialStorage : AutomationSlot
             return false;
 
         // don't bypass power check for lathes and stuff
-        if (!_power.IsPowered(Owner))
+        if (!Power.IsPowered(Owner))
             return false;
 
         // this has to be essentially copypasted because goidacode doesnt have a CanInsertMaterial method

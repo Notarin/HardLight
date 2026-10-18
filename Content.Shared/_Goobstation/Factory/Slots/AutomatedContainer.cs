@@ -16,7 +16,7 @@ public sealed partial class AutomatedContainer : AutomationSlot
     [DataField(required: true)]
     public int MaxItems;
 
-    private SharedContainerSystem _container;
+    public SharedContainerSystem ContainerSystem;
 
     public BaseContainer Container;
 
@@ -24,28 +24,28 @@ public sealed partial class AutomatedContainer : AutomationSlot
     {
         base.Initialize();
 
-        _container = EntMan.System<SharedContainerSystem>();
+        ContainerSystem = EntMan.System<SharedContainerSystem>();
 
-        Container = _container.GetContainer(Owner, ContainerId);
+        Container = ContainerSystem.GetContainer(Owner, ContainerId);
     }
 
     public override bool Insert(EntityUid item)
     {
-        return base.Insert(item) && _container.Insert(item, Container);
+        return base.Insert(item) && ContainerSystem.Insert(item, Container);
     }
 
     public override bool CanInsert(EntityUid item)
     {
         return base.CanInsert(item)
             && Container.Count < MaxItems
-            && _container.CanInsert(item, Container);
+            && ContainerSystem.CanInsert(item, Container);
     }
 
     public override EntityUid? GetItem(EntityUid? filter)
     {
         foreach (var item in Container.ContainedEntities)
         {
-            if (_filter.IsAllowed(filter, item))
+            if (Filter.IsAllowed(filter, item))
                 return item;
         }
 

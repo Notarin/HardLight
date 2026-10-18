@@ -25,7 +25,7 @@ public sealed partial class MartialArtsKnowledgeComponent : GrabStagesOverrideCo
 
     [DataField]
     [AutoNetworkedField]
-    public DamageSpecifier OriginalFistDamage;
+    public DamageSpecifier OriginalFistDamage = default!;
 }
 
 public enum MartialArtsForms

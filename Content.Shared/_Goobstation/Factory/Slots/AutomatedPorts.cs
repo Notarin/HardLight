@@ -18,8 +18,8 @@ public sealed partial class AutomatedPorts : AutomationSlot
     {
         base.AddPorts();
 
-        _device.EnsureSinkPorts(Owner, Sinks);
-        _device.EnsureSourcePorts(Owner, Sources);
+        Device.EnsureSinkPorts(Owner, Sinks);
+        Device.EnsureSourcePorts(Owner, Sources);
     }
 
     public override void RemovePorts()
@@ -28,11 +28,11 @@ public sealed partial class AutomatedPorts : AutomationSlot
 
         foreach (var port in Sinks)
         {
-            _device.RemoveSinkPort(Owner, port);
+            Device.RemoveSinkPort(Owner, port);
         }
         foreach (var port in Sources)
         {
-            _device.RemoveSourcePort(Owner, port);
+            Device.RemoveSourcePort(Owner, port);
         }
     }
 }

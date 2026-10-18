@@ -192,43 +192,43 @@ dotnet_naming_symbols.private_static_readonly.applicable_accessibilities = priva
 # 3. Rules
 dotnet_naming_rule.interfaces_rule.symbols = interfaces
 dotnet_naming_rule.interfaces_rule.style = i_pascal_case
-dotnet_naming_rule.interfaces_rule.severity = suggestion
+dotnet_naming_rule.interfaces_rule.severity = warning
 
 dotnet_naming_rule.type_parameters_rule.symbols = type_parameters
 dotnet_naming_rule.type_parameters_rule.style = t_pascal_case
-dotnet_naming_rule.type_parameters_rule.severity = suggestion
+dotnet_naming_rule.type_parameters_rule.severity = warning
 
 dotnet_naming_rule.types_rule.symbols = types
 dotnet_naming_rule.types_rule.style = pascal_case
-dotnet_naming_rule.types_rule.severity = suggestion
+dotnet_naming_rule.types_rule.severity = warning
 
 dotnet_naming_rule.methods_properties_events_rule.symbols = methods_properties_events
 dotnet_naming_rule.methods_properties_events_rule.style = pascal_case
-dotnet_naming_rule.methods_properties_events_rule.severity = suggestion
+dotnet_naming_rule.methods_properties_events_rule.severity = warning
 
 dotnet_naming_rule.local_functions_rule.symbols = local_functions
 dotnet_naming_rule.local_functions_rule.style = pascal_case
-dotnet_naming_rule.local_functions_rule.severity = suggestion
+dotnet_naming_rule.local_functions_rule.severity = warning
 
 dotnet_naming_rule.locals_and_parameters_rule.symbols = locals_and_parameters
 dotnet_naming_rule.locals_and_parameters_rule.style = camel_case
-dotnet_naming_rule.locals_and_parameters_rule.severity = suggestion
+dotnet_naming_rule.locals_and_parameters_rule.severity = warning
 
 dotnet_naming_rule.public_fields_rule.symbols = public_fields
 dotnet_naming_rule.public_fields_rule.style = pascal_case
-dotnet_naming_rule.public_fields_rule.severity = suggestion
+dotnet_naming_rule.public_fields_rule.severity = warning
 
 dotnet_naming_rule.private_fields_rule.symbols = private_fields
 dotnet_naming_rule.private_fields_rule.style = underscore_camel_case
-dotnet_naming_rule.private_fields_rule.severity = suggestion
+dotnet_naming_rule.private_fields_rule.severity = warning
 
 dotnet_naming_rule.private_constants_rule.symbols = private_constants
 dotnet_naming_rule.private_constants_rule.style = pascal_case
-dotnet_naming_rule.private_constants_rule.severity = suggestion
+dotnet_naming_rule.private_constants_rule.severity = warning
 
 dotnet_naming_rule.private_static_readonly_rule.symbols = private_static_readonly
 dotnet_naming_rule.private_static_readonly_rule.style = pascal_case
-dotnet_naming_rule.private_static_readonly_rule.severity = suggestion
+dotnet_naming_rule.private_static_readonly_rule.severity = warning
 
 #### ReSharper Properties ####
 
@@ -256,17 +256,3 @@ indent_size = 2
 [{*.yaml,*.yml}]
 ij_yaml_indent_sequence_value = false
 
-#### HardLight Code ####
-
-# Enforce stricter rules for code in _HL folders
-[**/_HL/**/*.cs]
-dotnet_naming_rule.interfaces_rule.severity = warning
-dotnet_naming_rule.type_parameters_rule.severity = warning
-dotnet_naming_rule.types_rule.severity = warning
-dotnet_naming_rule.methods_properties_events_rule.severity = warning
-dotnet_naming_rule.local_functions_rule.severity = warning
-dotnet_naming_rule.locals_and_parameters_rule.severity = warning
-dotnet_naming_rule.public_fields_rule.severity = warning
-dotnet_naming_rule.private_fields_rule.severity = warning
-dotnet_naming_rule.private_constants_rule.severity = warning
-dotnet_naming_rule.private_static_readonly_rule.severity = warning

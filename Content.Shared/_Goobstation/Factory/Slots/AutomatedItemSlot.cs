@@ -13,7 +13,7 @@ public sealed partial class AutomatedItemSlot : AutomationSlot
     [DataField(required: true)]
     public string SlotId = string.Empty;
 
-    private ItemSlotsSystem _slots;
+    public ItemSlotsSystem Slots;
 
     private ItemSlot? _slot;
 
@@ -25,7 +25,7 @@ public sealed partial class AutomatedItemSlot : AutomationSlot
             if (_slot is { } slot)
                 return slot;
 
-            if (_slots.TryGetSlot(Owner, SlotId, out _slot))
+            if (Slots.TryGetSlot(Owner, SlotId, out _slot))
                 return _slot;
 
             throw new InvalidOperationException($"Entity {EntMan.ToPrettyString(Owner)} had no item slot {SlotId}");
@@ -36,24 +36,24 @@ public sealed partial class AutomatedItemSlot : AutomationSlot
     {
         base.Initialize();
 
-        _slots = EntMan.System<ItemSlotsSystem>();
+        Slots = EntMan.System<ItemSlotsSystem>();
     }
 
     public override bool Insert(EntityUid item)
     {
         return base.Insert(item) &&
-            _slots.TryInsert(Owner, Slot, item, user: null);
+            Slots.TryInsert(Owner, Slot, item, user: null);
     }
 
     public override bool CanInsert(EntityUid item)
     {
         return base.CanInsert(item) &&
-            _slots.CanInsert(Owner, usedUid: item, user: null, Slot);
+            Slots.CanInsert(Owner, usedUid: item, user: null, Slot);
     }
 
     public override EntityUid? GetItem(EntityUid? filter)
     {
-        if (Slot.Item is not { } item || _filter.IsBlocked(filter, item))
+        if (Slot.Item is not { } item || Filter.IsBlocked(filter, item))
             return null;
 
         return item;

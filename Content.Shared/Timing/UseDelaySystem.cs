@@ -148,9 +148,6 @@ public sealed class UseDelaySystem : EntitySystem
     /// <summary>
     /// Resets the delay with the specified ID for this entity if possible.
     /// </summary>
-    /// <param name="checkDelayed">Check if the entity has an ongoing delay with the specified ID.
-    /// If it does, return false and don't reset it.
-    /// Otherwise reset it and return true.</param>
     public bool TryResetDelay(Entity<UseDelayComponent> ent, bool checkDelayed = false, string id = DefaultId)
     {
         if (checkDelayed && IsDelayed((ent.Owner, ent.Comp), id))

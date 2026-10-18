@@ -211,13 +211,13 @@ public sealed partial class InteractionVerbPrototype : IPrototype, IInheritingPr
         public EffectTargetSpecifier EffectTarget = EffectTargetSpecifier.TargetThenUser;
 
         /// <summary>
-        ///     The interaction popup to show, at <see cref="EffectLocation"/>. If null, no popup will be shown.
+        ///     The interaction popup to show, at EffectLocation. If null, no popup will be shown.
         /// </summary>
         [DataField]
         public ProtoId<InteractionPopupPrototype>? Popup = null;
 
         /// <summary>
-        ///     Sound played when the effect is shown, at <see cref="EffectLocation"/>. If null, no sound will be played.
+        ///     Sound played when the effect is shown, at EffectLocation. If null, no sound will be played.
         /// </summary>
         [DataField]
         public SoundSpecifier? Sound;

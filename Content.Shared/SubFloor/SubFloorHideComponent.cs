@@ -4,7 +4,7 @@ namespace Content.Shared.SubFloor
 {
     /// <summary>
     /// Simple component that automatically hides the sibling
-    /// <see cref="SpriteComponent" /> when the tile it's on is not a sub floor
+    /// SpriteComponent when the tile it's on is not a sub floor
     /// (plating).
     /// </summary>
     /// <seealso cref="P:Content.Shared.Maps.ContentTileDefinition.IsSubFloor" />

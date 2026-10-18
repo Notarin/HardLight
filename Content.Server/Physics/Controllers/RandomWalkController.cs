@@ -58,8 +58,6 @@ internal sealed class RandomWalkController : VirtualController
     /// Updates the direction and speed a random walker is moving at.
     /// Also resets the random walker's cooldown.
     /// </summary>
-    /// <param name="randomWalk">The random walker state.</param>
-    /// <param name="physics">The physics body associated with the random walker.</param>
     public void Update(EntityUid uid, RandomWalkComponent? randomWalk = null, PhysicsComponent? physics = null)
     {
         if (!Resolve(uid, ref randomWalk))

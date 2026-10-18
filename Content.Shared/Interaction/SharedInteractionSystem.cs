@@ -387,9 +387,6 @@ namespace Content.Shared.Interaction
         /// <remarks>
         ///     Checks Whether combat mode is enabled and whether the user can actually interact with the given entity.
         /// </remarks>
-        /// <param name="altInteract">Whether to use default or alternative interactions (usually as a result of
-        /// alt+clicking). If combat mode is enabled, the alternative action is to perform the default non-combat
-        /// interaction. Having an item in the active hand also disables alternative interactions.</param>
         public void UserInteraction(
             EntityUid user,
             EntityCoordinates coordinates,
@@ -1071,12 +1068,6 @@ namespace Content.Shared.Interaction
         /// <summary>
         ///     Used when clicking on an entity resulted in no other interaction. Used for low-priority interactions.
         /// </summary>
-        /// <param name="user"><inheritdoc cref="InteractUsing"/></param>
-        /// <param name="used"><inheritdoc cref="InteractUsing"/></param>
-        /// <param name="target"><inheritdoc cref="InteractUsing"/></param>
-        /// <param name="clickLocation"><inheritdoc cref="InteractUsing"/></param>
-        /// <param name="canReach">Whether the <paramref name="user"/> is in range of the <paramref name="target"/>.
-        ///     </param>
         /// <returns>True if the interaction was handled. Otherwise, false.</returns>
         public bool InteractDoAfter(EntityUid user, EntityUid used, EntityUid? target, EntityCoordinates clickLocation, bool canReach, bool checkDeletion = true)
         {

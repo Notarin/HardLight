@@ -155,7 +155,6 @@ public abstract class SharedFlatpackSystem : EntitySystem
         Appearance.SetData(ent, FlatpackVisuals.Machine, MetaData(board).EntityPrototype?.ID ?? string.Empty);
     }
 
-    /// <param name="machineBoard">The machine board to pack. If null, this implies we are packing a computer board</param>
     public Dictionary<string, int> GetFlatpackCreationCost(Entity<FlatpackCreatorComponent> entity, Entity<MachineBoardComponent>? machineBoard)
     {
         Dictionary<string, int> cost = new();

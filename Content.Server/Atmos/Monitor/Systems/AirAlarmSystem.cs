@@ -58,8 +58,6 @@ public sealed class AirAlarmSystem : EntitySystem
     /// <summary>
     ///     Set the data for an air alarm managed device.
     /// </summary>
-    /// <param name="address">The address of the device.</param>
-    /// <param name="data">The data to send to the device.</param>
     public void SetData(EntityUid uid, string address, IAtmosDeviceData data)
     {
         _atmosDevNet.SetDeviceState(uid, address, data);
@@ -77,7 +75,6 @@ public sealed class AirAlarmSystem : EntitySystem
     /// <summary>
     ///     Send a sync packet to a specific device from an air alarm.
     /// </summary>
-    /// <param name="address">The address of the device.</param>
     private void SyncDevice(EntityUid uid, string address)
     {
         _atmosDevNet.Sync(uid, address);
@@ -148,7 +145,6 @@ public sealed class AirAlarmSystem : EntitySystem
     /// <summary>
     ///     Sync this air alarm's mode with the rest of the network.
     /// </summary>
-    /// <param name="mode">The mode to sync with the rest of the network.</param>
     private void SyncMode(EntityUid uid, AirAlarmMode mode)
     {
         if (TryComp<AtmosMonitorComponent>(uid, out var monitor) && !monitor.NetEnabled)
@@ -461,9 +457,6 @@ public sealed class AirAlarmSystem : EntitySystem
     /// <summary>
     ///     Set an air alarm's mode.
     /// </summary>
-    /// <param name="origin">The origin address of this mode set. Used for network sync.</param>
-    /// <param name="mode">The mode to set the alarm to.</param>
-    /// <param name="uiOnly">Whether this change is for the UI only, or if it changes the air alarm's operating mode. Defaults to true.</param>
     public void SetMode(EntityUid uid, string origin, AirAlarmMode mode, bool uiOnly = true, AirAlarmComponent? controller = null)
     {
         if (!Resolve(uid, ref controller) || controller.CurrentMode == mode)
@@ -513,8 +506,6 @@ public sealed class AirAlarmSystem : EntitySystem
     /// <summary>
     ///     Sets device data. Practically a wrapper around the packet sending function, SetData.
     /// </summary>
-    /// <param name="address">The address to send the new data to.</param>
-    /// <param name="devData">The device data to be sent.</param>
     private void SetDeviceData(EntityUid uid, string address, IAtmosDeviceData devData, AirAlarmComponent? controller = null)
     {
         if (!Resolve(uid, ref controller))

@@ -23,8 +23,6 @@ public sealed class BorgSwitchableSubtypeSystem : SharedBorgSwitchableSubtypeSys
     [Dependency] private readonly SpriteSystem _sprite = default!;
     [Dependency] private readonly BorgSystem _borg = default!;
     [Dependency] private readonly AppearanceSystem _appearance = default!;
-    [Dependency] private readonly IResourceCache _resourceCache = default!;
-    [Dependency] private readonly FixtureSystem _fixture = default!;
     [Dependency] private readonly IConfigurationManager _cfg = default!; // HardLight
 
     public override void Initialize()

@@ -132,7 +132,6 @@ public abstract class SharedStealthSystem : EntitySystem
     /// <summary>
     /// Modifies the visibility based on the delta provided.
     /// </summary>
-    /// <param name="delta">The delta to be used in visibility calculation.</param>
     public void ModifyVisibility(EntityUid uid, float delta, StealthComponent? component = null)
     {
         if (delta == 0 || !Resolve(uid, ref component))
@@ -151,7 +150,6 @@ public abstract class SharedStealthSystem : EntitySystem
     /// <summary>
     /// Sets the visibility directly with no modifications
     /// </summary>
-    /// <param name="value">The value to set the visibility to. -1 is fully invisible, 1 is fully visible</param>
     public void SetVisibility(EntityUid uid, float value, StealthComponent? component = null)
     {
         if (!Resolve(uid, ref component))

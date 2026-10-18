@@ -8,7 +8,7 @@ using System.Numerics;
 namespace Content.Shared.Maps;
 
 /// <summary>
-///     This system provides various useful helper methods for turfs & tiles. Replacement for <see cref="TurfHelpers"/>
+///     This system provides various useful helper methods for turfs &amp; tiles. Replacement for <see cref="TurfHelpers"/>
 /// </summary>
 public sealed class TurfSystem : EntitySystem
 {

@@ -13,6 +13,8 @@ public sealed partial class AnomalyPowerSystem
         if (args.Injection is null)
             return;
 
+        _injectableQuery = GetEntityQuery<InjectableSolutionComponent>();
+
         if (overcharged)
             InjectionSupercrit(uid, component, args);
         else InjectionPulse(uid, component, args);

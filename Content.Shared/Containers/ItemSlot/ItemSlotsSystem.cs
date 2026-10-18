@@ -284,8 +284,6 @@ namespace Content.Shared.Containers.ItemSlots
         ///     Insert an item into a slot. This does not perform checks, so make sure to also use <see
         ///     cref="CanInsert"/> or just use <see cref="TryInsert"/> instead.
         /// </summary>
-        /// <param name="excludeUserAudio">If true, will exclude the user when playing sound. Does nothing client-side.
-        /// Useful for predicted interactions</param>
         private void Insert(EntityUid uid,
             ItemSlot slot,
             EntityUid item,
@@ -546,8 +544,6 @@ namespace Content.Shared.Containers.ItemSlots
         ///     Eject an item from a slot. This does not perform checks (e.g., is the slot locked?), so you should
         ///     probably just use <see cref="TryEject"/> instead.
         /// </summary>
-        /// <param name="excludeUserAudio">If true, will exclude the user when playing sound. Does nothing client-side.
-        /// Useful for predicted interactions</param>
         private void Eject(EntityUid uid, ItemSlot slot, EntityUid item, EntityUid? user, bool excludeUserAudio = false)
         {
             bool? ejected = slot.ContainerSlot != null ? _containers.Remove(item, slot.ContainerSlot) : null;

@@ -27,7 +27,7 @@ public sealed class MappingSystem : EntitySystem
 
     // Not a comp because I don't want to deal with this getting saved onto maps ever
     /// <summary>
-    ///     map id -> next autosave timespan & original filename.
+    ///     map id -> next autosave timespan &amp; original filename.
     /// </summary>
     /// <returns></returns>
     private Dictionary<EntityUid, (TimeSpan next, string fileName)> _currentlyAutosaving = new();
@@ -76,7 +76,7 @@ public sealed class MappingSystem : EntitySystem
             var saveDir = Path.Combine(_cfg.GetCVar(CCVars.AutosaveDirectory), name).Replace(Path.DirectorySeparatorChar, '/');
             _resMan.UserData.CreateDir(new ResPath(saveDir).ToRootedPath());
 
-            /// Hardlight change: was crashing due to windows seperators, so added Path.DirectorySeparatorChar ///
+            // Hardlight change: was crashing due to windows seperators, so added Path.DirectorySeparatorChar //
             var path = new ResPath(Path.Combine(saveDir, $"{DateTime.Now:yyyy-M-dd_HH.mm.ss}-AUTO.yml")
                 .Replace(Path.DirectorySeparatorChar, '/'));
             Log.Info($"Autosaving map {name} ({uid}) to {path}. Next save in {ReadableTimeLeft(uid)} seconds.");

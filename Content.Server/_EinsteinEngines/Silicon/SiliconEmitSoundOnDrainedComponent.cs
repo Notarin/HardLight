@@ -3,7 +3,7 @@ using Robust.Shared.Audio;
 namespace Content.Server._EinsteinEngines.Silicon;
 
 /// <summary>
-///     Applies a <see cref="SpamEmitSoundComponent"/> to a Silicon when its battery is drained, and removes it when it's not.
+///     Applies a SpamEmitSoundComponent to a Silicon when its battery is drained, and removes it when it's not.
 /// </summary>
 [RegisterComponent]
 public sealed partial class SiliconEmitSoundOnDrainedComponent : Component

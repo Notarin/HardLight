@@ -145,7 +145,6 @@ public sealed partial class BountyContractSystem : SharedBountyContractSystem
     /// <param name="dna">Optional DNA of the bounty head.</param>
     /// <param name="author">Optional bounty poster IC name.</param>
     /// <param name="authorUid">Uid of the cartridge loader that created the bounty</param>
-    /// <param name="pdaAlert">Should PDAs send a localized alert?</param>
     /// <param name="actor">The entity posting the bounty.</param>
     /// <returns>New bounty contract. Null if contract creation failed.</returns>
     public BountyContract? TryCreateBountyContract(ProtoId<BountyContractCollectionPrototype> collection,

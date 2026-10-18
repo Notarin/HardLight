@@ -62,7 +62,7 @@ namespace Content.Server.Body.Components
         public readonly List<ReagentDelta> ReagentDeltas = new();
 
         /// <summary>
-        ///     Used to track quantity changes when ingesting & digesting reagents
+        ///     Used to track quantity changes when ingesting &amp; digesting reagents
         /// </summary>
         public sealed class ReagentDelta
         {

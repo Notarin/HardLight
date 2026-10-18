@@ -195,12 +195,12 @@ public partial record struct ElectricalAnomalySettings()
 
     /// <summary>
     ///     Energy consumed from devices by the emp pulse upon going supercritical.
-    /// <summary>
+    /// </summary>
     public float EmpEnergyConsumption = 100000f;
 
     /// <summary>
     ///     Duration of devices being disabled by the emp pulse upon going supercritical.
-    /// <summary>
+    /// </summary>
     public float EmpDisabledDuration = 60f;
 }
 

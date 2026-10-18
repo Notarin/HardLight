@@ -91,7 +91,7 @@ public enum OptionVisualizerOptions
 
     #region HardLight
     /// <summary>
-    /// Corresponds to the <see cref="CCVars.accessibilityNoballs"/> CVar being set.
+    /// Corresponds to the CCVars.accessibilityNoballs CVar being set.
     /// </summary>
     Noballs = 1 << 3,
     #endregion HardLight

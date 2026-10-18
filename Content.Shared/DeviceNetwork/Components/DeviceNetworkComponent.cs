@@ -98,7 +98,7 @@ namespace Content.Shared.DeviceNetwork.Components
 
         /// <summary>
         ///     Whether to send the broadcast recipients list to the sender so it can be filtered.
-        /// <see cref="DeviceListSystem"/>
+        /// DeviceListSystem
         /// </summary>
         [ViewVariables(VVAccess.ReadWrite)]
         [DataField("sendBroadcastAttemptEvent")]

@@ -13,7 +13,7 @@ public sealed partial class TrayScannerComponent : Component
     public bool Enabled;
 
     /// <summary>
-    ///     Radius in which the scanner will reveal entities. Centered on the <see cref="LastLocation"/>.
+    ///     Radius in which the scanner will reveal entities. Centered on the LastLocation.
     /// </summary>
     [DataField]
     public float Range = 4f;

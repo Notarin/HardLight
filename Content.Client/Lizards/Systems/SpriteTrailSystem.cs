@@ -9,7 +9,6 @@ namespace Content.Client.Lizards.Systems;
 
 public sealed class SpriteTrailSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly TransformSystem _xformSys = default!;
 
     private readonly Dictionary<EntityUid, Queue<(EntityCoordinates, Angle)>> _buffers = new();

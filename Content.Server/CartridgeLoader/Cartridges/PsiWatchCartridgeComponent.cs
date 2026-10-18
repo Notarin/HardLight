@@ -1,8 +1,8 @@
 using Content.Shared.Psionics;
 
-/// <summary>
-/// ADAPTED FROM SECWATCH - DELTAV
-/// </summary>
+// <summary>
+// ADAPTED FROM SECWATCH - DELTAV
+// </summary>
 
 namespace Content.Server.CartridgeLoader.Cartridges;
 

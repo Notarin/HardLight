@@ -38,13 +38,12 @@ namespace Content.Client.Atmos.UI
             Close();
         }
 
-        [Obsolete]
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
 
             if (disposing)
-                _window?.Dispose();
+                _window?.Close();
         }
     }
 }

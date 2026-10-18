@@ -59,11 +59,6 @@ namespace Content.Server.Voting.Managers
         /// <summary>
         /// Initiate a standard vote such as restart round, that can be initiated by players.
         /// </summary>
-        /// <param name="initiator">
-        /// The player that called the vote.
-        /// If null it is assumed to be an automatic vote by the server.
-        /// </param>
-        /// <param name="voteType">The type of standard vote to make.</param>
         void CreateStandardVote(ICommonSession? initiator, StandardVoteType voteType, string[]? args = null);
 
         /// <summary>

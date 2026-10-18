@@ -11,7 +11,7 @@ using Robust.Shared.Utility;
 namespace Content.Shared.Actions;
 
 /// <summary>
-/// Handles storing & spawning action entities in a container.
+/// Handles storing &amp; spawning action entities in a container.
 /// </summary>
 public sealed class ActionContainerSystem : EntitySystem
 {

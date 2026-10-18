@@ -32,7 +32,6 @@ public sealed class HTNSystem : EntitySystem
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
     [Dependency] private readonly NPCSystem _npc = default!;
     [Dependency] private readonly NPCUtilitySystem _utility = default!;
-    [Dependency] private readonly EntityLookupSystem _lookup = default!;
     // Frontier
     [Dependency] private readonly WorldControllerSystem _world = default!;
     [Dependency] private readonly TransformSystem _transform = default!;

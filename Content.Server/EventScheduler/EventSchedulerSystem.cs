@@ -98,7 +98,6 @@ public sealed class EventSchedulerSystem : SharedEventSchedulerSystem
     /// <summary>
     /// Takes an existing DelayedEvent and reschedules it to a specific time, as long as it hasn't already been raised yet.
     /// </summary>
-    /// <typeparam name="TEvent"></typeparam>
     /// <param name="delayedEvent">The DelayedEvent instance which you want to reschedule.</param>
     /// <param name="time">The new time at which the Event will be raised.</param>
     /// <returns>Returns true if the DelayedEvent exists, false otherwise.</returns>
@@ -114,7 +113,6 @@ public sealed class EventSchedulerSystem : SharedEventSchedulerSystem
     /// <summary>
     /// Takes an existing DelayedEvent and postpones it by a certain time, as long as it hasn't already been raised yet.
     /// </summary>
-    /// <typeparam name="TEvent"></typeparam>
     /// <param name="delayedEvent">The DelayedEvent instance which you want to reschedule.</param>
     /// <param name="delay">A delay that is added to the Event's scheduled raise time.</param>
     /// <returns>Returns true if the DelayedEvent exists, false otherwise.</returns>

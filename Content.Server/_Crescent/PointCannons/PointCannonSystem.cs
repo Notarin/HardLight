@@ -35,16 +35,13 @@ namespace Content.Server.PointCannons;
 public class PointCannonSystem : EntitySystem
 {
     [Dependency] private readonly ISharedPlayerManager _playerMan = default!;
-    [Dependency] private readonly TransformSystem _formSys = default!;
     [Dependency] private readonly SharedUserInterfaceSystem _uiSys = default!;
     [Dependency] private readonly PopupSystem _popSys = default!;
     [Dependency] private readonly QuickDialogSystem _dialogSys = default!;
     [Dependency] private readonly GunSystem _gunSys = default!;
     [Dependency] private readonly ShuttleConsoleSystem _shuttleConSys = default!;
     [Dependency] private readonly PvsOverrideSystem _pvsSys = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly EntityLookupSystem _lookup = default!;
-    [Dependency] private readonly MapSystem _maps = default!;
     // [Dependency] private readonly HardpointSystem _hardpoint = default!;
 
     public override void Initialize()

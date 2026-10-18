@@ -38,13 +38,7 @@ public sealed partial class ShadekinSystem : EntitySystem
     [Dependency] private readonly MovementSpeedModifierSystem _speed = default!;
     [Dependency] private readonly SharedActionsSystem _actionsSystem = default!;
     [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly InventorySystem _inventorySystem = default!;
-    [Dependency] private readonly SharedMapSystem _mapSystem = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly NullSpacePhaseSystem _nullspace = default!;
     [Dependency] private readonly StunSystem _stunSystem = default!;
-    [Dependency] private readonly DoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly SharedEnsnareableSystem _ensnareable = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly EyeSystem _eye = default!;
 

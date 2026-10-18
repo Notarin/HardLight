@@ -22,12 +22,11 @@ namespace Content.Client._NF.Chemistry.UI
             _window.OpenCentered();
         }
 
-        [Obsolete]
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
             if (!disposing) return;
-            _window?.Dispose();
+            _window?.Close();
         }
         public void ChangeReagentWhitelist(ProtoId<ReagentPrototype> newReagentProto)
         {

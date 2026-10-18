@@ -53,7 +53,7 @@ public sealed class EventHorizonSystem : SharedEventHorizonSystem
 
         SubscribeLocalEvent<MapGridComponent, EventHorizonAttemptConsumeEntityEvent>(PreventConsume);
         SubscribeLocalEvent<GhostComponent, EventHorizonAttemptConsumeEntityEvent>(PreventConsume);
-        SubscribeLocalEvent<TelegnosticProjectionComponent, EventHorizonAttemptConsumeEntityEvent>(PreventConsume); ///Nyano - Summary: the telegnositic projection has the same trait as ghosts.
+        SubscribeLocalEvent<TelegnosticProjectionComponent, EventHorizonAttemptConsumeEntityEvent>(PreventConsume); //Nyano - Summary: the telegnositic projection has the same trait as ghosts.
         SubscribeLocalEvent<StationDataComponent, EventHorizonAttemptConsumeEntityEvent>(PreventConsume);
         SubscribeLocalEvent<EventHorizonComponent, MapInitEvent>(OnHorizonMapInit);
         SubscribeLocalEvent<EventHorizonComponent, StartCollideEvent>(OnStartCollide);

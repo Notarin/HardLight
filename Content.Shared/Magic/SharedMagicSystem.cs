@@ -247,10 +247,6 @@ public abstract class SharedMagicSystem : EntitySystem
     /// Any other offset will spawn entities starting from the source Map Coordinates and will increment the supplied
     /// offset
     /// </remarks>
-    /// <param name="entityEntries"> The list of Entities to spawn in</param>
-    /// <param name="entityCoords"> Map Coordinates where the entities will spawn</param>
-    /// <param name="lifetime"> Check to see if the entities should self delete</param>
-    /// <param name="offsetVector2"> A Vector2 offset that the entities will spawn in</param>
     private void WorldSpawnSpellHelper(List<EntitySpawnEntry> entityEntries, EntityCoordinates entityCoords, EntityUid performer, float? lifetime, Vector2 offsetVector2)
     {
         var getProtos = EntitySpawnCollection.GetSpawns(entityEntries, _random);

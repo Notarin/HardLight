@@ -124,7 +124,7 @@ public abstract partial class SharedPuddleSystem : EntitySystem
     ///     puddle. This is intended for 'destructive' spills, like when entities are destroyed or thrown.
     /// </summary>
     /// <remarks>
-    /// On the client, this will always set <paramref name="puddleUid"/> to <see cref="EntityUid.Invalid"> and return false.
+    /// On the client, this will always set <paramref name="puddleUid"/> to <see cref="EntityUid.Invalid"/> and return false.
     /// </remarks>
     public abstract bool TrySplashSpillAt(EntityUid uid,
         EntityCoordinates coordinates,
@@ -138,7 +138,7 @@ public abstract partial class SharedPuddleSystem : EntitySystem
     /// Will add to an existing puddle if present or create a new one if not.
     /// </summary>
     /// <remarks>
-    /// On the client, this will always set <paramref name="puddleUid"/> to <see cref="EntityUid.Invalid"> and return false.
+    /// On the client, this will always set <paramref name="puddleUid"/> to <see cref="EntityUid.Invalid"/> and return false.
     /// </remarks>
     public abstract bool TrySpillAt(EntityCoordinates coordinates, Solution solution, out EntityUid puddleUid, bool sound = true);
 
@@ -146,7 +146,7 @@ public abstract partial class SharedPuddleSystem : EntitySystem
     /// <see cref="TrySpillAt(EntityCoordinates, Solution, out EntityUid, bool)"/>
     /// </summary>
     /// <remarks>
-    /// On the client, this will always set <paramref name="puddleUid"/> to <see cref="EntityUid.Invalid"> and return false.
+    /// On the client, this will always set <paramref name="puddleUid"/> to <see cref="EntityUid.Invalid"/> and return false.
     /// </remarks>
     public abstract bool TrySpillAt(EntityUid uid, Solution solution, out EntityUid puddleUid, bool sound = true,
         TransformComponent? transformComponent = null);
@@ -155,7 +155,7 @@ public abstract partial class SharedPuddleSystem : EntitySystem
     /// <see cref="TrySpillAt(EntityCoordinates, Solution, out EntityUid, bool)"/>
     /// </summary>
     /// <remarks>
-    /// On the client, this will always set <paramref name="puddleUid"/> to <see cref="EntityUid.Invalid"> and return false.
+    /// On the client, this will always set <paramref name="puddleUid"/> to <see cref="EntityUid.Invalid"/> and return false.
     /// </remarks>
     public abstract bool TrySpillAt(TileRef tileRef, Solution solution, out EntityUid puddleUid, bool sound = true,
         bool tileReact = true);

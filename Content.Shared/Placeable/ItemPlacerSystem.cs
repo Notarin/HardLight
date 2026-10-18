@@ -70,13 +70,13 @@ public sealed class ItemPlacerSystem : EntitySystem
 }
 
 /// <summary>
-/// Raised on the <see cref="ItemPlacer"/> when an item is placed and it is under the item limit.
+/// Raised on the ItemPlacer when an item is placed and it is under the item limit.
 /// </summary>
 [ByRefEvent]
 public readonly record struct ItemPlacedEvent(EntityUid OtherEntity);
 
 /// <summary>
-/// Raised on the <see cref="ItemPlacer"/> when an item is removed from it.
+/// Raised on the ItemPlacer when an item is removed from it.
 /// </summary>
 [ByRefEvent]
 public readonly record struct ItemRemovedEvent(EntityUid OtherEntity);

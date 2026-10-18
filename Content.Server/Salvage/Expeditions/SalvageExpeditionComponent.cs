@@ -51,9 +51,9 @@ public sealed partial class SalvageExpeditionComponent : SharedSalvageExpedition
     public bool ReturnTriggered = false;
 
     // Frontier: moved to Client
-    /// <summary>
-    /// Countdown audio stream.
-    /// </summary>
+    // <summary>
+    // Countdown audio stream.
+    // </summary>
     // [DataField, AutoNetworkedField]
     // public EntityUid? Stream = null;
     // End Frontier: moved to Client
@@ -68,9 +68,9 @@ public sealed partial class SalvageExpeditionComponent : SharedSalvageExpedition
     };
 
     // Frontier: moved to Shared
-    /// <summary>
-    /// Song selected on MapInit so we can predict the audio countdown properly.
-    /// </summary>
+    // <summary>
+    // Song selected on MapInit so we can predict the audio countdown properly.
+    // </summary>
     // [DataField]
     // public ResolvedSoundSpecifier SelectedSong;
     // End Frontier: moved to Shared

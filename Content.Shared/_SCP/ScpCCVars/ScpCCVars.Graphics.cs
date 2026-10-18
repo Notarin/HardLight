@@ -21,9 +21,9 @@ public sealed partial class ScpCCVars
     public static readonly CVarDef<int> GrainStrength =
         CVarDef.Create("shader.grain_strength", 140, CVar.CLIENTONLY | CVar.ARCHIVE);
 
-    /// <summary>
-    /// Будет ли использовать альтернативный метод просчета сущностей для поля зрения // Shitty translation, dont take as fact - "Will an alternative method be used to calculate entities within the field of view?"
-    /// </summary>
+    // <summary>
+    // Будет ли использовать альтернативный метод просчета сущностей для поля зрения // Shitty translation, dont take as fact - "Will an alternative method be used to calculate entities within the field of view?"
+    // </summary>
     /*
      * Свечение лампочек // Shitty translation, dont take as fact - "The Glow of Lightbulbs" - mystical as shit man
      */

@@ -65,8 +65,8 @@ public sealed class BeamSystem : SharedBeamSystem
     /// <param name="beamStartPos">Where the beam will spawn in</param>
     /// <param name="distanceCorrection">Calculated correction so the <see cref="EdgeShape"/> can be properly dynamically created</param>
     /// <param name="controller"> The virtual beam controller that this beam will use. If one doesn't exist it will be created here.</param>
-    /// <param name="bodyState">Optional sprite state for the <see cref="prototype"/> if it needs a dynamic one</param>
-    /// <param name="shader">Optional shader for the <see cref="prototype"/> and <see cref="bodyState"/> if it needs something other than default</param>
+    /// <param name="bodyState">Optional sprite state for the prototype if it needs a dynamic one</param>
+    /// <param name="shader">Optional shader for the prototype and bodyState if it needs something other than default</param>
     private void CreateBeam(string prototype,
         Angle userAngle,
         Vector2 calculatedDistance,
@@ -138,8 +138,8 @@ public sealed class BeamSystem : SharedBeamSystem
     /// <param name="user">The entity that's firing off the beam</param>
     /// <param name="target">The entity that's being targeted by the user</param>
     /// <param name="bodyPrototype">The prototype spawned when this beam is created</param>
-    /// <param name="bodyState">Optional sprite state for the <see cref="bodyPrototype"/> if a default one is not given</param>
-    /// <param name="shader">Optional shader for the <see cref="bodyPrototype"/> if a default one is not given</param>
+    /// <param name="bodyState">Optional sprite state for the bodyPrototype if a default one is not given</param>
+    /// <param name="shader">Optional shader for the bodyPrototype if a default one is not given</param>
     /// <param name="controller"></param>
     public void TryCreateBeam(EntityUid user, EntityUid target, string bodyPrototype, string? bodyState = null, string shader = "unshaded", EntityUid? controller = null)
     {

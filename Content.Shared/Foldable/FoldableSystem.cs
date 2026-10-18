@@ -160,7 +160,6 @@ public sealed class FoldableSystem : EntitySystem
 /// <summary>
 /// Event raised on an entity to determine if it can be folded.
 /// </summary>
-/// <param name="Cancelled"></param>
 [ByRefEvent]
 public record struct FoldAttemptEvent(FoldableComponent Comp, bool Cancelled = false);
 

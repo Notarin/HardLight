@@ -4,10 +4,10 @@ using Content.Shared.NPC.Prototypes;
 
 namespace Content.Server.NPC.Components
 {
-    [RegisterComponent]
     /// <summary>
     /// Allows clothing to add a faction to you when you wear it.
     /// </summary>
+    [RegisterComponent]
     public sealed partial class ClothingAddFactionComponent : Component
     {
         public bool IsActive = false;

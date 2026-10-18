@@ -256,12 +256,6 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
     // Docked-grid deed creation logic removed from Shipyard; use Shuttle Records console instead
 
     /// <summary>
-    /// Adds a ship to the shipyard, calculates its price, and attempts to ftl-dock it to the given station
-    /// </summary>
-    /// <param name="stationUid">The ID of the station to dock the shuttle to</param>
-    /// <param name="shuttlePath">The path to the shuttle file to load. Must be a grid file!</param>
-    /// <param name="shuttleEntityUid">The EntityUid of the shuttle that was purchased</param>
-    /// <summary>
     /// Purchases a shuttle and docks it to the grid the console is on, independent of station data.
     /// </summary>
     /// <param name="consoleUid">The entity of the shipyard console to dock to its grid</param>
@@ -331,7 +325,6 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
     /// <summary>
     /// Loads a shuttle into the shipyard staging map from a grid file.
     /// </summary>
-    /// <param name="shuttlePath">The path to the grid file to load. Must be a grid file!</param>
     /// <returns>Returns the EntityUid of the shuttle</returns>
     private bool TryAddShuttle(ResPath shuttlePath, [NotNullWhen(true)] out EntityUid? shuttleGrid)
     {
@@ -1431,12 +1424,6 @@ public sealed partial class ShipyardSystem : SharedShipyardSystem
         }
     }
 
-    /// <summary>
-    /// Checks a shuttle to make sure that it is docked to the given station, and that there are no lifeforms aboard. Then it teleports tagged items on top of the console, appraises the grid, outputs to the server log, and deletes the grid
-    /// </summary>
-    /// <param name="stationUid">The ID of the station that the shuttle is docked to</param>
-    /// <param name="shuttleUid">The grid ID of the shuttle to be appraised and sold</param>
-    /// <param name="consoleUid">The ID of the console being used to sell the ship</param>
     /// <summary>
     /// Sells a shuttle, checking that it is docked to the grid the console is on, and not to a station.
     /// </summary>

@@ -31,7 +31,7 @@ public sealed partial class SpeakOnUIClosedComponent : Component
     public bool RequireFlag = true;
 
     /// <summary>
-    /// State variable only used if <see cref="RequireFlag"/> is true. Set with <see cref="SpeakOnUIClosedSystem.TrySetFlag"/>.
+    /// State variable only used if <see cref="RequireFlag"/> is true. Set with SpeakOnUIClosedSystem.TrySetFlag.
     /// </summary>
     [DataField, AutoNetworkedField]
     public bool Flag;

@@ -11,7 +11,7 @@ using static Robust.Client.UserInterface.Controls.BoxContainer;
 namespace Content.Client.Chemistry.UI
 {
     /// <summary>
-    /// Client-side UI used to control a <see cref="ReagentDispenserComponent"/>.
+    /// Client-side UI used to control a ReagentDispenserComponent.
     /// </summary>
     [GenerateTypedNameReferences]
     public sealed partial class ReagentDispenserWindow : FancyWindow
@@ -85,7 +85,6 @@ namespace Content.Client.Chemistry.UI
         /// <para>Also highlights a reagent if it's dispense button is being mouse hovered.</para>
         /// </summary>
         /// <param name="state">State data for the dispenser.</param>
-        /// or null if no button is being hovered.</param>
         public void UpdateContainerInfo(ReagentDispenserBoundUserInterfaceState state)
         {
             ContainerInfo.Children.Clear();

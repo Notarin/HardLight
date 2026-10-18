@@ -303,7 +303,6 @@ public sealed partial class AnchorableSystem : EntitySystem
     /// <summary>
     /// Returns true if no hard anchored entities match the collision layer or mask specified.
     /// </summary>
-    /// <param name="grid"></param>
     public bool TileFree(Entity<MapGridComponent> grid, Vector2i gridIndices, int collisionLayer = 0, int collisionMask = 0)
     {
         var enumerator = _map.GetAnchoredEntitiesEnumerator(grid, grid.Comp, gridIndices);

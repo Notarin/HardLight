@@ -186,8 +186,6 @@ public sealed class EventManagerSystem : EntitySystem
     /// <summary>
     /// Gets the events that have met their player count, time-until start, etc.
     /// </summary>
-    /// <param name="playerCountOverride">Override for player count, if using this to simulate events rather than in an actual round.</param>
-    /// <param name="currentTimeOverride">Override for round time, if using this to simulate events rather than in an actual round.</param>
     /// <returns></returns>
     public Dictionary<EntityPrototype, StationEventComponent> AvailableEvents(
         bool ignoreEarliestStart = false,

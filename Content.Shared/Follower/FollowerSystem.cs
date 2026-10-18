@@ -241,7 +241,6 @@ public sealed class FollowerSystem : EntitySystem
     /// <summary>
     ///     Forces an entity to stop following another entity, if it is doing so.
     /// </summary>
-    /// <param name="deparent">Should the entity deparent itself</param>
     public void StopFollowingEntity(EntityUid uid, EntityUid target, FollowedComponent? followed = null, bool deparent = true, bool removeComp = true)
     {
         if (!Resolve(target, ref followed, false))

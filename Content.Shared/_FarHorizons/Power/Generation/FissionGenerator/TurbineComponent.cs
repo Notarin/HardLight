@@ -28,9 +28,9 @@ public sealed partial class TurbineComponent : Component
     [DataField, AutoNetworkedField]
     public float StatorLoad = 35000;
 
-    /// <summary>
-    /// Maximum setting of stator load
-    /// </summary>
+    // <summary>
+    // Maximum setting of stator load
+    // </summary>
     // [DataField]
     // public float StatorLoadMax = 500000; 
 
@@ -130,7 +130,7 @@ public sealed partial class TurbineComponent : Component
     public bool Overtemp = false;
 
     /// <summary>
-    /// Flag for gas temperature being < MinTemp
+    /// Flag for gas temperature being &lt; MinTemp
     /// </summary>
     [ViewVariables]
     public bool Undertemp = false;

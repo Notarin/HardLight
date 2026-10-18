@@ -18,7 +18,7 @@ public sealed partial class CCVars
         CVarDef.Create("replay.auto_record", false, CVar.SERVERONLY);
 
     /// <summary>
-    ///     The file name to record automatic replays to. The path is relative to <see cref="CVars.ReplayDirectory"/>.
+    ///     The file name to record automatic replays to. The path is relative to CVars.ReplayDirectory.
     /// </summary>
     /// <remarks>
     /// <para>
@@ -36,7 +36,7 @@ public sealed partial class CCVars
     /// <summary>
     ///     Path that, if provided, automatic replays are initially recorded in.
     ///     When the recording is done, the file is moved into its final destination.
-    ///     Unless this path is rooted, it will be relative to <see cref="CVars.ReplayDirectory"/>.
+    ///     Unless this path is rooted, it will be relative to CVars.ReplayDirectory.
     /// </summary>
     public static readonly CVarDef<string> ReplayAutoRecordTempDir =
         CVarDef.Create("replay.auto_record_temp_dir", "", CVar.SERVERONLY);

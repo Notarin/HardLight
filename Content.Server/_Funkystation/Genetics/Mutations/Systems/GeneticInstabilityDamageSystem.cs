@@ -9,7 +9,6 @@ namespace Content.Server._Funkystation.Genetics.Mutations.Systems;
 public sealed class GeneticsInstabilityDamageSystem : EntitySystem
 {
     [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
 
     private const int InstabilityThreshold = 150;

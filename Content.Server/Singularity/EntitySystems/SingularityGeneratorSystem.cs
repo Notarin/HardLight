@@ -61,8 +61,6 @@ public sealed class SingularityGeneratorSystem : SharedSingularityGeneratorSyste
     /// Setter for <see cref="SingularityGeneratorComponent.Power"/>
     /// If the singularity generator passes its threshold it also spawns a singularity.
     /// </summary>
-    /// <param name="comp">The singularity generator component.</param>
-    /// <param name="value">The new power level for the generator component to have.</param>
     public void SetPower(EntityUid uid, float value, SingularityGeneratorComponent? comp = null)
     {
         if (!Resolve(uid, ref comp))
@@ -81,8 +79,6 @@ public sealed class SingularityGeneratorSystem : SharedSingularityGeneratorSyste
     /// Setter for <see cref="SingularityGeneratorComponent.Threshold"/>
     /// If the singularity generator has passed its new threshold it also spawns a singularity.
     /// </summary>
-    /// <param name="comp">The singularity generator component.</param>
-    /// <param name="value">The new threshold power level for the generator component to have.</param>
     public void SetThreshold(EntityUid uid, float value, SingularityGeneratorComponent? comp = null)
     {
         if (!Resolve(uid, ref comp))
@@ -159,7 +155,6 @@ public sealed class SingularityGeneratorSystem : SharedSingularityGeneratorSyste
     /// <summary>
     /// Checks whether there's a containment field in a given direction away from the generator
     /// </summary>
-    /// <param name="transform">The transform component of the singularity generator.</param>
     /// <remarks>Mostly copied from <see cref="ContainmentFieldGeneratorSystem"/> </remarks>
     private bool CheckContainmentField(Direction dir, Entity<SingularityGeneratorComponent> generator, TransformComponent transform)
     {

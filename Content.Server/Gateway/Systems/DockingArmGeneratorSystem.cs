@@ -177,8 +177,7 @@ public sealed class DockingArmGeneratorSystem : EntitySystem
             if (genComp.SpawnedDocks.Count >= genComp.MaxDocks)
             {
                 Log.Warning($"Cannot spawn dock - maximum limit of {genComp.MaxDocks} docks reached");
-                if (args.MapUid != null)
-                    _popup.PopupEntity(Loc.GetString("gateway-docking-arm-max-limit"), args.MapUid);
+                _popup.PopupEntity(Loc.GetString("gateway-docking-arm-max-limit"), args.MapUid);
                 return;
             }
         }

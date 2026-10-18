@@ -73,9 +73,6 @@ namespace Content.Server.Psionics.Glimmer
         /// <summary>
         /// Update relevant state on an Entity.
         /// </summary>
-        /// <param name="glimmerTierDelta">The number of steps in tier
-        /// difference since last update. This can be zero for the sake of
-        /// toggling the enabled states.</param>
         private void UpdateEntityState(EntityUid uid, SharedGlimmerReactiveComponent component, GlimmerTier currentGlimmerTier, int glimmerTierDelta)
         {
             var isEnabled = true;

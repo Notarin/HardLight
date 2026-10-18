@@ -11,7 +11,7 @@ namespace Content.Shared._Goobstation.Factory;
 
 /// <summary>
 /// Moves items from an input area or machine to an output area or machine.
-/// Uses <see cref="ExclusiveMachineComponent"/> for I/O slots.
+/// Uses ExclusiveMachineComponent for I/O slots.
 /// </summary>
 [RegisterComponent, NetworkedComponent, Access(typeof(RoboticArmSystem))]
 [AutoGenerateComponentState(fieldDeltas: true), AutoGenerateComponentPause]

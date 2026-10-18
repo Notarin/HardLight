@@ -141,7 +141,7 @@ public sealed class PrizeballLayingSystem : SharedPrizeballLayingSystem //  We'v
             _actions.AddAction(target, ref theirPballs.Action, theirPballs.ActionPrototype);
         }
 
-        /// HL: Moved the AddPballs to a helper function so we can share the pballs count in the component to the client
+        // HL: Moved the AddPballs to a helper function so we can share the pballs count in the component to the client
         AddPballs(user, myPballs, -1.0f);
         AddPballs(target, theirPballs, 1.0f);
 

@@ -181,7 +181,7 @@ public sealed partial class ExplosionSystem
     ///     by an explosion).
     /// </summary>
     /// <remarks>
-    ///     Used for a variation of <see cref="TurfHelpers.IsBlockedTurf()"/> that makes use of the fact that we have
+    ///     Used for a variation of TurfHelpers.IsBlockedTurf() that makes use of the fact that we have
     ///     already done an entity lookup on a tile, and don't need to do so again.
     /// </remarks>
     public bool IsBlockingTurf(EntityUid uid)
@@ -553,7 +553,7 @@ public sealed partial class ExplosionSystem
 ///     cref="ExplosionSystem"/>.
 /// </summary>
 /// <remarks>
-///     This is basically the output of <see cref="ExplosionSystem.GetExplosionTiles()"/>, but with some utility functions for
+///     This is basically the output of ExplosionSystem.GetExplosionTiles(), but with some utility functions for
 ///     iterating over the tiles, along with the ability to keep track of what entities have already been damaged by
 ///     this explosion.
 /// </remarks>
@@ -638,7 +638,7 @@ sealed class Explosion
 
     /// <summary>
     ///     The set of tiles that need to be updated when the explosion has finished processing. Used to avoid having
-    ///     the explosion trigger chunk regeneration & shuttle-system processing every tick.
+    ///     the explosion trigger chunk regeneration &amp; shuttle-system processing every tick.
     /// </summary>
     private readonly Dictionary<Entity<MapGridComponent>, List<(Vector2i, Tile)>> _tileUpdateDict = new();
 

@@ -19,7 +19,6 @@ public sealed class WaggingSystem : EntitySystem
 {
     [Dependency] private readonly ActionsSystem _actions = default!;
     [Dependency] private readonly HumanoidAppearanceSystem _humanoidAppearance = default!;
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
     [Dependency] private readonly CoyoteMarkingSystem _coyoteMarking = default!; // Coyote, obviously
 
     public override void Initialize()

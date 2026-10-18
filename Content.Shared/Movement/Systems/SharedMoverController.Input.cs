@@ -437,7 +437,7 @@ namespace Content.Shared.Movement.Systems
 
         /// <summary>
         ///     Toggles one of the four cardinal directions. Each of the four directions are
-        ///     composed into a single direction vector, <see cref="VelocityDir"/>. Enabling
+        ///     composed into a single direction vector, VelocityDir. Enabling
         ///     opposite directions will cancel each other out, resulting in no direction.
         /// </summary>
         public void SetVelocityDirection(Entity<InputMoverComponent> entity, Direction direction, ushort subTick, bool enabled)

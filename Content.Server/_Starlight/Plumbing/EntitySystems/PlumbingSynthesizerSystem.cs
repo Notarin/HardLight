@@ -31,7 +31,6 @@ public sealed class PlumbingSynthesizerSystem : EntitySystem
     [Dependency] private readonly SharedSolutionContainerSystem _solutionSystem = default!;
     [Dependency] private readonly UserInterfaceSystem _ui = default!;
     [Dependency] private readonly PowerCellSystem _powerCell = default!;
-    [Dependency] private readonly BatterySystem _battery = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;

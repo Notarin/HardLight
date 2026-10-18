@@ -6,7 +6,7 @@ using Content.Shared.Whitelist;
 namespace Content.Server.NPC.Queries.Queries;
 
 /// <summary>
-/// Returns nearby shuttles considered hostile from <see cref="FactionSystem"/>
+/// Returns nearby shuttles considered hostile from FactionSystem
 /// </summary>
 public sealed partial class NearbyHostileShuttlesQuery : UtilityQuery
 {

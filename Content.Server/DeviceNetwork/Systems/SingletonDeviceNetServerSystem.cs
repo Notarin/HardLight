@@ -38,8 +38,6 @@ public sealed class SingletonDeviceNetServerSystem : EntitySystem
     /// <br/>
     /// Setting TComp to <see cref="CrewMonitoringServerComponent"/>, for example, gives you the address of an entity containing the crew monitoring server component.<br/>
     /// </summary>
-    /// <param name="stationId">The entityUid of the station</param>
-    /// <param name="address">The address of the active server if it exists</param>
     /// <typeparam name="TComp">The component type that determines what type of server you're getting the address of</typeparam>
     /// <returns>True if there is an active serve. False otherwise</returns>
     public bool TryGetActiveServerAddress<TComp>(MapId map, [NotNullWhen(true)] out string? address) where TComp : IComponent

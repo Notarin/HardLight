@@ -51,12 +51,6 @@ public partial class ChatSystem
     /// <summary>
     ///     Makes selected entity to emote using <see cref="EmotePrototype"/> and sends message to chat.
     /// </summary>
-    /// <param name="source">The entity that is speaking</param>
-    /// <param name="emoteId">The id of emote prototype. Should has valid <see cref="EmotePrototype.ChatMessages"/></param>
-    /// <param name="hideLog">Whether or not this message should appear in the adminlog window</param>
-    /// <param name="range">Conceptual range of transmission, if it shows in the chat window, if it shows to far-away ghosts or ghosts at all...</param>
-    /// <param name="nameOverride">The name to use for the speaking entity. Usually this should just be modified via <see cref="TransformSpeakerNameEvent"/>. If this is set, the event will not get raised.</param>
-    /// <param name="forceEmote">Bypasses whitelist/blacklist/availibility checks for if the entity can use this emote</param>
     public void TryEmoteWithChat(
         EntityUid source,
         string emoteId,
@@ -75,13 +69,6 @@ public partial class ChatSystem
     /// <summary>
     ///     Makes selected entity to emote using <see cref="EmotePrototype"/> and sends message to chat.
     /// </summary>
-    /// <param name="source">The entity that is speaking</param>
-    /// <param name="emote">The emote prototype. Should has valid <see cref="EmotePrototype.ChatMessages"/></param>
-    /// <param name="hideLog">Whether or not this message should appear in the adminlog window</param>
-    /// <param name="hideChat">Whether or not this message should appear in the chat window</param>
-    /// <param name="range">Conceptual range of transmission, if it shows in the chat window, if it shows to far-away ghosts or ghosts at all...</param>
-    /// <param name="nameOverride">The name to use for the speaking entity. Usually this should just be modified via <see cref="TransformSpeakerNameEvent"/>. If this is set, the event will not get raised.</param>
-    /// <param name="forceEmote">Bypasses whitelist/blacklist/availibility checks for if the entity can use this emote</param>
     public void TryEmoteWithChat(
         EntityUid source,
         EmotePrototype emote,

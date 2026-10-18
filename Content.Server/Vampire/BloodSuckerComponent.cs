@@ -22,33 +22,23 @@ namespace Content.Server.Vampiric
         // Hardlight unused - start
         // ***INJECT WHEN SUCC***
 
-        /// <summary>
-        /// Whether to inject chems into a chemstream when we suck something.
-        /// </summary>
+        // Whether to inject chems into a chemstream when we suck something.
         // [DataField("injectWhenSucc")]
         // public bool InjectWhenSucc = false;
 
-        /// <summary>
-        /// How many units of our injected chem to inject.
-        /// </summary>
+        // How many units of our injected chem to inject.
         // [DataField("unitsToInject")]
         // public float UnitsToInject = 5;
 
-        /// <summary>
-        /// Which reagent to inject.
-        /// </summary>
+        // Which reagent to inject.
         // [DataField("injectReagent")]
         // public string InjectReagent = "";
 
-        /// <summary>
-        /// Whether we need to web the thing up first...
-        /// </summary>
+        // Whether we need to web the thing up first...
         // [DataField("webRequired")]
         // public bool WebRequired = false;
 
-        /// <summary>
-        ///     DEN: Used to track BloodExaminer, but only if it is added by this component.
-        /// </summary>
+        //     DEN: Used to track BloodExaminer, but only if it is added by this component.
         // public BloodExaminerComponent? AddedBloodExaminer;
         // Hardlight unused - end
         /// <summary>

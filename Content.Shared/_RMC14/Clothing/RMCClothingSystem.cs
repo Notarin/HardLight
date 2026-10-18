@@ -13,8 +13,6 @@ public sealed class RMCClothingSystem : EntitySystem
 {
     [Dependency] private readonly ClothingSystem _clothing = default!;
     [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly SharedItemSystem _item = default!;
 
     public override void Initialize()
     {

@@ -75,7 +75,7 @@ public sealed partial class GlimmerMonitorUiFragment : BoxContainer
     }
 
     /// <summary>
-    /// Format glimmer values to get <=15 data points correctly.
+    /// Format glimmer values to get &lt;=15 data points correctly.
     /// </summary>
     private List<int> ClipToFifteen(List<int> glimmerValues)
     {

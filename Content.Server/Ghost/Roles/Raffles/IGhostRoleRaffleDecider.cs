@@ -15,13 +15,13 @@ public partial interface IGhostRoleRaffleDecider
     /// <param name="tryTakeover">
     /// Call this with the chosen winner as argument.
     /// <ul><li>If <c>true</c> is returned, your winner was able to take over the ghost role, and the drawing is complete.
-    /// <b>Do not call <see cref="tryTakeover"/> again after true is returned.</b></li>
+    /// <b>Do not call tryTakeover again after true is returned.</b></li>
     /// <li>If <c>false</c> is returned, your winner was not able to take over the ghost role,
-    /// and you must choose another winner, and call <see cref="tryTakeover"/> with the new winner as argument.</li>
+    /// and you must choose another winner, and call tryTakeover with the new winner as argument.</li>
     /// </ul>
     ///
-    /// If <see cref="tryTakeover"/> is not called, or only returns false, the raffle will end without a winner.
-    /// Do not call <see cref="tryTakeover"/> with the same player several times.
+    /// If tryTakeover is not called, or only returns false, the raffle will end without a winner.
+    /// Do not call tryTakeover with the same player several times.
     /// </param>
     void PickWinner(IEnumerable<ICommonSession> candidates, Func<ICommonSession, bool> tryTakeover);
 }

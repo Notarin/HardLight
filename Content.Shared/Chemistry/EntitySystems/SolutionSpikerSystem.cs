@@ -34,9 +34,6 @@ public sealed class SolutionSpikerSystem : EntitySystem
     ///     Immediately transfer all reagents from this entity, to the other entity.
     ///     The source entity will then be acted on by TriggerSystem.
     /// </summary>
-    /// <param name="source">Source of the solution.</param>
-    /// <param name="target">Target to spike with the solution from source.</param>
-    /// <param name="user">User spiking the target solution.</param>
     private bool TrySpike(EntityUid source, EntityUid target, EntityUid user, RefillableSolutionComponent? spikableTarget = null,
         SolutionSpikerComponent? spikableSource = null,
         SolutionContainerManagerComponent? managerSource = null,

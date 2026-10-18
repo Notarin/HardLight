@@ -283,9 +283,6 @@ public sealed partial class AnomalyComponent : Component
 /// <summary>
 /// Event raised at regular intervals on an anomaly to do whatever its effect is.
 /// </summary>
-/// <param name="Anomaly">The anomaly pulsing</param>
-/// <param name="Stability"></param>
-/// <param name="Severity"></param>
 [ByRefEvent]
 public readonly record struct AnomalyPulseEvent(EntityUid Anomaly, float Stability, float Severity, float PowerModifier);
 
@@ -306,7 +303,6 @@ public readonly record struct AnomalyShutdownEvent(EntityUid Anomaly, bool Super
 /// <summary>
 /// Event broadcast when an anomaly's severity is changed.
 /// </summary>
-/// <param name="Anomaly">The anomaly being changed</param>
 [ByRefEvent]
 public readonly record struct AnomalySeverityChangedEvent(EntityUid Anomaly, float Stability, float Severity);
 
@@ -319,7 +315,6 @@ public readonly record struct AnomalyStabilityChangedEvent(EntityUid Anomaly, fl
 /// <summary>
 /// Event broadcast when an anomaly's health is changed.
 /// </summary>
-/// <param name="Anomaly">The anomaly being changed</param>
 [ByRefEvent]
 public readonly record struct AnomalyHealthChangedEvent(EntityUid Anomaly, float Health);
 

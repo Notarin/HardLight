@@ -1,6 +1,6 @@
-/// <summary>
-/// EVERYTHING HERE IS A MODIFIED VERSION OF CRIMINAL RECORDS
-/// </summary>
+// <summary>
+// EVERYTHING HERE IS A MODIFIED VERSION OF CRIMINAL RECORDS
+// </summary>
 
 namespace Content.Shared.Psionics;
 

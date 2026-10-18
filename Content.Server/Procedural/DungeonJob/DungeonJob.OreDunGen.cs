@@ -22,7 +22,6 @@ public sealed partial class DungeonJob
         // Doesn't use dungeon data because layers and we don't need top-down support at the moment.
 
         // Upstream#33105 - maskable room generation (Thank you, TheShuEd!)
-        var emptyTiles = false;
         var replaceEntities = new Dictionary<Vector2i, EntityUid>();
         var availableTiles = new List<Vector2i>();
         var tiles = _maps.GetAllTilesEnumerator(_gridUid, _grid);

@@ -47,7 +47,7 @@ namespace Content.Server.Construction
         ///     Takes in an entity with <see cref="ConstructionComponent"/> and an object event, and handles any
         ///     possible construction interactions, depending on the construction's state.
         /// </summary>
-        /// <remarks>When <see cref="validation"/> is true, this method will simply return whether the interaction
+        /// <remarks>When validation is true, this method will simply return whether the interaction
         ///          would be handled by the entity or not. It essentially becomes a pure method that modifies nothing.</remarks>
         /// <returns>The result of this interaction with the entity.</returns>
         private HandleResult HandleEvent(EntityUid uid, object ev, bool validation, ConstructionComponent? construction = null)
@@ -86,7 +86,7 @@ namespace Content.Server.Construction
         ///     possible construction interactions. This will check the interaction against all possible edges,
         ///     and if any of the edges accepts the interaction, we will enter it.
         /// </summary>
-        /// <remarks>When <see cref="validation"/> is true, this method will simply return whether the interaction
+        /// <remarks>When validation is true, this method will simply return whether the interaction
         ///          would be handled by the entity or not. It essentially becomes a pure method that modifies nothing.</remarks>
         /// <returns>The result of this interaction with the entity.</returns>
         private HandleResult HandleNode(EntityUid uid, object ev, ConstructionGraphNode node, bool validation, ConstructionComponent? construction = null)
@@ -137,7 +137,7 @@ namespace Content.Server.Construction
         ///     possible construction interactions. This will check the interaction against one of the steps in the edge
         ///     depending on the construction's <see cref="ConstructionComponent.StepIndex"/>.
         /// </summary>
-        /// <remarks>When <see cref="validation"/> is true, this method will simply return whether the interaction
+        /// <remarks>When validation is true, this method will simply return whether the interaction
         ///          would be handled by the entity or not. It essentially becomes a pure method that modifies nothing.</remarks>
         /// <returns>The result of this interaction with the entity.</returns>
         private HandleResult HandleEdge(EntityUid uid, object ev, ConstructionGraphEdge edge, bool validation, ConstructionComponent? construction = null)
@@ -192,7 +192,7 @@ namespace Content.Server.Construction
         ///     construction interaction. Unlike <see cref="HandleInteraction"/>, if this succeeds it will perform the
         ///     step's completion actions. Also sets the out parameter to the user's EntityUid.
         /// </summary>
-        /// <remarks>When <see cref="validation"/> is true, this method will simply return whether the interaction
+        /// <remarks>When validation is true, this method will simply return whether the interaction
         ///          would be handled by the entity or not. It essentially becomes a pure method that modifies nothing.</remarks>
         /// <returns>The result of this interaction with the entity.</returns>
         private HandleResult HandleStep(EntityUid uid, object ev, ConstructionGraphStep step, bool validation, out EntityUid? user, ConstructionComponent? construction = null)
@@ -222,7 +222,7 @@ namespace Content.Server.Construction
         ///     construction interaction. Unlike <see cref="HandleStep"/>, this only handles the interaction itself
         ///     and doesn't perform any step completion actions. Also sets the out parameter to the user's EntityUid.
         /// </summary>
-        /// <remarks>When <see cref="validation"/> is true, this method will simply return whether the interaction
+        /// <remarks>When validation is true, this method will simply return whether the interaction
         ///          would be handled by the entity or not. It essentially becomes a pure method that modifies nothing.</remarks>
         /// <returns>The result of this interaction with the entity.</returns>
         private HandleResult HandleInteraction(EntityUid uid, object ev, ConstructionGraphStep step, bool validation, out EntityUid? user, ConstructionComponent? construction = null)

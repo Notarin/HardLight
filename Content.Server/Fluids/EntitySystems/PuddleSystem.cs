@@ -465,11 +465,6 @@ public sealed partial class PuddleSystem : SharedPuddleSystem
     /// <summary>
     /// Try to add solution to <paramref name="puddleUid"/>.
     /// </summary>
-    /// <param name="puddleUid">Puddle to which we add</param>
-    /// <param name="addedSolution">Solution that is added to puddleComponent</param>
-    /// <param name="sound">Play sound on overflow</param>
-    /// <param name="checkForOverflow">Overflow on encountered values</param>
-    /// <param name="puddleComponent">Optional resolved PuddleComponent</param>
     /// <returns></returns>
     public bool TryAddSolution(EntityUid puddleUid,
         Solution addedSolution,

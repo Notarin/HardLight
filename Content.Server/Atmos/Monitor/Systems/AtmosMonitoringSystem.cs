@@ -325,8 +325,6 @@ public sealed class AtmosMonitorSystem : EntitySystem
     /// <summary>
     ///     Alerts the network that the state of a monitor has changed.
     /// </summary>
-    /// <param name="state">The alarm state to set this monitor to.</param>
-    /// <param name="alarms">The alarms that caused this alarm state.</param>
     public void Alert(EntityUid uid, AtmosAlarmType state, HashSet<AtmosMonitorThresholdType>? alarms = null, AtmosMonitorComponent? monitor = null)
     {
         if (!Resolve(uid, ref monitor))
@@ -389,9 +387,6 @@ public sealed class AtmosMonitorSystem : EntitySystem
     /// <summary>
     ///     Set a monitor's threshold.
     /// </summary>
-    /// <param name="type">The type of threshold to change.</param>
-    /// <param name="threshold">Threshold data.</param>
-    /// <param name="gas">Gas, if applicable.</param>
     public void SetThreshold(EntityUid uid, AtmosMonitorThresholdType type, AtmosAlarmThreshold threshold, Gas? gas = null, AtmosMonitorComponent? monitor = null)
     {
         if (!Resolve(uid, ref monitor))

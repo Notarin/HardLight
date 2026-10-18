@@ -9,7 +9,7 @@ public sealed partial class PowerCellSlotComponent : Component
     /// The actual item-slot that contains the cell. Allows all the interaction logic to be handled by <see cref="ItemSlotsSystem"/>.
     /// </summary>
     /// <remarks>
-    /// Given that <see cref="PowerCellSystem"/> needs to verify that a given cell has the correct cell-size before
+    /// Given that PowerCellSystem needs to verify that a given cell has the correct cell-size before
     /// inserting anyways, there is no need to specify a separate entity whitelist. In this slot's yaml definition.
     /// </remarks>
     [DataField("cellSlotId", required: true)]

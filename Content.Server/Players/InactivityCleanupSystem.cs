@@ -19,7 +19,6 @@ public sealed class InactivityCleanupSystem : EntitySystem
     [Dependency] private readonly IAfkManager _afkManager = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly IPlayerManager _playerManager = default!;
-    [Dependency] private readonly MindSystem _mindSystem = default!;
 
     private readonly Dictionary<NetUserId, TimeSpan> _afkSince = new();
     private readonly Dictionary<NetUserId, TimeSpan> _offlineSince = new();

@@ -122,7 +122,7 @@ public sealed class StationRecordsSystem : SharedStationRecordsSystem
         TryComp<FingerprintComponent>(player, out var fingerprintComponent);
         TryComp<DnaComponent>(player, out var dnaComponent);
 
-        /// Frontier start: Generate sector-wide station record
+        // Frontier start: Generate sector-wide station record
         if (TryComp<SpecialSectorStationRecordComponent>(player, out var specialRecord) && specialRecord.RecordGeneration == RecordGenerationType.NoRecord)
             return;
 
@@ -150,7 +150,7 @@ public sealed class StationRecordsSystem : SharedStationRecordsSystem
         {
             SetEntityKey(player, key);
         }
-        /// Frontier end
+        // Frontier end
     }
 
 
@@ -162,25 +162,6 @@ public sealed class StationRecordsSystem : SharedStationRecordsSystem
     ///     records should generally be dependent on some generic
     ///     record with the bare minimum of information involved.
     /// </remarks>
-    /// <param name="station">The entity uid of the station.</param>
-    /// <param name="idUid">The entity uid of an entity's ID card. Can be null.</param>
-    /// <param name="name">Name of the character.</param>
-    /// <param name="species">Species of the character.</param>
-    /// <param name="gender">Gender of the character.</param>
-    /// <param name="jobId">
-    ///     The job to initially tie this record to. This must be a valid job loaded in, otherwise
-    ///     this call will cause an exception. Ensure that a general record starts out with a job
-    ///     that is currently a valid job prototype.
-    /// </param>
-    /// <param name="mobFingerprint">Fingerprint of the character.</param>
-    /// <param name="dna">DNA of the character.</param>
-    ///
-    /// <param name="profile">
-    ///     Profile for the related player. This is so that other systems can get further information
-    ///     about the player character.
-    ///     Optional - other systems should anticipate this.
-    /// </param>
-    /// <param name="records">Station records component.</param>
     public void CreateGeneralRecord(
         EntityUid station,
         EntityUid? idUid,

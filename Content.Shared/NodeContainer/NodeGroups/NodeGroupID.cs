@@ -13,8 +13,8 @@ public enum NodeGroupID : byte
     /// <summary>
     /// Group used by the TEG.
     /// </summary>
-    /// <seealso cref="Content.Server.Power.Generation.Teg.TegSystem"/>
-    /// <seealso cref="Content.Server.Power.Generation.Teg.TegNodeGroup"/>
+    /// Content.Server.Power.Generation.Teg.TegSystem
+    /// Content.Server.Power.Generation.Teg.TegNodeGroup
     Teg,
 
     /// <summary>

@@ -78,7 +78,6 @@ public abstract partial class SharedProjectileSystem : EntitySystem
     [Dependency] private readonly SharedCameraRecoilSystem _sharedCameraRecoil = default!;
     [Dependency] private readonly SharedPhysicsSystem _physics = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly TagSystem _tag = default!;
 
     [Dependency] private readonly IGameTiming _gameTiming = default!;
     [Dependency] private readonly INetManager _net = default!;

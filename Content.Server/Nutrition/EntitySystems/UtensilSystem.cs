@@ -62,8 +62,6 @@ namespace Content.Server.Nutrition.EntitySystems
         /// <summary>
         /// Attempt to break the utensil after interaction.
         /// </summary>
-        /// <param name="uid">Utensil.</param>
-        /// <param name="userUid">User of the utensil.</param>
         public void TryBreak(EntityUid uid, EntityUid userUid, UtensilComponent? component = null)
         {
             if (!Resolve(uid, ref component))

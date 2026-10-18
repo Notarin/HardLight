@@ -66,9 +66,7 @@ public sealed partial class SuitSensorComponent : Component
     [AutoPausedField]
     public TimeSpan NextUpdate = TimeSpan.Zero;
 
-    /// <summary>
-    ///     The station this suit sensor belongs to. If it's null the suit didn't spawn on a station and the sensor doesn't work.
-    /// </summary>
+    // The station this suit sensor belongs to. If it's null the suit didn't spawn on a station and the sensor doesn't work.
     //[DataField("station")] // Frontier: comment out field
     //public EntityUid? StationId = null; // Frontier: comment out field
 

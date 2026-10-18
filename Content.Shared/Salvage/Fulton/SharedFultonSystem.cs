@@ -20,7 +20,7 @@ using Robust.Shared.Timing;
 namespace Content.Shared.Salvage.Fulton;
 
 /// <summary>
-/// Provides extraction devices that teleports the attached entity after <see cref="FultonDuration"/> elapses to the linked beacon.
+/// Provides extraction devices that teleports the attached entity after FultonDuration elapses to the linked beacon.
 /// </summary>
 public abstract partial class SharedFultonSystem : EntitySystem
 {

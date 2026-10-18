@@ -22,9 +22,8 @@ namespace Content.Server._Starlight.Weapon.Systems;
 
 public sealed partial class WeaponDismantleOnShootSystem : SharedWeaponDismantleOnShootSystem
 {
-    [Dependency] protected readonly SharedTransformSystem _transformSystem = default!;
     [Dependency] private readonly ThrowingSystem _throwing = default!;
-    [Dependency] protected readonly DamageableSystem Damageable = default!;
+    [Dependency] private readonly DamageableSystem Damageable = default!;
     [Dependency] private readonly IEntityManager _entityManager = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
     public override void Initialize()

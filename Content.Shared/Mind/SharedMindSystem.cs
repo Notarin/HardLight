@@ -298,7 +298,6 @@ public abstract partial class SharedMindSystem : EntitySystem
     /// <summary>
     /// Cleans up the VisitingEntity.
     /// </summary>
-    /// <param name="mind"></param>
     protected void RemoveVisitingEntity(EntityUid mindId, MindComponent mind)
     {
         if (mind.VisitingEntity == null)
@@ -362,14 +361,6 @@ public abstract partial class SharedMindSystem : EntitySystem
     /// <summary>
     ///     Transfer this mind's control over to a new entity.
     /// </summary>
-    /// <param name="mindId">The mind to transfer</param>
-    /// <param name="entity">
-    ///     The entity to control.
-    ///     Can be null, in which case it will simply detach the mind from any entity.
-    /// </param>
-    /// <param name="ghostCheckOverride">
-    ///     If true, skips ghost check for Visiting Entity
-    /// </param>
     /// <exception cref="ArgumentException">
     ///     Thrown if <paramref name="entity"/> is already controlled by another player.
     /// </exception>
@@ -470,8 +461,8 @@ public abstract partial class SharedMindSystem : EntitySystem
     /// </remarks>
     /// <param name="source"> mind entity of the player to copy from </param>
     /// <param name="target"> mind entity of the player to copy to </param>
-    /// <param name="except"> whitelist for objectives that should be copied </param>
-    /// <param name="except"> blacklist for objectives that should not be copied </param>
+    /// <param name="whitelist"> whitelist for objectives that should be copied </param>
+    /// <param name="blacklist"> blacklist for objectives that should not be copied </param>
     public void CopyObjectives(Entity<MindComponent?> source, Entity<MindComponent?> target, EntityWhitelist? whitelist = null, EntityWhitelist? blacklist = null)
     {
         if (!Resolve(source, ref source.Comp) || !Resolve(target, ref target.Comp))
@@ -492,7 +483,7 @@ public abstract partial class SharedMindSystem : EntitySystem
     /// </summary>
     /// <remarks>
     /// Will not work for objectives that have no prototype, or duplicate objectives with the same prototype.
-    /// <//remarks>
+    /// </remarks>
     public bool TryFindObjective(Entity<MindComponent?> mind, string prototype, [NotNullWhen(true)] out EntityUid? objective)
     {
         objective = null;
@@ -514,10 +505,6 @@ public abstract partial class SharedMindSystem : EntitySystem
     /// <summary>
     /// Gets a mind from uid and/or MindContainerComponent. Used for null checks.
     /// </summary>
-    /// <param name="uid">Entity UID that owns the mind.</param>
-    /// <param name="mindId">The mind id.</param>
-    /// <param name="mind">The returned mind.</param>
-    /// <param name="container">Mind component on <paramref name="uid"/> to get the mind from.</param>
     /// <returns>True if mind found. False if not.</returns>
     public bool TryGetMind(
         EntityUid uid,

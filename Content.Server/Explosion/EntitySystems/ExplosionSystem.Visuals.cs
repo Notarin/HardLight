@@ -35,7 +35,7 @@ public sealed partial class ExplosionSystem
     }
 
     /// <summary>
-    ///     Constructor for the shared <see cref="ExplosionEvent"/> using the server-exclusive explosion classes.
+    ///     Constructor for the shared ExplosionEvent using the server-exclusive explosion classes.
     /// </summary>
     private EntityUid CreateExplosionVisualEntity(MapCoordinates epicenter, string prototype, Matrix3x2 spaceMatrix, ExplosionSpaceTileFlood? spaceData, IEnumerable<ExplosionGridTileFlood> gridData, List<float> iterationIntensity)
     {

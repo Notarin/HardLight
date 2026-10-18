@@ -29,7 +29,6 @@ public sealed class VRSPersistentPlanetRuleSystem : GameRuleSystem<VRSPersistent
     [Dependency] private readonly BiomeSystem _biome = default!;
     [Dependency] private readonly MapSystem _map = default!;
     [Dependency] private readonly MetaDataSystem _meta = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly SharedShuttleSystem _shuttle = default!;
     [Dependency] private readonly ShuttleSystem _serverShuttle = default!;
     [Dependency] private readonly IPrototypeManager _proto = default!;

@@ -12,9 +12,9 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
 
-/// <summary>
-/// EVERYTHING HERE IS A MODIFIED VERSION OF CRIMINAL RECORDS
-/// </summary>
+// <summary>
+// EVERYTHING HERE IS A MODIFIED VERSION OF CRIMINAL RECORDS
+// </summary>
 
 namespace Content.Client.PsionicsRecords;
 

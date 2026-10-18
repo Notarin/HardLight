@@ -5,7 +5,7 @@ using Robust.Shared.GameStates;
 namespace Content.Shared.Temperature.Components;
 
 /// <summary>
-/// Adds thermal energy to entities with <see cref="TemperatureComponent"/> placed on it.
+/// Adds thermal energy to entities with TemperatureComponent placed on it.
 /// </summary>
 [RegisterComponent, Access(typeof(SharedEntityHeaterSystem))]
 [NetworkedComponent, AutoGenerateComponentState]

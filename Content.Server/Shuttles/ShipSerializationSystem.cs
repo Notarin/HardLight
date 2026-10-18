@@ -102,7 +102,6 @@ namespace Content.Server.Shuttles.Save
         [Dependency] private readonly SharedStackSystem _stackSystem = default!;
         [Dependency] private readonly ConstructionSystem _constructionSystem = default!;
         [Dependency] private readonly LabelSystem _labelSystem = default!;
-        [Dependency] private readonly TagSystem _tagSystem = default!;
         [Dependency] private readonly ChameleonClothingSystem _chameleonSystem = default!;
         [Dependency] private readonly SharedAtmosPipeLayersSystem _pipeLayersSystem = default!;
         [Dependency] private readonly ToggleableClothingSystem _toggleableClothingSystem = default!;
@@ -794,7 +793,6 @@ namespace Content.Server.Shuttles.Save
             //     - uid: 1
             //       components: [ { type: Transform, pos: X,Y, rot: <float> rad, parent: <uid|invalid> }, ... ]
             // We only need prototype, position, rotation. Component state intentionally omitted.
-            var parsedEntityCount = 0;
             // Refactored path: enumerate live grid children to capture full component and container data,
             // while preserving original grid rotation. Apply anchored-only filtering and recurse into containers.
             var serializedEntities = new HashSet<EntityUid>();
@@ -1863,12 +1861,6 @@ namespace Content.Server.Shuttles.Save
             }
         }
 
-        /// <param name="roomMode">
-        /// When true, skips the generic <see cref="SerializeComponent"/> path (which calls
-        /// <c>_serializationManager.WriteValue</c> on every component via expensive reflection,
-        /// then discards the output). Room saves use Properties-based paths only; the generic
-        /// DataNode round-trip is broken for rooms and produces only bloat.
-        /// </param>
         private List<ComponentData> SerializeEntityComponents(EntityUid entityUid, bool roomMode = false)
         {
             var componentDataList = new List<ComponentData>();
@@ -2955,7 +2947,7 @@ namespace Content.Server.Shuttles.Save
                         var newComponent = (Component)Activator.CreateInstance(componentType)!;
                         _entityManager.AddComponent(entityUid, newComponent);
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         // Failed to create component - continuing
                         return;
@@ -2985,7 +2977,7 @@ namespace Content.Server.Shuttles.Save
                     // Continue execution - partial restoration is better than none
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Failed to restore component - continuing
                 // Don't throw - continue with other components

@@ -319,11 +319,9 @@ public sealed class BloodstreamSystem : EntitySystem
         var totalFloat = total.Float();
         TryModifyBleedAmount(ent, totalFloat, ent);
 
-        /// <summary>
-        ///     Critical hit. Causes target to lose blood, using the bleed rate modifier of the weapon, currently divided by 5
-        ///     The crit chance is currently the bleed rate modifier divided by 25.
-        ///     Higher damage weapons have a higher chance to crit!
-        /// </summary>
+        // Critical hit. Causes target to lose blood, using the bleed rate modifier of the weapon, currently divided by 5
+        // The crit chance is currently the bleed rate modifier divided by 25.
+        // Higher damage weapons have a higher chance to crit!
         var prob = Math.Clamp(totalFloat / 25, 0, 1);
         if (totalFloat > 0 && _robustRandom.Prob(prob))
         {
@@ -569,10 +567,6 @@ public sealed class BloodstreamSystem : EntitySystem
     /// <summary>
     ///     Change what someone's blood is made of, on the fly.
     /// </summary>
-    /// <param name="storeOriginalBloodReagent">
-    ///     Temporary effects should keep the previous blood reagent so it can be restored later.
-    ///     Permanent swaps should pass false so bloodstream regeneration uses the new reagent as its baseline.
-    /// </param>
     public void ChangeBloodReagent(EntityUid uid, string reagent, BloodstreamComponent? component = null, bool storeOriginalBloodReagent = true)
     {
         if (!Resolve(uid, ref component, logMissing: false)

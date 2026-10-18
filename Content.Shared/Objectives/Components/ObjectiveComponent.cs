@@ -37,7 +37,7 @@ public sealed partial class ObjectiveComponent : Component
 
     /// <summary>
     /// Icon of this objective to display in the character menu.
-    /// Can be specified by an <see cref="ObjectiveGetInfoEvent"/> handler but is usually done in the prototype.
+    /// Can be specified by an ObjectiveGetInfoEvent handler but is usually done in the prototype.
     /// </summary>
     [DataField]
     public SpriteSpecifier? Icon;

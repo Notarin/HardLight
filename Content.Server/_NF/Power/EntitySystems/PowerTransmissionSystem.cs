@@ -117,7 +117,6 @@ public sealed partial class PowerTransmissionSystem : EntitySystem
     /// <summary>
     /// Gets the expected pay rate, in spesos per second.
     /// </summary>
-    /// <param name="power">Input power level, in watts</param>
     /// <returns>Expected power sale value in spesos per second</returns>
     public float GetPowerPayRate(Entity<PowerTransmissionComponent> ent, float power)
     {

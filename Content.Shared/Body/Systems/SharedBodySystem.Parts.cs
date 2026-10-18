@@ -954,7 +954,7 @@ public partial class SharedBodySystem
     }
 
     /// <summary>
-    ///     Returns a list of ValueTuples of <see cref="T"/> and OrganComponent on each organ
+    ///     Returns a list of ValueTuples of T and OrganComponent on each organ
     ///     in the given part.
     /// </summary>
     /// <param name="uid">The part entity id to check on.</param>
@@ -981,7 +981,7 @@ public partial class SharedBodySystem
     }
 
     /// <summary>
-    ///     Tries to get a list of ValueTuples of <see cref="T"/> and OrganComponent on each organs
+    ///     Tries to get a list of ValueTuples of T and OrganComponent on each organs
     ///     in the given part.
     /// </summary>
     /// <param name="uid">The part entity id to check on.</param>

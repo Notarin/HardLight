@@ -82,8 +82,6 @@ public sealed class BindToStationSystem : EntitySystem
     /// <summary>
     /// Binds a given machine to a particular station - the machine will only work when on a grid belonging to that station.
     /// </summary>
-    /// <param name="target">The item to be associated with the station.</param>
-    /// <param name="station">The station to bind the grid to. If null, unbinds the machine.</param>
     public void BindToStation(EntityUid target, EntityUid? station, bool enabled = true)
     {
         var binding = EnsureComp<BindToStationComponent>(target);

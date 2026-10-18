@@ -24,8 +24,6 @@ public sealed class MutationSystem : EntitySystem
     /// <summary>
     /// For each random mutation, see if it occurs on this plant this check.
     /// </summary>
-    /// <param name="seed"></param>
-    /// <param name="severity"></param>
     public void CheckRandomMutations(EntityUid plantHolder, ref SeedData seed, float severity)
     {
         for (var pass = 0; pass < MaxRandomMutationPasses; pass++)

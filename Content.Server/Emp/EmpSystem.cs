@@ -139,8 +139,8 @@ public sealed class EmpSystem : SharedEmpSystem
             }
             disabled.DisabledUntil = disabled.DisabledUntil + TimeSpan.FromSeconds(duration);
 
-            /// i tried my best to go through the Pow3r server code but i literally couldn't find in relation to PowerNetworkBatteryComponent that uses the event system
-            /// the code is otherwise too esoteric for my innocent eyes
+            // i tried my best to go through the Pow3r server code but i literally couldn't find in relation to PowerNetworkBatteryComponent that uses the event system
+            // the code is otherwise too esoteric for my innocent eyes
             if (TryComp<PowerNetworkBatteryComponent>(uid, out var powerNetBattery))
             {
                 powerNetBattery.CanCharge = false;

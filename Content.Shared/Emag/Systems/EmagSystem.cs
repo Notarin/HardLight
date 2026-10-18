@@ -149,6 +149,7 @@ public sealed class EmagSystem : EntitySystem
     }
     // End Frontier: demag
 
+    /// <summary>
     /// Checks whether an entity has the EmaggedComponent with a set flag.
     /// </summary>
     /// <param name="target">The target entity to check for the flag.</param>

@@ -16,7 +16,6 @@ namespace Content.Client._Mono.ShipRepair;
 public sealed partial class ShipRepairSystem : SharedShipRepairSystem
 {
     [Dependency] private readonly ForceParentSystem _parent = default!;
-    [Dependency] private readonly IconSmoothSystem _smooth = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly IMapManager _mapMan = default!;
     [Dependency] private readonly IPlayerManager _player = default!;

@@ -47,7 +47,6 @@ namespace Content.Server.GameTicking
         [Dependency] private readonly DiscordWebhook _discord = default!;
         [Dependency] private readonly RoleSystem _role = default!;
         [Dependency] private readonly ITaskManager _taskManager = default!;
-        [Dependency] private readonly ArrivalsSystem _arrivalsSystem = default!;
         [Dependency] private readonly ShuttleSystem _shuttleSystem = default!;
         [Dependency] private readonly EntityLookupSystem _lookup = default!; // Hardlight
 
@@ -185,10 +184,6 @@ namespace Content.Server.GameTicking
         /// some <see cref="MapLoadOptions"/> using information in a prototype, and raise some events to allow content
         /// to modify the options and react to the map creation.
         /// </remarks>
-        /// <param name="proto">Game map prototype to load in.</param>
-        /// <param name="mapId">The id of the map that was loaded.</param>
-        /// <param name="options">Entity loading options, including whether the maps should be initialized.</param>
-        /// <param name="stationName">Name to assign to the loaded station.</param>
         /// <returns>All loaded entities and grids.</returns>
         public IReadOnlyList<EntityUid> LoadGameMap(
             GameMapPrototype proto,
@@ -629,7 +624,7 @@ namespace Content.Server.GameTicking
 
             // Aggressively delete the default map after a 30 second delay
             var defaultMapEntityUid = _map.GetMapOrInvalid(DefaultMap);
-            if (DefaultMap != null)
+            if (DefaultMap != MapId.Nullspace)
             {
                 Timer.Spawn(TimeSpan.FromSeconds(30), () =>
                 {

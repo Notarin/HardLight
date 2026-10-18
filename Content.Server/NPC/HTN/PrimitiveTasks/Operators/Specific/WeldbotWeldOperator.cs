@@ -112,8 +112,6 @@ public sealed partial class WeldbotWeldOperator : HTNOperator
 
         _audio.PlayPvs(botComp.WeldSound, target);
 
-        if ((weldableIsSilicon && damage.DamagePerGroup["Brute"].Value == 0)
-            || (weldableIsStructure && damage.TotalDamage.Value == 0)) ; //only say "all done if we're actually done!"
 
         return HTNOperatorStatus.Finished;
     }

@@ -21,7 +21,6 @@ public sealed partial class LogProbeCartridgeSystem : EntitySystem // DeltaV - M
 {
     [Dependency] private readonly CartridgeLoaderSystem _cartridgeLoaderSystem = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly SharedHandsSystem _hands = default!;

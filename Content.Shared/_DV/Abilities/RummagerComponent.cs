@@ -13,7 +13,7 @@ public sealed partial class RummagerComponent : Component
     public TimeSpan? LastRummaged;
 
     /// <summary>
-    // Frontier: Minimum time between this entity's rummage attempts
+    /// Frontier: Minimum time between this entity's rummage attempts
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
     [AutoNetworkedField]

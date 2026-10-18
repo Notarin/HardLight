@@ -385,7 +385,6 @@ public sealed class AmeControllerSystem : EntitySystem
     /// <summary>
     /// Checks whether the player entity is able to use the controller.
     /// </summary>
-    /// <param name="playerEntity">The player entity.</param>
     /// <returns>Returns true if the entity can use the controller, and false if it cannot.</returns>
     private bool PlayerCanUseController(EntityUid uid, EntityUid playerEntity, bool needsPower = true, AmeControllerComponent? controller = null)
     {

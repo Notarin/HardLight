@@ -197,7 +197,7 @@ public sealed class StationSpawningSystem : SharedStationSpawningSystem
 
         if (loadout != null)
         {
-            /// Frontier: overwriting EquipRoleLoadout
+            // Frontier: overwriting EquipRoleLoadout
             //EquipRoleLoadout(entity.Value, loadout, roleProto!);
             var initialBankBalance = profile!.BankBalance; //Frontier
             var bankBalance = profile!.BankBalance; //Frontier
@@ -282,7 +282,7 @@ public sealed class StationSpawningSystem : SharedStationSpawningSystem
             {
                 _bank.TryBankWithdraw(session!, prefs!, profile!, initialBankBalance - bankBalance, out var newBalance);
             }
-            /// End Frontier: overwriting EquipRoleLoadout
+            // End Frontier: overwriting EquipRoleLoadout
         }
 
         // Far Horizons Start - Subspecies

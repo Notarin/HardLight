@@ -8,7 +8,7 @@ namespace Content.IntegrationTests.Tests.Mapping;
 public sealed class MappingTests
 {
     /// <summary>
-    /// Checks that the mapping command creates paused & uninitialized maps.
+    /// Checks that the mapping command creates paused &amp; uninitialized maps.
     /// </summary>
     [Test]
     public async Task MappingTest()

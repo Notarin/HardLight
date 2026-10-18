@@ -353,7 +353,6 @@ public sealed partial class CryoSleepSystem : EntitySystem
         }
     }
 
-    /// <param name="body">If not null, will not eject if the stored body is different from that parameter.</param>
     public bool EjectBody(EntityUid pod, CryoSleepComponent? component = null, EntityUid? body = null)
     {
         if (!Resolve(pod, ref component))

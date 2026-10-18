@@ -25,15 +25,10 @@ public sealed class PreenableSystem : EntitySystem
     [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
     [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
     [Dependency] private readonly SharedHandsSystem _hands = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
     [Dependency] private readonly IPrototypeManager _prototype = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly ForensicsSystem _forensics = default!; // HardLight: server-only in this codebase
     [Dependency] private readonly SharedPopupSystem _popup = default!;
-    [Dependency] private readonly MetaDataSystem _metaData = default!;
-    [Dependency] private readonly StatusEffectsSystem _statusEffects = default!;
-    [Dependency] private readonly ChatSystem _chat = default!; // HardLight: server-only in this codebase
-    [Dependency] private readonly IRobustRandom _random = default!;
 
     public override void Initialize()
     {

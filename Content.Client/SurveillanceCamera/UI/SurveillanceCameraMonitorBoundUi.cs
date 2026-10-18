@@ -113,7 +113,6 @@ public sealed class SurveillanceCameraMonitorBoundUserInterface : BoundUserInter
         }
     }
 
-    [Obsolete]
     protected override void Dispose(bool disposing)
     {
         base.Dispose(disposing);
@@ -126,7 +125,7 @@ public sealed class SurveillanceCameraMonitorBoundUserInterface : BoundUserInter
 
         if (disposing)
         {
-            _window?.Dispose();
+            _window?.Close();
         }
     }
 }

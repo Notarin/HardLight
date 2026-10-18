@@ -5,7 +5,7 @@ namespace Content.Shared.InteractionVerbs.Requirements;
 
 /// <summary>
 ///     A requirement that combines multiple other requirements.
-/// </summawry>
+/// </summary>
 [Serializable, NetSerializable]
 public sealed partial class ComplexRequirement : InteractionRequirement
 {

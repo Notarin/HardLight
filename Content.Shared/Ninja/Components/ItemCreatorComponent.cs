@@ -47,6 +47,6 @@ public sealed partial class ItemCreatorComponent : Component
 }
 
 /// <summary>
-/// Action event to use an <see cref="ItemCreator"/>.
+/// Action event to use an ItemCreator.
 /// </summary>
 public sealed partial class CreateItemEvent : InstantActionEvent;

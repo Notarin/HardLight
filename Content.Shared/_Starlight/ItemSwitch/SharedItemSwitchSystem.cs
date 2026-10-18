@@ -121,7 +121,7 @@ public abstract class SharedItemSwitchSystem : EntitySystem
     /// Used when an item is attempted to be toggled.
     /// Sets its state to the opposite of what it is.
     /// </summary>
-    /// <returns>Same as <see cref="TrySetActive"/></returns>
+    /// <returns>Same as TrySetActive</returns>
     public bool Switch(Entity<ItemSwitchComponent?> ent, string key, EntityUid? user = null, bool predicted = true)
     {
         if (!_query.Resolve(ent, ref ent.Comp, false) || !ent.Comp.States.TryGetValue(key, out var state))

@@ -216,7 +216,6 @@ public sealed partial class ShuttleMapControl : BaseShuttleControl
     /// <summary>
     /// Gets the map objects that intersect the viewport.
     /// </summary>
-    /// <param name="mapObjects"></param>
     /// <returns></returns>
     private List<IMapObject> GetViewportMapObjects(Matrix3x2 matty, List<IMapObject> mapObjects)
     {
@@ -788,7 +787,7 @@ public sealed partial class ShuttleMapControl : BaseShuttleControl
     /// <summary>
     /// Draw the coordinate data with a custom color.
     /// </summary>
-    protected void DrawData(DrawingHandleScreen handle, string text, Color color)
+    private void DrawData(DrawingHandleScreen handle, string text, Color color)
     {
         var font = _font;
         var dimensions = handle.GetDimensions(font, text, 1f);

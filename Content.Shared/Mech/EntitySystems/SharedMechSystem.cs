@@ -404,9 +404,6 @@ public abstract class SharedMechSystem : EntitySystem
     /// <summary>
     /// Attempts to insert a pilot into the mech.
     /// </summary>
-    /// <param name="uid"></param>
-    /// <param name="toInsert"></param>
-    /// <param name="component"></param>
     /// <returns>Whether or not the entity was inserted</returns>
     public bool TryInsert(EntityUid uid,
         EntityUid? toInsert,

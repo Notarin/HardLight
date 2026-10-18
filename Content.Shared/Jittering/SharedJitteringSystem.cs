@@ -34,7 +34,7 @@ namespace Content.Shared.Jittering
         /// </summary>
         /// <remarks>
         ///     If the entity is already jittering, the jitter values will be updated but only if they're greater
-        ///     than the current ones and <see cref="forceValueChange"/> is false.
+        ///     than the current ones and forceValueChange is false.
         /// </remarks>
         /// <param name="uid">Entity in question.</param>
         /// <param name="time">For how much time to apply the effect.</param>

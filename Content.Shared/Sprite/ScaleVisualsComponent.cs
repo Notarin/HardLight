@@ -4,7 +4,7 @@ using Robust.Shared.GameStates;
 namespace Content.Shared.Sprite;
 
 /// <summary>
-/// Used to set the <see cref="Robust.Client.GameObjects.SpriteComponent.Scale"/> datafield to a certain value from the server.
+/// Used to set the Robust.Client.GameObjects.SpriteComponent.Scale datafield to a certain value from the server.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 [Access(typeof(SharedScaleVisualsSystem))]

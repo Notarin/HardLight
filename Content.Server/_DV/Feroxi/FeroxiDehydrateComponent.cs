@@ -10,13 +10,13 @@ namespace Content.Server._DV.Feroxi;
 public sealed partial class FeroxiDehydrateComponent : Component
 {
     /// <summary>
-    /// Defines which <see cref="MetabolizerTypePrototype"> to use when over the <see cref="DehydrationThreshold"/>
+    /// Defines which <see cref="MetabolizerTypePrototype"/> to use when over the <see cref="DehydrationThreshold"/>
     /// </summary>
     [DataField(required: true)]
     public ProtoId<MetabolizerTypePrototype> HydratedMetabolizer;
 
     /// <summary>
-    /// Defines which <see cref="MetabolizerTypePrototype"=> to use when below the <see cref="DehydrationThreshold"/>
+    /// Defines which <see cref="MetabolizerTypePrototype"/> to use when below the <see cref="DehydrationThreshold"/>
     /// </summary>
     [DataField(required: true)]
     public ProtoId<MetabolizerTypePrototype> DehydratedMetabolizer;

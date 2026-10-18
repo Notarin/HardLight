@@ -17,13 +17,13 @@ namespace Content.Server.Psionics
         public override void Initialize()
         {
             base.Initialize();
-            /// Masking
+            // Masking
             SubscribeLocalEvent<PotentialPsionicComponent, MapInitEvent>(OnInit);
             SubscribeLocalEvent<PsionicInsulationComponent, ComponentInit>(OnInsulInit);
             SubscribeLocalEvent<PsionicInsulationComponent, ComponentShutdown>(OnInsulShutdown);
             // OnEyeInit method is commented out - removed subscription
 
-            /// Layer
+            // Layer
             SubscribeLocalEvent<PsionicallyInvisibleComponent, ComponentInit>(OnInvisInit);
             SubscribeLocalEvent<PsionicallyInvisibleComponent, ComponentShutdown>(OnInvisShutdown);
 

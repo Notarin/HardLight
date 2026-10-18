@@ -205,7 +205,7 @@ public partial class SharedBodySystem
     }
 
     /// <summary>
-    /// Returns a list of Entity<<see cref="T"/>, <see cref="OrganComponent"/>>
+    /// Returns a list of Entity&lt;T, <see cref="OrganComponent"/>&gt;
     /// for each organ of the body
     /// </summary>
     /// <typeparam name="T">The component that we want to return</typeparam>
@@ -229,12 +229,11 @@ public partial class SharedBodySystem
     }
 
     /// <summary>
-    ///     Tries to get a list of ValueTuples of <see cref="T"/> and OrganComponent on each organs
+    ///     Tries to get a list of ValueTuples of T and OrganComponent on each organs
     ///     in the given body.
     /// </summary>
-    /// <param name="uid">The body entity id to check on.</param>
+    /// <param name="entity">The body to check for organs on.</param>
     /// <param name="comps">The list of components.</param>
-    /// <param name="body">The body to check for organs on.</param>
     /// <typeparam name="T">The component to check for.</typeparam>
     /// <returns>Whether any were found.</returns>
     public bool TryGetBodyOrganEntityComps<T>(

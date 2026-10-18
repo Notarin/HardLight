@@ -40,7 +40,6 @@ public sealed class ScuttleDeviceSystem : EntitySystem
     [Dependency] private readonly ServerGlobalSoundSystem _sound = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
     [Dependency] private readonly SharedShuttleSystem _shuttles = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
 

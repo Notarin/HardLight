@@ -7,7 +7,6 @@ namespace Content.Server._Starlight.NullSpace;
 
 public sealed class NullSpaceDrainerSystem : EntitySystem
 {
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
     public override void Initialize()
     {
         SubscribeLocalEvent<NullSpaceDrainerComponent, GotEquippedEvent>(OnEquipped);

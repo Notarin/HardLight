@@ -68,7 +68,6 @@ public sealed class NPCUtilitySystem : EntitySystem
     [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
     [Dependency] private readonly MobThresholdSystem _thresholdSystem = default!;
     [Dependency] private readonly TurretTargetSettingsSystem _turretTargetSettings = default!;
-    [Dependency] private readonly DestructibleSystem _destructible = default!; // VRS (Triad #3732)
     [Dependency] private readonly GunSystem _gun = default!; // VRS (Triad #3732)
     [Dependency] private readonly NPCCombatSystem _npcCombat = default!; // VRS (Triad #3732)
 

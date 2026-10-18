@@ -37,7 +37,6 @@ public sealed class VoreSystem : EntitySystem
     [Dependency] private readonly IPlayerManager _players = default!;
     [Dependency] private readonly MobStateSystem _mobState = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SuitSensorSystem _suitSensors = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly NullSpacePhaseSystem _phase = default!;
 

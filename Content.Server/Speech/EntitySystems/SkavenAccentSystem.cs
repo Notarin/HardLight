@@ -8,7 +8,6 @@ namespace Content.Server.Speech.EntitySystems;
 public sealed class SkavenAccentSystem : EntitySystem
 {
     private static readonly Regex RegexLastPunctuation = new(@"([.!?]+$)(?!.*[.!?])|(?<![.!?])$");
-    [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly ReplacementAccentSystem _replacement = default!;
 
     public override void Initialize()

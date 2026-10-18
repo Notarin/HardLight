@@ -102,7 +102,6 @@ namespace Content.Server.Shuttles.Save
         [Dependency] private readonly SharedStackSystem _stackSystem = default!;
         [Dependency] private readonly ConstructionSystem _constructionSystem = default!;
         [Dependency] private readonly LabelSystem _labelSystem = default!;
-        [Dependency] private readonly TagSystem _tagSystem = default!;
         [Dependency] private readonly ChameleonClothingSystem _chameleonSystem = default!;
         [Dependency] private readonly SharedAtmosPipeLayersSystem _pipeLayersSystem = default!;
         [Dependency] private readonly ToggleableClothingSystem _toggleableClothingSystem = default!;

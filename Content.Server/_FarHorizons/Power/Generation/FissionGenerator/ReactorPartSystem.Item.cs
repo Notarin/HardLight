@@ -12,8 +12,6 @@ namespace Content.Server._FarHorizons.Power.Generation.FissionGenerator;
 
 public sealed partial class ReactorPartSystem
 {
-    [Dependency] private readonly MetaDataSystem _metaDataSystem = default!;
-
     private void OnAtmosExposed(EntityUid uid, ReactorPartComponent component, ref AtmosExposedUpdateEvent args)
     {
         // Stops it from cooking the room while in the reactor

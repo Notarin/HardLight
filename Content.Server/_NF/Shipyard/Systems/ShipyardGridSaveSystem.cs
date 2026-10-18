@@ -101,7 +101,6 @@ public sealed class ShipyardGridSaveSystem : EntitySystem
     [Dependency] private readonly SharedDeviceLinkSystem _deviceLink = default!;
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!; // HardLight
     [Dependency] private readonly AppearanceSystem _appearance = default!; // HardLight
-    [Dependency] private readonly SharedTransformSystem _transform = default!; // VRS: eject players before ship save (HL #1694)
 
     private ISawmill _sawmill = default!;
     private MapLoaderSystem _mapLoader = default!;

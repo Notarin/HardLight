@@ -19,9 +19,6 @@ namespace Content.Server.CM14.Xenos.Construction;
 public sealed class XenoConstructionServerSystem : SharedXenoConstructionSystem
 {
     [Dependency] private readonly MapSystem _mapSystem = default!;
-    [Dependency] private readonly IMapManager _map = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
-    [Dependency] private readonly INetManager _net = default!;
 
     private readonly List<EntityUid> _anchored = new();
 

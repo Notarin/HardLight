@@ -19,7 +19,6 @@ public sealed class ShuttleCrewStatusSystem : EntitySystem
 {
     [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly ISharedPlayerManager _playerManager = default!;
-    [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly SharedShuttleSystem _shuttle = default!;
 
     /// <summary>

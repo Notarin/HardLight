@@ -25,7 +25,6 @@ public sealed class SpaceCleanupSystem : BaseCleanupSystem<PhysicsComponent>
     [Dependency] private readonly IConfigurationManager _cfg = default!;
     private object _manifold = default!;
     private MethodInfo _testOverlap = default!;
-    [Dependency] private readonly SharedMapSystem _map = default!;
     [Dependency] private readonly SharedPhysicsSystem _physics = default!;
     [Dependency] private readonly PricingSystem _pricing = default!;
 

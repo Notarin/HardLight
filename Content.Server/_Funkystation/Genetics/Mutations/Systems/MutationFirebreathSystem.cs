@@ -46,7 +46,7 @@ public sealed class MutationFirebreathSystem : EntitySystem
         var curTime = _timing.CurTime;
         if (curTime < comp.NextUse) return;
 
-        if (!TryComp<TransformComponent>(uid, out var xform)) return;
+        if (!TryComp(uid, out TransformComponent? xform)) return;
 
         var fromCoords = xform.Coordinates;
         var toCoords = args.Target;

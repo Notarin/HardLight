@@ -1,5 +1,4 @@
 #nullable enable
-using System.Collections.Generic;
 using Content.Server.Cargo.Systems;
 using Content.Server.Construction.Completions;
 using Content.Server.Construction.Components;

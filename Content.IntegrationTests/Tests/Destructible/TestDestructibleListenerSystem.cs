@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Content.Server.Destructible;
 using Content.Shared.GameTicking;
 using Robust.Shared.GameObjects;

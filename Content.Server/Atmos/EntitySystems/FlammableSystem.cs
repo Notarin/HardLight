@@ -462,7 +462,7 @@ namespace Content.Server.Atmos.EntitySystems
             foreach (var uid in toProcess)
             {
                 if (!TryComp<FlammableComponent>(uid, out var flammable) ||
-                    !TryComp<TransformComponent>(uid, out _))
+                    !TryComp(uid, out TransformComponent? _))
                     continue;
 
                 // Slowly dry ourselves off if wet.

@@ -310,7 +310,7 @@ namespace Content.Server.Lathe
 
             var producing = component.CurrentRecipe ?? component.Queue.FirstOrDefault()?.Recipe; // Frontier: add ?.Recipe
 
-            var state = new LatheUpdateState(GetAvailableRecipes(uid, component), component.Queue, producing);
+            var state = new LatheUpdateState(GetAvailableRecipes(uid, component), component.Queue, producing?.ID);
             _uiSys.SetUiState(uid, LatheUiKey.Key, state);
         }
 

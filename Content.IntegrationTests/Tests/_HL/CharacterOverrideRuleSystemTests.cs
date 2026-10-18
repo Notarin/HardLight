@@ -1,4 +1,3 @@
-using Content.IntegrationTests.Pair;
 using Content.Server._HL.Spawning.Systems;
 using Content.Server.GameTicking;
 using Content.Server.Preferences.Managers;

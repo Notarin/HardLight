@@ -1,5 +1,4 @@
 #nullable enable
-using System.Collections.Generic;
 using Content.Shared.Tag;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Map;

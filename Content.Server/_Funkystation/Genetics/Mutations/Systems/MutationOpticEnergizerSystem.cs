@@ -17,6 +17,8 @@ public sealed class MutationOpticEnergizerSystem : EntitySystem
     [Dependency] private readonly SharedAudioSystem _audio = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
 
+    private static readonly ProtoId<HitscanPrototype> LaserHitscanId = "RedMediumLaser";
+
     public override void Initialize()
     {
         base.Initialize();
@@ -43,7 +45,7 @@ public sealed class MutationOpticEnergizerSystem : EntitySystem
 
         args.Handled = true;
 
-        if (!TryComp<TransformComponent>(uid, out var xform))
+        if (!TryComp(uid, out TransformComponent? xform))
             return;
 
         var from = _transform.GetMapCoordinates(uid, xform);
@@ -59,7 +61,7 @@ public sealed class MutationOpticEnergizerSystem : EntitySystem
             _audio.PlayPvs(EntityManager.GetComponentOrNull<WorldTargetActionComponent>(action)?.Sound, uid);
         }
 
-        var hitscanProto = _proto.Index<HitscanPrototype>("RedMediumLaser");
+        var hitscanProto = _proto.Index(LaserHitscanId);
 
         var ammoList = new List<(EntityUid? Entity, IShootable Shootable)>
         {

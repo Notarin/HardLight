@@ -1,8 +1,6 @@
 using Robust.Shared.Prototypes;
 using Robust.Shared.Localization;
 using Content.Shared.Humanoid.Markings;
-using System.Linq;
-using System.Collections.Generic;
 
 namespace Content.IntegrationTests.Tests.Traits;
 

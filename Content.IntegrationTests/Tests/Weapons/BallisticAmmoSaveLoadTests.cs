@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Numerics;
 using Content.Server.Weapons.Ranged.Systems;
 using Content.Shared.Weapons.Ranged.Components;

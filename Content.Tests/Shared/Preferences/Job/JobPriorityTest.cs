@@ -1,4 +1,3 @@
-using System;
 using Content.Server.Database;
 using Content.Shared.Preferences;
 using NUnit.Framework;

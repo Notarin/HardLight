@@ -871,7 +871,7 @@ public sealed class ShipyardGridSaveSystem : EntitySystem
 
     private bool IsNonPersistentShipSavePrototype(EntityUid uid)
     {
-        if (!TryComp<MetaDataComponent>(uid, out var meta) || meta.EntityPrototype is not { } proto)
+        if (!TryComp(uid, out MetaDataComponent? meta) || meta.EntityPrototype is not { } proto)
             return false;
 
         return NonPersistentShipSaveEntityPrototypes.Contains(proto.ID);

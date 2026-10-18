@@ -4,7 +4,6 @@ using Content.Server.GameTicking.Rules.Components;
 using Content.Shared.GameTicking.Components;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Timing;
-using System.IO;
 
 namespace Content.IntegrationTests.Tests.GameRules
 {

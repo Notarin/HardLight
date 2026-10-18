@@ -1,4 +1,3 @@
-using System;
 using Content.Shared.Dataset;
 using NUnit.Framework;
 using Robust.Shared.Collections;
@@ -12,6 +11,8 @@ namespace Content.Tests.Shared;
 [TestOf(typeof(LocalizedDatasetPrototype))]
 public sealed class LocalizedDatasetPrototypeTest : ContentUnitTest
 {
+    private static readonly ProtoId<LocalizedDatasetPrototype> TestDatasetId = "Test";
+
     private IPrototypeManager _prototypeManager;
 
     [OneTimeSetUp]
@@ -35,7 +36,7 @@ public sealed class LocalizedDatasetPrototypeTest : ContentUnitTest
     [Test]
     public void LocalizedDatasetTest()
     {
-        var testPrototype = _prototypeManager.Index<LocalizedDatasetPrototype>("Test");
+        var testPrototype = _prototypeManager.Index(TestDatasetId);
         var values = new ValueList<string>();
         foreach (var value in testPrototype.Values)
         {

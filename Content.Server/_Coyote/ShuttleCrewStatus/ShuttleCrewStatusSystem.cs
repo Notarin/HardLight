@@ -133,7 +133,7 @@ public sealed class ShuttleCrewStatusSystem : EntitySystem
                 continue;
 
             // Check if the player entity still exists
-            if (!TryComp<TransformComponent>(playerEntity, out var playerXform))
+            if (!TryComp(playerEntity, out TransformComponent? playerXform))
                 continue;
 
             // Check if the player is on this grid

@@ -1,6 +1,4 @@
 using System.Reflection;
-using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
 using Content.Server._NF.Roles.Systems;
 using Content.Server._NF.Station.Components;
@@ -9,9 +7,7 @@ using Content.Server.Station.Systems;
 using Content.Server.StationRecords.Components;
 using Content.Server.StationRecords.Systems;
 using Content.Shared._NF.Shipyard.Components;
-using Content.Shared._NF.Shipyard.Prototypes;
 using Content.Shared._NF.StationRecords;
-using Content.Shared.Roles;
 using Content.Shared.Station.Components;
 using Content.Shared.StationRecords;
 using Robust.Shared.EntitySerialization.Systems;
@@ -87,6 +83,9 @@ public sealed class GeneralStationRecordConsoleTest
             + "          vessel: TestRecordsCargoVessel\n"
             + "          advertisement: Cargo ship advertisement\n";
 
+    private static readonly ProtoId<GameMapPrototype> TestRecordsShipStation = "TestRecordsShipStation";
+    private static readonly ProtoId<GameMapPrototype> TestRecordsCargoShipStation = "TestRecordsCargoShipStation";
+
     [Test]
     public async Task ShipAdvertisementRequiresMatchingShuttleDeedTest()
     {
@@ -108,7 +107,7 @@ public sealed class GeneralStationRecordConsoleTest
 
         await server.WaitPost(() =>
         {
-            var shipProto = prototypeManager.Index<GameMapPrototype>("TestRecordsShipStation");
+            var shipProto = prototypeManager.Index(TestRecordsShipStation);
             Assert.That(mapLoader.TryLoadMap(new ResPath("/Maps/Test/empty.yml"), out _, out var grids), Is.True);
             Assert.That(grids, Is.Not.Null);
 
@@ -193,7 +192,7 @@ public sealed class GeneralStationRecordConsoleTest
 
         await server.WaitPost(() =>
         {
-            var shipProto = prototypeManager.Index<GameMapPrototype>("TestRecordsCargoShipStation");
+            var shipProto = prototypeManager.Index(TestRecordsCargoShipStation);
             Assert.That(mapLoader.TryLoadMap(new ResPath("/Maps/Test/empty.yml"), out _, out var grids), Is.True);
             Assert.That(grids, Is.Not.Null);
 
@@ -259,7 +258,7 @@ public sealed class GeneralStationRecordConsoleTest
 
         await server.WaitPost(() =>
         {
-            var shipProto = prototypeManager.Index<GameMapPrototype>("TestRecordsShipStation");
+            var shipProto = prototypeManager.Index(TestRecordsShipStation);
             Assert.That(mapLoader.TryLoadMap(new ResPath("/Maps/Test/empty.yml"), out _, out var primaryGrids), Is.True);
             Assert.That(primaryGrids, Is.Not.Null);
             Assert.That(mapLoader.TryLoadMap(new ResPath("/Maps/Test/empty.yml"), out _, out var secondaryGrids), Is.True);
@@ -331,7 +330,7 @@ public sealed class GeneralStationRecordConsoleTest
 
         await server.WaitPost(() =>
         {
-            var shipProto = prototypeManager.Index<GameMapPrototype>("TestRecordsShipStation");
+            var shipProto = prototypeManager.Index(TestRecordsShipStation);
             Assert.That(mapLoader.TryLoadMap(new ResPath("/Maps/Test/empty.yml"), out _, out var grids), Is.True);
             Assert.That(grids, Is.Not.Null);
 
@@ -424,7 +423,7 @@ public sealed class GeneralStationRecordConsoleTest
 
         await server.WaitPost(() =>
         {
-            var shipProto = prototypeManager.Index<GameMapPrototype>("TestRecordsShipStation");
+            var shipProto = prototypeManager.Index(TestRecordsShipStation);
             Assert.That(mapLoader.TryLoadMap(new ResPath("/Maps/Test/empty.yml"), out _, out var shipGrids), Is.True);
             Assert.That(shipGrids, Is.Not.Null);
             Assert.That(mapLoader.TryLoadMap(new ResPath("/Maps/Test/empty.yml"), out _, out var otherGrids), Is.True);

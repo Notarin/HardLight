@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.IntegrationTests.Tests.Interaction;
 using Content.Server.VendingMachines;
 using Content.Shared.Damage;
@@ -204,7 +203,7 @@ public sealed class VendingInteractionTest : InteractionTest
         Assert.That(damageableComp.Damage.GetTotal(), Is.EqualTo(FixedPoint2.Zero), $"{VendingMachineProtoId} started with unexpected damage.");
 
         // Damage the vending machine to the point that it breaks
-        var damageType = ProtoMan.Index<DamageTypePrototype>("Blunt");
+        var damageType = ProtoMan.Index<DamageTypePrototype>(BluntId);
         var damage = new DamageSpecifier(damageType, FixedPoint2.New(100));
         await Server.WaitPost(() => damageableSys.TryChangeDamage(SEntMan.GetEntity(Target), damage, ignoreResistances: true));
         await RunTicks(5);

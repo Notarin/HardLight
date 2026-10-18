@@ -10,6 +10,8 @@ public sealed class GeneticsInstabilityDamageSystem : EntitySystem
     [Dependency] private readonly DamageableSystem _damageable = default!;
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
 
+    private static readonly ProtoId<DamageTypePrototype> CellularDamageType = "Cellular";
+
     private const int InstabilityThreshold = 150;
     private const float DamagePerTick = 1f;
     private const float TickInterval = 2f;
@@ -37,7 +39,7 @@ public sealed class GeneticsInstabilityDamageSystem : EntitySystem
             if (genetics.GeneticInstability <= InstabilityThreshold)
                 continue;
 
-            var damage = new DamageSpecifier(_prototypeManager.Index<DamageTypePrototype>("Cellular"), DamagePerTick);
+            var damage = new DamageSpecifier(_prototypeManager.Index(CellularDamageType), DamagePerTick);
             _damageable.TryChangeDamage(uid, damage, true, damageable: damageable);
         }
     }

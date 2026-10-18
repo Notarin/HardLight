@@ -471,13 +471,13 @@ public abstract partial class SharedStationAiSystem : EntitySystem
     /// <param name="ent"></param>
     public void RecenterAiEye(Entity<StationAiCoreComponent> ent)
     {
-        if (!TryComp<TransformComponent>(ent, out var coreTransComp))
+        if (!TryComp(ent, out TransformComponent? coreTransComp))
             return;
 
         if (ent.Comp?.RemoteEntity == null)
             return;
 
-        if (!TryComp<TransformComponent>(ent.Comp.RemoteEntity, out var eyeTransComp))
+        if (!TryComp(ent.Comp.RemoteEntity, out TransformComponent? eyeTransComp))
             return;
 
         _xforms.DropNextTo((EntityUid)ent.Comp.RemoteEntity, (EntityUid)ent);

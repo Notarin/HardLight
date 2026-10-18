@@ -1,7 +1,6 @@
 using Content.Server.GameTicking;
 using Content.Shared.GameTicking;
 using Robust.Shared.GameObjects;
-using Robust.Shared.Reflection;
 
 namespace Content.IntegrationTests.Tests
 {

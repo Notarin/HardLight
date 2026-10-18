@@ -7,6 +7,8 @@ namespace Content.IntegrationTests.Tests.Atmos
     [TestOf(typeof(AtmosAlarmThreshold))]
     public sealed class AlarmThresholdTest
     {
+        private static readonly ProtoId<AtmosAlarmThresholdPrototype> AlarmThresholdTestDummyId = "AlarmThresholdTestDummy";
+
         [TestPrototypes]
         private const string Prototypes = @"
 - type: alarmThreshold
@@ -30,7 +32,7 @@ namespace Content.IntegrationTests.Tests.Atmos
             var prototypeManager = server.ResolveDependency<IPrototypeManager>();
             AtmosAlarmThreshold threshold = default!;
 
-            var proto = prototypeManager.Index<AtmosAlarmThresholdPrototype>("AlarmThresholdTestDummy");
+            var proto = prototypeManager.Index<AtmosAlarmThresholdPrototype>(AlarmThresholdTestDummyId);
             threshold = new(proto);
 
             await server.WaitAssertion(() =>

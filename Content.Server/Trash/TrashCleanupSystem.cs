@@ -148,7 +148,7 @@ public sealed class TrashCleanupSystem : EntitySystem
         {
             if (session.AttachedEntity is not { } playerEntity)
                 continue;
-            if (!TryComp<TransformComponent>(playerEntity, out var xform))
+            if (!TryComp(playerEntity, out TransformComponent? xform))
                 continue;
             if (HasComp<GhostComponent>(playerEntity))
                 continue;

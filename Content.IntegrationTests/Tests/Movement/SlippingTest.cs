@@ -1,6 +1,4 @@
 #nullable enable
-using System.Collections.Generic;
-using Content.IntegrationTests.Tests.Interaction;
 using Content.Shared.Movement.Components;
 using Content.Shared.Slippery;
 using Content.Shared.Stunnable;

@@ -348,7 +348,7 @@ namespace Content.Server.VendingMachines
             if (string.IsNullOrEmpty(entry.ID))
                 return false;
 
-            if (!TryComp<TransformComponent>(uid, out var transformComp))
+            if (!TryComp(uid, out TransformComponent? transformComp))
                 return false;
 
             // Start ejecting: set end time rather than assigning read-only property.

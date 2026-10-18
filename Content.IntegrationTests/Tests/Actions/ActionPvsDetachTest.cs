@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.Actions;
 using Content.Shared.Eye;
 using Robust.Server.GameObjects;

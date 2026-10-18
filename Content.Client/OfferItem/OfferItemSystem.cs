@@ -17,6 +17,8 @@ public sealed class OfferItemSystem : SharedOfferItemSystem
 
     public override void Initialize()
     {
+        base.Initialize();
+
         Subs.CVar(_cfg, CCVars.OfferModeIndicatorsPointShow, OnShowOfferIndicatorsChanged, true);
     }
 

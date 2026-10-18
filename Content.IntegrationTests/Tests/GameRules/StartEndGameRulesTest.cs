@@ -1,10 +1,7 @@
-using System.Linq;
 using Content.Server.GameTicking;
 using Content.Shared.CCVar;
 using Robust.Shared.Configuration;
 using Robust.Shared.GameObjects;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Content.IntegrationTests.Tests.GameRules;
 

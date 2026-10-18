@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Server.Storage.EntitySystems;
 using Content.Shared.Hands.Components;
 using Content.Shared.Hands.EntitySystems;

@@ -16,6 +16,8 @@ public sealed class NightVisionSystem : EntitySystem
     [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
     [Dependency] private readonly FlashImmunitySystem _flashImmunity = default!;
 
+    private static readonly ProtoId<ShaderPrototype> ShaderId = "ModernNightVisionShader";
+
     private NightVisionOverlay _overlay = default!;
     [ViewVariables]
     private EntityUid? _effect = null;
@@ -32,7 +34,7 @@ public sealed class NightVisionSystem : EntitySystem
 
         SubscribeLocalEvent<NightVisionComponent, FlashImmunityCheckEvent>(OnFlashImmunityChanged);
 
-        _overlay = new(_prototypeManager.Index<ShaderPrototype>("ModernNightVisionShader"));
+        _overlay = new(_prototypeManager.Index(ShaderId));
     }
 
     private void OnFlashImmunityChanged(Entity<NightVisionComponent> ent, ref FlashImmunityCheckEvent args)

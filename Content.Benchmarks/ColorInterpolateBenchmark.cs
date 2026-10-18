@@ -2,7 +2,6 @@
 using System.Runtime.Intrinsics;
 using System.Runtime.Intrinsics.X86;
 #endif
-using System;
 using System.Runtime.CompilerServices;
 using BenchmarkDotNet.Attributes;
 using Robust.Shared.Analyzers;

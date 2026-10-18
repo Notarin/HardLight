@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Client._HL.Changelog;
 
 namespace Content.IntegrationTests.Tests;

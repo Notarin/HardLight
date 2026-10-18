@@ -1,11 +1,4 @@
-using System.Linq;
-using System.Reflection;
-using Content.Server.GameTicking;
 using Content.Server.Maps;
-using Content.Server.Voting.Managers;
-using Content.Shared.CCVar;
-using Robust.Shared.Configuration;
-using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 
 namespace Content.IntegrationTests.Tests.Voting;

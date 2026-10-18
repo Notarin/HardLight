@@ -334,7 +334,7 @@ public sealed partial class PathfindingSystem
 
         var currentTime = _timing.CurTime;
 
-        if (comp.NextUpdate < currentTime && TryComp<MetaDataComponent>(gridUid, out var meta) && !meta.EntityPaused)
+        if (comp.NextUpdate < currentTime && TryComp(gridUid, out MetaDataComponent? meta) && !meta.EntityPaused)
             comp.NextUpdate = currentTime + UpdateCooldown;
 
         var chunks = comp.DirtyChunks;

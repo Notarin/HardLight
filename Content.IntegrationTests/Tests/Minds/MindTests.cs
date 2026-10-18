@@ -1,5 +1,4 @@
 #nullable enable
-using System.Linq;
 using Content.Server.Ghost.Roles;
 using Content.Server.Ghost.Roles.Components;
 using Content.Server.Mind;

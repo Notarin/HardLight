@@ -82,7 +82,7 @@ namespace Content.Server.Stack
                     if (!TryComp<StackComponent>(nearbyUid, out var nearbyStack))
                         continue;
 
-                    if (!TryComp<TransformComponent>(nearbyUid, out var nearbyXform))
+                    if (!TryComp(nearbyUid, out TransformComponent? nearbyXform))
                         continue;
 
                     if (!TryComp<PhysicsComponent>(nearbyUid, out var nearbyPhysics))

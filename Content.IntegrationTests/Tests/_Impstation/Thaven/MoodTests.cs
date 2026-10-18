@@ -4,25 +4,21 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
 
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using Content.IntegrationTests;
 using Content.Server._Impstation.Thaven;
 using Content.Shared.Dataset;
 using Content.Shared._Impstation.Thaven;
-using NUnit.Framework;
-using Robust.Shared.ContentPack;
 using Robust.Shared.GameObjects;
-using Robust.Shared.IoC;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Serialization.Manager;
 
 namespace Content.IntegrationTests.Tests._Impstation.Thaven;
 
 [TestFixture, TestOf(typeof(ThavenMoodPrototype))]
 public sealed class ThavenMoodTests
 {
+    private static readonly ProtoId<DatasetPrototype> ThreeValueSetId = "ThreeValueSet";
+    private static readonly ProtoId<ThavenMoodPrototype> DuplicateTestId = "DuplicateTest";
+    private static readonly ProtoId<ThavenMoodPrototype> DuplicateOverlapTestId = "DuplicateOverlapTest";
+
     [TestPrototypes]
     const string PROTOTYPES = @"
 - type: dataset
@@ -67,8 +63,8 @@ public sealed class ThavenMoodTests
 
         await server.WaitAssertion(() =>
         {
-            var dataset = protoMan.Index<DatasetPrototype>("ThreeValueSet");
-            var moodProto = protoMan.Index<ThavenMoodPrototype>("DuplicateTest");
+            var dataset = protoMan.Index<DatasetPrototype>(ThreeValueSetId);
+            var moodProto = protoMan.Index<ThavenMoodPrototype>(DuplicateTestId);
 
             var datasetSet = dataset.Values.ToHashSet();
             var mood = thavenSystem.RollMood(moodProto);
@@ -93,8 +89,8 @@ public sealed class ThavenMoodTests
 
         await server.WaitAssertion(() =>
         {
-            var dataset = protoMan.Index<DatasetPrototype>("ThreeValueSet");
-            var moodProto = protoMan.Index<ThavenMoodPrototype>("DuplicateOverlapTest");
+            var dataset = protoMan.Index<DatasetPrototype>(ThreeValueSetId);
+            var moodProto = protoMan.Index<ThavenMoodPrototype>(DuplicateOverlapTestId);
 
             var datasetSet = dataset.Values.ToHashSet();
             var mood = thavenSystem.RollMood(moodProto);

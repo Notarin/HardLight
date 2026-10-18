@@ -1,5 +1,3 @@
-using System.Linq;
-using Content.Server.Destructible.Thresholds;
 using Content.Server.Destructible.Thresholds.Behaviors;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Prototypes;
@@ -12,6 +10,8 @@ namespace Content.IntegrationTests.Tests.Destructible
 {
     public sealed class DestructibleDestructionTest
     {
+        private static readonly ProtoId<DamageGroupPrototype> TestBrute = "TestBrute";
+
         [Test]
         public async Task Test()
         {
@@ -39,7 +39,7 @@ namespace Content.IntegrationTests.Tests.Destructible
             await server.WaitAssertion(() =>
             {
                 var coordinates = sEntityManager.GetComponent<TransformComponent>(sDestructibleEntity).Coordinates;
-                var bruteDamageGroup = sPrototypeManager.Index<DamageGroupPrototype>("TestBrute");
+                var bruteDamageGroup = sPrototypeManager.Index(TestBrute);
                 DamageSpecifier bruteDamage = new(bruteDamageGroup, 50);
 
 #pragma warning disable NUnit2045 // Interdependent assertions.

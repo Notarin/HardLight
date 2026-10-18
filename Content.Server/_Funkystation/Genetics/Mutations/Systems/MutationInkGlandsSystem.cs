@@ -49,7 +49,7 @@ public sealed class MutationInkGlandsSystem : EntitySystem
         var solution = new Solution();
         solution.AddReagent(ReagentId, amount);
 
-        if (!TryComp<TransformComponent>(uid, out var xform))
+        if (!TryComp(uid, out TransformComponent? xform))
             return;
 
         // Spill ink one tile behind facing direction to prevent slipping yourself

@@ -99,7 +99,7 @@ namespace Content.Server.Atmos.EntitySystems
         {
             if (!DockPipes)
                 return new();
-            if (!TryComp<TransformComponent>(dock, out var xform) || xform.GridUid == null)
+            if (!TryComp(dock, out TransformComponent? xform) || xform.GridUid == null)
                 return new();
             if (!TryComp<MapGridComponent>(xform.GridUid.Value, out var grid))
                 return new();
@@ -117,7 +117,7 @@ namespace Content.Server.Atmos.EntitySystems
             {
                 if (!TryComp<NodeContainerComponent>(ent, out var nodeContainer))
                     continue;
-                if (!TryComp<TransformComponent>(ent, out var entXform) || !entXform.Anchored)
+                if (!TryComp(ent, out TransformComponent? entXform) || !entXform.Anchored)
                     continue;
 
                 foreach (var node in nodeContainer.Nodes.Values.OfType<PipeNode>())
@@ -131,7 +131,7 @@ namespace Content.Server.Atmos.EntitySystems
                         continue;
 
 
-                    if (!TryComp<TransformComponent>(node.Owner, out var pipeXform))
+                    if (!TryComp(node.Owner, out TransformComponent? pipeXform))
                         continue;
                     var pipeTile = _mapSystem.TileIndicesFor(xform.GridUid.Value, grid, pipeXform.Coordinates);
 
@@ -207,7 +207,7 @@ namespace Content.Server.Atmos.EntitySystems
         private List<(PipeNode pipe, int visualLayer)> GetTilePipesWithRotation(EntityUid dock, out int gridRotation)
         {
             gridRotation = 0;
-            if (!TryComp<TransformComponent>(dock, out var xform) || xform.GridUid == null)
+            if (!TryComp(dock, out TransformComponent? xform) || xform.GridUid == null)
                 return new();
 
             if (!TryComp<MapGridComponent>(xform.GridUid.Value, out var grid))
@@ -249,7 +249,7 @@ namespace Content.Server.Atmos.EntitySystems
         {
             if (!DockPipes)
                 return new();
-            if (!TryComp<TransformComponent>(dock, out var xform) || xform.GridUid == null)
+            if (!TryComp(dock, out TransformComponent? xform) || xform.GridUid == null)
                 return new();
 
             if (!TryComp<MapGridComponent>(xform.GridUid.Value, out var grid))
@@ -263,7 +263,7 @@ namespace Content.Server.Atmos.EntitySystems
                     continue;
                 if (!TryComp<NodeContainerComponent>(ent, out var nodeContainer))
                     continue;
-                if (!TryComp<TransformComponent>(ent, out var entXform) || !entXform.Anchored)
+                if (!TryComp(ent, out TransformComponent? entXform) || !entXform.Anchored)
                     continue;
                 foreach (var pipe in nodeContainer.Nodes.Values.OfType<PipeNode>().Where(pipe => !pipe.Deleting))
                 {
@@ -296,7 +296,7 @@ namespace Content.Server.Atmos.EntitySystems
                 return;
             if (!TryComp<NodeContainerComponent>(pipeEntity, out var nodeContainer))
                 return;
-            if (!TryComp<TransformComponent>(pipeEntity, out var xform) || xform.GridUid == null || !xform.Anchored)
+            if (!TryComp(pipeEntity, out TransformComponent? xform) || xform.GridUid == null || !xform.Anchored)
                 return;
             if (!TryComp<MapGridComponent>(xform.GridUid.Value, out var grid))
                 return;
@@ -317,7 +317,7 @@ namespace Content.Server.Atmos.EntitySystems
                 var nodeDir = node.CurrentPipeDirection;
                 if (!nodeDir.HasDirection(dockDir.ToPipeDirection()))
                     continue;
-                if (!TryComp<TransformComponent>(node.Owner, out var nodeXform))
+                if (!TryComp(node.Owner, out TransformComponent? nodeXform))
                     continue;
                 var nodeTile = _mapSystem.TileIndicesFor(xform.GridUid.Value, grid, nodeXform.Coordinates);
                 var dockPos = xform.Coordinates.Position;
@@ -392,7 +392,7 @@ namespace Content.Server.Atmos.EntitySystems
             if (!_dockConnectionsChecked.Add(pipeEntity))
                 return;
 
-            if (!TryComp<TransformComponent>(pipeEntity, out var xform) || xform.GridUid == null || !xform.Anchored)
+            if (!TryComp(pipeEntity, out TransformComponent? xform) || xform.GridUid == null || !xform.Anchored)
                 return;
             if (!TryComp<MapGridComponent>(xform.GridUid.Value, out var grid))
                 return;

@@ -57,6 +57,7 @@ public sealed partial class GameMapPrototype : IPrototype
     /// </summary>
     public GameMapPrototype Persistence(ResPath mapPath)
     {
+#pragma warning disable RA0039 // Map clone generation instantiates the prototype.
         return new()
         {
             ID = ID,
@@ -64,5 +65,6 @@ public sealed partial class GameMapPrototype : IPrototype
             MapPath = mapPath,
             _stations = _stations
         };
+#pragma warning restore RA0039
     }
 }

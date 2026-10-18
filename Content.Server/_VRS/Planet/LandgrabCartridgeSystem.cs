@@ -275,7 +275,7 @@ public sealed class LandgrabCartridgeSystem : EntitySystem
     private bool TryGetWielder(EntityUid loaderUid, out EntityUid wielder)
     {
         wielder = EntityUid.Invalid;
-        if (!TryComp<TransformComponent>(loaderUid, out var xform))
+        if (!TryComp(loaderUid, out TransformComponent? xform))
             return false;
         if (xform.ParentUid == EntityUid.Invalid)
             return false;
@@ -287,7 +287,7 @@ public sealed class LandgrabCartridgeSystem : EntitySystem
     {
         mapId = MapId.Nullspace;
         worldPos = Vector2.Zero;
-        if (!TryComp<TransformComponent>(actor, out var xform))
+        if (!TryComp(actor, out TransformComponent? xform))
             return false;
         mapId = xform.MapID;
         if (mapId == MapId.Nullspace)

@@ -917,7 +917,9 @@ sealed class Explosion
 public sealed class QueuedExplosion
 {
     public MapCoordinates Epicenter;
+#pragma warning disable RA0039 // Dynamic explosion visual prototype generation creates an instance.
     public ExplosionPrototype Proto = new();
+#pragma warning restore RA0039
     public float TotalIntensity, Slope, MaxTileIntensity, TileBreakScale;
     public int MaxTileBreak;
     public bool CanCreateVacuum;

@@ -1,12 +1,11 @@
 using Content.Shared._Goobstation.MartialArts.Components;
 using Content.Shared._Goobstation.MartialArts.Events;
 using Robust.Shared.Prototypes;
-using Robust.Shared.Serialization;
 
 namespace Content.Shared._Goobstation.MartialArts;
 
 [Prototype]
-[Serializable, NetSerializable, DataDefinition]
+[DataDefinition]
 public sealed partial class ComboPrototype : IPrototype
 {
     [IdDataField] public string ID { get; private set; } = default!;

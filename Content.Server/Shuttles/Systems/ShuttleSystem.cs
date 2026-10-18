@@ -227,7 +227,7 @@ public sealed partial class ShuttleSystem : SharedShuttleSystem
     /// <param name="ent"></param>
     private void PrepOnboardAiCores(Entity<ShuttleComponent> ent)
     {
-        if (!TryComp<TransformComponent>(ent, out var shuttleTransComp) || shuttleTransComp.GridUid == null)
+        if (!TryComp(ent, out TransformComponent? shuttleTransComp) || shuttleTransComp.GridUid == null)
             return;
 
         HashSet<Entity<StationAiCoreComponent>> shipAiCores = new();
@@ -246,7 +246,7 @@ public sealed partial class ShuttleSystem : SharedShuttleSystem
     /// <param name="ent"></param>
     private void CheckAndRepairOnboardAiCoreEyes(Entity<ShuttleComponent> ent)
     {
-        if (!TryComp<TransformComponent>(ent, out var shuttleTransComp) || shuttleTransComp.GridUid == null)
+        if (!TryComp(ent, out TransformComponent? shuttleTransComp) || shuttleTransComp.GridUid == null)
             return;
 
         HashSet<Entity<StationAiCoreComponent>> shipAiCores = new();

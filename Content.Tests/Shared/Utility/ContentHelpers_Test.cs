@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Content.Shared.Rounding;
 using NUnit.Framework;
 

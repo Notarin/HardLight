@@ -5,7 +5,7 @@ namespace Content.Server._Starlight.NullSpace;
 /// <summary>
 /// Trigger a NullSpaceShuntEvent on Trigger.
 /// </summary>
-[RegisterComponent, AutoGenerateComponentPause]
+[RegisterComponent]
 public sealed partial class BluespacePulseOnTriggerComponent : Component
 {
     [DataField]

@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.Actions;
 using Content.Shared.CombatMode;
 using Robust.Server.Player;

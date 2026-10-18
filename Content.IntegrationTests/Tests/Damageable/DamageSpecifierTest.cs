@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Content.Shared.Damage;
 using Content.Shared.FixedPoint;
 

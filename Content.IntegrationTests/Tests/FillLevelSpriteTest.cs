@@ -1,4 +1,3 @@
-using System.Linq;
 using Content.Shared.Chemistry.Components;
 using Robust.Client.GameObjects;
 using Robust.Shared.GameObjects;

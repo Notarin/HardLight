@@ -1152,7 +1152,7 @@ namespace Content.Server.Shuttles.Save
                 foreach (var uid in EntityManager.GetEntities())
                 {
                     if (uid == gridUid) continue;
-                    if (!TryComp<TransformComponent>(uid, out var xform)) continue;
+                    if (!TryComp(uid, out TransformComponent? xform)) continue;
                     if (xform.GridUid == gridUid && xform.ParentUid != gridUid)
                     {
                         // Reparent to grid root to ensure motion / FTL docking carries them.

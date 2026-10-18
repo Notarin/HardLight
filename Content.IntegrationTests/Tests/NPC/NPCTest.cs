@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Content.Server.NPC.HTN;
 using Robust.Shared.GameObjects;
 using Robust.Shared.Prototypes;

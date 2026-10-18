@@ -37,7 +37,7 @@ public sealed class CleanupHelperSystem : EntitySystem
             if (player is not { Valid: true })
                 continue;
 
-            if (!TryComp<TransformComponent>(player.Value, out var xform))
+            if (!TryComp(player.Value, out TransformComponent? xform))
                 continue;
 
             if (xform.MapID != mapId)
@@ -73,7 +73,7 @@ public sealed class CleanupHelperSystem : EntitySystem
 
         foreach (var grid in _scratchGrids)
         {
-            if (!TryComp<TransformComponent>(grid.Owner, out var gridXform))
+            if (!TryComp(grid.Owner, out TransformComponent? gridXform))
                 continue;
 
             var gridPos = _xform.GetWorldPosition(gridXform);

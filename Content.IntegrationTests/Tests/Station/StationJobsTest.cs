@@ -35,11 +35,7 @@ public sealed class StationJobsTest
     private static readonly ProtoId<GameMapPrototype> TestHiringShipStation = "TestHiringShipStation";
     private static readonly ProtoId<GameMapPrototype> TestCargoShipStation = "TestCargoShipStation";
     private static readonly ProtoId<GameMapPrototype> TestBusShipStation = "TestBusShipStation";
-    private static readonly ProtoId<GameMapPrototype> TestCrewStation = "TestCrewStation";
-    private static readonly ProtoId<GameMapPrototype> TestCommandShipStation = "TestCommandShipStation";
-    private static readonly ProtoId<GameMapPrototype> TestCargoStation = "TestCargoStation";
     private static readonly ProtoId<GameMapPrototype> TestDynamicAllocationStation = "TestDynamicAllocationStation";
-    private static readonly ProtoId<JobPrototype> Passenger = "Passenger";
 
     [TestPrototypes]
     private const string Prototypes = BasePrototypes + TrackedCrewPrototype + ShipJobPrototypes + DynamicAllocationPrototypes;

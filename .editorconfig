@@ -46,41 +46,24 @@ csharp_using_directive_placement = outside_namespace:silent
 dotnet_diagnostic.IDE0005.severity = warning # Unnecessary using directive.
 
 # C# Compiler Warnings (CS)
-dotnet_diagnostic.CS0067.severity = warning # An event was declared but never used in the class in which it was declared.
 dotnet_diagnostic.CS0105.severity = error # The using directive for 'namespace' appeared previously in this namespace.
 dotnet_diagnostic.CS0108.severity = error # A member was declared with the same name as a member in a base class. However, the new modifier was not used.
 dotnet_diagnostic.CS0114.severity = error # A declaration in a class conflicts with a declaration in a base class such that the base class member will be hidden.
-dotnet_diagnostic.CS0162.severity = warning # Unreachable code detected.
-dotnet_diagnostic.CS0168.severity = warning # The variable 'var' is declared but never used.
-dotnet_diagnostic.CS0169.severity = warning # The private field 'class member' is never used.
 dotnet_diagnostic.CS0184.severity = error # The given expression is never of the provided ('type') type.
-dotnet_diagnostic.CS0219.severity = warning # The variable 'variable' is assigned but its value is never used.
-dotnet_diagnostic.CS0414.severity = warning # The private field 'field' is assigned but its value is never used.
 dotnet_diagnostic.CS0419.severity = error # Ambiguous reference in cref attribute: 'Method Name1'. Assuming 'Method Name2', but could have also matched other overloads including 'Method Name3'.
-dotnet_diagnostic.CS0612.severity = warning # The class designer marked a member with the Obsolete attribute. This means that the member might not be supported in a future version of the class.
-dotnet_diagnostic.CS0618.severity = warning # A class member was marked with the Obsolete attribute, such that a warning will be issued when the class member is referenced. For more information, see Assembly level attributes.
 dotnet_diagnostic.CS0628.severity = error # new protected member declared in sealed class
-dotnet_diagnostic.CS0642.severity = warning # Possible mistaken empty statement.
-dotnet_diagnostic.CS0649.severity = warning # Field 'field' is never assigned to, and will always have its default value 'value'.
-dotnet_diagnostic.CS0672.severity = warning # Member 'member1' overrides obsolete member 'member2'. Add the Obsolete attribute to 'member1'.
-dotnet_diagnostic.CS0809.severity = warning # Obsolete member 'member' overrides non-obsolete member 'member'.
 dotnet_diagnostic.CS1570.severity = error # XML comment has badly formed XML.
 dotnet_diagnostic.CS1571.severity = error # XML comment on 'construct' has a duplicate param tag for 'parameter'.
 dotnet_diagnostic.CS1572.severity = error # XML comment has a param tag for 'parameter', but there is no parameter by that name.
-dotnet_diagnostic.CS1573.severity = warning # Parameter 'parameter' has no matching param tag in the XML comment for 'parameter' (but other parameters do).
 dotnet_diagnostic.CS1574.severity = error # XML comment has syntactically incorrect cref attribute 'name'.
 dotnet_diagnostic.CS1584.severity = error # XML comment has syntactically incorrect cref attribute 'member'.
 dotnet_diagnostic.CS1587.severity = error # XML comment is not placed on a valid language element.
-dotnet_diagnostic.CS1591.severity = warning # Missing XML comment for publicly visible type or member 'Type_or_Member'.
 dotnet_diagnostic.CS1658.severity = error # XML comment has a badly formed attribute.
 dotnet_diagnostic.CS1711.severity = error # XML comment has a typeparam tag, but there is no type parameter by that name.
 dotnet_diagnostic.CS1723.severity = error # XML comment has cref attribute 'attribute' that refers to a type parameter.
 dotnet_diagnostic.CS1734.severity = error # XML comment has a paramref tag, but there is no parameter by that name.
 dotnet_diagnostic.CS2008.severity = error # No source files specified. (Occurs when a project has no .cs files to compile)
-dotnet_diagnostic.CS4014.severity = warning # Because this call is not awaited, execution of the current method continues before the call is completed.
 dotnet_diagnostic.CS8019.severity = warning # Unnecessary using directive.
-dotnet_diagnostic.CS8073.severity = warning # The result of the expression is always 'value' since a value of type 'type' is never equal to 'null'.
-dotnet_diagnostic.CS8524.severity = warning # The switch expression does not handle some values of its input type (it is not exhaustive) involving an unnamed enum value.
 dotnet_diagnostic.CS8892.severity = error # Method will not be used as an entry point because a synchronous entry point 'method' was found.
 dotnet_diagnostic.CS9107.severity = error # Parameter is captured into the state of the enclosing type and its value is also passed to the base constructor.
 
@@ -89,14 +72,12 @@ dotnet_diagnostic.RA0003.severity = error # Class must be explicitly marked as [
 dotnet_diagnostic.RA0022.severity = error # AutoGenerateComponentPause has no fields.
 dotnet_diagnostic.RA0026.severity = error # Use of uncached static Regex function.
 dotnet_diagnostic.RA0028.severity = error # No base call in overriden function.
-dotnet_diagnostic.RA0030.severity = warning # Consider using the non-generic variant of this method.
 dotnet_diagnostic.RA0032.severity = error # Duplicate dependency field.
 dotnet_diagnostic.RA0033.severity = error # Parameter forbids literal values.
 dotnet_diagnostic.RA0037.severity = error # Prototypes should not be [NetSerializable].
 dotnet_diagnostic.RA0038.severity = error # Prototypes should not be [Serializable].
 dotnet_diagnostic.RA0039.severity = error # Do not instantiate prototypes directly.
 dotnet_diagnostic.RA0042.severity = error # Redundant Prototype Type specification.
-dotnet_diagnostic.RA0045.severity = warning # Use the proxy method.
 
 #### C# Formatting Rules ####
 

@@ -39,9 +39,7 @@ csharp_style_expression_bodied_properties = true:suggestion
 csharp_preferred_modifier_order = public, private, protected, internal, new, abstract, virtual, sealed, override, static, readonly, extern, unsafe, volatile, async:suggestion
 csharp_using_directive_placement = outside_namespace:silent
 
-#### Diagnostic Severities; Tech Debt :( ####
-# Temporarily downgraded to suggestions to un-fuck the warnings list.
-# Remove these lines (or change to 'warning') as they are fixed.
+#### Diagnostic Severities ####
 
 dotnet_diagnostic.IDE0005.severity = warning # Unnecessary using directive.
 dotnet_diagnostic.IDE1006.severity = warning # Naming rule violation.

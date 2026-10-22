@@ -177,8 +177,6 @@
         prob: 0.7
       - id: FoodPieBananaCream
         prob: 0.5
-      - id: cumpage
-        prob: 0.05
       - id: instrumentpage
         prob: 0.05
     sound:
@@ -233,8 +231,6 @@
       - id: TrinketBleedRes
         prob: 0.1
       - id: waterpage
-        prob: 0.05
-      - id: cumpage
         prob: 0.05
     sound:
       path: /Audio/Items/jumpsuit_equip.ogg

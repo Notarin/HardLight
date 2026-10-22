@@ -198,15 +198,6 @@
       implant: oceanimplant
 
 - type: entity
-  id: cumpage
-  name: torn page
-  description: A torn page from a spell book. It looks brittle.
-  parent: BaseMagicPage
-  components:
-    - type: Implanter
-      implant: whitestuffimplant
-
-- type: entity
   id: boogiepage
   name: torn page
   description: A torn page from a spell book. It looks brittle.

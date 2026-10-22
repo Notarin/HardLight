@@ -315,25 +315,6 @@
         amount: 1
 
 - type: entity
-  id: ActionChapNightmaresM
-  name: Living Nightmare
-  description: Summons hallucinatory xeno queens. You know these aren't real, but everyone else doesn't.
-  components:
-  - type: WorldTargetAction
-    useDelay: 120
-    range: 10
-    itemIconStyle: BigAction
-    sound: !type:SoundPathSpecifier
-      path: /Audio/Magic/forcewall.ogg
-    icon:
-      sprite: _HL/Objects/Magic/chaplainIcons.rsi
-      state: nightmG
-    event: !type:WorldSpawnSpellEvent
-      prototypes:
-      - id: MobXenoQueenHallucination
-        amount: 3
-
-- type: entity
   id: ActionChapNightmaresL
   name: Living Nightmare (Lesser)
   description: Summons hallucinatory slimes. You know these aren't real, but everyone else doesn't.

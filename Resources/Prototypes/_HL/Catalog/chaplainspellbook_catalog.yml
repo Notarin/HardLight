@@ -146,19 +146,6 @@
     stock: 1
 
 - type: listing
-  id: SpellbookNightmareM
-  name: spellbook-nightmarem-name
-  description: spellbook-nightmarem-description
-  productAction: ActionChapNightmaresM
-  cost:
-    MinorBlessing: 2
-  categories:
-  - STextBlessingsL
-  conditions:
-  - !type:ListingLimitedStockCondition
-    stock: 1
-
-- type: listing
   id: SpellbookStars
   name: spellbook-stars-name
   description: spellbook-stars-description

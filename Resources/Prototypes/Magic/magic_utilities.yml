@@ -129,32 +129,6 @@
     - NanoTrasen
 
 - type: entity
-  name: queen
-  parent: MobXenoQueen
-  suffix: hallucination
-  id: MobXenoQueenHallucination
-  components:
-  - type: MobThresholds
-    thresholds:
-      0: Alive
-      1: Dead
-  - type: MeleeWeapon
-    damage:
-     groups:
-       Brute: 0
-  - type: SlowOnDamage
-    speedModifierThresholds:
-      1: 1
-  - type: NpcFactionMember
-    factions:
-    - HostileUniversally
-  - type: TriggerOnMobstateChange
-    mobState:
-    - Critical
-    - Dead
-  - type: DeleteOnTrigger
-
-- type: entity
   name: green slime
   parent: MobAdultSlimesGreen
   suffix: hallucination

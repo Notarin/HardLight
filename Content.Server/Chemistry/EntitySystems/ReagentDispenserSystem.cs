@@ -312,6 +312,8 @@ namespace Content.Server.Chemistry.EntitySystems
         /// </summary>
         private void OnDispenserInit(EntityUid uid, ReagentDispenserComponent component, ComponentInit args)
         {
+            component.StorageSlotIds.Clear();
+            component.StorageSlots.Clear();
             // If slots are empty (loaded from save with cleared slots), trigger RefreshParts
             if (component.StorageSlots.Count == 0)
             {

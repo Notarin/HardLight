@@ -11,6 +11,7 @@
   - type: IFF
     color: '#FFFFFFFF'
     flags: [IsPlayerShuttle]
+  - type: GridModifier # Hardlight : All ships can now register modification and be repaired by SRD
 
 - type: vessel
   id: BaseVesselAntag

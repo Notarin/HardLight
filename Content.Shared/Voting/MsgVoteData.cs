@@ -37,6 +37,7 @@ namespace Content.Shared.Voting
             TargetEntity = buffer.ReadVariableInt32();
 
             Options = new (ushort votes, string name)[buffer.ReadByte()];
+            buffer.AssertAtLeastSize(Options.Length * (sizeof(ushort) + NetMessageExt.MinSizeOfString)); // HL: Patch GHSA-m25p-v44q-gjqq, make sure the buffer has as much data as the client sent.
             for (var i = 0; i < Options.Length; i++)
             {
                 Options[i] = (buffer.ReadUInt16(), buffer.ReadString());

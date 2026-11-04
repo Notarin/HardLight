@@ -33,6 +33,7 @@ public sealed class MsgVoteAuditResponse : NetMessage
         if (!IsInspect)
         {
             var count = buffer.ReadVariableInt32();
+            buffer.AssertAtLeastSize(count * (NetMessageExt.MinSizeOfString * 3 + sizeof(int))); // HL: Patch GHSA-m25p-v44q-gjqq, make sure the buffer has as much data as the client sent.
             Votes = new VoteAuditEntry[count];
             for (var i = 0; i < count; i++)
             {
@@ -52,11 +53,13 @@ public sealed class MsgVoteAuditResponse : NetMessage
             InspectInitiator = buffer.ReadString();
             InspectStatus = buffer.ReadString();
             var optCount = buffer.ReadByte();
+            buffer.AssertAtLeastSize(optCount * (NetMessageExt.MinSizeOfString + sizeof(int))); // HL: Patch GHSA-m25p-v44q-gjqq, make sure the buffer has as much data as the client sent.
             Options = new VoteAuditOption[optCount];
             for (var i = 0; i < optCount; i++)
             {
                 var text = buffer.ReadString();
                 var voterCount = buffer.ReadVariableInt32();
+                buffer.AssertAtLeastSize(voterCount * NetMessageExt.MinSizeOfString); // HL: Patch GHSA-m25p-v44q-gjqq, make sure the buffer has as much data as the client sent.
                 var voters = new string[voterCount];
                 for (var j = 0; j < voterCount; j++)
                     voters[j] = buffer.ReadString();

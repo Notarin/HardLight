@@ -20,6 +20,7 @@ public sealed class MsgRoleBans : NetMessage
     {
         JobBans.Clear();
         var jobCount = buffer.ReadVariableInt32();
+        buffer.AssertAtLeastSize(jobCount * NetMessageExt.MinSizeOfString); // HL: Patch GHSA-m25p-v44q-gjqq, make sure the buffer has as much data as the client sent.
         for (var i = 0; i < jobCount; i++)
         {
             JobBans.Add(new ProtoId<JobPrototype>(buffer.ReadString()));
@@ -27,6 +28,7 @@ public sealed class MsgRoleBans : NetMessage
 
         AntagBans.Clear();
         var antagCount = buffer.ReadVariableInt32();
+        buffer.AssertAtLeastSize(antagCount * NetMessageExt.MinSizeOfString); // HL: Patch GHSA-m25p-v44q-gjqq, make sure the buffer has as much data as the client sent.
         for (var i = 0; i < antagCount; i++)
         {
             AntagBans.Add(new ProtoId<AntagPrototype>(buffer.ReadString()));

@@ -13,6 +13,7 @@ public sealed class MsgJobWhitelist : NetMessage
     public override void ReadFromBuffer(NetIncomingMessage buffer, IRobustSerializer serializer)
     {
         var count = buffer.ReadVariableInt32();
+        buffer.AssertAtLeastSize(count * NetMessageExt.MinSizeOfString); // HL: Patch GHSA-m25p-v44q-gjqq, make sure the buffer has as much data as the client sent.
         Whitelist.EnsureCapacity(count);
 
         for (var i = 0; i < count; i++)

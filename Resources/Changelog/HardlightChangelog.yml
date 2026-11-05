@@ -3607,3 +3607,11 @@
   - message: Fixed some UI elements not working after closing/reopening, such as the chatbox.
     author: Drekk
     hash: 0e3cc602decf6aa24e071d410da4e30560b14da7
+0.3.0-vulnfix:
+  fix:
+  - message: Fixed potential DOS vulnerability in netcode.
+    author: Drekk
+    hash: faa8fae42aea1eb2d9bf03a1b4f304061e9d3904
+  - message: Updated Engine to fix security vulnerability.
+    author: Drekk
+    hash: d3f8d09f58d97f476f3bfcb5a5eb7110e8757467

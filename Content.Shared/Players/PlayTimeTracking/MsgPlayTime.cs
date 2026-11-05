@@ -16,6 +16,7 @@ public sealed class MsgPlayTime : NetMessage
     public override void ReadFromBuffer(NetIncomingMessage buffer, IRobustSerializer serializer)
     {
         var count = buffer.ReadVariableInt32();
+        buffer.AssertAtLeastSize(count * (NetMessageExt.MinSizeOfString + sizeof(long))); // HL: Patch GHSA-m25p-v44q-gjqq, make sure the buffer has as much data as the client sent. TimeSpan is an int64 which is a long with aspirations.
         Trackers.EnsureCapacity(count);
 
         for (var i = 0; i < count; i++)

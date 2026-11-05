@@ -31,6 +31,7 @@ namespace Content.Shared.Voting
             WhenCanCallVote = TimeSpan.FromTicks(buffer.ReadInt64());
 
             var lenVotes = buffer.ReadByte();
+            buffer.AssertAtLeastSize(lenVotes * (sizeof(long) + 1)); // HL: Patch GHSA-m25p-v44q-gjqq, make sure the buffer has as much data as the client sent.
             VotesUnavailable = new (StandardVoteType type, TimeSpan whenAvailable)[lenVotes];
             for (var i = 0; i < lenVotes; i++)
             {

@@ -14,6 +14,7 @@ namespace Content.Shared.Administration
         public override void ReadFromBuffer(NetIncomingMessage buffer, IRobustSerializer serializer)
         {
             var count = buffer.ReadVariableInt32();
+            buffer.AssertAtLeastSize(count * NetMessageExt.MinSizeOfString); // HL: Patch GHSA-m25p-v44q-gjqq, make sure the buffer has as much data as the client sent.
 
             AvailableCommands = new string[count];
 

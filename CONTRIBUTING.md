@@ -2,7 +2,7 @@
 
 ## Public Branches
 
-These branches are on the HardLight github and should generally never directly merged or pushed into (neither on a fork or on the official github)
+These branches are on the HardLight repo and should generally never directly merged or pushed into (neither on a fork or on the official repository)
 
 - prod
   - This is the version the game server is running on

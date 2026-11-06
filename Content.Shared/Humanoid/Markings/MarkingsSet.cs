@@ -279,6 +279,15 @@ public sealed partial class MarkingSet
                 continue;
             }
 
+            // HardLight start: Picks should replace defaults (fix for vulp ears)
+            if (points.DefaultsOnlyWhenEmpty
+                && Markings.TryGetValue(category, out var picked)
+                && picked.Count > 0)
+            {
+                continue;
+            }
+            // HardLight end
+
             var defaultMarkings = new List<Marking>(); // HardLight
             var index = 0;
             while (points.Points > 0 && index < points.DefaultMarkings.Count)

@@ -68,6 +68,7 @@
       points: 3 # HardLight: 1<3, allows ears + horns
       required: true
       defaultMarkings: [ FoxEar ] # Starlight
+      defaultsOnlyWhenEmpty: true # HardLight: prevent default ears from showing up when we add new ones
     UndergarmentTop:
       points: 3
       required: false

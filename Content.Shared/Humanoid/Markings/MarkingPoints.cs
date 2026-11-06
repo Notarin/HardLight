@@ -25,6 +25,15 @@ public sealed partial class MarkingPoints
     [DataField]
     public List<ProtoId<MarkingPrototype>> DefaultMarkings = new();
 
+    // HardLight start
+    /// <summary>
+    ///     If true, <see cref="DefaultMarkings"/> are only applied when this category has no markings at all.
+    ///     This allows vulps to have more than one headtop/ear slot and stops default ears from always showing.
+    /// </summary>
+    [DataField]
+    public bool DefaultsOnlyWhenEmpty;
+    // HardLight end
+
     public static Dictionary<MarkingCategories, MarkingPoints> CloneMarkingPointDictionary(Dictionary<MarkingCategories, MarkingPoints> self)
     {
         var clone = new Dictionary<MarkingCategories, MarkingPoints>();
@@ -36,7 +45,8 @@ public sealed partial class MarkingPoints
                 Points = points.Points,
                 Required = points.Required,
                 OnlyWhitelisted = points.OnlyWhitelisted,
-                DefaultMarkings = points.DefaultMarkings
+                DefaultMarkings = points.DefaultMarkings,
+                DefaultsOnlyWhenEmpty = points.DefaultsOnlyWhenEmpty, // HardLight
             };
         }
 

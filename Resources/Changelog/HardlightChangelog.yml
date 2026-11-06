@@ -3615,3 +3615,8 @@
   - message: Updated Engine to fix security vulnerability.
     author: Drekk
     hash: d3f8d09f58d97f476f3bfcb5a5eb7110e8757467
+0.3.0-vulnfix2:
+  fix:
+  - message: Fixed ANOTHER vulnerability in the engine.
+    author: Drekk
+    hash: f33c1befff5ac6b6bb31536d39e5a8fba10e4931

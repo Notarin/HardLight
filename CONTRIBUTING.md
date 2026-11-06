@@ -9,43 +9,17 @@ These branches are on the HardLight repo and should generally never directly mer
   - It should always be only comprised of tested and validated code
   - direct merges into prod are prohibited
   - Merges into prod happen weekly and are only comprised of code from master that has been individually tested by multiple people
-  - PRs into prod are from the master branch with an exception for hotfixes
-  - Changelogs are read from PRs going into prod
-  - Hotfix PRs into prod need to be reviewed for code quality _and_ tested by at least one additional reviewer. See [[#Testing Guidelines]]
+  - Hotfix PRs into prod need to be reviewed for code quality _and_ tested by at least one maintainer, excluding the PR author. See [[#Testing Guidelines]]
 - master
   - This is the branch the test server is running on (once available)
     - The test server is publicly available for whitelisted players
     - The test server will be updated and restarted daily (if changes exist)
-  - PRs into master have to be tested by the developer for stability and functionality and only need to be reviewed by sighting the changed files for code quality. See [[#Testing Guidelines]] and [[#PR Guidelines]]
+  - PRs into master have to be tested by the developer for stability and functionality. See [[#Testing Guidelines]] and [[#PR Guidelines]]
   - features merged into master can be announced in upcoming-content on the discord
-
-## Fork Branches
-
-These branches are created on forks and are meant for general development. You are free to merge or push into these branches whenever you feel like it. It is recommended to delete the branch after merging it into master. Branches can be restored if needed
-
-- feature
-  - A feature branch explicitly adds _new_ features to the game or adds/changes capabilities to features that are already in the game.
-  - Feature branches are personal branches by developers branching off of the master branch and getting PRd back into master.
-- bugfix
-  - Bugfix branches are personal branches meant to fix issues that have been found on the master branch
-  - They branch off of master and go back into master once the bug is deemed to be fixed
-- hotfix
-  - Hotfix branches are personal branches that are meant to fix an issue that has been found on the prod branch
-  - They branch off of prod and are getting PRd into master _and_ prod alike
-
-## General recommendation for branch names
-
-for easier organization on local branches, you can use a forward slash (/) to structure your branches. These branches will be automatically categorized by most git GUIs.
-It is also recommended to add issue numbers (if applicable) to the respective branches
-Examples:
-
-- feature/12355-new-antag
-- bugfix/12355-new-antag-avali
-- hotfix/12358-cryosleep-spawn
 
 # PR Guidelines
 
-- PRs need to come from one of the aforementioned fork branches. You cannot PR from your own master or prod branch into HardLight
+- PRs need to come from one of the aforementioned forks branches. You cannot PR from your own master or prod branch into HardLight
 - All content of a PR should be related to one topic.
 - The title and body of a PR need to follow guidelines
   - The title needs to be prefixed with one of the following prefixes
@@ -63,15 +37,15 @@ Examples:
   - The title should include the related issue number(s) (if applicable) and be a concise summary of the changes
   - The body should follow the standardized body with every applicable category filled out
 - Refactors and cleanups must be in a separate PR
-- A PR needs to be classified for size by a maintainer before getting merged
 - A PR needs to be tested thoroughly by the developer before submission. See [[#Testing Guidelines]]
-- A PR is not considered _submitted_ while it is in draft or has the _do not merge_ tag
+- A PR is not considered _submitted_ while it is in draft or is prefixed with `WIP: `
 - Keep your PR as small and concise as possible. If you need to implement/port things for your main feature to work, PR these implementations/ports individually first
 
 # Git Standards
 
 - Update your PR via rebase instead of merge commits to keep the history clean.
 - You should try to write commit messages that actually explain what you changed and why. Don't just say "fix stuff" or "wip".
+- Every commit in your PR should be prefixed just like how the PR title is.
 - You _may_ make commits that don't have proper messages, but it will have to be fixed by you or a maintainer before it's merged.
 - Keep commits focused on one thing. If you've got a massive commit that's hard to review, we might ask you to split it up.
 - For big features, break them into logical steps ("add new ahelp system", "move submitted ahelps to new system", "move entity log to use new ahelp system").

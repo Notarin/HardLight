@@ -41,6 +41,43 @@ These branches are on the HardLight repo and should generally never directly mer
 - A PR is not considered _submitted_ while it is in draft or is prefixed with `WIP: `
 - Keep your PR as small and concise as possible. If you need to implement/port things for your main feature to work, PR these implementations/ports individually first
 
+# Changelog Guidelines
+
+Changelog entries describe changes that should be displayed in the changelog. As a PR author, you can provide them in one of two ways: in your commit messages or in the PR description. Both methods use the same changelog fields.
+
+```text
+Change-Add: Added thing!
+Change-Tweak: Tweaked thing!
+Change-Fix: Fixed thing!
+Change-Remove: Removed thing!
+```
+
+Use the field that matches each change. You are able to include multiple entries when needed.
+
+## Option 1: Commit Message Trailers
+
+Add changelog entries as Git trailers at the end of the commit message, separated from the rest of the message by a blank line. For example:
+
+```text
+feat: Add a new thing
+
+Implement the new thing so players can use it.
+
+Change-Add: Added thing!
+```
+
+When using commit message trailers, **remove the example changelog entries from the PR description template**. Otherwise, the template entries will also be included in the changelog.
+
+## Option 2: PR Description
+
+The other method, replace the example changelog entries at the bottom of the PR description template with your own. Any changelog entries written there will also be picked up.
+
+When using the PR description for changelog entries, **do not also add changelog trailers to your commits**. Doing both will cause duplicate changelog entries.
+
+**Choose one method per PR.** Remove or replace the example template entries rather than leaving placeholder text in the changelog.
+
+However, you **can** combine the two so long as neither are duplicates of eachother, though this really isn't recommended.
+
 # Git Standards
 
 - Update your PR via rebase instead of merge commits to keep the history clean.

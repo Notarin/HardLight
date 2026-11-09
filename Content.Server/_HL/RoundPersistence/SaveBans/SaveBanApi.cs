@@ -107,7 +107,11 @@ public sealed class SaveBanApi : EntitySystem
 
         IEnumerable<EntityUid> GetChildren(EntityUid parent)
         {
-            while (Transform(parent).ChildEnumerator.MoveNext(out var child)) yield return child;
+            var childEnumerator = Transform(parent).ChildEnumerator;
+            while (childEnumerator.MoveNext(out var child))
+            {
+                yield return child;
+            }
         }
     }
 

@@ -3682,3 +3682,8 @@
   - message: Buffed skates.
     author: Notarin Steele
     hash: 5837a09e9b56266ce028bca8a1f08303c3aa0f4f
+0.3.1-lockupfix:
+  fix:
+  - message: Fixed the server freezing shortly after startup.
+    author: Notarin Steele
+    hash: 8d46502ee9e58553bd802c71e6e96478061db69a

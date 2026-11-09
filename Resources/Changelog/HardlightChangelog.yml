@@ -3620,3 +3620,65 @@
   - message: Fixed ANOTHER vulnerability in the engine.
     author: Drekk
     hash: f33c1befff5ac6b6bb31536d39e5a8fba10e4931
+0.3.1:
+  fix:
+  - message: >-
+      The medical multitool now requires High-End Surgery research before it can be
+      printed.
+    author: zohfur
+    hash: 7f1b9e44f54bb793e2436fcd1e0cf5c1069c530b
+  - message: >-
+      Vulpkanin now properly have 3 working headTop (ear/horn) slots and will hide
+      their default ears
+    author: zohfur
+    hash: 938e5b1d2c355624bb9356f7c6c8468de737cd11
+  - message: Ships are now SRD compatible.
+    author: Alphonse de V
+    hash: ebeb582f51cce3825a72d2b6004e30a9c669d752
+  - message: >-
+      Booze, soda, condiment and chem dispensers on stations start the round properly
+      stocked.
+    author: zohfur
+    hash: ef0eb9c904487874502e817600edead28fdd1423
+  remove:
+  - message: Removed Oasis from map pool.
+    author: Drekk
+    hash: d08d4b5bc24fde021901c5e103c40bf73979b265
+  - message: Remove cumpage spell.
+    author: Hammeredmantis
+    hash: 930f2112ac0103c237266a4384b0d994b262be17
+  - message: Remove cumpage spell from loot tables.
+    author: Hammeredmantis
+    hash: 930f2112ac0103c237266a4384b0d994b262be17
+  - message: Remove Chaplains Xeno hallucination.
+    author: Hammeredmantis
+    hash: 02fae328c1c141e5e7ac6bcd1aaf64be9e4fd230
+  - message: Remove Xeno hallucination spells.
+    author: Hammeredmantis
+    hash: 02fae328c1c141e5e7ac6bcd1aaf64be9e4fd230
+  add:
+  - message: Added a kobold yip emote to reptilians. Yip!
+    author: zohfur
+    hash: df4b2e46499a85f514548c4ec10a60e61ccff5e4
+  - message: "Added two new criminal charges: 222 and 322"
+    author: Slatebreaker
+    hash: 86c75fb90bd0055ca5fe53c0e4fc357d28105512
+  - message: Added tinted windoors.
+    author: Nia Aranea
+    hash: 3a413378b7fbe3fbc79c0bf9c7d61c4fa5fba7ff
+  - message: "Added Rules Section 14: Silicon Rules"
+    author: Slatebreaker
+    hash: e6bad40342f7a1d1fc31c972973a5ad559fa21f6
+  - message: Added SOP on Silicon Escalation Guidelines
+    author: Slatebreaker
+    hash: e6bad40342f7a1d1fc31c972973a5ad559fa21f6
+  - message: added a knife in the HoS winter boots
+    author: Alphonse de V
+    hash: e3da5fec258c989edcc8425028001e9f4b0f9539
+  tweak:
+  - message: Buffed sheleg movement speed.
+    author: Notarin Steele
+    hash: 9a2fc0888c56786c0747cbd8710ff804f3aa6265
+  - message: Buffed skates.
+    author: Notarin Steele
+    hash: 5837a09e9b56266ce028bca8a1f08303c3aa0f4f

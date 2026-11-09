@@ -5,7 +5,7 @@
     <Title>HardLight</Title>
     <Description>A multiplayer game about paranoia and chaos on a space station. Remake of the cult-classic Space Station 13. HardLight Fork.</Description>
     <VersionPrefix>0.3.1</VersionPrefix>
-    <VersionSuffix></VersionSuffix>
+    <VersionSuffix>lockupfix</VersionSuffix>
     <PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>
     <PackageLicenseUrl>https://code.hardlight.space/HardLight/HardLight/src/branch/master/LICENSE-AGPLv3.txt</PackageLicenseUrl>
     <Company>HardLight</Company>
